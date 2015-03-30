@@ -31,7 +31,7 @@ public class RegulatorChooserPanel extends JPanel {
 		setBorder(MyBorderFactory.createMyBorder(" PI / PID-T1 Regler "));
 		
 		btPI = new JToggleButton("PI");
-		btPID = new JToggleButton("PID-T1");
+		btPID = new JToggleButton("PID-T1", true);
 				
 		ButtonGroup bGroup = new ButtonGroup();
 		bGroup.add(btPI);

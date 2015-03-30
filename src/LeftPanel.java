@@ -49,9 +49,6 @@ public class LeftPanel extends JPanel {
 		add(regulatorValuePanel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
 				GridBagConstraints.FIRST_LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						2, 2, 2, 2), 0, 0));
-		
-		
-		
 	}	
 	
 	public void update(Observable obs, Object obj) {

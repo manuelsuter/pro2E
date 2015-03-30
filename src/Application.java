@@ -20,20 +20,17 @@ public class Application extends JFrame {
 	private Controller controller = new Controller(model);
 	private View view = new View(controller);
 	private MenuBar menuBar = new MenuBar(controller, this);
-	private Application frame = new Application();
-	
-	//TODO: frame mit Herr Gut abklaeren.
 
 	/**
 	 * Add the view to the content pane and register the view as observer of the
 	 * model.
 	 */
 	public void init() {
+		view.setJFrame(this);
 		controller.setView(view);
 		model.addObserver(view);
 		model.notifyObservers();
 		model.addObserver(menuBar);
-		controller.setFrame(frame);
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(view, BorderLayout.CENTER);
 		setJMenuBar(menuBar);
@@ -55,7 +52,7 @@ public class Application extends JFrame {
 		Insets screenInsets = Toolkit.getDefaultToolkit().getScreenInsets(frame.getGraphicsConfiguration());
 		int innerScreenWidth = screenSize.width - screenInsets.left - screenInsets.right;
 		int innerScreenHeight = screenSize.height - screenInsets.top - screenInsets.bottom;
-		Dimension minimumSize = new Dimension(800, 768);
+		Dimension minimumSize = new Dimension(200, 768);
 		//1024x768 Pixel
 		if (innerScreenWidth < minimumSize.width) {
 			minimumSize.width = innerScreenWidth;
@@ -64,19 +61,12 @@ public class Application extends JFrame {
 			minimumSize.height = innerScreenHeight;
 		}
 		frame.setMinimumSize(minimumSize);
-		frame.setPreferredSize(new Dimension((int) (0.6 * innerScreenWidth), (int) (0.6 * innerScreenHeight)));
+		frame.setPreferredSize(new Dimension(1200, 768));
 
 		
 		frame.init();
 		frame.setVisible(true);
 		frame.pack();
-		frame.validate();
-		
-	}
-
-	public void setWindowSize(int width, int height){
-		setSize(new Dimension(width, height));
-		setLocationRelativeTo(null);
-		validate();
+		frame.validate();	
 	}
 }

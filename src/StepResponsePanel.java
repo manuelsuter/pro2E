@@ -60,7 +60,7 @@ public class StepResponsePanel extends JPanel implements ChangeListener {
 		//includes the CheckBoxes below the plot on the checkBoxPanel
 		checkBoxPanel = new JPanel(new GridLayout(2,4));
 		
-		checkPhase = new JCheckBox("Phasengang-Methode");
+		checkPhase = new JCheckBox("Phasengang-Methode", true);
 		checkPhase.setForeground(Color.RED);
 		checkBoxPanel.add(checkPhase);
 		checkPhase.addChangeListener(this);

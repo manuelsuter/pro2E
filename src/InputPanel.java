@@ -104,22 +104,20 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 				new Insets(10, 10, 10, 10), 0, 0));
 		checkBoxPlot.addItemListener(this);
 	}
-
-	@Override
 	public void actionPerformed(ActionEvent e) {
 
 	}
-
-	@Override
+//TODO: Grösse aus LeftPanel Lesen; bei true grösser setzen.
+	
+	
 	public void itemStateChanged(ItemEvent e) {
 		if (checkBoxPlot.isSelected() == false) {
-			controller.setVisibility(false, 200, 768);
+			controller.setVisibility(false);
 		}
+		
 		if (checkBoxPlot.isSelected() == true) {
-			controller.setVisibility(true, 800, 768);
+			controller.setVisibility(true);
 		}
-		System.out.println("Checked? " + checkBoxPlot.isSelected());
-
 	}
 
 	public void update(Observable obs, Object obj) {

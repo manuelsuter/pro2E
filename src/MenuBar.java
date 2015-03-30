@@ -35,17 +35,13 @@ public class MenuBar extends JMenuBar implements Observer, ActionListener {
 		menu.setMnemonic(KeyEvent.VK_D);
 		add(menu);
 		
-		menuItemPlot = new JMenuItem("Zeige Plots", KeyEvent.VK_A);
-		menuItemPlot.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
-		menuItemPlot.setActionCommand("OnTop");
-		menuItemPlot.addActionListener(this);
-		menu.add(menuItemPlot);
-		
 		menuItemOnTop = new JMenuItem("Immer im Vordergrund", KeyEvent.VK_A);
 		menuItemOnTop.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
-		menuItemOnTop.setActionCommand("Show Plot");
+		menuItemOnTop.setActionCommand("OnTop");
 		menuItemOnTop.addActionListener(this);
 		menu.add(menuItemOnTop);
+		
+
 		/**
 		menuItemPrint = new JMenuItem("Print", KeyEvent.VK_P);
 		menuItemPrint.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
