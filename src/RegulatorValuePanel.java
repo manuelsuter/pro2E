@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Mueller, Florian Alber, Manuel Suter
+ * 
+ * Authors: Manuel Suter
+ * 
+ * */
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -7,28 +14,28 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class ViewRegulatorValuePanel extends JPanel {
+public class RegulatorValuePanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	private Controller controller;
-	private ViewRulesOfThumbPanel rulesOfThumbPanel;
-	private ViewPhaseResponseMethodPanel phaseResponsePanel;
+	private RulesOfThumbPanel rulesOfThumbPanel;
+	private PhaseResponseMethodPanel phaseResponsePanel;
 	private JLabel lbRosenberg, lbOppelt, lbZNn, lbZNs, lbCHR2, lbCHRa, lbTSUMn, lbTSUMs, lbKR, lbTN, lbTV;
 	
 	
-	public ViewRegulatorValuePanel(Controller controller) {
+	public RegulatorValuePanel(Controller controller) {
 		super(new GridBagLayout());
 		this.controller = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Reglerwerte "));
 	
 		
-		phaseResponsePanel = new ViewPhaseResponseMethodPanel(controller);
+		phaseResponsePanel = new PhaseResponseMethodPanel(controller);
 		add(phaseResponsePanel, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						2, 2, 2, 2), 0, 0));
 		
 			
-		rulesOfThumbPanel = new ViewRulesOfThumbPanel(controller);
+		rulesOfThumbPanel = new RulesOfThumbPanel(controller);
 		add(rulesOfThumbPanel, new GridBagConstraints(0, 1, 1, 1, 1.0, 1.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						2, 2, 2, 2), 0, 0));

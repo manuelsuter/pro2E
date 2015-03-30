@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Mueller, Florian Alber, Manuel Suter
+ * 
+ * Authors: Manuel Suter
+ * 
+ * */
+
 import java.awt.event.KeyEvent;
 import java.util.Observable;
 
@@ -5,23 +12,23 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 
-public class ViewUpperPlotPanel extends JTabbedPane {
+public class UpperPlotPanel extends JTabbedPane {
 
 	
 	private Controller controller;
-	private ViewPTn pTnPanel;
+	private PTn pTnPanel;
 	private JPanel panel2;
 	private JPanel panel3;
 	private JPanel panel4;
 	
 	
-	public ViewUpperPlotPanel(Controller controller){
+	public UpperPlotPanel(Controller controller){
 		this.controller = controller;
 		
 
 		
 		
-		pTnPanel = new ViewPTn(controller);
+		pTnPanel = new PTn(controller);
 		panel2 = new JPanel();
 		panel3 = new JPanel();
 		panel4 = new JPanel();

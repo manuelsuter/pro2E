@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Mueller, Florian Alber, Manuel Suter
+ * 
+ * Authors: Manuel Suter
+ * 
+ * */
+
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -11,34 +18,34 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
 
-public class ViewLeftPanel extends JPanel {
+public class LeftPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Controller controller;
-	private ViewInputPanel inputPanel;
-	private ViewRegulatorChooserPanel regulatorChooserPanel;
-	private ViewRegulatorValuePanel regulatorValuePanel;
+	private InputPanel inputPanel;
+	private RegulatorChooserPanel regulatorChooserPanel;
+	private RegulatorValuePanel regulatorValuePanel;
 
 	
 	
-	public ViewLeftPanel(Controller controller) {
+	public LeftPanel(Controller controller) {
 		super(new GridBagLayout());	
 		this.controller = controller;
 		
 		UIManager.put ("ToggleButton.select", Color.ORANGE); 
 	
 		// Construct the inputPanel, regulatorChooserPanel and regulatorValuePanel
-		inputPanel = new ViewInputPanel(controller);
+		inputPanel = new InputPanel(controller);
 		add(inputPanel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
 				GridBagConstraints.FIRST_LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						2, 2, 2, 2), 0, 0));
 		
-		regulatorChooserPanel = new ViewRegulatorChooserPanel(controller);
+		regulatorChooserPanel = new RegulatorChooserPanel(controller);
 		add(regulatorChooserPanel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
 				GridBagConstraints.FIRST_LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						2, 2, 2, 2), 0, 0));
 		
-		regulatorValuePanel = new ViewRegulatorValuePanel(controller);
+		regulatorValuePanel = new RegulatorValuePanel(controller);
 		add(regulatorValuePanel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
 				GridBagConstraints.FIRST_LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						2, 2, 2, 2), 0, 0));

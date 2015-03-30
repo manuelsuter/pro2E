@@ -21,7 +21,8 @@ public class Application extends JFrame {
 	private View view = new View(controller);
 	private MenuBar menuBar = new MenuBar(controller, this);
 	private Application frame = new Application();
-
+	
+	//TODO: frame mit Herr Gut abklaeren.
 
 	/**
 	 * Add the view to the content pane and register the view as observer of the
@@ -46,7 +47,7 @@ public class Application extends JFrame {
 		Application frame = new Application();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Reglerdimensionierung nach Phasanegang-Methode");
-		// To set an own logo:
+		// To set a logo:
 		//frame.setIconImage(new ImageIcon(Application.class.getResource("resources/logo.png")).getImage());
 		frame.setResizable(true);
 		// Set preferred size of the JFrame in function of the inner screen size
@@ -72,7 +73,7 @@ public class Application extends JFrame {
 		frame.validate();
 		
 	}
-	
+
 	public void setWindowSize(int width, int height){
 		setSize(new Dimension(width, height));
 		setLocationRelativeTo(null);

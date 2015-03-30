@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Mueller, Florian Alber, Manuel Suter
+ * 
+ * Authors: Manuel Suter
+ * 
+ * */
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -6,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 
-public class ViewPTn extends JPanel {
+public class PTn extends JPanel {
 	
 	
 	private Controller controller;
@@ -15,11 +22,11 @@ public class ViewPTn extends JPanel {
 	private double yValues[] = {-4.5, -3,-2, 2.0, 4,0};
 
 	
-	public ViewPTn(Controller controller){
+	public PTn(Controller controller){
 		super(new GridLayout(1,1));
 		this.controller = controller;
 		
-		double[] x = ModelCalc.linspace(0, 4*Math.PI, 1000);
+		double[] x = Calc.linspace(0, 4*Math.PI, 1000);
 		double[] y = new double[x.length];
 		double[] z = new double[x.length];
 		

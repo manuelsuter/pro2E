@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Mueller, Florian Alber, Manuel Suter
+ * 
+ * Authors: Manuel Suter
+ * 
+ * */
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -7,13 +14,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class ViewRulesOfThumbPanel extends JPanel {
+public class RulesOfThumbPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Controller controller;
 	
 	
-	public ViewRulesOfThumbPanel(Controller controller) {
+	public RulesOfThumbPanel(Controller controller) {
 		super(new GridBagLayout());
 		this.controller = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Faustformeln "));

@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Mueller, Florian Alber, Manuel Suter
+ * 
+ * Authors: Manuel Suter
+ * 
+ * */
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -10,7 +17,7 @@ import javax.swing.JToggleButton;
 import javax.swing.UIManager;
 
 
-public class ViewRegulatorChooserPanel extends JPanel {
+public class RegulatorChooserPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Controller controller;
@@ -18,7 +25,7 @@ public class ViewRegulatorChooserPanel extends JPanel {
 	private ButtonGroup bGroup;
 
 	
-	public ViewRegulatorChooserPanel(Controller controller) {
+	public RegulatorChooserPanel(Controller controller) {
 		super(new GridBagLayout());
 		this.controller = controller;
 		setBorder(MyBorderFactory.createMyBorder(" PI / PID-T1 Regler "));

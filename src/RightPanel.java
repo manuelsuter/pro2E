@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Mueller, Florian Alber, Manuel Suter
+ * 
+ * Authors: Manuel Suter
+ * 
+ * */
+
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -8,26 +15,26 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 
-public class ViewRightPanel extends JPanel {
+public class RightPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Controller controller;
-	private ViewUpperPlotPanel upperPlotPanel;
-	private ViewStepResponsePanel stepResponsePanel;
+	private UpperPlotPanel upperPlotPanel;
+	private StepResponsePanel stepResponsePanel;
 
 	
 	
-	public ViewRightPanel(Controller controller) {
+	public RightPanel(Controller controller) {
 		super(new GridBagLayout());
 		this.controller = controller;
 		
 		// Construct the upperPlotPanel and the stepResponsePanel
-		upperPlotPanel = new ViewUpperPlotPanel(controller);
+		upperPlotPanel = new UpperPlotPanel(controller);
 		add(upperPlotPanel, new GridBagConstraints(0, 0, 1, 1, 1.0, 0.3,
 				GridBagConstraints.FIRST_LINE_START, GridBagConstraints.BOTH, new Insets(
 						2, 2, 2, 2), 0, 0));
 		
-		stepResponsePanel = new ViewStepResponsePanel(controller);
+		stepResponsePanel = new StepResponsePanel(controller);
 		add(stepResponsePanel, new GridBagConstraints(0, 1, 1, 1, 1.0, 0.7,
 				GridBagConstraints.FIRST_LINE_START, GridBagConstraints.BOTH, new Insets(
 						2, 2, 2, 2), 0, 0));

@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Mueller, Florian Alber, Manuel Suter
+ * 
+ * Authors: Manuel Suter
+ * 
+ * */
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -10,7 +17,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 
-public class ViewStepResponsePanel extends JPanel implements ChangeListener {
+public class StepResponsePanel extends JPanel implements ChangeListener {
 
 	private static final long serialVersionUID = 1L;
 	private Controller controller;
@@ -21,12 +28,12 @@ public class ViewStepResponsePanel extends JPanel implements ChangeListener {
 	private JPanel checkBoxPanel;
 		
 	
-	public ViewStepResponsePanel(Controller controller) {
+	public StepResponsePanel(Controller controller) {
 		super(new BorderLayout());
 		this.controller = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Schrittantworten "));
 				
-		double[] x = ModelCalc.linspace(0, 4*Math.PI, 1000);
+		double[] x = Calc.linspace(0, 4*Math.PI, 1000);
 		double[] y = new double[x.length];
 		double[] z = new double[x.length];
 		

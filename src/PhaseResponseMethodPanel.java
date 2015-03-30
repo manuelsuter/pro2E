@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Mueller, Florian Alber, Manuel Suter
+ * 
+ * Authors: Manuel Suter
+ * 
+ * */
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -8,14 +15,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
-public class ViewPhaseResponseMethodPanel extends JPanel {
+public class PhaseResponseMethodPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private Controller controller;
 	private JTextField tfTP;
 	
 	
 	
-	public ViewPhaseResponseMethodPanel(Controller controller) {
+	public PhaseResponseMethodPanel(Controller controller) {
 		super(new GridBagLayout());
 		this.controller = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Phasengang-Methode "));
