@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Müller, Florian Alber, Manuel Suter
+ * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Mueller, Florian Alber, Manuel Suter
  * 
  * Authors: Manuel Suter
  * 
