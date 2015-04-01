@@ -32,8 +32,8 @@ public class View extends JPanel implements Observer {
 		// Construct the main left and right Panel
 		leftPanel = new LeftPanel(controller);
 		add(leftPanel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
-				GridBagConstraints.PAGE_START, GridBagConstraints.NONE, new Insets(
-						10, 10, 10, 10), 0, 0));
+				GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(
+						0, 0, 0, 0), 0, 0));
 		
 		rightPanel = new RightPanel(controller);
 		add(rightPanel, new GridBagConstraints(1, 0, 1, 1, 1.0, 1.0,
