@@ -28,7 +28,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 
 	private static final long serialVersionUID = 1L;
 	private Controller controller;
-	private JTextField tfKS, tfTU, tfTG;
+	private JDoubleTextField tfKS, tfTU, tfTG;
 	private JButton btBerechne, btClear;
 	private JCheckBox checkBoxPlot;
 
@@ -54,7 +54,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 						GridBagConstraints.LINE_START, GridBagConstraints.NONE,
 						new Insets(10, 10, 5, 10), 0, 0)); // .setText("K"+"<html><center><font face=\"Arial, Verdana, Sans Serif\" color=\"#FFFFFF\" size=\"-2\">Please insert</font></center></html>");
 
-		tfKS = new JTextField();
+		tfKS = new JDoubleTextField("",100,false);
 		add(tfKS, new GridBagConstraints(1, 0, 2, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
 				new Insets(10, 10, 5, 10), 0, 0));
@@ -64,7 +64,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 						GridBagConstraints.LINE_START, GridBagConstraints.NONE,
 						new Insets(10, 10, 5, 10), 0, 0));
 
-		tfTU = new JTextField();
+		tfTU = new JDoubleTextField("",100,false);
 		add(tfTU, new GridBagConstraints(1, 1, 2, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
 				new Insets(10, 10, 5, 10), 0, 0));
@@ -78,7 +78,8 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 						GridBagConstraints.LINE_START, GridBagConstraints.NONE,
 						new Insets(10, 10, 5, 10), 0, 0));
 
-		add(new JTextField(), new GridBagConstraints(1, 2, 2, 1, 1.0, 0.0,
+		tfTG = new JDoubleTextField("",100,false);
+		add(tfTG, new GridBagConstraints(1, 2, 2, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
 				new Insets(10, 10, 5, 10), 0, 0));
 
@@ -92,7 +93,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 				new Insets(10, 10, 10, 10), 0, 0));
 		btBerechne.addActionListener(this);
 
-		btClear = new JButton("Lï¿½schen");
+		btClear = new JButton("Löschen");
 		add(btClear, new GridBagConstraints(2, 3, 2, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE,
 				new Insets(10, 10, 10, 10), 0, 0));
@@ -107,8 +108,8 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 	public void actionPerformed(ActionEvent e) {
 
 	}
-//TODO: Grï¿½sse aus LeftPanel Lesen; bei true grï¿½sser setzen.
-//TODO: Hinweis auf GeÃ¤nderte Werte in Textfelder falls Neuberechnenn noch nicht ausgelÃ¶st???
+//TODO: Grösse aus LeftPanel Lesen; bei true grösser setzen.
+//TODO: Hinweis auf Geäderte Werte in Textfelder falls Neuberechnenn noch nicht ausgelöst???
 	
 	
 	public void itemStateChanged(ItemEvent e) {

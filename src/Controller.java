@@ -16,7 +16,10 @@ public class Controller {
 		this.model = model;
 	}
 	
-	
+	/**
+	 * Allows the user to resize the Frame-Size.
+	 * @param flag
+	 */
 	public void setVisibility(Boolean flag){
 		if (flag == false) {
 			view.setVisibility(flag, view.leftPanel.getSize());

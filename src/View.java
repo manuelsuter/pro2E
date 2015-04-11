@@ -24,12 +24,12 @@ public class View extends JPanel implements Observer {
 	private RightPanel rightPanel;
 	private JFrame frame;
 
-
+//TODO: Wie genau müssen wir Konstruktoren spezifizieren?
 	public View(Controller controller) {
 		super(new GridBagLayout());
 
 		
-		// Construct the main left and right Panel
+		// Construct the main left and main right panel
 		leftPanel = new LeftPanel(controller);
 		add(leftPanel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
 				GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(
@@ -37,15 +37,23 @@ public class View extends JPanel implements Observer {
 		
 		rightPanel = new RightPanel(controller);
 		add(rightPanel, new GridBagConstraints(1, 0, 1, 1, 1.0, 1.0,
-				GridBagConstraints.PAGE_START, GridBagConstraints.BOTH, new Insets(
+				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(
 						10, 10, 10, 10), 0, 0));
 		}
-	
+	/**
+	 * Connects the upper JFrame with the local JFrame.
+	 * @param frame
+	 */
 	public void setJFrame(JFrame frame) {
 		this.frame = frame;
 		
 	}
 
+	/**
+	 * Sets the visibility of the right panel, the new size of the frame and a flag if the frame is resizable. 
+	 * @param flag
+	 * @param dimension
+	 */
 	public void setVisibility(boolean flag, Dimension dimension){
 		rightPanel.setVisible(flag);
 		frame.setSize(dimension);
