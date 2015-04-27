@@ -4,7 +4,7 @@ class Rosenberg extends Controller {
 		private double Krk=0, Tnk=0, Tvk=0;
 		private double Ks=0, Tu=0, Tg=0;
 		
-		private void calculateRegulator(int regulatorTyp, double Ks, double Tu, double Tg){
+		private void calculateController(int regulatorTyp, double Ks, double Tu, double Tg){
 			
 			if (regulatorTyp < 2) {
 				System.out.println("!!!! Nicht implementiert zum jetzigen Zeitpunkt !!!!");

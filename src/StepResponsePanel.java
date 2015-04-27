@@ -33,7 +33,7 @@ public class StepResponsePanel extends JPanel implements ChangeListener {
 		this.controller = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Schrittantworten "));
 				
-		double[] x = Calc.linspace(0, 4*Math.PI, 1000);
+		double[] x = MiniMatlab.linspace(0, 4*Math.PI, 1000);
 		double[] y = new double[x.length];
 		double[] z = new double[x.length];
 		

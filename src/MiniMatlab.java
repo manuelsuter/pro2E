@@ -5,7 +5,7 @@
  * 
  * */
 
-public class Calc {
+public class MiniMatlab {
 
 	public static double[] linspace(double startValue, double endValue, int lenght) {
 		double delta = (endValue - startValue) / (lenght - 1);
