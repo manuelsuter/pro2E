@@ -15,14 +15,14 @@ import javax.swing.JTabbedPane;
 public class UpperPlotPanel extends JTabbedPane {
 
 	
-	private Controller controller;
+	private GUIController controller;
 	private PTn pTnPanel;
 	private JPanel panel2;
 	private JPanel panel3;
 	private JPanel panel4;
 	
 	
-	public UpperPlotPanel(Controller controller){
+	public UpperPlotPanel(GUIController controller){
 		this.controller = controller;
 		
 

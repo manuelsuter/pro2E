@@ -17,7 +17,7 @@ import javax.swing.JFrame;
 public class Application extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private Model model = new Model();
-	private Controller controller = new Controller(model);
+	private GUIController controller = new GUIController(model);
 	private View view = new View(controller);
 	private MenuBar menuBar = new MenuBar(controller, this);
 

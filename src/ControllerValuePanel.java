@@ -14,16 +14,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class RegulatorValuePanel extends JPanel {
+public class ControllerValuePanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
-	private Controller controller;
+	private GUIController controller;
 	private RulesOfThumbPanel rulesOfThumbPanel;
 	private PhaseResponseMethodPanel phaseResponsePanel;
 	private JLabel lbRosenberg, lbOppelt, lbZNn, lbZNs, lbCHR2, lbCHRa, lbTSUMn, lbTSUMs, lbKR, lbTN, lbTV;
 	
 	
-	public RegulatorValuePanel(Controller controller) {
+	public ControllerValuePanel(GUIController controller) {
 		super(new GridBagLayout());
 		this.controller = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Reglerwerte "));

@@ -20,7 +20,7 @@ import javax.swing.event.ChangeListener;
 public class StepResponsePanel extends JPanel implements ChangeListener {
 
 	private static final long serialVersionUID = 1L;
-	private Controller controller;
+	private GUIController controller;
 	private GraphPlotter stepResponse;
 	private double xValues[] = {1.0,2.0,3.0,4.0,5.0};
 	private double yValues[] = {-4.5, -3,-2, 2.0, 4,0};
@@ -28,7 +28,7 @@ public class StepResponsePanel extends JPanel implements ChangeListener {
 	private JPanel checkBoxPanel;
 		
 	
-	public StepResponsePanel(Controller controller) {
+	public StepResponsePanel(GUIController controller) {
 		super(new BorderLayout());
 		this.controller = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Schrittantworten "));

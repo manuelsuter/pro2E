@@ -25,7 +25,7 @@ public class View extends JPanel implements Observer {
 	private JFrame frame;
 
 //TODO: Wie genau müssen wir Konstruktoren spezifizieren?
-	public View(Controller controller) {
+	public View(GUIController controller) {
 		super(new GridBagLayout());
 
 		

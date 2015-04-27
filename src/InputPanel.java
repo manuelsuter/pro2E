@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 public class InputPanel extends JPanel implements ActionListener, ItemListener {
 
 	private static final long serialVersionUID = 1L;
-	private Controller controller;
+	private GUIController controller;
 	private JDoubleTextField tfKS, tfTU, tfTG;
 	private JButton btBerechne, btClear;
 	private JCheckBox checkBoxPlot;
@@ -37,7 +37,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 	 * 
 	 * @param controller
 	 */
-	public InputPanel(Controller controller) {
+	public InputPanel(GUIController controller) {
 		super(new GridBagLayout());
 		this.controller = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Schrittantwort vermessen "));

@@ -21,14 +21,14 @@ import javax.swing.border.EtchedBorder;
 public class LeftPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private Controller controller;
+	private GUIController controller;
 	private InputPanel inputPanel;
-	private RegulatorChooserPanel regulatorChooserPanel;
-	private RegulatorValuePanel regulatorValuePanel;
+	private ControllerChooserPanel regulatorChooserPanel;
+	private ControllerValuePanel regulatorValuePanel;
 
 	
 	
-	public LeftPanel(Controller controller) {
+	public LeftPanel(GUIController controller) {
 		super(new GridBagLayout());	
 		this.controller = controller;
 		
@@ -40,12 +40,12 @@ public class LeftPanel extends JPanel {
 				GridBagConstraints.FIRST_LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						2, 2, 2, 2), 0, 0));
 		
-		regulatorChooserPanel = new RegulatorChooserPanel(controller);
+		regulatorChooserPanel = new ControllerChooserPanel(controller);
 		add(regulatorChooserPanel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
 				GridBagConstraints.FIRST_LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						2, 2, 2, 2), 0, 0));
 		
-		regulatorValuePanel = new RegulatorValuePanel(controller);
+		regulatorValuePanel = new ControllerValuePanel(controller);
 		add(regulatorValuePanel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
 				GridBagConstraints.FIRST_LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						2, 2, 2, 2), 0, 0));

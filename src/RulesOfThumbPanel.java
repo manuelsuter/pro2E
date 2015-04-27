@@ -17,10 +17,10 @@ import javax.swing.JPanel;
 public class RulesOfThumbPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private Controller controller;
+	private GUIController controller;
 	
 	
-	public RulesOfThumbPanel(Controller controller) {
+	public RulesOfThumbPanel(GUIController controller) {
 		super(new GridBagLayout());
 		this.controller = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Faustformeln "));

@@ -16,13 +16,13 @@ import javax.swing.JTabbedPane;
 public class PTn extends JPanel {
 	
 	
-	private Controller controller;
+	private GUIController controller;
 	private GraphPlotter pTn;
 	private double xValues[] = {1.0,2.0,3.0,4.0,5.0};
 	private double yValues[] = {-4.5, -3,-2, 2.0, 4,0};
 
 	
-	public PTn(Controller controller){
+	public PTn(GUIController controller){
 		super(new GridLayout(1,1));
 		this.controller = controller;
 		

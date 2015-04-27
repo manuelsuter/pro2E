@@ -17,15 +17,15 @@ import javax.swing.JToggleButton;
 import javax.swing.UIManager;
 
 
-public class RegulatorChooserPanel extends JPanel {
+public class ControllerChooserPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private Controller controller;
+	private GUIController controller;
 	private JToggleButton btPI, btPID;
 	private ButtonGroup bGroup;
 
 	
-	public RegulatorChooserPanel(Controller controller) {
+	public ControllerChooserPanel(GUIController controller) {
 		super(new GridBagLayout());
 		this.controller = controller;
 		setBorder(MyBorderFactory.createMyBorder(" PI / PID-T1 Regler "));

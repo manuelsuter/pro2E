@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 
 public class PhaseResponseMethodPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private Controller controller;
+	private GUIController controller;
 	private JDoubleTextField tfTP;
 	private JLabel lbLessKR, lbMiddleKR, lbStrongKR;
 	private JLabel lbLessTP, lbMiddleTP, lbStrongTP;
@@ -25,7 +25,7 @@ public class PhaseResponseMethodPanel extends JPanel {
 	
 	
 	
-	public PhaseResponseMethodPanel(Controller controller) {
+	public PhaseResponseMethodPanel(GUIController controller) {
 		super(new GridBagLayout());
 		this.controller = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Phasengang-Methode "));

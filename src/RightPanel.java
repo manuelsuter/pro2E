@@ -18,13 +18,13 @@ import javax.swing.JPanel;
 public class RightPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private Controller controller;
+	private GUIController controller;
 	private UpperPlotPanel upperPlotPanel;
 	private StepResponsePanel stepResponsePanel;
 
 	
 	
-	public RightPanel(Controller controller) {
+	public RightPanel(GUIController controller) {
 		super(new GridBagLayout());
 		this.controller = controller;
 		

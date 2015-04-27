@@ -29,7 +29,7 @@ public class MenuBar extends JMenuBar implements Observer, ActionListener {
 	JMenuItem menuItemPlot;
 	JFrame frame;
 
-	public MenuBar(Controller controller, JFrame frame) {
+	public MenuBar(GUIController controller, JFrame frame) {
 		this.frame = frame;
 		menu = new JMenu("Ansicht");
 		menu.setMnemonic(KeyEvent.VK_D);

@@ -1,4 +1,4 @@
-class Rosenberg extends Regulator {
+class Rosenberg extends Controller {
 		
 		private double Kr=0, Tn=0, Tv=0, Tp=0;
 		private double Krk=0, Tnk=0, Tvk=0;
