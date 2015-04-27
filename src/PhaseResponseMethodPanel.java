@@ -33,7 +33,7 @@ public class PhaseResponseMethodPanel extends JPanel {
 		makePhaseResponseMethodLine("Überschwingen                                   ", "<html><i>K<sub>r</sub></i></html>", "<html><i>T<sub>n</sub></i></html>", "<html><i>T<sub>v</sub></i></html>", 0);
 		makePhaseResponseMethodLine("wenig", "8.49", "5.72", "1.25", 1);
 		makePhaseResponseMethodLine("mittel", "8.49", "5.72", "1.25", 2);
-		makePhaseResponseMethodLine("stark", "8.49", "5.72", "1.25", 3);
+		makePhaseResponseMethodLine("stork", "8.49", "5.72", "1.25", 3);
 		
 		add(new JLabel("<html><i>T<sub>p</sub></i></html>"), new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
