@@ -6,15 +6,37 @@
  * */
 
 public class MiniMatlab {
+	
+	/**
+	 * Berechnet linspace mittels startValue, endValue und length.
+	 * Gibt ein Array mit den entsprechenden Weten zurück.
+	 * @param startValue
+	 * @param endValue
+	 * @param length
+	 * @return
+	 */
 
-	public static double[] linspace(double startValue, double endValue, int lenght) {
-		double delta = (endValue - startValue) / (lenght - 1);
-		double[] array = new double[lenght];
+	public static double[] linspace(double startValue, double endValue, int length) {
+		double delta = (endValue - startValue) / (length - 1);
+		double[] array = new double[length];
 
 		for (int i = 0; i < array.length; i++) {
 
 			array[i] = startValue + delta * i;
 		}
 		return array;
+	}
+	
+	
+	/**
+	 * Berechnet die Sani-Methode
+	 * @param Tu
+	 * @param Tg
+	 * @return
+	 */
+	public static double[] sani(double Tu, double Tg){
+		
+		
+		return null;
 	}
 }

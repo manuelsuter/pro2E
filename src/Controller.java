@@ -1,76 +1,87 @@
 
 public abstract class Controller {
 
-	private double Kr=0, Tn=0, Tv=0, Tp=0;
+	public double Kr=0, Tn=0, Tv=0, Tp=0;
 	private double Krk=0, Tnk=0, Tvk=0;
-	private double Ks=0, Tu=0, Tg=0;
 	
-	private int regulatorTyp;
-	private String calculationTyp;
+	public static final int KrPOS = 0, TnPOS = 1, TvPOS = 2, TpPOS = 3; 
+	public static final int P = 0, I = 1, PI = 2, PID = 3;
+	
+	private int controllerTyp; // PI/PID
+	private String calculationTyp; // Rosenberg, CHN...
+	private Path path;
+	private UTF utf;
 	
 	public Controller(){
 		
 	}
 	
-	/**
-	 * Setzt die Werte für den Reglertyp, Ks, Tu und Tg
-	 * @param regulatorTyp
-	 * @param Ks
-	 * @param Tu
-	 * @param Tg
-	 */
-	//TODO: Die Methode setStepResponseMeasured muss noch geleert werden.
-	public void setStepResponseMeasured(int regulatorTyp, double Ks, double Tu, double Tg) {
-		this.Ks = Ks;
-		this.Tu = Tu;
-		this.Tg = Tg;
-		this.regulatorTyp = regulatorTyp;
-		
-		calculateRegulator();
-		
-	}
-	/**
-	 * Berechnet Einstellwerte des Reglers.
-	 */
-	private void calculateRegulator(){
-		
-	}
 	
 	/**
-	 * Gibt die Reglerwerte reglerkonform in einem Array zurück.
+	 * Gibt Zähler der UTF in einem Double-Array als Polynom zurück.
 	 * @return
 	 */
-	public Object[] getDataRegulator(){
-
-		
-		
-		return null;
+	public double[] getUTFZahPoly(){
+		return utf.getZahPoly();
 	}
 	
 	/**
-	 * Gibt die Reglerwerte bodekonform in einem Array zurück.
+	 * Gibt Nenner der UTF in einem Double-Array als Polynom zurück.
 	 * @return
 	 */
-	public Object[] getDataBode(){
-		
-		
-		return null;
+	public double[] getUTFNenPoly(){
+		return utf.getNenPoly();
 	}
 	
 	/**
-	 * Gibt die Berechnungsart zurück.
+	 * Gibt Reglertyp (PI/PID) als int zurück.
+	 * @return
+	 */
+	public int getControllerTyp(){
+		return controllerTyp;
+	}
+	
+	/**
+	 * Gibt die Berechnungsart (Rosenberg, CHN) als String zurück.
 	 * @return
 	 */
 	public String getCalculationTyp(){
-		
-		
-		
 		return calculationTyp;
 	}
-		
-	//TODO: sollte hier noch eine Abfrage für den Reglertyp eingefügt werden, um für spätere Anwendungen zur Verfügung zu stehen.
-	//TODO: sollte hier noch eine Setter-Methode für den Reglertyp eingefügt werden, um für spÃ¤tere Anwendungen zur Verfüung zu stehen.
-		
+	
+	/**
+	 * Gibt die Reglerwerte reglerkonform in einem Double-Array zurück.
+	 * @return
+	 */
+	public double[] getControllerValues(){
+		double[] values = new double[4];
+		values[0] = Kr;
+		values[1] = Tn;
+		values[2] = Tv;
+		values[3] = Tp;
+
+		return values;
+	}
+	
+	/** 
+	 * Setzt die Input-Wert für die Berechnung.
+	 * Löst calculate() aus.
+	 * @param path
+	 */
+	public void setData(int controllerTyp, String calculationTyp, Path path){
+		this.controllerTyp = controllerTyp;
+		this.calculationTyp = calculationTyp;
+		this.path = path;
+
+		calculate(controllerTyp, path);
+	}		
+	
+	//TODO: Können abstrakte Klassen private sein?
+	/**
+	 * Berechnet Einstellwerte des jeweiligen Reglers.
+	 */
+	public abstract void calculate(int controllerTyp, Path path);
+	
 }
 
 	
