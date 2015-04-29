@@ -30,7 +30,7 @@ public class RulesOfThumbPanel extends JPanel {
 		makeRulesOfThumbLine("Rosenberg", "8.49", "5.72", "1.25", 1);
 		makeRulesOfThumbLine("Oppelt", "8.49", "5.72", "1.25", 2);
 		makeRulesOfThumbLine("Ziegler/Nichols", "8.49", "5.72", "1.25", 3);
-		makeRulesOfThumbLine("Chien/Hrones/Reswick (20% Ü.)", "8.49", "5.72", "1.25", 4);
+		makeRulesOfThumbLine("Chien/Hrones/Reswick (20% Ãœ.)", "8.49", "5.72", "1.25", 4);
 		makeRulesOfThumbLine("Chien/Hrones/Reswick (aperiod.)", "8.49", "5.72", "1.25", 5);
 
 		

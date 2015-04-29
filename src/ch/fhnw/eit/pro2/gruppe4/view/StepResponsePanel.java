@@ -74,7 +74,7 @@ public class StepResponsePanel extends JPanel implements ChangeListener {
 		checkBoxPanel.add(checkRosenberg);
 		checkRosenberg.addChangeListener(this);
 		
-		checkCHR0 = new JCheckBox("Chien/Hrones/Reswick (0% Ü.)");
+		checkCHR0 = new JCheckBox("Chien/Hrones/Reswick (0% Ãœ.)");
 		checkCHR0.setForeground(Color.MAGENTA);
 		checkBoxPanel.add(checkCHR0);
 		checkCHR0.addChangeListener(this);
@@ -88,7 +88,7 @@ public class StepResponsePanel extends JPanel implements ChangeListener {
 		checkBoxPanel.add(checkOppelt);
 		checkOppelt.addChangeListener(this);
 		
-		checkCHR20 = new JCheckBox("Chien/Hrones/Reswick (20% Ü.)");
+		checkCHR20 = new JCheckBox("Chien/Hrones/Reswick (20% Ãœ.)");
 		checkCHR20.setForeground(Color.BLUE);
 		checkBoxPanel.add(checkCHR20);
 		checkCHR20.addChangeListener(this);

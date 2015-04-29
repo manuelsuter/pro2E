@@ -33,7 +33,7 @@ public class PhaseResponseMethodPanel extends JPanel {
 		this.controller = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Phasengang-Methode "));
 		
-		makePhaseResponseMethodLine("Überschwingen                                   ", "<html><i>K<sub>r</sub></i></html>", "<html><i>T<sub>n</sub></i></html>", "<html><i>T<sub>v</sub></i></html>", 0);
+		makePhaseResponseMethodLine("Ãœberschwingen                                   ", "<html><i>K<sub>r</sub></i></html>", "<html><i>T<sub>n</sub></i></html>", "<html><i>T<sub>v</sub></i></html>", 0);
 		makePhaseResponseMethodLine("wenig", "8.49", "5.72", "1.25", 1);
 		makePhaseResponseMethodLine("mittel", "8.49", "5.72", "1.25", 2);
 		makePhaseResponseMethodLine("stark", "8.49", "5.72", "1.25", 3);

@@ -94,7 +94,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 				new Insets(10, 10, 10, 10), 0, 0));
 		btBerechne.addActionListener(this);
 
-		btClear = new JButton("Löschen");
+		btClear = new JButton("LÃ¶schen");
 		add(btClear, new GridBagConstraints(2, 3, 2, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE,
 				new Insets(10, 10, 10, 10), 0, 0));
@@ -109,8 +109,8 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 	public void actionPerformed(ActionEvent e) {
 
 	}
-//TODO: Grösse aus LeftPanel Lesen; bei true grösser setzen.
-//TODO: Hinweis auf Geäderte Werte in Textfelder falls Neuberechnenn noch nicht ausgelöst???
+//TODO: Grï¿½sse aus LeftPanel Lesen; bei true grï¿½sser setzen.
+//TODO: Hinweis auf Geï¿½derte Werte in Textfelder falls Neuberechnenn noch nicht ausgelï¿½st???
 	
 	
 	public void itemStateChanged(ItemEvent e) {
