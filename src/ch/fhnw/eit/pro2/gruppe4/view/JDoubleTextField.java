@@ -1,3 +1,4 @@
+package ch.fhnw.eit.pro2.gruppe4.view;
 /*
  * Copyright (c) 2014 Mueller Fabian, Duerner Daniel, Risi Julian, Walzer Ken,
  * Mijnssen Raphael, Pluess Jonas

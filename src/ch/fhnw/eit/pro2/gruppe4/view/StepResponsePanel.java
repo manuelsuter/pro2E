@@ -1,3 +1,4 @@
+package ch.fhnw.eit.pro2.gruppe4.view;
 /*
  * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Mueller, Florian Alber, Manuel Suter
  * 
@@ -15,6 +16,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import ch.fhnw.eit.pro2.gruppe4.utilities.MiniMatlab;
 
 
 public class StepResponsePanel extends JPanel implements ChangeListener {

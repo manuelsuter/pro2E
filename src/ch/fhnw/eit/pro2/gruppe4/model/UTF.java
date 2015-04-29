@@ -1,3 +1,4 @@
+package ch.fhnw.eit.pro2.gruppe4.model;
 
 public class UTF {
 	//TODO: Doku schreiben

@@ -1,3 +1,4 @@
+package ch.fhnw.eit.pro2.gruppe4.view;
 /*
  * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Mueller, Florian Alber, Manuel Suter
  * 
@@ -13,6 +14,8 @@ import java.util.Observable;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import ch.fhnw.eit.pro2.gruppe4.model.Model;
 
 
 public class PhaseResponseMethodPanel extends JPanel {

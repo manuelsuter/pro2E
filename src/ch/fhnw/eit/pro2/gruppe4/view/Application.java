@@ -1,3 +1,4 @@
+package ch.fhnw.eit.pro2.gruppe4.view;
 /*
  * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Mueller, Florian Alber, Manuel Suter
  * 
@@ -12,6 +13,9 @@ import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+
+import ch.fhnw.eit.pro2.gruppe4.model.Model;
+
 
 
 public class Application extends JFrame {

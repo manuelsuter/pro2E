@@ -1,3 +1,4 @@
+package ch.fhnw.eit.pro2.gruppe4.model;
 /*
  * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Mueller, Florian Alber, Manuel Suter
  * 
@@ -11,6 +12,10 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+
+import ch.fhnw.eit.pro2.gruppe4.utilities.MiniMatlab;
+import ch.fhnw.eit.pro2.gruppe4.view.GUIController;
+import ch.fhnw.eit.pro2.gruppe4.view.GraphPlotter;
 
 
 public class PTn extends JPanel {

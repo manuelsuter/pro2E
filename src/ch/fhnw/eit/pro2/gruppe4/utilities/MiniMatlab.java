@@ -1,3 +1,4 @@
+package ch.fhnw.eit.pro2.gruppe4.utilities;
 /*
  * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Mueller, Florian Alber, Manuel Suter
  * 

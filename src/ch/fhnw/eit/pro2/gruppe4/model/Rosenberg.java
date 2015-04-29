@@ -1,3 +1,5 @@
+package ch.fhnw.eit.pro2.gruppe4.model;
+
 class Rosenberg extends Controller {
 	
 	public Rosenberg(){		

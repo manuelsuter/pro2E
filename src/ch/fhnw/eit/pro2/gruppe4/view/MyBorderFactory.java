@@ -1,3 +1,4 @@
+package ch.fhnw.eit.pro2.gruppe4.view;
 import java.awt.Color;
 
 import javax.swing.BorderFactory;
