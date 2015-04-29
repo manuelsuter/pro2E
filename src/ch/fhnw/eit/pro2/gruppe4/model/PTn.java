@@ -13,7 +13,7 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import ch.fhnw.eit.pro2.gruppe4.utilities.MiniMatlab;
+import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 import ch.fhnw.eit.pro2.gruppe4.view.GUIController;
 import ch.fhnw.eit.pro2.gruppe4.view.GraphPlotter;
 
@@ -31,7 +31,7 @@ public class PTn extends JPanel {
 		super(new GridLayout(1,1));
 		this.controller = controller;
 		
-		double[] x = MiniMatlab.linspace(0, 4*Math.PI, 1000);
+		double[] x = Calc.linspace(0, 4*Math.PI, 1000);
 		double[] y = new double[x.length];
 		double[] z = new double[x.length];
 		

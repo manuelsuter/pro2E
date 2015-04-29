@@ -1,5 +1,5 @@
 package ch.fhnw.eit.pro2.gruppe4.model;
-import ch.fhnw.eit.pro2.gruppe4.utilities.MiniMatlab;
+import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 
 
 public abstract class Path {
@@ -51,7 +51,7 @@ public abstract class Path {
 		double[] KsArray = new double[1];
 		KsArray[0] = Ks;
 		utf.setZahPoly(KsArray);
-		double[] t = MiniMatlab.sani(Tu, Tg);
+		double[] t = Calc.sani(Tu, Tg);
 		
 	}
 }

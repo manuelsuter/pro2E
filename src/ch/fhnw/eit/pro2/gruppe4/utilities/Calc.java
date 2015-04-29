@@ -6,7 +6,7 @@ package ch.fhnw.eit.pro2.gruppe4.utilities;
  * 
  * */
 
-public class MiniMatlab {
+public class Calc {
 	
 	/**
 	 * Berechnet linspace mittels startValue, endValue und length.

@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import ch.fhnw.eit.pro2.gruppe4.utilities.MiniMatlab;
+import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 
 
 public class StepResponsePanel extends JPanel implements ChangeListener {
@@ -36,7 +36,7 @@ public class StepResponsePanel extends JPanel implements ChangeListener {
 		this.controller = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Schrittantworten "));
 				
-		double[] x = MiniMatlab.linspace(0, 4*Math.PI, 1000);
+		double[] x = Calc.linspace(0, 4*Math.PI, 1000);
 		double[] y = new double[x.length];
 		double[] z = new double[x.length];
 		
