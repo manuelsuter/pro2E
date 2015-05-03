@@ -34,9 +34,10 @@ public class Calc {
 	
 	public double[] controllerconform (Krk, Tnk, Tvk, Tp, controllerTyp){
 		if (controllerTyp=3) {	
-		Kr= Krk*(1+Tvk/Tnk);
-		Tn=	Tnk+Tvk-Tp;
-		Tv=((Tnk*Tvk)/(Tnk+Tvk-Tp))-Tp;
+		double[] umrechnung;
+		umrechnung[0]= Krk*(1+Tvk/Tnk);    // Kr
+		umrechnung[1]=	Tnk+Tvk-Tp;		   // Tn
+		umrechnung[2]=((Tnk*Tvk)/(Tnk+Tvk-Tp))-Tp;		//Tv
 		}else{		
 		}	
 		
@@ -46,15 +47,15 @@ public class Calc {
 	public double[] bodeconform (Kr, Tn, Tv, Tp, controllerTyp){
 		if (controllerTyp=3) {
 			e=Math.sqrt(1-((4*Tn*(Tv-Tp))/((Tn+Tp)^2)));
-			
-		Krk=0.5*Kr*(1+(Tp/Tnk)*(1+e));
-		Tnk=0.5*(Tn+Tp)*(1+e);
-		Tvk=0.5*(Tn+Tp)*(1-e);
+		double[] umrechnung;
+		umrechnung[0]=0.5*Kr*(1+(Tp/Tnk)*(1+e));	//Krk
+		umrechnung[1]=0.5*(Tn+Tp)*(1+e);			//Tnk
+		umrechnung[2]=0.5*(Tn+Tp)*(1-e);			//Tvk
 		}else{
 			
 		}
 		
-		return test;
+		return umrechnung;
 	}
 	
 	/**
