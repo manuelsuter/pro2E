@@ -27,7 +27,29 @@ public class Calc {
 		}
 		return array;
 	}
+	public double[] concat (double[] x,double[] y, double[] z){
+		
+	}
 	
+	public double[] controllerconform (Krk, Tnk, Tvk, Tp, controllerTyp){
+		if (controllerTyp=3) {	
+		Kr= Krk*(1+Tvk/Tnk);
+		Tn=	Tnk+Tvk-Tp;
+		Tv=((Tnk*Tvk)/(Tnk+Tvk-Tp))-Tp;
+		}else{		
+		}		
+	}
+	public double[] bodeconform (Kr, Tn, Tv, Tp, controllerTyp){
+		if (controllerTyp=3) {
+			e=Math.sqrt(1-((4*Tn*(Tv-Tp))/((Tn+Tp)^2)));
+			
+		Krk=0.5*Kr*(1+(Tp/Tnk)*(1+e));
+		Tnk=0.5*(Tn+Tp)*(1+e);
+		Tvk=0.5*(Tn+Tp)*(1-e);
+		}else{
+			
+		}
+	}
 	
 	/**
 	 * Berechnet die Sani-Methode
@@ -40,4 +62,6 @@ public class Calc {
 		
 		return null;
 	}
+	
+	
 }
