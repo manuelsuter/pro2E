@@ -28,7 +28,8 @@ public class Calc {
 		return array;
 	}
 	public double[] concat (double[] x,double[] y, double[] z){
-		
+		double [] combined = ArrayUtils.addAll(x, y, z);
+		return combined;
 	}
 	
 	public double[] controllerconform (Krk, Tnk, Tvk, Tp, controllerTyp){
@@ -37,7 +38,10 @@ public class Calc {
 		Tn=	Tnk+Tvk-Tp;
 		Tv=((Tnk*Tvk)/(Tnk+Tvk-Tp))-Tp;
 		}else{		
-		}		
+		}	
+		
+		
+		return test;
 	}
 	public double[] bodeconform (Kr, Tn, Tv, Tp, controllerTyp){
 		if (controllerTyp=3) {
@@ -49,6 +53,8 @@ public class Calc {
 		}else{
 			
 		}
+		
+		return test;
 	}
 	
 	/**
