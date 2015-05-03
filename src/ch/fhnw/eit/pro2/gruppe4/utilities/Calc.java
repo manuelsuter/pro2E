@@ -109,7 +109,7 @@ public class Calc {
 	
 	
 	/**
-	 * Berechnet die Sani-Methode gemäss m-File.
+	 * Berechnet die Sani-Methode gemäss m-File. Gibt die berechneten Werte in einem double-Array zurück.
 	 * @param Tu
 	 * @param Tg
 	 * @return
@@ -176,46 +176,24 @@ public class Calc {
 			n = 10;
 		}
 
-				
 		SplineInterpolator rInterpolator = new SplineInterpolator();
 		PolynomialSplineFunction r = rInterpolator.interpolate(tu_Tg[n], ri);
-		System.out.println(r);
 		
 		double valueR = r.value(v);
 		
-		
 		SplineInterpolator wInterpolator = new SplineInterpolator();
-		PolynomialSplineFunction w = wInterpolator.interpolate(ri, t_Tg[n]);
-		System.out.println(w);
+		PolynomialSplineFunction w = wInterpolator.interpolate(ri, t_Tg[n]);		
 		
-		
-		double knots = w.value(valueR);
+		double valueW = w.value(valueR);
 		
 		double[] T = new double[w.getN()];
 	
-			T[n] = knots * Tg;
+			T[n-1] = valueW * Tg; // Erster Array-Wert.
 			
-			for (int j = n-1; j == 1; j--) {
-				T[j] = T[n]*Math.pow(valueR, n-j);
+			// Berechnen der weiteren Werten.
+			for (int j = 0; j < n-1; j++) {
+				T[j] = T[n-1]*Math.pow(valueR, n-(j+1));
 			}
-		
-
-			/**
-
-			r=spline(Tu_Tg(n,:),ri,v);
-			w=spline(ri,T_Tg(n,:),r);
-			T(n)=w*tg;
-
-
-		for (int j = n-1; j == 1; j--) {
-			T[j] = T[n]*Math.pow(r, n-j);
-		}
-			for i=n-1:-1:1,                 % Umspeicher, damit gleiche Reihenfolge wie bei Hudzovik
-			  T(i)=T(n)*r^(n-i);
-			end;
-
-		**/
-		
 		return T;
 	}
 }
