@@ -82,7 +82,7 @@ public abstract class Controller {
 	/**
 	 * Berechnet Einstellwerte des jeweiligen Reglers.
 	 */
-	public abstract void calculate(int controllerTyp, Path path);
+	protected abstract void calculate(int controllerTyp, Path path);
 	
 }
 

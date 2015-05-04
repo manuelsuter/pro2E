@@ -8,6 +8,7 @@ package ch.fhnw.eit.pro2.gruppe4.utilities;
 
 import org.apache.commons.math3.analysis.interpolation.SplineInterpolator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
+import org.apache.commons.math3.transform.FastFourierTransformer;
 
 
 public class Calc {
@@ -106,6 +107,219 @@ public class Calc {
 		}
 	return index;
 	}	
+	
+	/**
+	 * Setzt drei Arrays zu einem zusammen.
+	 * Double-Version
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @return
+	 */
+	public static double[] concat(double x[], double y[], double z[]){
+		double[] res = new double[x.length + y.length + z.length];
+		for (int i = 0; i < x.length; i++) {
+			res[i] = x[i];
+		}
+		for (int i = 0; i < y.length; i++) {
+			res[i + x.length] = y[i];
+		}
+		for (int i = 0; i < z.length; i++) {
+			res[i + x.length + y.length] = z[i];
+		}
+		return res;
+	}
+	
+	
+	/**
+	 * Setzt drei Arrays zu einem zusammen.
+	 * Complex-Version
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @return
+	 */
+	public static Complex[] concat(Complex x[], double y[], Complex z[]){
+		Complex[] res = new Complex[x.length + y.length + z.length];
+		for (int i = 0; i < x.length; i++) {
+			res[i] = x[i];
+		}
+		for (int i = 0; i < y.length; i++) {
+			Complex tmpY = new Complex(y[i]);
+			res[i + x.length] = tmpY;
+		}
+		for (int i = 0; i < z.length; i++) {
+			res[i + x.length + y.length] = z[i];
+		}
+		return res;
+	}
+
+
+	/**
+	 * Gibt die Werte des Array x in gewünschter Reihenfolge zurück (z.B. invertiert).
+	 * Double-Version
+	 * @param x
+	 * @param start
+	 * @param stepsize
+	 * @param stop
+	 * @return
+	 */
+
+	public static double[] colonColon(double x[], int start, int stepsize, int stop) {
+		double[] y = new double[Math.abs((stop - start)/stepsize)];
+		//TODO: Vergleich so richtitg oder +1 und dann <
+		for (int i = start; i == stop; i+=stepsize) {
+			int k = 0;
+			y[k] = x[i];
+			k++;
+		}
+		return y;
+	}
+	
+	/**
+	 * Gibt die Werte des Array x in gewünschter Reihenfolge zurück (z.B. invertiert).
+	 * Complex-Version!
+	 * @param x
+	 * @param start
+	 * @param stepsize
+	 * @param stop
+	 * @return
+	 */
+	public static Complex[] colonColon(Complex x[], int start, int stepsize, int stop) {
+		Complex[] y = new Complex[Math.abs((stop - start)/stepsize)];
+		//TODO: Vergleich so richtitg oder +1 und dann <
+		for (int i = start; i == stop; i+=stepsize) {
+			int k = 0;
+			y[k] = x[i];
+			k++;
+		}
+		return y;
+	}
+	
+	
+	/**
+	 * Gibt werte Reglerkonform als Array zurück.
+	 * @return
+	 */
+	public static double[] controllerConform(double Krk, double Tnk, double Tvk, double Tp, int controllerTyp){
+		double[] res = new double[3];
+		if (controllerTyp == 2) {
+			res[0] = Krk;
+			res[1] = Tnk;
+			res[2] = 0;
+			
+		}
+		if (controllerTyp == 3) {	
+			
+			res[0]= Krk*(1+Tvk/Tnk);    // Kr
+			res[1]= Tnk+Tvk-Tp;		   // Tn
+			res[2]= ((Tnk*Tvk)/(Tnk+Tvk-Tp))-Tp;		//Tv
+		}	
+		return res;
+	}
+
+	/**
+	 * Gibt Werte Bodekonform zurück.
+	 * @return
+	 */
+	public static double[] bodeConform(double Kr, double Tn, double Tv, double Tp, int controllerTyp){
+		double[] res = new double[3];
+		if (controllerTyp == 2) { // PI-Regler
+			res[0] = Kr;
+			res[1] = Tn;
+			res[2] = 0;	
+		}
+				
+		if (controllerTyp == 3) { // PID-Regler
+			double e = Math.sqrt(1-((4*Tn*(Tv-Tp))/(Math.pow((Tn+Tp),2))));
+			res[1]= 0.5*(Tn+Tp)*(1+e);			// Tnk
+			res[0]= 0.5*Kr*(1+(Tp/res[1])*(1+e));	// Krk
+			res[2]= 0.5*(Tn+Tp)*(1-e);			// Tvk
+		}
+		return res;
+	}
+	
+	
+	/**
+	 *Berechnet die Inverse step fast furious transformation 
+	 * @param zah = Zähler 
+	 * @param nen = Nenner
+	 * @param fs = Frequenz
+	 * @param n = Länge
+	 * @return c = die Faltung
+	 */
+	public double[][] schrittIfft(double[] zah, double[] nen, double fs, int n) {
+		
+		double T = (1/fs);//Periode
+		double[] w = new double[(int)fs];//Kreisfrequenz
+		Complex[] H;
+		
+		//Frequenzachse berechnen
+		w = linspace(0.0, fs*Math.PI, n/2);
+		
+		//Frequenzgang berechnen
+		H = freqs(zah, nen, w);
+		
+		double[] alfred = new double[1];
+		alfred[0] = 0.0;
+		concat(colonColon(H,0,1,(n/2)-1),alfred,colonColon(H,(n/2)-1,-1,1));
+		//Impulsantwort berechen
+		double[] h = new double[H.length];//welche Länge
+		
+		FastFourierTransformer p = new FastFourierTransformer(STANDARD);
+		for (int i = 0; i < h.length; i++) {
+			h[i]=ifft(H[i]);
+		}
+		//Schrittantwort berechnen
+		double[] zwres = new double[2];
+		zwres[0] = 1.0;
+		zwres[1] = n+1.0;
+		double[] y = new double[h.length];
+		y = diskConv(h, zwres);
+		
+		//Resultate ausschneiden
+		y = colonColon(y,0,1,(int)((y.length/2)-1));
+		
+		double[] t;
+		t = linspace(0.0, (y.length-1)*T, y.length);
+		
+		return null;
+	}
+
+	
+	/**
+	 *Ausmultiplizieren von Polynomen der Form: (1+x_1)*(1+x_2)*...
+	 * @param x double[] 
+	 * @return res
+	 */
+	public double[] poly(double[] x) {
+		double[] res = new double[x.length];
+		for (int i = 1; i < res.length; i++) {
+			res = diskConv(x, res);
+		}
+		return res;
+	}
+		
+/**
+	 *Berechnet die diskrete Faltung
+	 * @param b = Nenner
+	 * @param a = Zähler
+	 * @return c = die Faltung
+	 */
+	public double[] diskConv(double[] b, double[] a) {
+		double[] c = new double[a.length +b.length -1];
+		
+		for (int n = 0; n < c.length; n++) {
+			for (int i = Math.max(0, n-b.length +1); i <= Math.min(a.length-1, n); i++) {
+				c[i] += a[i]*b[n-i];
+			}
+		}
+		return c;
+	}
+
+	
+	
+	
 	
 	
 	/**
