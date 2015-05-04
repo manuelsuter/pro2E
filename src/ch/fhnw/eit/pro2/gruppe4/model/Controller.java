@@ -8,9 +8,10 @@ public abstract class Controller {
 	
 	public static final int KrPOS = 0, TnPOS = 1, TvPOS = 2, TpPOS = 3; 
 	public static final int P = 0, I = 1, PI = 2, PID = 3;
+	public static final String[] calculationTypName = {"Phasengang", "Rosenberg", "Oppelt", "Ziegler/Nichols", "Chien/Hrones/Reswick (20%)", "Chien/Hrones/Reswick (aperiod.)"};
 	
 	private int controllerTyp; // PI/PID
-	private String calculationTyp; // Rosenberg, CHN...
+	private int calculationTyp; // Rosenberg, CHN...
 	private Path path;
 	private UTF utf;
 	
@@ -47,7 +48,7 @@ public abstract class Controller {
 	 * Gibt die Berechnungsart (Rosenberg, CHN) als String zurück.
 	 * @return
 	 */
-	public String getCalculationTyp(){
+	public int getCalculationTyp(){
 		return calculationTyp;
 	}
 	
@@ -70,7 +71,7 @@ public abstract class Controller {
 	 * Löst calculate() aus.
 	 * @param path
 	 */
-	public void setData(int controllerTyp, String calculationTyp, Path path){
+	public void setData(int controllerTyp, int calculationTyp, Path path){
 		this.controllerTyp = controllerTyp;
 		this.calculationTyp = calculationTyp;
 		this.path = path;
