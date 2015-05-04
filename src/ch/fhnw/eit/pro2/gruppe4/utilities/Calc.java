@@ -15,6 +15,7 @@ public class Calc {
 	 * @param endValue
 	 * @param length
 	 * @return
+	 * hallo
 	 */
 
 	public static double[] linspace(double startValue, double endValue, int length) {
