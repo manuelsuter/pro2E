@@ -11,19 +11,24 @@ class Rosenberg extends Controller {
 		double Tg = inputValues[Path.TgPOS];
 		double Tu = inputValues[Path.TuPOS];
 			
-		if (controllerTyp < 2) {
-			System.out.println("!!!! Nicht implementiert zum jetzigen Zeitpunkt !!!!");
-				
-		} else if (controllerTyp == 2){ //PI Regler
+		switch (controllerTyp) {
+		// PI Regler
+		case 2:
 			Kr = (0.91/Ks)*(Tg/Tu);
 			Tn = 3.3*Tu;
 			Tv = 0;
-		} else if (controllerTyp == 3){//PID Regler
+			break;
+			
+		//PID Regler	
+		case 3:
 			Kr = (1.2/Ks) * (Tg/Tu);
 		    Tn = 2 * Tu;
 			Tv = 0.44 * Tu;
-		} else {
+			break;
+
+		default:
 			System.out.println("!!!! Reglertyp nicht berechenbar !!!!");
+			break;
 		}
 	}
 }

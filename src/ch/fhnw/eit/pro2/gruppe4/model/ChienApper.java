@@ -9,21 +9,24 @@ public class ChienApper extends Controller {
 		double Tg = inputValues[Path.TgPOS];
 		double Tu = inputValues[Path.TuPOS];
 		
-		if (controllerTyp < 2) {
-			System.out.println("!!!! Nicht implementiert zum jetzigen Zeitpunkt !!!!");
-		}
-		if (controllerTyp == 2) {//PI Regler
-            Kr=0.35*Tg/(Ks*Tu);
-            Tn=1.2*Tu;
-            Tv=0;
-		}
-		if (controllerTyp == 3) {//PID Regler
-            Kr=0.95*Tg/(Ks*Tu);
+		switch (controllerTyp) {
+		// PI Regler
+		case 2:
+			 Kr=0.35*Tg/(Ks*Tu);
+	         Tn=1.2*Tu;
+	         Tv=0;
+			break;
+			
+		// PID Regler
+		case 3:
+			Kr=0.95*Tg/(Ks*Tu);
             Tn=2.4*Tu;
             Tv=0.42*Tu;
-		}
-		else {
+			break;
+
+		default:
 			System.out.println("!!!! Reglertyp nicht berechenbar !!!!");
+			break;
 		}
 	}
 }
