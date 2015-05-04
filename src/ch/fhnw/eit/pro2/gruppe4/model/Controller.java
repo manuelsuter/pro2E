@@ -3,17 +3,17 @@ package ch.fhnw.eit.pro2.gruppe4.model;
 
 public abstract class Controller {
 
-	public double Kr=0, Tn=0, Tv=0, Tp=0;
-	private double Krk=0, Tnk=0, Tvk=0;
+	protected double Kr=0, Tn=0, Tv=0, Tp=0;
+	protected double Krk=0, Tnk=0, Tvk=0;
 	
 	public static final int KrPOS = 0, TnPOS = 1, TvPOS = 2, TpPOS = 3; 
 	public static final int P = 0, I = 1, PI = 2, PID = 3;
 	public static final String[] calculationTypName = {"Phasengang", "Rosenberg", "Oppelt", "Ziegler/Nichols", "Chien/Hrones/Reswick (20%)", "Chien/Hrones/Reswick (aperiod.)"};
 	
-	private int controllerTyp; // PI/PID
-	private int calculationTyp; // Rosenberg, CHN...
-	private Path path;
-	private UTF utf;
+	protected int controllerTyp; // PI/PID
+	protected int calculationTyp; // Rosenberg, CHN...
+	protected Path path;
+	protected UTF utf;
 	
 	public Controller(){
 		
@@ -76,14 +76,13 @@ public abstract class Controller {
 		this.calculationTyp = calculationTyp;
 		this.path = path;
 
-		calculate(controllerTyp, path);
+		calculate();
 	}		
-	
-	//TODO: Können abstrakte Klassen private sein?
+
 	/**
 	 * Berechnet Einstellwerte des jeweiligen Reglers.
 	 */
-	protected abstract void calculate(int controllerTyp, Path path);
+	protected abstract void calculate();
 	
 }
 

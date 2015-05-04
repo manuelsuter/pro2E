@@ -9,6 +9,9 @@ package ch.fhnw.eit.pro2.gruppe4.utilities;
 import org.apache.commons.math3.analysis.interpolation.SplineInterpolator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
 import org.apache.commons.math3.transform.FastFourierTransformer;
+import org.apache.commons.math3.transform.DftNormalization;
+import org.apache.commons.math3.transform.TransformType;
+import java.lang.Enum;
 
 
 public class Calc {
@@ -264,12 +267,19 @@ public class Calc {
 		alfred[0] = 0.0;
 		concat(colonColon(H,0,1,(n/2)-1),alfred,colonColon(H,(n/2)-1,-1,1));
 		//Impulsantwort berechen
-		double[] h = new double[H.length];//welche Länge
+		double[] h = new double[H.length]; //welche Länge
 		
-		FastFourierTransformer p = new FastFourierTransformer(STANDARD);
+		FastFourierTransformer p = new FastFourierTransformer(DftNormalization.STANDARD);
 		for (int i = 0; i < h.length; i++) {
+			h[i] = p.transform(H[i], TransformType.INVERSE);
+		}
+		
+		/**
+		 * 	for (int i = 0; i < h.length; i++) {
 			h[i]=ifft(H[i]);
 		}
+		 */
+	
 		//Schrittantwort berechnen
 		double[] zwres = new double[2];
 		zwres[0] = 1.0;

@@ -5,7 +5,7 @@ class Rosenberg extends Controller {
 	public Rosenberg(){		
 	}
 		
-	protected void calculate(int controllerTyp, Path path){
+	protected void calculate(){
 		double[] inputValues = path.getInputValues();
 		double Ks = inputValues[Path.KsPOS];
 		double Tg = inputValues[Path.TgPOS];
