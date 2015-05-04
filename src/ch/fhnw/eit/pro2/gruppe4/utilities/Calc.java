@@ -12,6 +12,7 @@ import org.apache.commons.math3.transform.FastFourierTransformer;
 import org.apache.commons.math3.transform.DftNormalization;
 import org.apache.commons.math3.transform.TransformType;
 import java.lang.Enum;
+import org.apache.commons.math3.complex.Complex;
 
 
 public class Calc {
@@ -79,16 +80,16 @@ public class Calc {
 
 			Complex zaehler = new Complex(0, 0);
 			for (int i = 0; i < b.length; i++) {
-				zaehler = zaehler.add(Complex.pow(jw, b.length - i - 1).mul(
+				zaehler = zaehler.add(jw.pow(b.length - i - 1).multiply(
 						b[i]));
 			}
 
 			Complex nenner = new Complex(0, 0);
 			for (int i = 0; i < a.length; i++) {
 				nenner = nenner
-						.add(Complex.pow(jw, a.length - i - 1).mul(a[i]));
+						.add(jw.pow(a.length - i - 1).multiply(a[i]));
 			}
-			res[k] = zaehler.div(nenner);
+			res[k] = zaehler.divide(nenner);
 		}
 		return res;
 	}
@@ -142,22 +143,20 @@ public class Calc {
 	 * @param z
 	 * @return
 	 */
-	public static Complex[] concat(Complex x[], double y[], Complex z[]){
+	public static Complex[] concat(Complex[] x, Complex[] y, Complex[] z){
 		Complex[] res = new Complex[x.length + y.length + z.length];
 		for (int i = 0; i < x.length; i++) {
 			res[i] = x[i];
 		}
 		for (int i = 0; i < y.length; i++) {
-			Complex tmpY = new Complex(y[i]);
-			res[i + x.length] = tmpY;
+			res[i + x.length] = y[i];
 		}
 		for (int i = 0; i < z.length; i++) {
 			res[i + x.length + y.length] = z[i];
 		}
 		return res;
 	}
-
-
+	
 	/**
 	 * Gibt die Werte des Array x in gewünschter Reihenfolge zurück (z.B. invertiert).
 	 * Double-Version
@@ -251,7 +250,7 @@ public class Calc {
 	 * @param n = Länge
 	 * @return c = die Faltung
 	 */
-	public double[][] schrittIfft(double[] zah, double[] nen, double fs, int n) {
+	public static double[][] schrittIfft(double[] zah, double[] nen, double fs, int n) {
 		
 		double T = (1/fs);//Periode
 		double[] w = new double[(int)fs];//Kreisfrequenz
@@ -263,29 +262,32 @@ public class Calc {
 		//Frequenzgang berechnen
 		H = freqs(zah, nen, w);
 		
-		double[] alfred = new double[1];
-		alfred[0] = 0.0;
-		concat(colonColon(H,0,1,(n/2)-1),alfred,colonColon(H,(n/2)-1,-1,1));
+		Complex[] x = new Complex[1];
+		Complex complex = new Complex(0.0,0.0);
+		x[0] = complex;
+		// Symmetrischen Vektor für Ifft erstellen:
+		Complex[] tmp = new Complex[H.length];
+		tmp = (colonColon(H,(n/2)-1,-1,1));
+		for (int i = 0; i < tmp.length; i++) {
+			tmp[i] = tmp[i].conjugate();
+		}
+		H = concat(colonColon(H,0,1,(n/2)-1),x,tmp);
 		//Impulsantwort berechen
-		double[] h = new double[H.length]; //welche Länge
+		Complex[] h = new Complex[H.length]; //welche Länge
 		
-		FastFourierTransformer p = new FastFourierTransformer(DftNormalization.STANDARD);
-		for (int i = 0; i < h.length; i++) {
-			h[i] = p.transform(H[i], TransformType.INVERSE);
-		}
-		
-		/**
-		 * 	for (int i = 0; i < h.length; i++) {
-			h[i]=ifft(H[i]);
-		}
-		 */
+		FastFourierTransformer f = new FastFourierTransformer(DftNormalization.STANDARD);
+		h = f.transform(H, TransformType.INVERSE);
 	
 		//Schrittantwort berechnen
 		double[] zwres = new double[2];
 		zwres[0] = 1.0;
 		zwres[1] = n+1.0;
 		double[] y = new double[h.length];
-		y = diskConv(h, zwres);
+		double[] hReal = new double[h.length];
+		for (int i = 0; i < h.length; i++) {
+			hReal[i] = h[i].getReal();
+		}
+		y = diskConv(hReal, zwres);
 		
 		//Resultate ausschneiden
 		y = colonColon(y,0,1,(int)((y.length/2)-1));
@@ -293,7 +295,15 @@ public class Calc {
 		double[] t;
 		t = linspace(0.0, (y.length-1)*T, y.length);
 		
-		return null;
+		// für Output zusammmensetzen:
+		double[][] res = new double[2][t.length+y.length];
+			for (int i = 0; i < res.length; i++) {
+				res[0][i] = t[i];
+			}
+			for (int j = 0; j < res.length; j++) {
+				res[1][j] = y[j];
+			}
+		return res;
 	}
 
 	
@@ -302,7 +312,7 @@ public class Calc {
 	 * @param x double[] 
 	 * @return res
 	 */
-	public double[] poly(double[] x) {
+	public static double[] poly(double[] x) {
 		double[] res = new double[x.length];
 		for (int i = 1; i < res.length; i++) {
 			res = diskConv(x, res);
@@ -316,7 +326,7 @@ public class Calc {
 	 * @param a = Zähler
 	 * @return c = die Faltung
 	 */
-	public double[] diskConv(double[] b, double[] a) {
+	public static double[] diskConv(double[] b, double[] a) {
 		double[] c = new double[a.length +b.length -1];
 		
 		for (int n = 0; n < c.length; n++) {
@@ -328,9 +338,182 @@ public class Calc {
 	}
 
 	
+	//TODO: classe final setzen um Überschreiben zu verhindern.
+	
+	
+	/**
+	 * Berechnet die Steigung der Funktionswerte y am Punkt x (x ist ein ArrayIndex)
+	 * @param ordinate
+	 * @param abszisse
+	 * @param index
+	 * @return gradient
+	 */
+	
+
+	public static double getGradient(double[] ordinate,double[] abszisse, int index){
+		double gradient;
+		double slope1 = (ordinate[index]-ordinate[index-1])/(abszisse[index]-abszisse[index-1]);
+		double slope2 = (ordinate[index+1]-ordinate[index])/(abszisse[index+1]-abszisse[index]);
+		gradient = (slope1 + slope2) / 2;
+		
+		return gradient;
+	}
+	
+	/**
+	 * Sucht den Wert im Array x der am nächsten bei xx liegt und gibt der ArrayIndex zurück. 
+	 * Es kann davon ausgegangen werden, dass x monoton steigend bzw. fallend ist.
+	 * @param array
+	 * @param referenceValue
+	 * @return previous Index
+	 */
+	public static int diskFind(double[] array, double referenceValue) {
+
+		/*
+		int index;
+		double currentDifference = Math.abs(array[0] - referenceValue);
+		double lastDifference;
+		
+		for (index=1;index<array.length;index++){
+			lastDifference = currentDifference;
+			currentDifference = Math.abs(array[index] - referenceValue);
+			
+
+			if (currentDifference < lastDifference)
+			{
+				// If difference is getting smaller, proceed
+				// with looping.
+				lastDifference = currentDifference;
+				continue;
+			}
+
+			// If not...
+			break;
+		}
+
+        // If difference is growing again, the last value
+        // was closer and we return its index.
+        return index-1;
+        */
+		
+		boolean MONOTON_STEIGEND = false;
+		if (array[0] < array[array.length - 1])
+			MONOTON_STEIGEND = true;
+
+		// Special Cases: referenceValue is smaller than smallest
+		// or larger than largest array element.
+		if ((referenceValue < array[0]) && MONOTON_STEIGEND)
+		{
+			// Array ist monoton steigend, referenceValue ist kleiner
+			// als erstes Element.
+
+			return 0;
+		} 
+		else if ((referenceValue > array[array.length - 1]) && MONOTON_STEIGEND)
+		{
+			// Array ist monoton steigend, referenceValue ist groesser
+			// als letztes Element.
+			
+			return array.length -1;
+		}
+		else if ((referenceValue > array[0]) && !MONOTON_STEIGEND)
+		{
+			// Array ist monoton fallend, referenceValue ist groesser
+			// als erstes Element.
+			
+			return 0;
+		}
+		else if ((referenceValue < array[array.length-1]) && !MONOTON_STEIGEND)
+		{
+			// Array ist monoton fallend, referenceValue ist kleiner
+			// als letztes Element.
+			
+			return array.length -1;
+		}
+			
+		
+		// And the usual cases...
+		int jumpDistance = (int)(Math.floor(array.length/2));
+		int previousIndex;
+		int currentIndex = jumpDistance;
+		
+		do {
+			jumpDistance /= 2;
+			previousIndex = currentIndex;
+
+			if (array[currentIndex] == referenceValue)
+			{
+				// Nothing more to do.
+				return currentIndex;
+			}
+			else if (MONOTON_STEIGEND && (array[currentIndex] > referenceValue))
+			{
+				// Array ist monoton steigend und referenceValue befindet
+				// sich links des aktuellen Index. Wir springen nach links.
+
+				currentIndex -= jumpDistance;
+			}
+			else if (MONOTON_STEIGEND && (array[currentIndex] < referenceValue))
+			{
+				// Array ist monoton steigend und referenceValue befindet
+				// sich rechts des aktuellen Index. Wir springen nach rechts.
+				
+				currentIndex += jumpDistance;
+			}
+			else if (!MONOTON_STEIGEND && (array[currentIndex] < referenceValue))
+			{
+				// Array ist monoton fallend und referenceValue befindet
+				// sich links des aktuellen Index. Wir springen nach links.
+				
+				currentIndex -= jumpDistance;
+			}
+			else if (!MONOTON_STEIGEND && (array[currentIndex] > referenceValue))
+			{
+				// Array ist monoton fallend und referenceValue befindet
+				// sich rechts des aktuellen Index. Wir springen nach rechts.
+				
+				currentIndex += jumpDistance;
+			}
+		} while(jumpDistance > 0);
+		
+		
+		return previousIndex;
+	}
 	
 	
 	
+	
+	
+	public static double[][] Calc(int controllerTyp, double Krk, double Tnk, double Tvk, double Tp) {
+		double[][] koeffizienten;
+		
+		switch (controllerTyp) {
+		// PI-Regler
+		case 2:
+			koeffizienten = new double[2][2];
+			koeffizienten[0][0] = Krk*Tnk; // Koeffizient fuer s^1 im Zaehler
+			koeffizienten[0][1] = Krk;     // Koeffizient fuer s^0 im Zaehler
+			koeffizienten[1][0] = Tnk; 	   // Koeffizient fuer s^1 im Nenner
+			koeffizienten[1][1] = 0;	   // Koeffizient fuer s^0 im Nenner
+			break;
+			
+		// PID-Regler	
+		case 3:
+			koeffizienten = new double[2][3];
+			koeffizienten[0][0] = Krk*Tnk*Tvk;   // Koeffizient fuer s^2 im Zaehler
+			koeffizienten[0][1] = Krk*(Tnk+Tvk); // Koeffizient fuer s^1 im Zaehler
+			koeffizienten[0][2] = Krk;           // Koeffizient fuer s^0 im Zaehler
+			koeffizienten[1][0] = 0; 	   		 // Koeffizient fuer s^2 im Nenner
+			koeffizienten[1][1] = Tnk; 	   		 // Koeffizient fuer s^1 im Nenner
+			koeffizienten[1][2] = 0;	   		 // Koeffizient fuer s^0 im Nenner
+			break;	
+		default:
+			koeffizienten = new double[0][0];
+			break;
+		}
+		return koeffizienten;
+	}
+
+
 	
 	/**
 	 * Berechnet die Sani-Methode gemäss m-File. Gibt die berechneten Werte in einem double-Array zurück.
