@@ -13,7 +13,7 @@ public abstract class Controller {
 	protected int controllerTyp; // PI/PID
 	protected int CALCULATIONTYP; // Rosenberg, CHN...
 	protected Path path;
-	protected UTF utf;
+	protected UTF utf = new UTF();
 	
 	public Controller(){
 		

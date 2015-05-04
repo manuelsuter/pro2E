@@ -44,11 +44,7 @@ public class PhaseResponseMethod extends Controller {
 	}
 
 	private void setPhaseMargin() {
-
 		// alpha bestimmen je nach Reglertyp
-
-		double alpha;
-
 		switch (controllerTyp) {
 
 		case 2:
@@ -84,6 +80,7 @@ public class PhaseResponseMethod extends Controller {
 		this.Krk = Krk;
 
 		Calc.controllerConform(Krk, Tnk, Tvk, Tp, controllerTyp);
+		setUTF();
 
 	}
 
@@ -105,17 +102,18 @@ public class PhaseResponseMethod extends Controller {
 		// Hs berechnen
 
 		Complex[] Hs = new Complex[pointNumber];
+		double[] phiS = new double[pointNumber]; 
 		for (int i = 0; i < Hs.length; i++) {
 			Hs[i] = new Complex(0);
 		}
 		for (int i = 0; i < Hs.length; i++) {
-
+			
 			for (int n = 0; n < Ts.length; n++) {
-
+				
 				Hs[i] = Hs[i].add(new Complex(1, Ts[n] * omega[i]).pow(-1));
-
+				
 			}
-
+			phiS[i] = Hs[i].getArgument();
 		}
 
 		// Amplitudengang berechnen
@@ -194,8 +192,8 @@ public class PhaseResponseMethod extends Controller {
 		}
 
 		// Bestimmung der Frequenz im Punkt Phasengang = alpha
-
-		int omegaControllerIndex = Calc.diskFind(omega, alpha);
+		System.out.println(alpha);
+		int omegaControllerIndex = Calc.diskFind(phiS, alpha);
 
 		double omega_controller = omega[omegaControllerIndex];
 
@@ -249,14 +247,13 @@ public class PhaseResponseMethod extends Controller {
 		case 3:
 
 			// TODO: Optimierbar nur benötigte auslesen.
-
-			double[] phiS = new double[pointNumber];
-
-			for (int i = 0; i < pointNumber; i++) {
+			//TODO: for Schleife entfernen.
+			/**for (int i = 0; i < pointNumber; i++) {
 
 				phiS[i] = Hs[i].getArgument();
 
 			}
+			*/
 
 			// Steigung Strecke
 
@@ -368,7 +365,9 @@ public class PhaseResponseMethod extends Controller {
 		// Umrechnung Reglerkonform
 
 		Calc.controllerConform(Krk, Tnk, Tvk, Tp, controllerTyp);
-
+		setUTF();
 	}
-
+	private void setUTF(){
+		utf.setUTFPoly(new double[] {Tvk, Tnk}, new double[] {Tnk});
+	}
 }

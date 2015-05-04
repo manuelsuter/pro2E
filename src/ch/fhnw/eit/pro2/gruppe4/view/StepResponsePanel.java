@@ -7,6 +7,7 @@ package ch.fhnw.eit.pro2.gruppe4.view;
  * */
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -18,6 +19,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
+import org.apache.commons.math3.complex.Complex;
+
 
 
 public class StepResponsePanel extends JPanel implements ChangeListener {
