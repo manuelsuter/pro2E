@@ -350,7 +350,7 @@ public class Calc {
 	 */
 	
 
-	public static double getGradient(double[] ordinate,double[] abszisse, int index){
+	public static double diskDiff(double[] ordinate,double[] abszisse, int index){
 		double gradient;
 		double slope1 = (ordinate[index]-ordinate[index-1])/(abszisse[index]-abszisse[index-1]);
 		double slope2 = (ordinate[index+1]-ordinate[index])/(abszisse[index+1]-abszisse[index]);
@@ -479,11 +479,19 @@ public class Calc {
 		return previousIndex;
 	}
 	
+	/**
+	 * Berechnte Zähler und Nennerpolynom eines Reglers
+	 * @param controllerTyp
+	 * @param Krk
+	 * @param Tnk
+	 * @param Tvk
+	 * @param Tp
+	 * @return koeffizienten
+	 */
 	
 	
 	
-	
-	public static double[][] Calc(int controllerTyp, double Krk, double Tnk, double Tvk, double Tp) {
+	public static double[][] UTFController(int controllerTyp, double Krk, double Tnk, double Tvk, double Tp) {
 		double[][] koeffizienten;
 		
 		switch (controllerTyp) {
