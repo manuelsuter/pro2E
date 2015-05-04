@@ -8,6 +8,7 @@ package ch.fhnw.eit.pro2.gruppe4.view;
 
 import java.awt.Dimension;
 
+import ch.fhnw.eit.pro2.gruppe4.model.Controller;
 import ch.fhnw.eit.pro2.gruppe4.model.Model;
 
 public class GUIController {
@@ -31,6 +32,33 @@ public class GUIController {
 			Dimension dimension = new Dimension(1200, 768);
 		view.setVisibility(flag, dimension);
 		}
+	}
+	
+	public void setData(double Ks, double Tu, double Tg, int controllerTyp, double Tp){
+		model.setData(Ks, Tu, Tg, controllerTyp, Tp);
+	}
+	
+	public void calculate(){		
+		
+			double Ks = Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText());
+			double Tu = Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText());
+			double Tg = Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText());
+			double Tp = 0.0;
+			//TODO: Tp noch verarbeiten.
+			//double Tp = Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp.getText());	
+			int controllerTyp;
+			
+			if (view.leftPanel.controllerChooserPanel.btPI.isSelected() == true) {
+				controllerTyp = Controller.PI;
+			}
+			else{
+				controllerTyp = Controller.PID;
+			}
+			model.setData(Ks, Tu, Tg, controllerTyp, Tp);
+			
+			//TODO: SYSO löschen.
+			System.out.println("GUI-Controller Methode calculate() ausgelöst!!");
+		
 	}
 	
 	public void setView(View view) {

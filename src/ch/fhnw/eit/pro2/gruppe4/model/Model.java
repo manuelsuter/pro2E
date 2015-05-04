@@ -9,22 +9,25 @@ package ch.fhnw.eit.pro2.gruppe4.model;
 import java.util.Observable;
 
 public class Model extends Observable {
+	private ClosedLoop[] closedLoop = new ClosedLoop[8];
+	private Path path = new Path();
 	
-	private Model(){
-		//erstellt zu jedem Reglerberechnungstyp einen ClosedLoop und liefert die zur Berechung notwendigen Daten. Organisiert die CloedLoops in einem Array.
-		
-		//*Ein Objekt mit den Inhalten: String ControllerCalculationTyp, int ControllerTyp, Path path, double Tp, double "phiR", double/int overshoot
-		Object[] object = new Object[7];
-		ClosedLoop closedLoop = new ClosedLoop();
-		for (int i = 0; i < object.length; i++) {
-			objetc[i] = 
-			
+	
+	public Model(){
+		for (int i = 0; i < closedLoop.length-5; i++) {
+			closedLoop[i] = new ClosedLoop(0);
 		}
-		
+		for (int i = closedLoop.length-5; i < closedLoop.length; i++) {
+			closedLoop[i] = new ClosedLoop(i-5);
+		}	
 	}
 
-	public void setData(String data) {
-		
+	
+	public void setData(double Ks, double Tu, double Tg, int controllerTyp, double Tp) {
+		path.setData(Ks, Tu, Tg);
+		for (int i = 0; i < closedLoop.length; i++) {
+			closedLoop[i].setData(controllerTyp, path, Tp);
+		}
 	}
 
 

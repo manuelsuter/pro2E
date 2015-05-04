@@ -2,6 +2,9 @@ package ch.fhnw.eit.pro2.gruppe4.model;
 
 class Rosenberg extends Controller {
 	
+	public static final int CALCULATIONTYP = 1;
+
+	
 	public Rosenberg(){		
 	}
 		
@@ -13,13 +16,14 @@ class Rosenberg extends Controller {
 			
 		switch (controllerTyp) {
 		// PI Regler
-		case 2:
+		//TODO: Bei allen so mit Controller.PI ergänzen.
+		case Controller.PI:
 			Kr = (0.91/Ks)*(Tg/Tu);
 			Tn = 3.3*Tu;
 			Tv = 0;
 			break;
 		//PID Regler	
-		case 3:
+		case Controller.PID:
 			Kr = (1.2/Ks) * (Tg/Tu);
 		    Tn = 2 * Tu;
 			Tv = 0.44 * Tu;

@@ -23,9 +23,10 @@ public class LeftPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private GUIController controller;
-	private InputPanel inputPanel;
-	private ControllerChooserPanel regulatorChooserPanel;
-	private ControllerValuePanel regulatorValuePanel;
+	private View view;
+	public InputPanel inputPanel;
+	public ControllerChooserPanel controllerChooserPanel;
+	public ControllerValuePanel controllerValuePanel;
 
 	
 	
@@ -41,20 +42,20 @@ public class LeftPanel extends JPanel {
 				GridBagConstraints.FIRST_LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						2, 2, 2, 2), 0, 0));
 		
-		regulatorChooserPanel = new ControllerChooserPanel(controller);
-		add(regulatorChooserPanel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
+		controllerChooserPanel = new ControllerChooserPanel(controller);
+		add(controllerChooserPanel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
 				GridBagConstraints.FIRST_LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						2, 2, 2, 2), 0, 0));
 		
-		regulatorValuePanel = new ControllerValuePanel(controller);
-		add(regulatorValuePanel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
+		controllerValuePanel = new ControllerValuePanel(controller);
+		add(controllerValuePanel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
 				GridBagConstraints.FIRST_LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						2, 2, 2, 2), 0, 0));
 	}	
 	
 	public void update(Observable obs, Object obj) {
 		inputPanel.update(obs, obj);
-		regulatorChooserPanel.update(obs, obj);
-		regulatorValuePanel.update(obs, obj);
+		controllerChooserPanel.update(obs, obj);
+		controllerValuePanel.update(obs, obj);
 	}
 }

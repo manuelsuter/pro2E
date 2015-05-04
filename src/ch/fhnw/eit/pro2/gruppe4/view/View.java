@@ -12,6 +12,8 @@ import java.awt.Insets;
 import java.util.Observable;
 import java.util.Observer;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -48,6 +50,7 @@ public class View extends JPanel implements Observer {
 		this.frame = frame;
 		
 	}
+	
 
 	/**
 	 * Sets the visibility of the right panel, the new size of the frame and a flag if the frame is resizable. 
@@ -63,7 +66,7 @@ public class View extends JPanel implements Observer {
 	public void update(Observable obs, Object obj) {
 		leftPanel.update(obs, obj);
 		rightPanel.update(obs, obj);
-	}
+	}	
 }
 
 

@@ -29,7 +29,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 
 	private static final long serialVersionUID = 1L;
 	private GUIController controller;
-	private JDoubleTextField tfKS, tfTU, tfTG;
+	public JDoubleTextField tfKs, tfTu, tfTg;
 	private JButton btBerechne, btClear;
 	private JCheckBox checkBoxPlot;
 
@@ -54,9 +54,9 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 				new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
 						GridBagConstraints.LINE_START, GridBagConstraints.NONE,
 						new Insets(10, 10, 5, 10), 0, 0)); // .setText("K"+"<html><center><font face=\"Arial, Verdana, Sans Serif\" color=\"#FFFFFF\" size=\"-2\">Please insert</font></center></html>");
-
-		tfKS = new JDoubleTextField("",100,false);
-		add(tfKS, new GridBagConstraints(1, 0, 2, 1, 1.0, 0.0,
+		//TODO: Textfelder wieder löschen.
+		tfKs = new JDoubleTextField("1.0",100,false);
+		add(tfKs, new GridBagConstraints(1, 0, 2, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
 				new Insets(10, 10, 5, 10), 0, 0));
 
@@ -65,8 +65,8 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 						GridBagConstraints.LINE_START, GridBagConstraints.NONE,
 						new Insets(10, 10, 5, 10), 0, 0));
 
-		tfTU = new JDoubleTextField("",100,false);
-		add(tfTU, new GridBagConstraints(1, 1, 2, 1, 1.0, 0.0,
+		tfTu = new JDoubleTextField("0.00145",100,false);
+		add(tfTu, new GridBagConstraints(1, 1, 2, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
 				new Insets(10, 10, 5, 10), 0, 0));
 
@@ -79,8 +79,8 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 						GridBagConstraints.LINE_START, GridBagConstraints.NONE,
 						new Insets(10, 10, 5, 10), 0, 0));
 
-		tfTG = new JDoubleTextField("",100,false);
-		add(tfTG, new GridBagConstraints(1, 2, 2, 1, 1.0, 0.0,
+		tfTg = new JDoubleTextField("0.00791",100,false);
+		add(tfTg, new GridBagConstraints(1, 2, 2, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
 				new Insets(10, 10, 5, 10), 0, 0));
 
@@ -107,7 +107,9 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 		checkBoxPlot.addItemListener(this);
 	}
 	public void actionPerformed(ActionEvent e) {
-
+		if(e.getSource()==btBerechne){
+			controller.calculate();		
+		}
 	}
 //TODO: Grï¿½sse aus LeftPanel Lesen; bei true grï¿½sser setzen.
 //TODO: Hinweis auf Geï¿½derte Werte in Textfelder falls Neuberechnenn noch nicht ausgelï¿½st???

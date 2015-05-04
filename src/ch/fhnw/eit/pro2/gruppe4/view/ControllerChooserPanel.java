@@ -22,7 +22,7 @@ public class ControllerChooserPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private GUIController controller;
-	private JToggleButton btPI, btPID;
+	public JToggleButton btPI, btPID;
 	private ButtonGroup bGroup;
 
 	

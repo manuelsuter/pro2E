@@ -11,7 +11,7 @@ public abstract class Controller {
 	public static final String[] calculationTypName = {"Phasengang", "Rosenberg", "Oppelt", "Ziegler/Nichols", "Chien/Hrones/Reswick (20%)", "Chien/Hrones/Reswick (aperiod.)"};
 	
 	protected int controllerTyp; // PI/PID
-	protected int calculationTyp; // Rosenberg, CHN...
+	protected int CALCULATIONTYP; // Rosenberg, CHN...
 	protected Path path;
 	protected UTF utf;
 	
@@ -43,14 +43,7 @@ public abstract class Controller {
 	public int getControllerTyp(){
 		return controllerTyp;
 	}
-	
-	/**
-	 * Gibt die Berechnungsart (Rosenberg, CHN) als String zurück.
-	 * @return
-	 */
-	public int getCalculationTyp(){
-		return calculationTyp;
-	}
+
 	
 	/**
 	 * Gibt die Reglerwerte reglerkonform in einem Double-Array zurück.
@@ -71,9 +64,8 @@ public abstract class Controller {
 	 * Löst calculate() aus.
 	 * @param path
 	 */
-	public void setData(int controllerTyp, int calculationTyp, Path path){
+	public void setData(int controllerTyp, Path path){
 		this.controllerTyp = controllerTyp;
-		this.calculationTyp = calculationTyp;
 		this.path = path;
 
 		calculate();

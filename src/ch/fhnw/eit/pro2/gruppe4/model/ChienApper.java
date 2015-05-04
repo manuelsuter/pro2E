@@ -1,8 +1,9 @@
 package ch.fhnw.eit.pro2.gruppe4.model;
 
 public class ChienApper extends Controller {
+	
+	public static final int CALCULATIONTYP = 5;
 
-	@Override
 	protected void calculate() {
 		double[] inputValues = path.getInputValues();
 		double Ks = inputValues[Path.KsPOS];

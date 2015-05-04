@@ -1,57 +1,95 @@
 package ch.fhnw.eit.pro2.gruppe4.model;
 
+import java.lang.invoke.SwitchPoint;
+
+import org.apache.commons.math3.geometry.euclidean.twod.DiskGenerator;
+
 import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 
-public abstract class ClosedLoop {
+public class ClosedLoop {
 	
 	private double[][] yt;
 	private Controller controller;
+	private Path path;
+	private UTF utf = new UTF();
+	
+	public ClosedLoop(int calculationTyp) {
+		switch (calculationTyp) {
+		case 0:
+			controller = new PhaseResponseMethod();
+			break;
+			
+		case 1:
+			controller = new Rosenberg();
+			break;
+			
+		case 2:
+			controller = new Oppelt();
+			break;	
+			
+		case 3:
+			controller = new ZieglerNichols();
+			break;
 
-	protected void simClosedLoop(double[] zah_s,double[] nen_s,double[] zah_r, double[]nen_r, double Tg) {
-		double[] zah; //Zähler
-		double[] nen; //Nenner
-		int n = 8*1024;
-		
-		double fs = (1/Tg)*500;
-		
-		zah = Calc.diskConv(zah_s,zah_r);
-		nen = Calc.diskConv(nen_s,nen_r);
-		
-		nen = Calc.colonColon(nen,nen.length-zah.length+1,1,nen.length);
-		nen = add(nen,zah);
-		
-		yt = Calc.schrittIfft(zah, nen, fs, n);
-		//TODO: figure; plot(t,y);
+		case 4:
+			controller = new Chien20();
+			break;
+	
+		case 5:
+			controller = new ChienApper();
+			break;
+	
+		default:
+			//TODO: Exception!
+			break;
+		}
 	}
 	
-	protected void simClosedLoop(double[] zah_s,double[] nen_s,double[] zah_r, double[]nen_r) {
-		double[] zah; //Zähler
-		double[] nen; //Nenner
-		int n = 8*1024; 
+	
+	
+
+	/**
+	 * Berechnet den geschlossenen Regelkreis.
+	 */
+	
+	protected void calculate() {
+		double[] zah_c = controller.getUTFZahPoly();
+		double[] nen_c = controller.getUTFNenPoly();
+		double[] zah_p = path.getUTFZahPoly();
+		double[] nen_p = path.getUTFNenPoly();
 		
-		double fs = 100;//TODO: Wahl abhängig von fg
-		
-		zah = Calc.diskConv(zah_s,zah_r);
-		nen = Calc.diskConv(nen_s,nen_r);
+		double[] nen = Calc.diskConv(nen_c, nen_p);
+		double[] zah = Calc.diskConv(zah_c, zah_p);
 		
 		nen = Calc.colonColon(nen,nen.length-zah.length+1,1,nen.length);
 		nen = add(nen,zah);
 		
+		utf.setUTFFac(zah, nen);
+		
+		//TODO: noch optimieren, gibt Bereich an, welcher berechnet wird:
+		double fs = 1.0/(path.getInputValues()[Path.TgPOS]*500);
+		int n = 8*1024;
 		yt = Calc.schrittIfft(zah, nen, fs, n);
-		//TODO: figure; plot(t,y);
 	}
+		
+	/**
+	 * Addiert zwei Arrays zusammen.
+	 * @param b
+	 * @param a
+	 * @return
+	 */
 	
 	protected double[] add(double[] b, double[] a) {
 		double[] res = new double[a.length + b.length];
 		//TODO: Vereinfachen mit Referenzen
-		if (b.length>a.length) {
+		if (b.length > a.length) {
 			res = b.clone();
 			for (int i = 0; i > (res.length -a.length); i++) {
 				res[i] = b[b.length-1-i]+a[i];
 			}
 		}
 		else
-			if (b.length<a.length) {
+			if (b.length < a.length) {
 				res = a.clone();
 				for (int i = 0; i > (res.length -b.length); i++) {
 					res[i] = b[b.length-1-i]+a[i];
@@ -67,39 +105,44 @@ public abstract class ClosedLoop {
 	 * 
 	 */
 					
-	public void setData(Object[] input) {
-		int calculationTyp = (int)input[0];
-		int controllerTyp = (int)input[1];
-		Path path = (Path)input[2];
-		double Tp = (double)input[3];
-		
-		controller.setData(controllerTyp, calculationTyp, path);
+	public void setData(int controllerTyp, Path path, double Tp) {
+		this.path = path;
+	
+		controller.setData(controllerTyp, path);
 		controller.setTp(Tp);
+		
+		calculate();
 	}
 	
 	/**
 	 * Gibt Controller zurück
 	 * @return controller
 	 */
-	public Controller getControllerTyp() {
-		controller.getControllerTyp();
+	public Controller getController() {
 		return controller;
 	}
 	/**
-	 * Gibt Path zurück
+	 * Gibt Path zurück.
 	 * @return path
 	 */
 	public Path getPath() {
-		path.getInputValues();
 		return path;
 	}
 	/**
-	 * Gibt Schrittantwort des geschlossenen Regelkreises zurück
+	 * Gibt Schrittantwort des geschlossenen Regelkreises zurück.
 	 * @return
 	 */
 	public double[][] getStepResponse() {
 		return yt;
 	}
 
+	
+	/**
+	 * Gibt UTF des geschlossenen Regelkreises zurück.
+	 * @return
+	 */
+	public UTF getUTF() {
+		return utf;
+	}
 
 }

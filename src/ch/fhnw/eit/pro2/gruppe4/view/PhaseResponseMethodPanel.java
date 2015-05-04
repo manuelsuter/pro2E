@@ -21,7 +21,7 @@ import ch.fhnw.eit.pro2.gruppe4.model.Model;
 public class PhaseResponseMethodPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private GUIController controller;
-	private JDoubleTextField tfTP;
+	public JDoubleTextField tfTp;
 	private JLabel lbLessKR, lbMiddleKR, lbStrongKR;
 	private JLabel lbLessTP, lbMiddleTP, lbStrongTP;
 	private JLabel lbLessTV, lbMiddleTV, lbStrongTV;
@@ -42,8 +42,8 @@ public class PhaseResponseMethodPanel extends JPanel {
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
 						5, 10, 5, 10), 0, 0));
 		
-		tfTP = new JDoubleTextField("",100,false);
-		add(tfTP, new GridBagConstraints(1, 4, 3, 1, 1.0, 0.0,
+		tfTp = new JDoubleTextField("",100,false);
+		add(tfTp, new GridBagConstraints(1, 4, 3, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						5, 10, 5, 10), 0, 0));
 	}
@@ -75,7 +75,7 @@ public void makePhaseResponseMethodLine(String lbMethod, String lbKr, String lbT
 
 public void update(Observable obs, Object obj) {
 	Model model = (Model)obs;
-	tfTP.setText(model.getData());
+	//tfTP.setText(model.getData());
 }
 
 }

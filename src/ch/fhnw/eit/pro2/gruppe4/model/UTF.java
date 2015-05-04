@@ -54,8 +54,6 @@ public class UTF {
 	}
 	
 	
-	
-	
 	/**
 	 * Gibt Zähler faktorisiert zurück.
 	 * @return
@@ -76,7 +74,7 @@ public class UTF {
 	 * Setzt die UTF mittels faktorisiertem Zähler und Nenner.
 	 * @return
 	 */
-	public void setUTFPFac(double[] zahFac, double[] nenFac){
+	public void setUTFFac(double[] zahFac, double[] nenFac){
 		this.zahFac = zahFac;
 		this.nenFac = nenFac;
 	}

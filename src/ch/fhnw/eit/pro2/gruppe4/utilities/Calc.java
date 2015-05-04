@@ -350,7 +350,7 @@ public class Calc {
 	 */
 	
 
-	public static double diskDiff(double[] ordinate,double[] abszisse, int index){
+	public static double diskDiff(double[] ordinate, double[] abszisse, int index){
 		double gradient;
 		double slope1 = (ordinate[index]-ordinate[index-1])/(abszisse[index]-abszisse[index-1]);
 		double slope2 = (ordinate[index+1]-ordinate[index])/(abszisse[index+1]-abszisse[index]);

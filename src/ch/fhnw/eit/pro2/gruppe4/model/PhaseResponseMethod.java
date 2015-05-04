@@ -6,6 +6,8 @@ import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 public class PhaseResponseMethod extends Controller {
 	public static final int OVERSHOOT0 = 0, OVERSHOOT4_6 = 1,
 			OVERSHOOT16_3 = 2, OVERSHOOT23_3 = 3;
+	public static final int CALCULATIONTYP = 0;
+
 
 	private int overShoot = 3;
 
@@ -18,13 +20,12 @@ public class PhaseResponseMethod extends Controller {
 	 * Löst calculate() aus.
 	 * 
 	 * @param path
+	 * @throws ControllerException 
 	 */
 
-	public void setData(int controllerTyp, int calculationTyp, Path path) {
+	public void setData(int controllerTyp, Path path){
 
 		this.controllerTyp = controllerTyp;
-
-		this.calculationTyp = calculationTyp;
 
 		this.path = path;
 
@@ -65,11 +66,7 @@ public class PhaseResponseMethod extends Controller {
 		default:
 
 			// TODO: Controller Exception erstellen
-
-			throw new ControllerException("Controller-Typ not implemented");
-
 			break;
-
 		}
 
 	}
@@ -108,7 +105,9 @@ public class PhaseResponseMethod extends Controller {
 		// Hs berechnen
 
 		Complex[] Hs = new Complex[pointNumber];
-
+		for (int i = 0; i < Hs.length; i++) {
+			Hs[i] = new Complex(0);
+		}
 		for (int i = 0; i < Hs.length; i++) {
 
 			for (int n = 0; n < Ts.length; n++) {
@@ -186,7 +185,7 @@ public class PhaseResponseMethod extends Controller {
 
 			break;
 
-		case 3:
+		default:
 
 			phiU = -2.356194; // 23.3%
 
@@ -339,10 +338,7 @@ public class PhaseResponseMethod extends Controller {
 
 			// TODO: Controller Exception erstellen
 
-			throw new ControllerException("Controller-Typ not implemented");
-
 			break;
-
 		}
 
 		// Bestimmung omega_d anhand Überschwingungsdefinition

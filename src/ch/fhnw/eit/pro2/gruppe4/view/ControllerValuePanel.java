@@ -20,7 +20,7 @@ public class ControllerValuePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private GUIController controller;
 	private RulesOfThumbPanel rulesOfThumbPanel;
-	private PhaseResponseMethodPanel phaseResponsePanel;
+	public PhaseResponseMethodPanel phaseResponsePanel;
 	private JLabel lbRosenberg, lbOppelt, lbZNn, lbZNs, lbCHR2, lbCHRa, lbTSUMn, lbTSUMs, lbKR, lbTN, lbTV;
 	
 	

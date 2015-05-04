@@ -2,11 +2,11 @@ package ch.fhnw.eit.pro2.gruppe4.model;
 import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 
 
-public abstract class Path {
+public class Path {
 	
 	public static final int KsPOS = 0, TuPOS = 1, TgPOS = 2;
 	private double Ks, Tu, Tg;
-	private UTF utf;
+	private UTF utf = new UTF();
 	
 	public Path(){		
 	}
@@ -52,5 +52,6 @@ public abstract class Path {
 		KsArray[0] = Ks;
 		utf.setZahPoly(KsArray);
 		double[] t = Calc.sani(Tu, Tg);
+		utf.setNenPoly(t);
 	}
 }

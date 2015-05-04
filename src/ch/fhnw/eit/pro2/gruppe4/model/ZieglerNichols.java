@@ -1,6 +1,9 @@
 package ch.fhnw.eit.pro2.gruppe4.model;
 
 public class ZieglerNichols extends Controller {
+	
+	public static final int CALCULATIONTYP = 3;
+
 
 	@Override
 	protected void calculate() {
