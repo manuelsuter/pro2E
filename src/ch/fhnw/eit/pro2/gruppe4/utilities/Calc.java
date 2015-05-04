@@ -51,7 +51,7 @@ public class Calc {
 	 */
 	public double[] poly(double[] x) {
 		double[] res = new double[x.length];
-		for (int i = 2; i < res.length; i++) {
+		for (int i = 1; i < res.length; i++) {
 			res = diskConv(x, res);
 		}
 		return res;
@@ -86,7 +86,7 @@ public class Calc {
 		
 		double T = (1/fs);//Periode
 		double[] w = new double[(int)fs];//Kreisfrequenz
-		Complex[] H = new Complex[];
+		Complex[] H;
 		
 		//Frequenzachse berechnen
 		w = linspace(0.0, fs*Math.PI, n/2);
@@ -94,15 +94,7 @@ public class Calc {
 		//Frequenzgang berechnen
 		H = freqs(zah, nen, w);
 		
-		//Sym. Array für Ifft() erstelllen
-		for (int i = 1; i < n/2; i++) {
-			H[i] = i;
-		}
-		H[n/2+1] = 0;
-		for (int i = n/2; i > 2; i--) {
-			H[i]= i;//Was machen mit conj?
-		}
-		
+		concat(colonColon(H,0,1,(n/2)-1),0,colonColon(H,(n/2)-1,-1,1));
 		//Impulsantwort berechen
 		double[] h = new double[H.length];//welche Länge
 		for (int i = 0; i < h.length; i++) {
@@ -110,17 +102,16 @@ public class Calc {
 		}
 		//Schrittantwort berechnen
 		double[] zwres = new double[2];
-		zwres[0]=1.0;
+		zwres[0] = 1.0;
 		zwres[1] = n+1.0;
 		double[] y = new double[h.length];
 		y = diskConv(h, zwres);
+		
 		//Resultate ausschneiden
-		for (int i = 0; i < y.length/2; i++) {
-			
-  
-		}
-		double[] t = new double[];//Länge?
-		t = linspace(0.0, (y.length-1)*T, y.length);//' wie?
+		y = colonColon(y,0,1,(int)((y.length/2)-1));
+		
+		double[] t;
+		t = linspace(0.0, (y.length-1)*T, y.length);
 		
 		return null;
 	}
