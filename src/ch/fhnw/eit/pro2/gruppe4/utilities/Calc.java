@@ -47,14 +47,14 @@ public class Calc {
 	/**
 	 *Ausmultiplizieren von Polynomen der Form: (1+x_1)*(1+x_2)*...
 	 * @param x double[] 
-	 * @return ausmultiplikation
+	 * @return res
 	 */
-	public double[] poly(double[] x) {//wirklich returnvalue ein double[]?
-		double[] ausmulti = new double[x.length];
-		for (int i = 0; i < x.length; i++) {
-			
+	public double[] poly(double[] x) {
+		double[] res = new double[x.length];
+		for (int i = 2; i < res.length; i++) {
+			res = diskConv(x, res);
 		}
-		return ausmulti;
+		return res;
 	}
 	
 	/**
@@ -79,18 +79,48 @@ public class Calc {
 	 * @param zah = Zähler 
 	 * @param nen = Nenner
 	 * @param fs = Frequenz
-	 * @param n = Länge Arrey
+	 * @param n = Länge
 	 * @return c = die Faltung
 	 */
-	public double[][] schrittIfft(double[] zah, double[] nen, double[]fs, double n) {
-		double[] T = new double[fs.length];//Periode
-		double[] w = new double[fs.length];//Kreisfrequenz
+	public double[][] schrittIfft(double[] zah, double[] nen, double fs, int n) {
 		
-		for (int i = 0; i < fs.length; i++) {
-			T[i] = (1/fs[i]);
-			w[i] = logspace(0,fs[i]*Math.PI,n/2);
+		double T = (1/fs);//Periode
+		double[] w = new double[(int)fs];//Kreisfrequenz
+		Complex[] H = new Complex[];
+		
+		//Frequenzachse berechnen
+		w = linspace(0.0, fs*Math.PI, n/2);
+		
+		//Frequenzgang berechnen
+		H = freqs(zah, nen, w);
+		
+		//Sym. Array für Ifft() erstelllen
+		for (int i = 1; i < n/2; i++) {
+			H[i] = i;
+		}
+		H[n/2+1] = 0;
+		for (int i = n/2; i > 2; i--) {
+			H[i]= i;//Was machen mit conj?
 		}
 		
+		//Impulsantwort berechen
+		double[] h = new double[H.length];//welche Länge
+		for (int i = 0; i < h.length; i++) {
+			h[i]=ifft(H[i]);
+		}
+		//Schrittantwort berechnen
+		double[] zwres = new double[2];
+		zwres[0]=1.0;
+		zwres[1] = n+1.0;
+		double[] y = new double[h.length];
+		y = diskConv(h, zwres);
+		//Resultate ausschneiden
+		for (int i = 0; i < y.length/2; i++) {
+			
+  
+		}
+		double[] t = new double[];//Länge?
+		t = linspace(0.0, (y.length-1)*T, y.length);//' wie?
 		
 		return null;
 	}
