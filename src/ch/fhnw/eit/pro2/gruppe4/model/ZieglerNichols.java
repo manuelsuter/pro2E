@@ -10,12 +10,13 @@ public class ZieglerNichols extends Controller {
 		double Tu = inputValues[Path.TuPOS];
 		
 		switch (controllerTyp) {
+		// PI Regler
 		case 2:
 			Kr=(0.9/Ks)*(Tg/Tu);
 		    Tn=3.33*Tu;
 		    Tv=0;
 			break;
-			
+		// PID Regler	
 		case 3:
 			Kr=(1.2/Ks)*(Tg/Tu);
 		    Tn=2*Tu;

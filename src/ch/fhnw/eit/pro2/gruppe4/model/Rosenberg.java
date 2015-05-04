@@ -18,7 +18,6 @@ class Rosenberg extends Controller {
 			Tn = 3.3*Tu;
 			Tv = 0;
 			break;
-			
 		//PID Regler	
 		case 3:
 			Kr = (1.2/Ks) * (Tg/Tu);

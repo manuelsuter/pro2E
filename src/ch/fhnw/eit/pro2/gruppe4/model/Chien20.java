@@ -16,7 +16,7 @@ public class Chien20 extends Controller {
             Tn=2.3*Tu;
             Tv=0;
 			break;
-			// PID Regler
+		// PID Regler
 		case 3:
 		     Kr=1.2*Tg/(Ks*Tu);
 	         Tn=2*Tu;

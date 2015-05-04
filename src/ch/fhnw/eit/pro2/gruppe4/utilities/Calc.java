@@ -521,7 +521,27 @@ public class Calc {
 		return koeffizienten;
 	}
 
+	/**
+	 * Spline Interpolation mittels SplineNAK.
+	 * @param x
+	 * @param y
+	 * @param v
+	 * @return
+	 */
+	public static double spline(double[] x, double[] y, double v) {
+		double res;
+		int t = x.length;
+		double[] b = new double[t];
+		double[] c = new double[t];
+		double[] d = new double[t];
 
+		SplineNAK.cubic_nak(t, x, y, b, c, d);
+		res = SplineNAK.spline_eval(t, x, y, b, c, d, v);
+		
+		return res;
+	}
+	
+	
 	
 	/**
 	 * Berechnet die Sani-Methode gemäss m-File. Gibt die berechneten Werte in einem double-Array zurück.
@@ -529,7 +549,9 @@ public class Calc {
 	 * @param Tg
 	 * @return
 	 */
-	public static double[] sani(double Tu, double Tg){
+	
+	
+	public static final double[] sani(double Tu, double Tg){
 		double[][] t_Tg = { 
 			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 			{0.999250000046894,0.922105092561432,0.872737852273561,0.833461509613291,0.800341962010093,0.771542032284433,0.745995932100809,0.723018167273046,0.702130707565877,0.682983266460938,0.665313531493445,0.648915462929890,0.633625357816225,0.619310444597175,0.605860208611414,0.593183155818518,0.581201200000870,0.569847829960794,0.559066514407131,0.548806395297330,0.539025594563050,0.529684417073429,0.520748993039681,0.512190747804443,0.503981237916122,0.496096670975454,0.488515307160658,0.481217958107207,0.474186371453051,0.467404155291639,0.460856441372717,0.454530087543143,0.448412458251188,0.442491949371856,0.436757789958252,0.431200556164035,0.425811330046404,0.420581686418264,0.415503675452216,0.410569802592400,0.405773408613285,0.401108785968687,0.396569085193029,0.392149538874904,0.387844720610165,0.383649449236732,0.379559302643764,0.375570313796733,0.371678244211578,0.367879119353631},
@@ -567,7 +589,7 @@ public class Calc {
 			throw new IllegalArgumentException("Tu/Tg zu klein -> N = 1!!");
 		}
 
-		double[] ri=Calc.linspace(0.0, 1.0, 50);
+		double[] ri = Calc.linspace(0.0, 1.0, 50);
 
 		// abhaengig von n werden vorberechnete Datenfiles von der Festplatte geladen. 
 		// 2 <= n <= 8
@@ -590,24 +612,19 @@ public class Calc {
 		} else {
 			n = 10;
 		}
+		
+		double r;
+		double w;
 
-		SplineInterpolator rInterpolator = new SplineInterpolator();
-		PolynomialSplineFunction r = rInterpolator.interpolate(tu_Tg[n], ri);
+		r = spline(tu_Tg[n-1], ri, v);
+		w = spline(ri,t_Tg[n-1],r);
 		
-		double valueR = r.value(v);
-		
-		SplineInterpolator wInterpolator = new SplineInterpolator();
-		PolynomialSplineFunction w = wInterpolator.interpolate(ri, t_Tg[n]);		
-		
-		double valueW = w.value(valueR);
-		
-		double[] T = new double[w.getN()];
-	
-			T[n-1] = valueW * Tg; // Erster Array-Wert.
+			double[] T = new double[8];
+			T[n-1] = w * Tg; // Erster Array-Wert.
 			
 			// Berechnen der weiteren Werten.
 			for (int j = 0; j < n-1; j++) {
-				T[j] = T[n-1]*Math.pow(valueR, n-(j+1));
+				T[j] = T[n-1]*Math.pow(r, n-(j+1));
 			}
 		return T;
 	}

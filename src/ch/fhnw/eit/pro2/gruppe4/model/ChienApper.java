@@ -16,7 +16,6 @@ public class ChienApper extends Controller {
 	         Tn=1.2*Tu;
 	         Tv=0;
 			break;
-			
 		// PID Regler
 		case 3:
 			Kr=0.95*Tg/(Ks*Tu);
