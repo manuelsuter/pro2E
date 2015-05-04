@@ -3,12 +3,14 @@ package ch.fhnw.eit.pro2.gruppe4.model;
 import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 
 public abstract class ClosedLoop {
+	
+	private double[][] yt;
+	private Controller controller;
 
 	protected void simClosedLoop(double[] zah_s,double[] nen_s,double[] zah_r, double[]nen_r, double Tg) {
 		double[] zah; //Zähler
 		double[] nen; //Nenner
 		int n = 8*1024;
-		double[][] yt; 
 		
 		double fs = (1/Tg)*500;
 		
@@ -25,8 +27,7 @@ public abstract class ClosedLoop {
 	protected void simClosedLoop(double[] zah_s,double[] nen_s,double[] zah_r, double[]nen_r) {
 		double[] zah; //Zähler
 		double[] nen; //Nenner
-		int n = 8*1024;
-		double[][] yt; 
+		int n = 8*1024; 
 		
 		double fs = 100;//TODO: Wahl abhängig von fg
 		
@@ -58,5 +59,47 @@ public abstract class ClosedLoop {
 			}
 		return res;
 	}
+	
+	
+	/**
+	 * Nimmt die InputValues entgegen und gibt sie den Unterklassen weiter
+	 * @param input (int ControllerCalculationTyp, int ControllerTyp, Path path, double Tp, double "phiR", double/int overshoot)
+	 * 
+	 */
+					
+	public void setData(Object[] input) {
+		int calculationTyp = (int)input[0];
+		int controllerTyp = (int)input[1];
+		Path path = (Path)input[2];
+		double Tp = (double)input[3];
+		
+		controller.setData(controllerTyp, calculationTyp, path);
+		controller.setTp(Tp);
+	}
+	
+	/**
+	 * Gibt Controller zurück
+	 * @return controller
+	 */
+	public Controller getControllerTyp() {
+		controller.getControllerTyp();
+		return controller;
+	}
+	/**
+	 * Gibt Path zurück
+	 * @return path
+	 */
+	public Path getPath() {
+		path.getInputValues();
+		return path;
+	}
+	/**
+	 * Gibt Schrittantwort des geschlossenen Regelkreises zurück
+	 * @return
+	 */
+	public double[][] getStepResponse() {
+		return yt;
+	}
+
 
 }

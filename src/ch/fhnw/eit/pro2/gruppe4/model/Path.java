@@ -52,6 +52,5 @@ public abstract class Path {
 		KsArray[0] = Ks;
 		utf.setZahPoly(KsArray);
 		double[] t = Calc.sani(Tu, Tg);
-		
 	}
 }
