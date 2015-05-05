@@ -37,6 +37,15 @@ public class UTF {
 	}
 	
 	/**
+	 * Setzt die UTF mittels Zähler- und Nennerpolynome in einem Array.
+	 * @return
+	 */
+	public void setUTFPoly(double[][] polyArray){
+		this.zahPoly = polyArray[0];
+		this.nenPoly = polyArray[1];
+	}
+	
+	/**
 	 * Setzt den Zähler als Polynom aus einem Double-Array.
 	 * @return
 	 */

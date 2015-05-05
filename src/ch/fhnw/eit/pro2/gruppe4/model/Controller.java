@@ -1,5 +1,7 @@
 package ch.fhnw.eit.pro2.gruppe4.model;
 
+import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
+
 
 public abstract class Controller {
 
@@ -86,6 +88,15 @@ public abstract class Controller {
 	 */
 	protected abstract void calculate();
 	
-}
 
+	//TODO: Name der Methode?
+	protected void setUTFcontrollerConf(){
+		double[] bodeConf = Calc.bodeConform(Kr, Tn, Tv, Tp, controllerTyp);
+		Krk = bodeConf[0];
+		Tnk = bodeConf[1];
+		Tvk = bodeConf[2];
+
+		utf.setUTFPoly(Calc.utfController(controllerTyp, Krk, Tnk, Tvk, Tp));
+	}
+}
 	

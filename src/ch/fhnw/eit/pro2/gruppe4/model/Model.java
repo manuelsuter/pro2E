@@ -18,7 +18,7 @@ public class Model extends Observable {
 			closedLoop[i] = new ClosedLoop(0);
 		}
 		for (int i = closedLoop.length-5; i < closedLoop.length; i++) {
-			closedLoop[i] = new ClosedLoop(i-5);
+			closedLoop[i] = new ClosedLoop(i-(closedLoop.length-5));
 		}	
 	}
 

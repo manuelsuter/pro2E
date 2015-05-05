@@ -192,7 +192,6 @@ public class PhaseResponseMethod extends Controller {
 		}
 
 		// Bestimmung der Frequenz im Punkt Phasengang = alpha
-		System.out.println(alpha);
 		int omegaControllerIndex = Calc.diskFind(phiS, alpha);
 
 		double omega_controller = omega[omegaControllerIndex];

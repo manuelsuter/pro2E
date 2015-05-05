@@ -27,6 +27,7 @@ public class Chien20 extends Controller {
 			System.out.println("!!!! Reglertyp nicht berechenbar !!!!");
 			break;
 		}
+		setUTFcontrollerConf();
 	}
 }
 

@@ -1,5 +1,7 @@
 package ch.fhnw.eit.pro2.gruppe4.model;
 
+import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
+
 class Rosenberg extends Controller {
 	
 	public static final int CALCULATIONTYP = 1;
@@ -33,5 +35,6 @@ class Rosenberg extends Controller {
 			System.out.println("!!!! Reglertyp nicht berechenbar !!!!");
 			break;
 		}
+		setUTFcontrollerConf();
 	}
 }

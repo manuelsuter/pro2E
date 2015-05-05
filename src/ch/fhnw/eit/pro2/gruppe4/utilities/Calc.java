@@ -265,7 +265,6 @@ public class Calc {
 	 */
 	public static double[][] schrittIfft(double[] zah, double[] nen, double fs,
 			int n) {
-		System.out.println(n+"n");
 		double T = (1 / fs);// Periode
 		double[] w = new double[(int) fs];// Kreisfrequenz
 		Complex[] H;
@@ -369,7 +368,6 @@ public class Calc {
 
 	public static double diskDiff(double[] ordinate, double[] abszisse,
 			int index) {
-		System.out.println(index);
 		double gradient;
 		double slope1 = (ordinate[index] - ordinate[index - 1])
 				/ (abszisse[index] - abszisse[index - 1]);
@@ -448,7 +446,7 @@ public class Calc {
 	 * @return koeffizienten
 	 */
 
-	public static double[][] UTFController(int controllerTyp, double Krk,
+	public static double[][] utfController(int controllerTyp, double Krk,
 			double Tnk, double Tvk, double Tp) {
 		double[][] koeffizienten;
 
@@ -459,7 +457,7 @@ public class Calc {
 			koeffizienten[0][0] = Krk * Tnk; // Koeffizient fuer s^1 im Zaehler
 			koeffizienten[0][1] = Krk; // Koeffizient fuer s^0 im Zaehler
 			koeffizienten[1][0] = Tnk; // Koeffizient fuer s^1 im Nenner
-			koeffizienten[1][1] = 0; // Koeffizient fuer s^0 im Nenner
+			//koeffizienten[1][1] = 0; // Koeffizient fuer s^0 im Nenner
 			break;
 
 		// PID-Regler
@@ -470,9 +468,9 @@ public class Calc {
 			koeffizienten[0][1] = Krk * (Tnk + Tvk); // Koeffizient fuer s^1 im
 														// Zaehler
 			koeffizienten[0][2] = Krk; // Koeffizient fuer s^0 im Zaehler
-			koeffizienten[1][0] = 0; // Koeffizient fuer s^2 im Nenner
+			//koeffizienten[1][0] = 0; // Koeffizient fuer s^2 im Nenner
 			koeffizienten[1][1] = Tnk; // Koeffizient fuer s^1 im Nenner
-			koeffizienten[1][2] = 0; // Koeffizient fuer s^0 im Nenner
+			//koeffizienten[1][2] = 0; // Koeffizient fuer s^0 im Nenner
 			break;
 		default:
 			koeffizienten = new double[0][0];

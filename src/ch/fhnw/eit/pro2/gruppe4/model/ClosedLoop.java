@@ -57,6 +57,8 @@ public class ClosedLoop {
 		double[] nen_c = controller.getUTFNenPoly();
 		double[] zah_p = path.getUTFZahPoly();
 		double[] nen_p = path.getUTFNenPoly();
+		System.out.println(nen_c+"nenc");
+		System.out.println(nen_p+"nen_p");
 		
 		double[] nen = Calc.diskConv(nen_c, nen_p);
 		double[] zah = Calc.diskConv(zah_c, zah_p);
