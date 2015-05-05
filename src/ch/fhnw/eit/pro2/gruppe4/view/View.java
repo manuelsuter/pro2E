@@ -64,9 +64,11 @@ public class View extends JPanel implements Observer {
 	}
 
 	public void update(Observable obs, Object obj) {
+		System.out.println("Update View ausgelöst");
 		leftPanel.update(obs, obj);
 		rightPanel.update(obs, obj);
 	}	
+
 }
 
 

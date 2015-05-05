@@ -28,9 +28,13 @@ public class Model extends Observable {
 		for (int i = 0; i < closedLoop.length; i++) {
 			closedLoop[i].setData(controllerTyp, path, Tp);
 		}
+		notifyObservers();
 	}
 
-
+	public ClosedLoop[] getClosedLoop(){
+		
+		return closedLoop;
+	}
 
 	public void notifyObservers() {
 		setChanged();
