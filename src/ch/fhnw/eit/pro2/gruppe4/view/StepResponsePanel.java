@@ -48,6 +48,7 @@ public class StepResponsePanel extends JPanel implements ChangeListener {
 			z[i] = Math.cos(x[i]);
 		}
 		
+		
 		//Includes the stepresponse plot.
 		
 		stepResponse = new GraphPlotter("x","y",true);

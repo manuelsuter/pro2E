@@ -61,13 +61,16 @@ public class ClosedLoop {
 		double[] nen = Calc.diskConv(nen_c, nen_p);
 		double[] zah = Calc.diskConv(zah_c, zah_p);
 		
-		nen = Calc.colonColon(nen,nen.length-zah.length+1,1,nen.length);
+	
+		nen = Calc.colonColon(nen,nen.length-zah.length+1,1,nen.length-1);
 		nen = add(nen,zah);
+	
 		
 		utf.setUTFFac(zah, nen);
 		
 		//TODO: noch optimieren, gibt Bereich an, welcher berechnet wird:
-		double fs = 1.0/(path.getInputValues()[Path.TgPOS]*500);
+		//double fs = 1.0/(path.getInputValues()[Path.TgPOS]*500); // Muss Potenz von 2 sein.
+		double fs = 128;
 		int n = 8*1024;
 		yt = Calc.schrittIfft(zah, nen, fs, n);
 	}

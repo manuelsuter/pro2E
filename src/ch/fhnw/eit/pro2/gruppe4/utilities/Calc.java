@@ -171,14 +171,13 @@ public class Calc {
 	 * @return
 	 */
 
-	public static double[] colonColon(double x[], int start, int stepsize,
-			int stop) {
-		double[] y = new double[Math.abs((stop - start) / stepsize)];
+	public static double[] colonColon(double[] x, int start, int stepsize,	int stop) {
+		double[] y = new double[(int)((stop - start) / stepsize)+1];
 		// TODO: Vergleich so richtitg oder +1 und dann <
-		for (int i = start; i == stop; i += stepsize) {
-			int k = 0;
-			y[k] = x[i];
-			k++;
+		int k = start;
+		for (int i = 0; i < y.length; i++) {
+			y[i] = x[k];
+			k = k + stepsize;
 		}
 		return y;
 	}
@@ -193,17 +192,13 @@ public class Calc {
 	 * @param stop
 	 * @return
 	 */
-	public static Complex[] colonColon(Complex x[], int start, int stepsize, int stop) {
-		
-		Complex[] y = new Complex[(int)((stop - start) / stepsize)];
-		System.out.println(stop+"start");
+	public static Complex[] colonColon(Complex[] x, int start, int stepsize, int stop) {
+		Complex[] y = new Complex[(int)((stop - start) / stepsize)+1];
 		// TODO: Vergleich so richtitg oder +1 und dann <
 		int k = start;
-		for (int i = 0; i == y.length; i++) {
-			System.out.println(i+"i");
+		for (int i = 0; i < y.length; i++) {
 			y[i] = x[k];
-			System.out.println(y[k]+"yk");
-			k+=stepsize;
+			k = k + stepsize;
 		}
 		return y;
 	}
@@ -276,16 +271,14 @@ public class Calc {
 		Complex[] H;
 
 		// Frequenzachse berechnen
+		//TODO: evtl. 2*Pi wegen Umrechnung Kreisfrequenz.
 		w = linspace(0.0, fs * Math.PI, n / 2);
 
 		// Frequenzgang berechnen
 		H = freqs(zah, nen, w);
-		
 		// Symmetrischen Vektor für Ifft erstellen:
 		Complex[] tmp = new Complex[H.length];
-		System.out.println(H[4095]+"h");
-		tmp = colonColon(H, (n / 2) - 1, -1, 0);
-		System.out.println(tmp[1]+"tmp");
+		tmp = colonColon(H, (n / 2) - 1, -1, 1);
 		for (int i = 0; i < tmp.length; i++) {
 			tmp[i] = tmp[i].conjugate();
 		}
@@ -293,7 +286,7 @@ public class Calc {
 		H = concat(colonColon(H, 0, 1, (n / 2) - 1), new Complex[]{x}, tmp);
 		// Impulsantwort berechen
 		Complex[] h = new Complex[H.length]; // welche Länge
-
+		
 		FastFourierTransformer f = new FastFourierTransformer(
 				DftNormalization.STANDARD);
 		h = f.transform(H, TransformType.INVERSE);
@@ -398,8 +391,8 @@ public class Calc {
 	 */
 	public static int diskFind(double[] array, double referenceValue) {
 		int length = array.length;
-		System.out.println(length + "length");
-		System.out.println(referenceValue + "ref");
+		//System.out.println(length + "length");
+		//System.out.println(referenceValue + "ref");
 		int index = (int) (Math.floor((double) (length / 2)));
 
 		int lower_index = 0;
@@ -414,7 +407,7 @@ public class Calc {
 			for (int i = 0; i < iterations; i++) {
 				index = (int) (Math.ceil((upper_index - lower_index) / 2
 						+ lower_index));
-				System.out.println(index);
+				//System.out.println(index);
 
 				double value = array[index];
 				if (value > referenceValue) {
