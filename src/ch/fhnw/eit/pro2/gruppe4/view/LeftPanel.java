@@ -22,7 +22,7 @@ import javax.swing.border.EtchedBorder;
 public class LeftPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private GUIController controller;
+	private GUIController guiController;
 	private View view;
 	public InputPanel inputPanel;
 	public ControllerChooserPanel controllerChooserPanel;
@@ -32,7 +32,7 @@ public class LeftPanel extends JPanel {
 	
 	public LeftPanel(GUIController controller) {
 		super(new GridBagLayout());	
-		this.controller = controller;
+		this.guiController = controller;
 		
 		UIManager.put ("ToggleButton.select", Color.ORANGE); 
 	

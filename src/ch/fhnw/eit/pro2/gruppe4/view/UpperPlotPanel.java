@@ -18,20 +18,20 @@ import ch.fhnw.eit.pro2.gruppe4.model.PTn;
 public class UpperPlotPanel extends JTabbedPane {
 
 	
-	private GUIController controller;
+	private GUIController guiController;
 	private PTn pTnPanel;
 	private JPanel panel2;
 	private JPanel panel3;
 	private JPanel panel4;
 	
 	
-	public UpperPlotPanel(GUIController controller){
-		this.controller = controller;
+	public UpperPlotPanel(GUIController guiController){
+		this.guiController = guiController;
 		
 
 		
 		
-		pTnPanel = new PTn(controller);
+		pTnPanel = new PTn(guiController);
 		panel2 = new JPanel();
 		panel3 = new JPanel();
 		panel4 = new JPanel();

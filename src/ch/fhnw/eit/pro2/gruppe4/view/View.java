@@ -27,19 +27,19 @@ public class View extends JPanel implements Observer {
 	private JFrame frame;
 
 //TODO: Wie genau müssen wir Konstruktoren spezifizieren?
-	public View(GUIController controller) {
+	public View(GUIController guiController) {
 		super(new GridBagLayout());
 
 		
 		// Construct the main left and main right panel
-		leftPanel = new LeftPanel(controller);
+		leftPanel = new LeftPanel(guiController);
 		add(leftPanel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
-				GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(
+				GridBagConstraints.FIRST_LINE_START, GridBagConstraints.NONE, new Insets(
 						0, 0, 0, 0), 0, 0));
 		
-		rightPanel = new RightPanel(controller);
+		rightPanel = new RightPanel(guiController);
 		add(rightPanel, new GridBagConstraints(1, 0, 1, 1, 1.0, 1.0,
-				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(
+				GridBagConstraints.FIRST_LINE_START, GridBagConstraints.BOTH, new Insets(
 						10, 10, 10, 10), 0, 0));
 		}
 	/**

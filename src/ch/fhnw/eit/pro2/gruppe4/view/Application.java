@@ -21,9 +21,9 @@ import ch.fhnw.eit.pro2.gruppe4.model.Model;
 public class Application extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private Model model = new Model();
-	private GUIController controller = new GUIController(model);
-	private View view = new View(controller);
-	private MenuBar menuBar = new MenuBar(controller, this);
+	private GUIController guiController = new GUIController(model);
+	private View view = new View(guiController);
+	private MenuBar menuBar = new MenuBar(guiController, this);
 
 	/**
 	 * Add the view to the content pane and register the view as observer of the
@@ -31,7 +31,7 @@ public class Application extends JFrame {
 	 */
 	public void init() {
 		view.setJFrame(this);
-		controller.setView(view);
+		guiController.setView(view);
 		model.addObserver(view);
 		model.notifyObservers();
 		model.addObserver(menuBar);

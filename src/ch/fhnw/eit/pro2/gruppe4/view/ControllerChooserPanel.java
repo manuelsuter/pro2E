@@ -21,14 +21,14 @@ import javax.swing.UIManager;
 public class ControllerChooserPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private GUIController controller;
+	private GUIController guiController;
 	public JToggleButton btPI, btPID;
 	private ButtonGroup bGroup;
 
 	
 	public ControllerChooserPanel(GUIController controller) {
 		super(new GridBagLayout());
-		this.controller = controller;
+		this.guiController = controller;
 		setBorder(MyBorderFactory.createMyBorder(" PI / PID-T1 Regler "));
 		
 		btPI = new JToggleButton("PI");

@@ -28,7 +28,7 @@ import javax.swing.JTextField;
 public class InputPanel extends JPanel implements ActionListener, ItemListener {
 
 	private static final long serialVersionUID = 1L;
-	private GUIController controller;
+	private GUIController guiController;
 	public JDoubleTextField tfKs, tfTu, tfTg;
 	private JButton btBerechne, btClear;
 	private JCheckBox checkBoxPlot;
@@ -40,7 +40,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 	 */
 	public InputPanel(GUIController controller) {
 		super(new GridBagLayout());
-		this.controller = controller;
+		this.guiController = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Schrittantwort vermessen "));
 
 		/*
@@ -108,7 +108,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 	}
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btBerechne){
-			controller.calculate();		
+			guiController.calculate();		
 		}
 	}
 //TODO: Gr�sse aus LeftPanel Lesen; bei true gr�sser setzen.
@@ -117,11 +117,11 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 	
 	public void itemStateChanged(ItemEvent e) {
 		if (checkBoxPlot.isSelected() == false) {
-			controller.setVisibility(false);
+			guiController.setVisibility(false);
 		}
 		
 		if (checkBoxPlot.isSelected() == true) {
-			controller.setVisibility(true);
+			guiController.setVisibility(true);
 		}
 	}
 

@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 public class ControllerValuePanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
-	private GUIController controller;
+	private GUIController guiController;
 	private RulesOfThumbPanel rulesOfThumbPanel;
 	public PhaseResponseMethodPanel phaseResponsePanel;
 	private JLabel lbRosenberg, lbOppelt, lbZNn, lbZNs, lbCHR2, lbCHRa, lbTSUMn, lbTSUMs, lbKR, lbTN, lbTV;
@@ -26,7 +26,7 @@ public class ControllerValuePanel extends JPanel {
 	
 	public ControllerValuePanel(GUIController controller) {
 		super(new GridBagLayout());
-		this.controller = controller;
+		this.guiController = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Reglerwerte "));
 	
 		

@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 public class RightPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private GUIController controller;
+	private GUIController guiController;
 	private UpperPlotPanel upperPlotPanel;
 	private StepResponsePanel stepResponsePanel;
 
@@ -27,7 +27,7 @@ public class RightPanel extends JPanel {
 	
 	public RightPanel(GUIController controller) {
 		super(new GridBagLayout());
-		this.controller = controller;
+		this.guiController = controller;
 		
 		// Construct the upperPlotPanel and the stepResponsePanel
 		upperPlotPanel = new UpperPlotPanel(controller);

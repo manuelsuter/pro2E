@@ -21,9 +21,9 @@ import ch.fhnw.eit.pro2.gruppe4.model.Model;
 
 public class PhaseResponseMethodPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private GUIController controller;
+	private GUIController guiController;
 	public JDoubleTextField tfTp;
-	private String[] methodDesignation = {"Überschwingen", "wenig", "mittel", "stark"};
+	private String[] methodDesignation = {"Überschwingen                                 ", "wenig", "mittel", "stark"};
 	private JLabel[] lbMethod = new JLabel[methodDesignation.length];
 	private JLabel[] lbKr = new JLabel[lbMethod.length];
 	private JLabel[] lbTn = new JLabel[lbMethod.length];
@@ -33,7 +33,7 @@ public class PhaseResponseMethodPanel extends JPanel {
 	public PhaseResponseMethodPanel(GUIController controller) {
 	
 		super(new GridBagLayout());
-		this.controller = controller;
+		this.guiController = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Phasengang-Methode "));
 		
 		for (int i = 0; i < lbMethod.length; i++) {
@@ -57,7 +57,7 @@ public class PhaseResponseMethodPanel extends JPanel {
 					GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
 							5, 10, 5, 10), 0, 0));
 		}
-		
+		// Setzte die Werte Zeile für Kr, Tn, Tv.
 		lbKr[0].setText("<html><i>K<sub>r</sub></html></i>");
 		lbTn[0].setText("<html><i>T<sub>n</sub></html></i>");
 		lbTv[0].setText("<html><i>T<sub>v</sub></html></i>");
@@ -74,8 +74,6 @@ public class PhaseResponseMethodPanel extends JPanel {
 	}
 	
 
-
-
 	public void update(Observable obs, Object obj) {
 		Model model = (Model)obs;
 		
@@ -87,8 +85,6 @@ public class PhaseResponseMethodPanel extends JPanel {
 				lbTn[i].setText(""+controllerValues[1]);
 				lbTv[i].setText(""+controllerValues[2]);
 				tfTp.setText(""+controllerValues[3]);
-			}
-			
+			}	
 	}
-
 }
