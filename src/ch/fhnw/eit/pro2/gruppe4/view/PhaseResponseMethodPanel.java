@@ -58,6 +58,10 @@ public class PhaseResponseMethodPanel extends JPanel {
 							5, 10, 5, 10), 0, 0));
 		}
 		
+		lbKr[0].setText("<html><i>K<sub>r</sub></html></i>");
+		lbTn[0].setText("<html><i>T<sub>n</sub></html></i>");
+		lbTv[0].setText("<html><i>T<sub>v</sub></html></i>");
+		
 		
 		add(new JLabel("<html><i>T<sub>p</sub></i></html>"), new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
@@ -77,13 +81,14 @@ public class PhaseResponseMethodPanel extends JPanel {
 		
 			ClosedLoop[] closedLoop = model.getClosedLoop();
 			//TODO: Gut fragen ob Label nicht direkt double verarbeiten kann
-			for (int i = 0; i < methodDesignation.length; i++) {
+			for (int i = 1; i < methodDesignation.length; i++) {
 				double[] controllerValues = closedLoop[i].getController().getControllerValues();
 				lbKr[i].setText(""+controllerValues[0]);
 				lbTn[i].setText(""+controllerValues[1]);
 				lbTv[i].setText(""+controllerValues[2]);
 				tfTp.setText(""+controllerValues[3]);
 			}
+			
 	}
 
 }

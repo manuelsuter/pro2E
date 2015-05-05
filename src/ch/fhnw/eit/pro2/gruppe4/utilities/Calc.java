@@ -388,53 +388,126 @@ public class Calc {
 	 * @return previous Index
 	 */
 	public static int diskFind(double[] array, double referenceValue) {
+		/*
+		// TEST CASES
+		for (int i=0;i<1000000;i++){
+			array[i] = Math.log((double)(i+1));
+			// array[i] = -Math.log((double)(i+1));
+		}
+		referenceValue =  4.3;
+		// referenceValue = -4.3;
+		// referenceValue =  100;
+		// referenceValue = -100;
+		*/
+		
+
 		int length = array.length;
-		//System.out.println(length + "length");
-		//System.out.println(referenceValue + "ref");
-		int index = (int) (Math.floor((double) (length / 2)));
+		int index = 0;
+		/*
+		System.out.println(length + "length");
+		System.out.println(referenceValue + "ref");
+		System.out.println(array[0]+"first");
+		System.out.println(array[length-1]+"last");
+		*/
 
 		int lower_index = 0;
-		int upper_index = length;
+		int upper_index = length -1;
 
-		int iterations = (int) (length / (Math.log((double) (length)) / Math
-				.log((double) (2))));
-		iterations = 10;
+		//int iterations = (int) (length / (Math.log((double) (length)) / Math.log((double) (2))));
+		//iterations = 10;
+
+        // 2 additional iterations to be on the safe side.
+		int iterations = (int) (Math.log((double) (length)) / Math.log((double) (2))) + 2;
+		/*
+		System.out.println(iterations+"iters");
+        System.out.println("\n");
+        */
 		if (array[0] > array[length - 1]) {
 			// Monoton fallend
 
+			if (referenceValue > array[0]) {
+				// Reference Value is larger than largest array value.
+				// System.out.println("fallend, value too large");
+				return 0;
+			} else if (referenceValue < array[length-1]) {
+				// Reference Value is smaller than smallest array value.
+				// System.out.println("fallend, value too small");
+				return length-1;
+			}
+				
 			for (int i = 0; i < iterations; i++) {
-				index = (int) (Math.ceil((upper_index - lower_index) / 2
-						+ lower_index));
-				//System.out.println(index);
+
+				index = (int) (Math.ceil((upper_index - lower_index) / 2 + lower_index));
+				/*
+				System.out.println(index+"index_fallend");
+				System.out.println(lower_index+"lower_index_fallend");
+				System.out.println(upper_index+"upper_index_fallend");
+				*/
 
 				double value = array[index];
+				//System.out.println(value+"value");
+				
 				if (value > referenceValue) {
 					lower_index = index;
+					// System.out.println(value+" is larger than "+referenceValue);
 				} else if (value < referenceValue) {
 					upper_index = index;
+					// System.out.println(value+" is smaller than "+referenceValue);
+				} else {
+					break;
 				}
-
+				
+				//System.out.println("\n");
 			}
 		} else {
 			// Monoton steigend
 
+			if (referenceValue < array[0]) {
+				// Reference Value is smaller than largest array value.
+				// System.out.println("steigend, value too small");
+				return 0;
+			} else if (referenceValue > array[length-1]) {
+				// Reference Value is largest than smallest array value.
+				// System.out.println("steigend, value too large");
+				return length-1;
+			}
+				
+
 			for (int i = 0; i < iterations; i++) {
-				index = (int) (Math
-						.ceil((double) ((upper_index - lower_index) / 2 + lower_index)));
-				// System.out.println(index);
+
+				index = (int) (Math.ceil((double) ((upper_index - lower_index) / 2 + lower_index)));
+				/*
+				System.out.println(index+"steigend");
+				System.out.println(lower_index+"lower_index_steigend");
+				System.out.println(upper_index+"upper_index_steigend\n");
+				 */
 
 				double value = array[index];
+				//System.out.println(value+"value");
+				
+				
 				if (value < referenceValue) {
+					//System.out.println(value+" is smaller than "+referenceValue);
 					lower_index = index;
 				} else if (value > referenceValue) {
+					//System.out.println(value+" is larger than "+referenceValue);
 					upper_index = index;
+				} else {
+					break;
 				}
-			}
-		}// TODO: Was ist denn hier los??
-		return index; // Default return value, if program gets to here something
-						// has gone wrong.
-	}
 
+
+				//System.out.println("\n");
+			}
+		}
+		/*
+		System.out.println(index+"index");
+		System.out.println(array[index]+"value");
+		*/
+		return index;
+	}
+	
+	
 	/**
 	 * Berechnte Zähler und Nennerpolynom eines Reglers
 	 * 
@@ -901,7 +974,7 @@ public class Calc {
 		r = spline(tu_Tg[n - 1], ri, v);
 		w = spline(ri, t_Tg[n - 1], r);
 
-		double[] T = new double[8];
+		double[] T = new double[n];
 		T[n - 1] = w * Tg; // Erster Array-Wert.
 
 		// Berechnen der weiteren Werten.
