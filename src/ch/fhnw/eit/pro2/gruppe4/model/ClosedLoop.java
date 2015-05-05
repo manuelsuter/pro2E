@@ -2,13 +2,13 @@ package ch.fhnw.eit.pro2.gruppe4.model;
 
 import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 
-public abstract class ClosedLoop {
+public abstract class ClosedLoop{
 	
 	private double[][] yt;
 	private Controller controller;
 
 	protected void simClosedLoop(double[] zah_s,double[] nen_s,double[] zah_r, double[]nen_r, double Tg) {
-		double[] zah; //Zähler
+		double[] zah; //Zï¿½hler
 		double[] nen; //Nenner
 		int n = 8*1024;
 		
@@ -25,11 +25,11 @@ public abstract class ClosedLoop {
 	}
 	
 	protected void simClosedLoop(double[] zah_s,double[] nen_s,double[] zah_r, double[]nen_r) {
-		double[] zah; //Zähler
+		double[] zah; //Zï¿½hler
 		double[] nen; //Nenner
 		int n = 8*1024; 
 		
-		double fs = 100;//TODO: Wahl abhängig von fg
+		double fs = 100;//TODO: Wahl abhï¿½ngig von fg
 		
 		zah = Calc.diskConv(zah_s,zah_r);
 		nen = Calc.diskConv(nen_s,nen_r);
@@ -78,7 +78,7 @@ public abstract class ClosedLoop {
 	}
 	
 	/**
-	 * Gibt Controller zurück
+	 * Gibt Controller zurï¿½ck
 	 * @return controller
 	 */
 	public Controller getControllerTyp() {
@@ -86,7 +86,7 @@ public abstract class ClosedLoop {
 		return controller;
 	}
 	/**
-	 * Gibt Path zurück
+	 * Gibt Path zurï¿½ck
 	 * @return path
 	 */
 	public Path getPath() {
@@ -94,7 +94,7 @@ public abstract class ClosedLoop {
 		return path;
 	}
 	/**
-	 * Gibt Schrittantwort des geschlossenen Regelkreises zurück
+	 * Gibt Schrittantwort des geschlossenen Regelkreises zurï¿½ck
 	 * @return
 	 */
 	public double[][] getStepResponse() {
