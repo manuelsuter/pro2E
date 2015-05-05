@@ -61,6 +61,13 @@ public class GUIController {
 		
 	}
 	
+	
+	public void clear(){		
+		view.leftPanel.inputPanel.tfKs.setText("");
+		view.leftPanel.inputPanel.tfTu.setText("");
+		view.leftPanel.inputPanel.tfTg.setText("");	
+}
+	
 	public void setView(View view) {
 		this.view = view;
 	}

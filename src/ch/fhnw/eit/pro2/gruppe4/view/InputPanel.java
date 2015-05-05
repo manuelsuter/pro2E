@@ -24,6 +24,8 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class InputPanel extends JPanel implements ActionListener, ItemListener {
 
@@ -59,7 +61,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 		add(tfKs, new GridBagConstraints(1, 0, 2, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
 				new Insets(10, 10, 5, 10), 0, 0));
-
+		
 		add(new JLabel("<html><i>T<sub>u</sub></i></html>"),
 				new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
 						GridBagConstraints.LINE_START, GridBagConstraints.NONE,
@@ -110,8 +112,10 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 		if(e.getSource()==btBerechne){
 			guiController.calculate();		
 		}
+		if(e.getSource()==btClear){
+			guiController.clear();		
+		}
 	}
-//TODO: Gr�sse aus LeftPanel Lesen; bei true gr�sser setzen.
 //TODO: Hinweis auf Ge�derte Werte in Textfelder falls Neuberechnenn noch nicht ausgel�st???
 	
 	
@@ -128,5 +132,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 	public void update(Observable obs, Object obj) {
 
 	}
+	
+	
 
 }
