@@ -75,6 +75,7 @@ public class ClosedLoop {
 		double fs = 128;
 		int n = 8*1024;
 		yt = Calc.schrittIfft(zah, nen, fs, n);
+		System.out.println(yt[1][1]+"yt");
 	}
 		
 	/**

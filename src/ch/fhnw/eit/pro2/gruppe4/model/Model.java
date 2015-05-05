@@ -32,6 +32,7 @@ public class Model extends Observable {
 	}
 
 	public ClosedLoop[] getClosedLoop(){
+		System.out.println(closedLoop[1]+"closedLoopinModel");
 		
 		return closedLoop;
 	}

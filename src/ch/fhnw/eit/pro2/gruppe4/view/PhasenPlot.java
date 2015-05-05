@@ -36,8 +36,8 @@ private static final Color[] COLOR = {Color.RED, Color.ORANGE,Color.GREEN, Color
 	
 //	private XYLineAndShapeRenderer renderer0 = new XYLineAndShapeRenderer();
 //	private XYLineAndShapeRenderer renderer1 = new XYLineAndShapeRenderer();
-	private XYLineAndShapeRenderer renderer0 = new XYLineAndShapeRenderer(); 
-	private XYLineAndShapeRenderer renderer1 = new XYLineAndShapeRenderer(); 
+	private XYLineAndShapeRenderer renderer0 = new XYLineAndShapeRenderer(true, false);
+	private XYLineAndShapeRenderer renderer1 = new XYLineAndShapeRenderer(true, false);
 
 	
 

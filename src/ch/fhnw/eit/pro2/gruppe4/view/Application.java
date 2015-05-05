@@ -33,7 +33,7 @@ public class Application extends JFrame {
 		view.setJFrame(this);
 		guiController.setView(view);
 		model.addObserver(view);
-		model.notifyObservers();
+		//model.notifyObservers();
 		model.addObserver(menuBar);
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(view, BorderLayout.CENTER);

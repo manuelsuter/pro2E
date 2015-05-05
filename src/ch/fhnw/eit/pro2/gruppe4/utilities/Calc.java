@@ -132,36 +132,33 @@ public class Calc {
 	 */
 
 	public static final Complex[] freqs(double[] b, double[] a, double[] f) {
-
 		Complex[] res = new Complex[f.length];
 
 		for (int k = 0; k < res.length; k++) {
-
 			Complex jw = new Complex(0, 2.0 * Math.PI * f[k]);
 
 			Complex zaehler = new Complex(0, 0);
-
 			for (int i = 0; i < b.length; i++) {
-
-				zaehler = zaehler.add(jw.pow(b.length - i - 1).multiply(b[i]));
-
+				zaehler = zaehler.add(Calc.pow(jw, b.length - i - 1).multiply(
+						b[i]));
 			}
 
 			Complex nenner = new Complex(0, 0);
-
 			for (int i = 0; i < a.length; i++) {
-
-				nenner = nenner.add(jw.pow(a.length - i - 1).multiply(a[i]));
+				nenner = nenner
+						.add(Calc.pow(jw, a.length - i - 1).multiply(a[i]));
 
 			}
-
+			if (zaehler.abs() == 0.0 & nenner.abs() == 0.0) {
+				res[k] = new Complex(0.0,0.0);
+			}
+			else{
 			res[k] = zaehler.divide(nenner);
-
+			}
 		}
-
 		return res;
-
 	}
+	
 
 	/**
 	 * 
@@ -472,10 +469,12 @@ public class Calc {
 	int n) {
 
 		double T = (1 / fs);// Periode
-
+		
+		//TODO: n löschen.
 		double[] w = new double[(int) fs];// Kreisfrequenz
 
 		Complex[] H;
+		
 
 		// Frequenzachse berechnen
 
@@ -486,7 +485,7 @@ public class Calc {
 		// Frequenzgang berechnen
 
 		H = freqs(zah, nen, w);
-
+		
 		// Symmetrischen Vektor für Ifft erstellen:
 
 		Complex[] tmp = new Complex[H.length];
@@ -500,19 +499,16 @@ public class Calc {
 		}
 
 		Complex x = new Complex(0);
-
 		H = concat(colonColon(H, 0, 1, (n / 2) - 1), new Complex[] { x }, tmp);
 
 		// Impulsantwort berechen
 
 		Complex[] h = new Complex[H.length]; // welche Länge
 
-		FastFourierTransformer f = new FastFourierTransformer(
-
-		DftNormalization.STANDARD);
-
+		FastFourierTransformer f = new FastFourierTransformer(DftNormalization.STANDARD);
+		
 		h = f.transform(H, TransformType.INVERSE);
-
+		
 		// Schrittantwort berechnen
 
 		double[] zwres = new double[2];
@@ -528,32 +524,35 @@ public class Calc {
 		for (int i = 0; i < h.length; i++) {
 
 			hReal[i] = h[i].getReal();
-
+			System.out.println(hReal[i]+"hReal");
 		}
+		
+		//TODO: Hier ist was falsch.
 
 		y = diskConv(hReal, zwres);
+		
 
 		// Resultate ausschneiden
 
 		y = colonColon(y, 0, 1, (int) ((y.length / 2) - 1));
-
+		
+		
 		double[] t;
 
 		t = linspace(0.0, (y.length - 1) * T, y.length);
 
 		// für Output zusammmensetzen:
 
-		double[][] res = new double[2][t.length + y.length];
+		double[][] res = new double[2][y.length];
 
 		for (int i = 0; i < res.length; i++) {
 
-			res[0][i] = t[i];
-
+			res[1][i] = t[i];
 		}
 
 		for (int j = 0; j < res.length; j++) {
 
-			res[1][j] = y[j];
+			res[0][j] = y[j];
 
 		}
 
@@ -1781,5 +1780,33 @@ public class Calc {
 		return T;
 
 	}
+	
+	
+	//Complex Extensions
+	
+	static public Complex pow(Complex a, double x) {
+		return new Complex(Math.pow(a.abs(), x) * Math.cos(x * a.getArgument()),
+				Math.pow(a.abs(), x) * Math.sin(x * a.getArgument()));
+	}
+	
+//	static public Complex div(Complex a, Complex b) {
+//		return new Complex((a.abs() / b.abs())
+//				* Math.cos(a.getArgument() - b.getArgument()), (a.abs() / b.abs())
+//				* Math.sin(a.getArgument() - b.getArgument()));
+//	}
+	
+//	public static double angle(Complex c) {
+//		return Math.atan2(c.im, c.re);
+//	}
+//
+//	public static double[] angle(Complex[] c) {
+//		double[] res = new double[c.length];
+//		for (int i = 0; i < res.length; i++) {
+//			res[i] = angle(c[i]);
+//		}
+//		return res;
+//	}
 
 }
+
+
