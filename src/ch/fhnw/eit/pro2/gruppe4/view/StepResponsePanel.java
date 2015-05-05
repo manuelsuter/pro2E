@@ -7,7 +7,6 @@ package ch.fhnw.eit.pro2.gruppe4.view;
  * */
 
 import java.awt.BorderLayout;
-
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -19,7 +18,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
+
 import org.apache.commons.math3.complex.Complex;
+import org.jfree.data.xy.XYDataset;
 
 
 
@@ -31,8 +32,8 @@ public class StepResponsePanel extends JPanel implements ChangeListener {
 	private double xValues[] = {1.0,2.0,3.0,4.0,5.0};
 	private double yValues[] = {-4.5, -3,-2, 2.0, 4,0};
 	private JCheckBox checkPhase, checkRosenberg, checkOppelt, checkZN, checkCHR20, checkCHR0;
-	private JPanel checkBoxPanel;
-		
+	private JPanel checkBoxPanel;	
+	private PhasenPlot phasenPlot = new PhasenPlot();
 	
 	public StepResponsePanel(GUIController controller) {
 		super(new BorderLayout());
@@ -47,9 +48,16 @@ public class StepResponsePanel extends JPanel implements ChangeListener {
 			y[i] = Math.sin(x[i]);
 			z[i] = Math.cos(x[i]);
 		}
+		XYDataset dataset1 = phasenPlot.createDataset(x, y);
+		XYDataset dataset2 = phasenPlot.createDataset(x, z);
 		
-		//Includes the stepresponse plot.
+//		phasenPlot.addData(dataset1);
+//		phasenPlot.addData(dataset2);
 		
+		
+		//phasenPlot.repaint();
+		add(phasenPlot);
+		/**
 		stepResponse = new GraphPlotter("x","y",true);
 		
 		stepResponse.allowNegativeXValues(false);
@@ -61,8 +69,8 @@ public class StepResponsePanel extends JPanel implements ChangeListener {
 		stepResponse.addData(xValues, yValues, 2, Color.YELLOW, 2, "test");
 		
 		add(stepResponse, BorderLayout.CENTER);
-		
-		
+	
+		*/
 		//includes the CheckBoxes below the plot on the checkBoxPanel
 		checkBoxPanel = new JPanel(new GridLayout(2,4));
 		

@@ -57,7 +57,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 						GridBagConstraints.LINE_START, GridBagConstraints.NONE,
 						new Insets(10, 10, 5, 10), 0, 0)); // .setText("K"+"<html><center><font face=\"Arial, Verdana, Sans Serif\" color=\"#FFFFFF\" size=\"-2\">Please insert</font></center></html>");
 		//TODO: Textfelder wieder löschen.
-		tfKs = new JDoubleTextField("1.0",100,false);
+		tfKs = new JDoubleTextField("2.0",100,false);
 		add(tfKs, new GridBagConstraints(1, 0, 2, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
 				new Insets(10, 10, 5, 10), 0, 0));
@@ -67,7 +67,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 						GridBagConstraints.LINE_START, GridBagConstraints.NONE,
 						new Insets(10, 10, 5, 10), 0, 0));
 
-		tfTu = new JDoubleTextField("0.00145",100,false);
+		tfTu = new JDoubleTextField("1.1",100,false);
 		add(tfTu, new GridBagConstraints(1, 1, 2, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
 				new Insets(10, 10, 5, 10), 0, 0));
@@ -81,7 +81,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 						GridBagConstraints.LINE_START, GridBagConstraints.NONE,
 						new Insets(10, 10, 5, 10), 0, 0));
 
-		tfTg = new JDoubleTextField("0.00791",100,false);
+		tfTg = new JDoubleTextField("8.9",100,false);
 		add(tfTg, new GridBagConstraints(1, 2, 2, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
 				new Insets(10, 10, 5, 10), 0, 0));
