@@ -51,11 +51,9 @@ public class StepResponsePanel extends JPanel implements ChangeListener {
 		XYDataset dataset1 = phasenPlot.createDataset(x, y);
 		XYDataset dataset2 = phasenPlot.createDataset(x, z);
 		
-//		phasenPlot.addData(dataset1);
-//		phasenPlot.addData(dataset2);
-		
-		
-		//phasenPlot.repaint();
+		phasenPlot.addData(0, dataset1);
+		phasenPlot.addData(1, dataset2);
+		phasenPlot.repaint();
 		add(phasenPlot);
 		/**
 		stepResponse = new GraphPlotter("x","y",true);
