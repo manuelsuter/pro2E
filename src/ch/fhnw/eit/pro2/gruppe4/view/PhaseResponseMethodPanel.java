@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import ch.fhnw.eit.pro2.gruppe4.model.ClosedLoop;
+import ch.fhnw.eit.pro2.gruppe4.model.Controller;
 import ch.fhnw.eit.pro2.gruppe4.model.Model;
 
 
@@ -67,10 +68,19 @@ public class PhaseResponseMethodPanel extends JPanel {
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
 						5, 10, 5, 10), 0, 0));
 		
-		tfTp = new JDoubleTextField("",100,false);
+		tfTp = new JDoubleTextField("0.000",100,false);
 		add(tfTp, new GridBagConstraints(1, 4, 3, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						5, 10, 5, 10), 0, 0));
+		
+		// Initialisierungswerte der Reglerausgabe.
+				for (int i = 0; i < methodDesignation.length-1; i++) {
+					lbMethod[i+1].setText(methodDesignation[i+1]);
+					lbKr[i+1].setText("0.000");
+					lbTn[i+1].setText("0.000");
+					lbTv[i+1].setText("0.000");
+				}	
+		
 	}
 	
 

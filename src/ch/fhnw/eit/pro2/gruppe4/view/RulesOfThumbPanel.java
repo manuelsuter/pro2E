@@ -35,12 +35,13 @@ public class RulesOfThumbPanel extends JPanel {
 		this.guiController = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Faustformeln "));
 		
+		
+		
 		lbMethod = new JLabel[Controller.calculationTypName.length];
 		lbKr = new JLabel[lbMethod.length];
 		lbTn = new JLabel[lbMethod.length];
 		lbTv = new JLabel[lbMethod.length];
-		
-		
+			
 		for (int i = 0; i < lbMethod.length; i++) {
 			lbMethod[i] = new JLabel();
 			add(lbMethod[i], new GridBagConstraints(0, i, 1, 1, 0.0, 0.0,
@@ -66,7 +67,15 @@ public class RulesOfThumbPanel extends JPanel {
 		// Erzeugt die erste Zeile für Kr, Tn, Tv.
 		lbKr[0].setText("<html><i>K<sub>r</sub></html></i>");
 		lbTn[0].setText("<html><i>T<sub>n</sub></html></i>");
-		lbTv[0].setText("<html><i>T<sub>v</sub></html></i>");		
+		lbTv[0].setText("<html><i>T<sub>v</sub></html></i>");	
+		
+		// Initialisierungswerte der Reglerausgabe.
+		for (int i = 0; i < Controller.calculationTypName.length-1; i++) {
+			lbMethod[i+1].setText(Controller.calculationTypName[i+1]);
+			lbKr[i+1].setText("0.000");
+			lbTn[i+1].setText("0.000");
+			lbTv[i+1].setText("0.000");
+		}	
 	}
 	
 	

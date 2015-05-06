@@ -3,6 +3,7 @@ package ch.fhnw.eit.pro2.gruppe4.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Paint;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -32,13 +33,14 @@ public class PhasenPlot extends JPanel {
 	private JFreeChart chart = ChartFactory.createXYLineChart("",
 			"Sekunden [s]", "y(t)", null, PlotOrientation.VERTICAL,
 			false, false, false);;
-	
 	public XYLineAndShapeRenderer[] rendererArray = new XYLineAndShapeRenderer[8];	
+	private Paint[] paint;
+	private XYPlot xyplot;
+	
 	
 	public PhasenPlot() {
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(300, 200));
-		
 		
 		for (int i = 0; i < rendererArray.length; i++) {
 			rendererArray[i] = new XYLineAndShapeRenderer(true, false);
@@ -46,15 +48,15 @@ public class PhasenPlot extends JPanel {
 		
 		// Farben und Settings
 		chart.setBackgroundPaint(Color.white);
-		XYPlot xyplot = chart.getXYPlot();
+		xyplot = chart.getXYPlot();
 		xyplot.setBackgroundPaint(Color.WHITE);
 		xyplot.setRangeGridlinePaint(Color.black);
 		xyplot.setDomainGridlinePaint(Color.black);
 		
 		for (int i = 0; i < rendererArray.length; i++) {
-			xyplot.getRendererForDataset(xyplot.getDataset(i)).setSeriesPaint(0, StepResponsePanel.plotColor[i]);
+			xyplot.getRendererForDataset(xyplot.getDataset(i)).setSeriesPaint(0, Color.green);
 		}
-		
+				
 		for (int i = 0; i < rendererArray.length; i++) {
 			xyplot.setRenderer(i, rendererArray[i]);
 		}
@@ -90,4 +92,10 @@ public class PhasenPlot extends JPanel {
 		XYPlot xyplot = chart.getXYPlot();
 		xyplot.setDataset(index, dataset);
 	}
+	
+	public void setColor(int index){
+			xyplot.getRendererForDataset(xyplot.getDataset(index)).setSeriesPaint(0, StepResponsePanel.plotColor[index]);
+	}
+	
+	
 }

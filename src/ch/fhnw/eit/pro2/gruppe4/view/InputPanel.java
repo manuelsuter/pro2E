@@ -96,7 +96,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 				new Insets(10, 10, 10, 10), 0, 0));
 		btBerechne.addActionListener(this);
 
-		btClear = new JButton("LÃ¶schen");
+		btClear = new JButton("Löschen");
 		add(btClear, new GridBagConstraints(2, 3, 2, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE,
 				new Insets(10, 10, 10, 10), 0, 0));
