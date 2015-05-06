@@ -61,27 +61,19 @@ public class ClosedLoop {
 		double[] nen = Calc.diskConv(nen_c, nen_p);
 		double[] zah = Calc.diskConv(zah_c, zah_p);
 		
-		for (int i = 0; i < zah_c.length; i++) {
-			System.out.println(zah_c[i]+"zah_c");
-			
-		}
-		
-		for (int i = 0; i < nen_c.length; i++) {
-			System.out.println(nen_c[i]+"nen_c");
-		}
+		nen = Calc.addArrayReverse(nen, zah);
 	
-		nen = Calc.colonColon(nen,nen.length-zah.length+1,1,nen.length-1);
-		nen = add(nen,zah);
-	
-		
-		utf.setUTFFac(zah, nen);
+		utf.setUTFPoly(zah, nen);
 		
 		//TODO: noch optimieren, gibt Bereich an, welcher berechnet wird:
 		//double fs = 1.0/(path.getInputValues()[Path.TgPOS]*500); // Muss Potenz von 2 sein.
+		// n evtl. höhr / tiefer setzen.
+		
+		
 		double fs = 128;
-		int n = 8*1024;
-		yt = Calc.schrittIfft(zah, nen, fs, n);
-		System.out.println(yt[1][1]+"yt");
+		int n = 512;
+		
+		yt = Calc.schrittIfft(zah, nen, fs, n);		
 	}
 		
 	/**

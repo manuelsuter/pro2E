@@ -13,13 +13,9 @@ package ch.fhnw.eit.pro2.gruppe4.utilities;
  * */
 
 import org.apache.commons.math3.analysis.interpolation.SplineInterpolator;
-
 import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
-
 import org.apache.commons.math3.transform.FastFourierTransformer;
-
 import org.apache.commons.math3.transform.DftNormalization;
-
 import org.apache.commons.math3.transform.TransformType;
 
 import java.lang.Enum;
@@ -112,7 +108,7 @@ public class Calc {
 	 * 
 	 * Berechnet den Frequenzgang aufgrund von Zähler- und Nennerpolynom b resp.
 	 * 
-	 * a sowie der Frequenzachse f.
+	 * a sowie der w-Achse.
 	 * 
 	 * 
 	 * 
@@ -124,19 +120,19 @@ public class Calc {
 	 * 
 	 *            Nennerpolynom
 	 * 
-	 * @param f
+	 * @param w
 	 * 
-	 *            Frequenzachse
+	 *            w-Achse
 	 * 
 	 * @return Komplexwertiger Frequenzgang.
 	 */
 
-	public static final Complex[] freqs(double[] b, double[] a, double[] f) {
-		Complex[] res = new Complex[f.length];
+	public static final Complex[] freqs(double[] b, double[] a, double[] w) {
+		Complex[] res = new Complex[w.length];
 
 		for (int k = 0; k < res.length; k++) {
-			Complex jw = new Complex(0, 2.0 * Math.PI * f[k]);
-
+			Complex jw = new Complex(0, w[k]);
+			
 			Complex zaehler = new Complex(0, 0);
 			for (int i = 0; i < b.length; i++) {
 				zaehler = zaehler.add(Calc.pow(jw, b.length - i - 1).multiply(
@@ -314,7 +310,22 @@ public class Calc {
 		}
 
 		return y;
-
+	}
+	/**
+	 * Addiert ein Array b mit dem Array a so zusammen, dass b in die hintersten Positionen von a addiert wird.
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	public static double[] addArrayReverse(double[] a, double[] b){
+		
+		int index = b.length-1;
+		for (int i = a.length-1; i > a.length-b.length-1; i--) {
+			a[i] += b[index];
+			index--;
+		}
+		
+	return a;	
 	}
 
 	/**
@@ -464,102 +475,65 @@ public class Calc {
 	 * @return c = die Faltung
 	 */
 
-	public static double[][] schrittIfft(double[] zah, double[] nen, double fs,
+	public static double[][] schrittIfft(double[] zah, double[] nen, double fs, int n) {
 
-	int n) {
-
-		double T = (1 / fs);// Periode
-		
-		//TODO: n löschen.
-		double[] w = new double[(int) fs];// Kreisfrequenz
-
+		double T = (1 / fs); // Periode
 		Complex[] H;
 		
-
 		// Frequenzachse berechnen
 
-		// TODO: evtl. 2*Pi wegen Umrechnung Kreisfrequenz.
-
-		w = linspace(0.0, fs * Math.PI, n / 2);
-
-		// Frequenzgang berechnen
+		// TODO: evtl. 2*Pi wegen Umrechnung Kreisfrequenz
+		double[] w = linspace(0.0, fs * Math.PI, n / 2); // Kreisfrequenz
 		
+		// Frequenzgang berechnen
 		H = freqs(zah, nen, w);
 		
 		
-		
 		// Symmetrischen Vektor für Ifft erstellen:
-
 		Complex[] tmp = new Complex[H.length];
 		tmp = colonColon(H, (n / 2) - 1, -1, 1);
 
 		for (int i = 0; i < tmp.length; i++) {
-
 			tmp[i] = tmp[i].conjugate();
-
 		}
 
 		Complex x = new Complex(0);
 		H = concat(colonColon(H, 0, 1, (n / 2) - 1), new Complex[] { x }, tmp);
 		
-		
-
-
 		// Impulsantwort berechen
-
 		Complex[] h = new Complex[H.length]; // welche Länge
-
 		FastFourierTransformer f = new FastFourierTransformer(DftNormalization.STANDARD);
-		
-		h = f.transform(H, TransformType.INVERSE);
-		
-		
-		
-		// Schrittantwort berechnen
-
-		double[] ones = new double[n+1];
-		for (int i = 0; i < ones.length; i++) {
-			ones[i] = 1.0;
-		}
-
-		double[] y = new double[h.length];
+		h = f.transform(H, TransformType.INVERSE);		
+	
+		//Realteil von h extrahieren.
 		double[] hReal = new double[h.length];
-
+		
 		for (int i = 0; i < h.length; i++) {
 			hReal[i] = h[i].getReal();
 		}
 		
-		//TODO: Hier ist was falsch.
+		// Schrittantwort berechnen
+		double[] y = Calc.diskConvOnes(hReal, n);
+		
+		
+		// Resultate ausschneiden. Halbiert die Länge von y.
+		double[] yShort = colonColon(y, 0, 1, (int) ((y.length / 2) - 1));
 
-		y = diskConv(hReal, ones);
-		
-		
-		// Resultate ausschneiden
-
-		y = colonColon(y, 0, 1, (int) ((y.length / 2) - 1));
-		
-		
+		// Zeitachse generieren:
 		double[] t;
-
-		t = linspace(0.0, (y.length - 1) * T, y.length);
-
+		t = linspace(0.0, (yShort.length - 1) * T, yShort.length);
+		
 		// für Output zusammmensetzen:
-
 		double[][] res = new double[2][y.length];
-
 		for (int i = 0; i < res.length; i++) {
-
 			res[1][i] = t[i];
 		}
 
 		for (int j = 0; j < res.length; j++) {
-
 			res[0][j] = y[j];
-
 		}
-
 		return res;
-
+		
 	}
 
 	/**
@@ -868,6 +842,16 @@ public class Calc {
 		return index;
 
 	}
+	
+	
+	public static double[] diskConvOnes(double[] a, int b){
+		double[] res = new double[b];
+		res[1] = a[1];
+		for (int i = 1; i < b; i++) {
+			res[i] = res[i-1] + a[i];
+		}
+		return res;
+	}
 
 	/**
 	 * 
@@ -891,11 +875,6 @@ public class Calc {
 	public static double[][] utfController(int controllerTyp, double Krk,
 
 	double Tnk, double Tvk, double Tp) {
-
-		System.out.println(Krk+"Krk");
-		System.out.println(Tnk+"Tnk");
-		System.out.println(Tvk+"Tvk");
-		System.out.println(Tp+"Tp");
 		
 		double[][] res;
 
@@ -921,7 +900,9 @@ public class Calc {
 
 		case 3:
 			
-			res = new double[2][3];
+			res = new double[2][];
+			res[0] = new double[3];
+			res[1] = new double[2];
 			
 			// Zaehler
 			for (int i = 0; i < 3; i++) {
@@ -931,8 +912,6 @@ public class Calc {
 			//Nenner
 			res[1][0] = Tnk;
 			res[1][1] = 0;
-			
-
 
 			break;
 
@@ -943,6 +922,7 @@ public class Calc {
 			break;
 
 		}
+			
 		return res;
 	}
 
