@@ -112,7 +112,9 @@ public class ClosedLoop {
 		this.path = path;
 	
 		controller.setData(controllerTyp, path);
-		controller.setTp(Tp);
+		
+		//TODO: Lösung fpr setTP
+//		controller.setTp(Tp);
 		
 		calculate();
 	}
@@ -135,7 +137,7 @@ public class ClosedLoop {
 	 * Gibt Schrittantwort des geschlossenen Regelkreises zurück.
 	 * @return
 	 */
-	public double[][] getStepResponse() {
+	public double[][] getStepResponse() {	
 		return yt;
 	}
 

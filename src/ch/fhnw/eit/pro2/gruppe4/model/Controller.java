@@ -21,7 +21,6 @@ public abstract class Controller {
 		
 	}
 	
-	
 	/**
 	 * Gibt Zähler der UTF in einem Double-Array als Polynom zurück.
 	 * @return
@@ -75,15 +74,7 @@ public abstract class Controller {
 		calculate();
 	}		
 	
-	/** 
-	 * Setzt den Input-Wert für Tp.
-	 * Löst calculate() aus.
-	 * @param path
-	 */
-	public void setTp(double Tp){
-		this.Tp = Tp;
-		calculate();
-	}		
+
 
 	/**
 	 * Berechnet Einstellwerte des jeweiligen Reglers.
