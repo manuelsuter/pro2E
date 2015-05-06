@@ -14,7 +14,7 @@ public class PhaseResponseMethod extends Controller {
 
 			OVERSHOOT16_3 = 2, OVERSHOOT23_3 = 3;
 
-	public static final int CALCULATIONTYP = 0;
+	
 
 
 
@@ -25,6 +25,10 @@ public class PhaseResponseMethod extends Controller {
 
 
 	private double alpha;
+	
+	public PhaseResponseMethod(){	
+		CALCULATIONTYP = 0;
+	}
 
 
 
@@ -566,19 +570,13 @@ public class PhaseResponseMethod extends Controller {
 
 		
 
-		//TODO: System Print outs entfernen
-
-		System.out.println(Krk+"Krk");
-
-		System.out.println(Tnk+"Tnk");
-
-		System.out.println(Tvk+"Tvk");
+		
 
 
 
 		// Umrechnung Reglerkonform
-
-
+		//TODO: TP!
+		Tp = Tv/10;
 
 		double[] controllerConf = Calc.controllerConform(Krk, Tnk, Tvk, Tp, controllerTyp);
 

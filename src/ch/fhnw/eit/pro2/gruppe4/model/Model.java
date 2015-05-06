@@ -18,7 +18,7 @@ public class Model extends Observable {
 			closedLoop[i] = new ClosedLoop(0);
 		}
 		for (int i = closedLoop.length-5; i < closedLoop.length; i++) {
-			closedLoop[i] = new ClosedLoop(i-(closedLoop.length-5));
+			closedLoop[i] = new ClosedLoop(i-(closedLoop.length-6));
 		}	
 	}
 
@@ -32,7 +32,6 @@ public class Model extends Observable {
 	}
 
 	public ClosedLoop[] getClosedLoop(){
-		System.out.println(closedLoop[1]+"closedLoopinModel");
 		
 		return closedLoop;
 	}

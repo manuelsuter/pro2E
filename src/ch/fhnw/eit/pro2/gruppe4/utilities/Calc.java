@@ -149,7 +149,7 @@ public class Calc {
 						.add(Calc.pow(jw, a.length - i - 1).multiply(a[i]));
 
 			}
-			if (zaehler.abs() == 0.0 & nenner.abs() == 0.0) {
+			if (nenner.abs() == 0.0) {
 				res[k] = new Complex(0.0,0.0);
 			}
 			else{
@@ -524,7 +524,6 @@ public class Calc {
 		for (int i = 0; i < h.length; i++) {
 
 			hReal[i] = h[i].getReal();
-			System.out.println(hReal[i]+"hReal");
 		}
 		
 		//TODO: Hier ist was falsch.

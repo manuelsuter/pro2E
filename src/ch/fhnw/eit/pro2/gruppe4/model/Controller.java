@@ -52,11 +52,13 @@ public abstract class Controller {
 	 * @return
 	 */
 	public double[] getControllerValues(){
-		double[] values = new double[4];
+		double[] values = new double[6];
 		values[0] = Kr;
 		values[1] = Tn;
 		values[2] = Tv;
 		values[3] = Tp;
+		values[4] = controllerTyp;
+		values[5] = CALCULATIONTYP;
 
 		return values;
 	}

@@ -2,8 +2,10 @@ package ch.fhnw.eit.pro2.gruppe4.model;
 
 public class ChienApper extends Controller {
 	
-	public static final int CALCULATIONTYP = 5;
-
+	public ChienApper(){	
+		CALCULATIONTYP = 5;
+	}
+	
 	protected void calculate() {
 		double[] inputValues = path.getInputValues();
 		double Ks = inputValues[Path.KsPOS];
@@ -29,6 +31,7 @@ public class ChienApper extends Controller {
 			break;
 		}
 		setUTFcontrollerConf();
+
 	}
 }
 

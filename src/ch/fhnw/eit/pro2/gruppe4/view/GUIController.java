@@ -55,10 +55,6 @@ public class GUIController {
 				controllerTyp = Controller.PID;
 			}
 			model.setData(Ks, Tu, Tg, controllerTyp, Tp);
-			
-			//TODO: SYSO löschen.
-			System.out.println("GUI-Controller Methode calculate() ausgelöst!!");
-		
 	}
 	
 	

@@ -2,7 +2,12 @@ package ch.fhnw.eit.pro2.gruppe4.model;
 
 public class Chien20 extends Controller {
 	
-	public static final int CALCULATIONTYP = 4;
+	
+
+	
+	public Chien20(){	
+		CALCULATIONTYP = 4;
+	}
 
 	protected void calculate() {
 		double[] inputValues = path.getInputValues();

@@ -4,10 +4,9 @@ import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 
 class Rosenberg extends Controller {
 	
-	public static final int CALCULATIONTYP = 1;
-
 	
-	public Rosenberg(){		
+	public Rosenberg(){	
+		CALCULATIONTYP = 1;
 	}
 		
 	protected void calculate(){

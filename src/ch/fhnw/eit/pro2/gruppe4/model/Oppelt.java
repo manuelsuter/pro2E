@@ -2,8 +2,10 @@ package ch.fhnw.eit.pro2.gruppe4.model;
 
 public class Oppelt extends Controller {
 	
-	public static final int CALCULATIONTYP = 2;
 
+	public Oppelt(){	
+		CALCULATIONTYP = 2;
+	}
 	protected void calculate() {
 		double[] inputValues = path.getInputValues();
 		double Ks = inputValues[Path.KsPOS];
@@ -29,5 +31,6 @@ public class Oppelt extends Controller {
 			break;
 		}
 		setUTFcontrollerConf();
+
 	}
 }

@@ -35,14 +35,14 @@ public class RulesOfThumbPanel extends JPanel {
 		this.guiController = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Faustformeln "));
 		
-		lbMethod = new JLabel[Controller.calculationTypName.length-1];
+		lbMethod = new JLabel[Controller.calculationTypName.length];
 		lbKr = new JLabel[lbMethod.length];
 		lbTn = new JLabel[lbMethod.length];
 		lbTv = new JLabel[lbMethod.length];
 		
 		
 		for (int i = 0; i < lbMethod.length; i++) {
-			lbMethod[i] = new JLabel(Controller.calculationTypName[i+1]);
+			lbMethod[i] = new JLabel();
 			add(lbMethod[i], new GridBagConstraints(0, i, 1, 1, 0.0, 0.0,
 					GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
 							5, 10, 5, 10), 0, 0));
@@ -97,11 +97,12 @@ public class RulesOfThumbPanel extends JPanel {
 		
 		ClosedLoop[] closedLoop = model.getClosedLoop();
 		//TODO: Gut fragen ob Label nicht direkt double verarbeiten kann
-		for (int i = 1; i < Controller.calculationTypName.length-1; i++) {
-			double[] controllerValues = closedLoop[i].getController().getControllerValues();
-			lbKr[i].setText(""+controllerValues[0]);
-			lbTn[i].setText(""+controllerValues[1]);
-			lbTv[i].setText(""+controllerValues[2]);
+		for (int i = 0; i < closedLoop.length-3; i++) {
+			double[] controllerValues = closedLoop[i+3].getController().getControllerValues();
+			lbMethod[i+1].setText(""+Controller.calculationTypName[(int)controllerValues[5]]);
+			lbKr[i+1].setText(""+controllerValues[0]);
+			lbTn[i+1].setText(""+controllerValues[1]);
+			lbTv[i+1].setText(""+controllerValues[2]);
 		}
 
 	}
