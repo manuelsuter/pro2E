@@ -58,24 +58,23 @@ private static final Color[] COLOR = {Color.RED, Color.ORANGE,Color.GREEN, Color
 
 		ValueAxis axis = xyplot.getDomainAxis();
 		axis.setRange(0, 10);
-		axis.setAutoRange(false);
+		axis.setAutoRange(true);
 		axis.setLabelPaint(Color.black);
 		axis.setTickLabelPaint(Color.black);
 		axis = xyplot.getRangeAxis();
 		axis.setRange(-5, 5);
-		axis.setAutoRange(false);
+		axis.setAutoRange(true);
 		axis.setLabelPaint(Color.black);
 		axis.setTickLabelPaint(Color.black);
 
 		ChartPanel panel = new ChartPanel(chart);
 		add(panel);
 		
-		double[] b = new double[] {1,2,3,4,5};
-		double[] a = new double[] {4,3,1,26,5};
-		double[] f = new double[] {138,120,4,5};
-		
-		Complex[] array = Calc.freqs(b, a, f);
-		System.out.println(array[1].abs()+"array");
+//		double[] b = new double[] {1,2,3,4,5};
+//		double[] a = new double[] {4,3,1,26,5};
+//		double[] f = new double[] {138,120,4,5};
+//		
+//		Complex[] array = Calc.freqs(b, a, f);
 	}
 
 	public XYDataset createDataset(double[] x, double[] y) {

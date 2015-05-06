@@ -81,10 +81,10 @@ public class PhaseResponseMethodPanel extends JPanel {
 			//TODO: Gut fragen ob Label nicht direkt double verarbeiten kann
 			for (int i = 0; i < methodDesignation.length-1; i++) {
 				double[] controllerValues = closedLoop[i].getController().getControllerValues();
-				lbKr[i+1].setText(""+controllerValues[0]);
-				lbTn[i+1].setText(""+controllerValues[1]);
-				lbTv[i+1].setText(""+controllerValues[2]);
-				tfTp.setText(""+controllerValues[3]);
+				lbKr[i+1].setText(""+Math.round((controllerValues[0])*1000.0)/1000.0);
+				lbTn[i+1].setText(""+Math.round((controllerValues[1])*1000.0)/1000.0);
+				lbTv[i+1].setText(""+Math.round((controllerValues[2])*1000.0)/1000.0);
+				tfTp.setText(""+Math.round((controllerValues[3])*1000.0)/1000.0);
 			}	
 	}
 }

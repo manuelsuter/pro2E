@@ -100,9 +100,9 @@ public class RulesOfThumbPanel extends JPanel {
 		for (int i = 0; i < closedLoop.length-3; i++) {
 			double[] controllerValues = closedLoop[i+3].getController().getControllerValues();
 			lbMethod[i+1].setText(""+Controller.calculationTypName[(int)controllerValues[5]]);
-			lbKr[i+1].setText(""+controllerValues[0]);
-			lbTn[i+1].setText(""+controllerValues[1]);
-			lbTv[i+1].setText(""+controllerValues[2]);
+			lbKr[i+1].setText(""+Math.round((controllerValues[0])*1000.0)/1000.0);
+			lbTn[i+1].setText(""+Math.round((controllerValues[1])*1000.0)/1000.0);
+			lbTv[i+1].setText(""+Math.round((controllerValues[2])*1000.0)/1000.0);
 		}
 
 	}

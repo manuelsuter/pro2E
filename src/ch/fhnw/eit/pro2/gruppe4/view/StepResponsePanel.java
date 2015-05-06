@@ -138,6 +138,7 @@ public class StepResponsePanel extends JPanel implements ChangeListener {
 		for (int i = 0; i < t.length; i++) {
 			t[i] = yt[1][i];
 		}
+		
 		plotStepResponse();
 	}
 }

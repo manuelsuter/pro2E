@@ -525,8 +525,6 @@ public class Calc {
 		
 		// für Output zusammmensetzen:
 		double[][] res = new double[2][yShort.length];
-		System.out.println(t.length+"t-length");
-		System.out.println(yShort.length+"y-length");
 		
 		for (int j = 0; j < res[0].length; j++) {
 			res[0][j] = yShort[j];

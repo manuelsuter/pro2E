@@ -69,7 +69,7 @@ public class ClosedLoop {
 		//double fs = 1.0/(path.getInputValues()[Path.TgPOS]*500); // Muss Potenz von 2 sein.
 		// n evtl. höhr / tiefer setzen.
 		
-		double fs = 128;
+		double fs = 1 / path.getInputValues()[Path.TgPOS] * 100;
 		int n = 512;
 		
 		yt = Calc.schrittIfft(zah, nen, fs, n);	

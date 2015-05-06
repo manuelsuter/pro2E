@@ -565,7 +565,6 @@ public class PhaseResponseMethod extends Controller {
 		Tv = controllerConf[2];
 
 		setUTF();
-		System.out.println(Kr+"Kr");
 	}
 
 	private void setUTF(){
