@@ -524,16 +524,17 @@ public class Calc {
 		t = linspace(0.0, (yShort.length - 1) * T, yShort.length);
 		
 		// für Output zusammmensetzen:
-		double[][] res = new double[2][y.length];
-		for (int i = 0; i < res.length; i++) {
+		double[][] res = new double[2][yShort.length];
+		System.out.println(t.length+"t-length");
+		System.out.println(yShort.length+"y-length");
+		
+		for (int j = 0; j < res[0].length; j++) {
+			res[0][j] = yShort[j];
+		}
+		for (int i = 0; i < res[1].length; i++) {
 			res[1][i] = t[i];
 		}
-
-		for (int j = 0; j < res.length; j++) {
-			res[0][j] = y[j];
-		}
 		return res;
-		
 	}
 
 	/**
