@@ -56,6 +56,7 @@ public class StepResponsePanel extends JPanel implements ChangeListener {
 		add(phasenPlot);
 
 		
+				
 		/**
 		stepResponse = new GraphPlotter("x","y",true);
 		

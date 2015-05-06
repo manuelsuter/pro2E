@@ -79,11 +79,11 @@ public class PhaseResponseMethodPanel extends JPanel {
 		
 			ClosedLoop[] closedLoop = model.getClosedLoop();
 			//TODO: Gut fragen ob Label nicht direkt double verarbeiten kann
-			for (int i = 1; i < methodDesignation.length; i++) {
+			for (int i = 0; i < methodDesignation.length-1; i++) {
 				double[] controllerValues = closedLoop[i].getController().getControllerValues();
-				lbKr[i].setText(""+controllerValues[0]);
-				lbTn[i].setText(""+controllerValues[1]);
-				lbTv[i].setText(""+controllerValues[2]);
+				lbKr[i+1].setText(""+controllerValues[0]);
+				lbTn[i+1].setText(""+controllerValues[1]);
+				lbTv[i+1].setText(""+controllerValues[2]);
 				tfTp.setText(""+controllerValues[3]);
 			}	
 	}

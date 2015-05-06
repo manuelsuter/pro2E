@@ -53,25 +53,10 @@ public class PhaseResponseMethod extends Controller {
 
 
 	public void setData(int controllerTyp, Path path){
-
-
-
 		this.controllerTyp = controllerTyp;
-
-
-
 		this.path = path;
-
-
-
 		setPhaseMargin();
-
-
-
 		calculate();
-
-
-
 	}
 
 
@@ -185,15 +170,8 @@ public class PhaseResponseMethod extends Controller {
 
 
 		double Ks = path.getUTFZahPoly()[0];
-
-
-
-		double[] Ts = path.getUTFNenPoly();
-
+		double[] Ts = path.getT();
 		
-
-
-
 		// Omega-Achse erstellen
 
 
@@ -587,7 +565,7 @@ public class PhaseResponseMethod extends Controller {
 		Tv = controllerConf[2];
 
 		setUTF();
-
+		System.out.println(Kr+"Kr");
 	}
 
 	private void setUTF(){

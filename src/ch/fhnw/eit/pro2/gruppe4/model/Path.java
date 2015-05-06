@@ -7,6 +7,7 @@ public class Path {
 	public static final int KsPOS = 0, TuPOS = 1, TgPOS = 2;
 	private double Ks, Tu, Tg;
 	private UTF utf = new UTF();
+	private double[] t;
 	
 	public Path(){		
 	}
@@ -45,13 +46,17 @@ public class Path {
 	public double[] getUTFNenPoly(){
 		return utf.getNenPoly();
 	}
-
+//TODO: name für getT rename.
+	public double[] getT(){
+	
+		return t;
+	}
 	
 	private void calculate(){
 		double[] KsArray = new double[1];
 		KsArray[0] = Ks;
 		utf.setZahPoly(KsArray);
-		double[] t = Calc.sani(Tu, Tg);
-		utf.setNenPoly(t);
+		t = Calc.sani(Tu, Tg);
+		utf.setNenPoly(Calc.poly(t));
 	}
 }

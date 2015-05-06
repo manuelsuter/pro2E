@@ -483,13 +483,14 @@ public class Calc {
 		w = linspace(0.0, fs * Math.PI, n / 2);
 
 		// Frequenzgang berechnen
-
+		
 		H = freqs(zah, nen, w);
+		
+		
 		
 		// Symmetrischen Vektor für Ifft erstellen:
 
 		Complex[] tmp = new Complex[H.length];
-
 		tmp = colonColon(H, (n / 2) - 1, -1, 1);
 
 		for (int i = 0; i < tmp.length; i++) {
@@ -500,6 +501,9 @@ public class Calc {
 
 		Complex x = new Complex(0);
 		H = concat(colonColon(H, 0, 1, (n / 2) - 1), new Complex[] { x }, tmp);
+		
+		
+
 
 		// Impulsantwort berechen
 
@@ -509,28 +513,27 @@ public class Calc {
 		
 		h = f.transform(H, TransformType.INVERSE);
 		
+		
+		
 		// Schrittantwort berechnen
 
-		double[] zwres = new double[2];
-
-		zwres[0] = 1.0;
-
-		zwres[1] = n + 1.0;
+		double[] ones = new double[n+1];
+		for (int i = 0; i < ones.length; i++) {
+			ones[i] = 1.0;
+		}
 
 		double[] y = new double[h.length];
-
 		double[] hReal = new double[h.length];
 
 		for (int i = 0; i < h.length; i++) {
-
 			hReal[i] = h[i].getReal();
 		}
 		
 		//TODO: Hier ist was falsch.
 
-		y = diskConv(hReal, zwres);
+		y = diskConv(hReal, ones);
 		
-
+		
 		// Resultate ausschneiden
 
 		y = colonColon(y, 0, 1, (int) ((y.length / 2) - 1));
@@ -574,16 +577,13 @@ public class Calc {
 
 	public static double[] poly(double[] x) {
 
-		double[] res = new double[x.length];
-
-		for (int i = 1; i < res.length; i++) {
-
-			res = diskConv(x, res);
-
+		double[] res = {x[0], 1.0};
+	
+		for (int i = 1; i < x.length; i++) {
+			double[] c = {x[i], 1.0};
+			res = diskConv(c, res);
 		}
-
 		return res;
-
 	}
 
 	/**
@@ -603,20 +603,18 @@ public class Calc {
 	 * @return c = die Faltung
 	 */
 
-	public static double[] diskConv(double[] b, double[] a) {
+	public static double[] diskConv(double[] a, double[] b) {
 
 		double[] c = new double[a.length + b.length - 1];
 
 		for (int n = 0; n < c.length; n++) {
 
-			for (int i = Math.max(0, n - b.length + 1); i <= Math.min(
+			for (int i = Math.max(0, n - a.length + 1); i <= Math.min(
 
-			a.length - 1, n); i++) {
+			b.length - 1, n); i++) {
 
-				c[i] += a[i] * b[n - i];
-
+				c[n] += b[i] * a[n - i];
 			}
-
 		}
 
 		return c;
@@ -894,60 +892,58 @@ public class Calc {
 
 	double Tnk, double Tvk, double Tp) {
 
-		double[][] koeffizienten;
+		System.out.println(Krk+"Krk");
+		System.out.println(Tnk+"Tnk");
+		System.out.println(Tvk+"Tvk");
+		System.out.println(Tp+"Tp");
+		
+		double[][] res;
 
 		switch (controllerTyp) {
 
 		// PI-Regler
 
 		case 2:
-
-			koeffizienten = new double[2][2];
-
-			koeffizienten[0][0] = Krk * Tnk; // Koeffizient fuer s^1 im Zaehler
-
-			koeffizienten[0][1] = Krk; // Koeffizient fuer s^0 im Zaehler
-
-			koeffizienten[1][0] = Tnk; // Koeffizient fuer s^1 im Nenner
-
-			// koeffizienten[1][1] = 0; // Koeffizient fuer s^0 im Nenner
+			
+			res = new double[2][2];
+			
+			//Zaehler
+			res[0][0] = Krk * Tnk;
+			res[0][1] = Krk;
+			
+			//Nenner
+			res[1][0] = Tnk;
+			res[1][1] = 0;
 
 			break;
 
 		// PID-Regler
 
 		case 3:
-
-			koeffizienten = new double[2][3];
-
-			koeffizienten[0][0] = Krk * Tnk * Tvk; // Koeffizient fuer s^2 im
-
+			
+			res = new double[2][3];
+			
 			// Zaehler
+			for (int i = 0; i < 3; i++) {
+				res[0][i] = Krk * Calc.diskConv(new double[] {Tvk, 1.0}, new double[] {Tnk, 1.0})[i];
+			}
+			
+			//Nenner
+			res[1][0] = Tnk;
+			res[1][1] = 0;
+			
 
-			koeffizienten[0][1] = Krk * (Tnk + Tvk); // Koeffizient fuer s^1 im
-
-			// Zaehler
-
-			koeffizienten[0][2] = Krk; // Koeffizient fuer s^0 im Zaehler
-
-			// koeffizienten[1][0] = 0; // Koeffizient fuer s^2 im Nenner
-
-			koeffizienten[1][1] = Tnk; // Koeffizient fuer s^1 im Nenner
-
-			// koeffizienten[1][2] = 0; // Koeffizient fuer s^0 im Nenner
 
 			break;
 
 		default:
 
-			koeffizienten = new double[0][0];
+			res = new double[0][0];
 
 			break;
 
 		}
-
-		return koeffizienten;
-
+		return res;
 	}
 
 	/**
