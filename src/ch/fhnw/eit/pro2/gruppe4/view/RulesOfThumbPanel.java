@@ -9,6 +9,7 @@ package ch.fhnw.eit.pro2.gruppe4.view;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.text.DecimalFormat;
 import java.util.Observable;
 
 import javax.swing.JLabel;
@@ -23,7 +24,7 @@ public class RulesOfThumbPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private GUIController guiController;
-	
+	private DecimalFormat f = new DecimalFormat("#0.000");
 	private JLabel[] lbMethod;
 	private JLabel[] lbKr;
 	private JLabel[] lbTn;
@@ -109,9 +110,9 @@ public class RulesOfThumbPanel extends JPanel {
 		for (int i = 0; i < closedLoop.length-3; i++) {
 			double[] controllerValues = closedLoop[i+3].getController().getControllerValues();
 			lbMethod[i+1].setText(""+Controller.calculationTypName[(int)controllerValues[5]]);
-			lbKr[i+1].setText(""+Math.round((controllerValues[0])*1000.0)/1000.0);
-			lbTn[i+1].setText(""+Math.round((controllerValues[1])*1000.0)/1000.0);
-			lbTv[i+1].setText(""+Math.round((controllerValues[2])*1000.0)/1000.0);
+			lbKr[i+1].setText(""+f.format(Math.round((controllerValues[0])*1000.0)/1000.0));
+			lbTn[i+1].setText(""+f.format(Math.round((controllerValues[1])*1000.0)/1000.0));
+			lbTv[i+1].setText(""+f.format(Math.round((controllerValues[2])*1000.0)/1000.0));
 		}
 
 	}
