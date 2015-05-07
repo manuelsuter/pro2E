@@ -56,7 +56,13 @@ public class Path {
 		double[] KsArray = new double[1];
 		KsArray[0] = Ks;
 		utf.setZahPoly(KsArray);
-		t = Calc.sani(Tu, Tg);
-		utf.setNenPoly(Calc.poly(t));
+		try {
+			t = Calc.sani(Tu, Tg);
+			utf.setNenPoly(Calc.poly(t));
+		} catch (ControllerException e) {
+			System.out.println(e);
+		}
+		
+		
 	}
 }

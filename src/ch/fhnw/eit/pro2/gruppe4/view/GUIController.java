@@ -38,23 +38,44 @@ public class GUIController {
 		model.setData(Ks, Tu, Tg, controllerTyp, Tp);
 	}
 	
-	public void calculate(){		
+	public void calculate(){			
 		
-			double Ks = Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText());
-			double Tu = Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText());
-			double Tg = Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText());
-			double Tp = 0.0;
-			//TODO: Tp noch verarbeiten.
-			//double Tp = Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp.getText());	
-			int controllerTyp;
+//			if (view.leftPanel.inputPanel.tfTu.getText().equals("") || view.leftPanel.inputPanel.tfTg.getText().equals("") || view.leftPanel.inputPanel.tfKs.getText().equals("")
+//					|| view.leftPanel.inputPanel.tfTu.getText().equals(" ") || view.leftPanel.inputPanel.tfTg.getText().equals(" ") || view.leftPanel.inputPanel.tfKs.getText().equals(" ")) {
+//				System.out.println("Felder dürfen nicht leer sein oder Leerzeichen enthalten.");
+//				
+//				
+				try {
+					double Ks = Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText());
+					double Tu = Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText());
+					double Tg = Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText());
+					double Tp = 0.0;
+					
+					if ((Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText()) == 0.0) || (Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText()) == 0.0) || (Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText()) == 0.0)) {
+						view.leftPanel.inputPanel.lbMessage.setText("Werte dürfen nicht 0 sein!");
+						System.out.println("Fehler");
+					}else {	
+					//TODO: Tp noch verarbeiten.
+					//double Tp = Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp.getText());	
+					int controllerTyp;
+					
+					if (view.leftPanel.controllerChooserPanel.btPI.isSelected() == true) {
+						controllerTyp = Controller.PI;
+					}else{
+						controllerTyp = Controller.PID;
+					}
+					model.setData(Ks, Tu, Tg, controllerTyp, Tp);
+					
+					}
+					
+					
+				} catch (NumberFormatException e) {
+					view.leftPanel.inputPanel.lbMessage.setText("Eigabefeld darf nicht leer sein.");
+					view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp.setText("Hallo");
+					System.out.println("Ungültige Eingabe");
+				}
 			
-			if (view.leftPanel.controllerChooserPanel.btPI.isSelected() == true) {
-				controllerTyp = Controller.PI;
-			}else{
-				controllerTyp = Controller.PID;
-			}
-			model.setData(Ks, Tu, Tg, controllerTyp, Tp);
-	}
+	}	
 	
 	
 	public void clear(){		

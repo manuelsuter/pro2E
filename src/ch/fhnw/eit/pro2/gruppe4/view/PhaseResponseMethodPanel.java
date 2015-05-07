@@ -6,6 +6,7 @@ package ch.fhnw.eit.pro2.gruppe4.view;
  * 
  * */
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -106,14 +107,14 @@ public class PhaseResponseMethodPanel extends JPanel {
 			
 			if (model.getClosedLoop()[0].getController().getControllerTyp() != Controller.PID) {
 				for (int i = 0; i < lbTv.length; i++) {
-					lbTv[i].setText("           ");
+					lbTv[i].setText("             ");
 				}
 				tfTp.setVisible(false);
-				lbTp.setText(" ");
+				lbTp.setForeground(getBackground());
 			}
 			else{
 				tfTp.setVisible(true);
-				lbTp.setText("<html><i>T<sub>p</sub></i></html>");
+				lbTp.setForeground(Color.BLACK);
 			}
 	}
 }
