@@ -9,6 +9,8 @@ package ch.fhnw.eit.pro2.gruppe4.view;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 
 import javax.swing.ButtonGroup;
@@ -18,7 +20,7 @@ import javax.swing.JToggleButton;
 import javax.swing.UIManager;
 
 
-public class ControllerChooserPanel extends JPanel {
+public class ControllerChooserPanel extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private GUIController guiController;
@@ -32,7 +34,10 @@ public class ControllerChooserPanel extends JPanel {
 		setBorder(MyBorderFactory.createMyBorder(" PI / PID-T1 Regler "));
 		
 		btPI = new JToggleButton("PI");
+		btPI.addActionListener(this);
+		
 		btPID = new JToggleButton("PID-T1", true);
+		btPID.addActionListener(this);
 				
 		bGroup = new ButtonGroup();
 		bGroup.add(btPI);
@@ -48,5 +53,9 @@ public class ControllerChooserPanel extends JPanel {
 	}
 	public void update(Observable obs, Object obj) {
 
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		guiController.calculate();				
 	}
 }

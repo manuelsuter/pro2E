@@ -50,8 +50,7 @@ public class GUIController {
 			
 			if (view.leftPanel.controllerChooserPanel.btPI.isSelected() == true) {
 				controllerTyp = Controller.PI;
-			}
-			else{
+			}else{
 				controllerTyp = Controller.PID;
 			}
 			model.setData(Ks, Tu, Tg, controllerTyp, Tp);

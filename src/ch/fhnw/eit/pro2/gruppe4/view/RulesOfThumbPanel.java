@@ -36,8 +36,6 @@ public class RulesOfThumbPanel extends JPanel {
 		this.guiController = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Faustformeln "));
 		
-		
-		
 		lbMethod = new JLabel[Controller.calculationTypName.length];
 		lbKr = new JLabel[lbMethod.length];
 		lbTn = new JLabel[lbMethod.length];
@@ -68,31 +66,11 @@ public class RulesOfThumbPanel extends JPanel {
 		// Erzeugt die erste Zeile für Kr, Tn, Tv.
 		lbKr[0].setText("<html><i>K<sub>r</sub></html></i>");
 		lbTn[0].setText("<html><i>T<sub>n</sub></html></i>");
-		lbTv[0].setText("<html><i>T<sub>v</sub></html></i>");	
+		lbTv[0].setText("<html><i>T<sub>v</sub></html></i>");
 		
 		setInitialValues();
 	}
 	
-	
-	
-	public void makeRulesOfThumbLine(String lbRule, String lbKr, String lbTn, String lbTv, int y){
-		
-		add(new JLabel(lbRule), new GridBagConstraints(0, y, 1, 1, 0.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
-						5, 10, 5, 10), 0, 0));
-		
-		add(new JLabel(lbKr), new GridBagConstraints(1, y, 1, 1, 0.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
-						5, 10, 5, 10), 0, 0));
-		
-		add(new JLabel(lbTn), new GridBagConstraints(2, y, 1, 1, 0.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
-						5, 10, 5, 10), 0, 0));
-		
-		add(new JLabel(lbTv), new GridBagConstraints(3, y, 1, 1, 0.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
-						5, 10, 5, 10), 0, 0));
-	}
 	
 	public void setInitialValues(){
 		// Initialisierungswerte der Reglerausgabe.
@@ -111,6 +89,7 @@ public class RulesOfThumbPanel extends JPanel {
 		
 		ClosedLoop[] closedLoop = model.getClosedLoop();
 		//TODO: Gut fragen ob Label nicht direkt double verarbeiten kann
+		
 		for (int i = 0; i < closedLoop.length-3; i++) {
 			double[] controllerValues = closedLoop[i+3].getController().getControllerValues();
 			lbMethod[i+1].setText(""+Controller.calculationTypName[(int)controllerValues[5]]);
@@ -118,7 +97,12 @@ public class RulesOfThumbPanel extends JPanel {
 			lbTn[i+1].setText(""+f.format(Math.round((controllerValues[1])*1000.0)/1000.0));
 			lbTv[i+1].setText(""+f.format(Math.round((controllerValues[2])*1000.0)/1000.0));
 		}
-
+		
+		if (model.getClosedLoop()[0].getController().getControllerTyp() != Controller.PID) {
+			for (int i = 0; i < lbTv.length; i++) {
+				lbTv[i].setText("           ");
+			}
+		}
 	}
 	
 }

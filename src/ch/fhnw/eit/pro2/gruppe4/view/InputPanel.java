@@ -15,10 +15,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
 import java.util.Observable;
 
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
+import javax.swing.JRootPane;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -45,6 +48,8 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 		this.guiController = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Schrittantwort vermessen "));
 
+
+		
 		/*
 		 * x, y, x-span, y-span, x-weight, y-weight, anchor, fill, insets(int
 		 * top, int left, int bottom, int right), internal padding x, internal
@@ -101,8 +106,10 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE,
 				new Insets(10, 10, 10, 10), 0, 0));
 		btClear.addActionListener(this);
+		
 
-		checkBoxPlot = new JCheckBox("Zeige Plots", true);
+
+		checkBoxPlot = new JCheckBox("erweitert", true);
 		add(checkBoxPlot, new GridBagConstraints(4, 3, 2, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE,
 				new Insets(10, 10, 10, 10), 0, 0));

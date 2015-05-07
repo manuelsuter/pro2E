@@ -31,6 +31,7 @@ public class PhaseResponseMethodPanel extends JPanel {
 	private JLabel[] lbKr = new JLabel[lbMethod.length];
 	private JLabel[] lbTn = new JLabel[lbMethod.length];
 	private JLabel[] lbTv = new JLabel[lbMethod.length];
+	private JLabel lbTp;
 
 	
 	public PhaseResponseMethodPanel(GUIController controller) {
@@ -66,7 +67,7 @@ public class PhaseResponseMethodPanel extends JPanel {
 		lbTv[0].setText("<html><i>T<sub>v</sub></html></i>");
 		
 		
-		add(new JLabel("<html><i>T<sub>p</sub></i></html>"), new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0,
+		add(lbTp = new JLabel("<html><i>T<sub>p</sub></i></html>"), new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
 						5, 10, 5, 10), 0, 0));
 		
@@ -102,5 +103,17 @@ public class PhaseResponseMethodPanel extends JPanel {
 				lbTv[i+1].setText(""+f.format(Math.round((controllerValues[2])*1000.0)/1000.0));
 				tfTp.setText(""+Math.round((controllerValues[3])*1000.0)/1000.0);
 			}	
+			
+			if (model.getClosedLoop()[0].getController().getControllerTyp() != Controller.PID) {
+				for (int i = 0; i < lbTv.length; i++) {
+					lbTv[i].setText("           ");
+				}
+				tfTp.setVisible(false);
+				lbTp.setText(" ");
+			}
+			else{
+				tfTp.setVisible(true);
+				lbTp.setText("<html><i>T<sub>p</sub></i></html>");
+			}
 	}
 }
