@@ -43,6 +43,7 @@ public class Application extends JFrame {
 	/**
 	 * Entry method of the application. Sets the preferred size and the minimum
 	 * size of the JFrame.
+	 * @param args
 	 */
 	public static void main(String[] args) {
 		Application frame = new Application();

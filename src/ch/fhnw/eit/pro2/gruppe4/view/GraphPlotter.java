@@ -67,7 +67,12 @@ public class GraphPlotter extends JPanel implements MouseWheelListener, ActionLi
 
 	public static final int LINE = 0, DOTS = 1, LineAndDots = 2;// BrokenLine =
 																// 3;
-
+/**
+ * 
+ * @param xLabel
+ * @param yLabel
+ * @param gridOn
+ */
 	public GraphPlotter(String xLabel, String yLabel, boolean gridOn) {
 		super.setLayout(null);
 		setOpaque(false);
@@ -438,6 +443,15 @@ public class GraphPlotter extends JPanel implements MouseWheelListener, ActionLi
 	}
 
 	// add lines to the plot
+	/**
+	 * 
+	 * @param xValues
+	 * @param yValues
+	 * @param lineType
+	 * @param color
+	 * @param lineWeight
+	 * @param lineText
+	 */
 	private void addLines(double[] xValues, double[][] yValues, int lineType, Color color, int lineWeight,
 			String lineText) {
 		Line[] temp = lines;
@@ -528,6 +542,11 @@ public class GraphPlotter extends JPanel implements MouseWheelListener, ActionLi
 		tfYMin.setText(formatScaleFieldValue(yMin));
 		tfYMax.setText(formatScaleFieldValue(yMax));
 	}
+	/**
+	 * 
+	 * @param value
+	 * @return formattedValue
+	 */
 
 	private String formatValue(double value) {
 		String formattedValue = "";
@@ -540,6 +559,11 @@ public class GraphPlotter extends JPanel implements MouseWheelListener, ActionLi
 		}
 		return formattedValue;
 	}
+	/**
+	 * 
+	 * @param value
+	 * @return formatted Value
+	 */
 
 	private String formatScaleFieldValue(double value) {
 		String formattedValue = "";
@@ -792,6 +816,11 @@ public class GraphPlotter extends JPanel implements MouseWheelListener, ActionLi
 		}
 
 		// set the plot data (xValues and yValues)
+		/**
+		 * 
+		 * @param xValues
+		 * @param yValues
+		 */
 		public void setData(double[] xValues, double[] yValues) {
 			if (xValues == null || yValues == null) {
 				return;
@@ -802,6 +831,13 @@ public class GraphPlotter extends JPanel implements MouseWheelListener, ActionLi
 		}
 
 		// set the range of shown values
+		/**
+		 * 
+		 * @param xMin
+		 * @param xMax
+		 * @param yMin
+		 * @param yMax
+		 */
 		public void setRange(double xMin, double xMax, double yMin, double yMax) {
 			this.xMin = xMin;
 			this.xMax = xMax;
@@ -811,36 +847,61 @@ public class GraphPlotter extends JPanel implements MouseWheelListener, ActionLi
 		}
 
 		// set the color of the line and label
+		/**
+		 * 
+		 * @param color
+		 */
 		public void setColor(Color color) {
 			this.color = color;
 		}
 
 		// set the line type
+		/**
+		 * 
+		 * @param lineType
+		 */
 		public void setLineType(int lineType) {
 			this.lineType = lineType;
 		}
 
 		// set weight of the line
+		/**
+		 * 
+		 * @param lineWeight
+		 */
 		public void setLineWeight(int lineWeight) {
 			this.lineWeight = lineWeight;
 		}
 
 		// set the line label text
+		/**
+		 * 
+		 * @param labelText
+		 */
 		public void setLineText(String labelText) {
 			this.lineText = labelText;
 		}
 
 		// Return the line label text
+		/**
+		 * 
+		 * @return lineText
+		 */
 		public String getLineText() {
 			return lineText;
 		}
 
 		// set the index of the label
+		/**
+		 * 
+		 * @param index
+		 */
 		public void setLabelIndex(int index) {
 			this.lineIndex = index;
 		}
 
 		// resize the plot data if the bounds has changed
+		
 		private void resize() {
 			// set delta x and delta y (plotting area / range)
 			double dx = (double) (innerWidth - 1) / (xMax - xMin);

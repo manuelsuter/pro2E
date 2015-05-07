@@ -24,7 +24,10 @@ public class RightPanel extends JPanel {
 	private StepResponsePanel stepResponsePanel;
 
 	
-	
+	/**
+	 * 
+	 * @param controller
+	 */
 	public RightPanel(GUIController controller) {
 		super(new GridBagLayout());
 		this.guiController = controller;
@@ -41,7 +44,11 @@ public class RightPanel extends JPanel {
 						2, 2, 2, 2), 0, 0));
 	
 	}	
-	
+	/**
+	 * 
+	 * @param obs
+	 * @param obj
+	 */
 	public void update(Observable obs, Object obj) {
 		upperPlotPanel.update(obs, obj);
 		stepResponsePanel.update(obs, obj);

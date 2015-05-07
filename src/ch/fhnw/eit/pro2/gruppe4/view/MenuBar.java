@@ -29,7 +29,12 @@ public class MenuBar extends JMenuBar implements Observer, ActionListener {
 	JMenuItem menuItemPrint;
 	JMenuItem menuItemPlot;
 	JFrame frame;
-
+	
+	/**
+	 * 
+	 * @param controller
+	 * @param frame
+	 */
 	public MenuBar(GUIController controller, JFrame frame) {
 		this.frame = frame;
 		menu = new JMenu("Ansicht");
@@ -64,7 +69,10 @@ public class MenuBar extends JMenuBar implements Observer, ActionListener {
 		*/
 		add(menu);
 	}
-
+	/**
+	 * @param o
+	 * @param arg
+	 */
 	public void update(Observable o, Object arg) {}
 
 	public void actionPerformed(ActionEvent e) {

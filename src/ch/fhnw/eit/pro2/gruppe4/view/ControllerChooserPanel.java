@@ -24,7 +24,10 @@ public class ControllerChooserPanel extends JPanel {
 	private GUIController guiController;
 	public JToggleButton btPI, btPID;
 	private ButtonGroup bGroup;
-
+/**
+ * 
+ * @param controller
+ */
 	
 	public ControllerChooserPanel(GUIController controller) {
 		super(new GridBagLayout());
@@ -46,6 +49,11 @@ public class ControllerChooserPanel extends JPanel {
 				GridBagConstraints.PAGE_START, GridBagConstraints.NONE, new Insets(
 						10, 10, 10, 10), 0, 0));
 	}
+	/**
+	 * 
+	 * @param obs
+	 * @param obj
+	 */
 	public void update(Observable obs, Object obj) {
 
 	}

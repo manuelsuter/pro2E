@@ -27,6 +27,10 @@ public class View extends JPanel implements Observer {
 	private JFrame frame;
 
 //TODO: Wie genau müssen wir Konstruktoren spezifizieren?
+	/**
+	 * 
+	 * @param guiController
+	 */
 	public View(GUIController guiController) {
 		super(new GridBagLayout());
 
@@ -62,6 +66,10 @@ public class View extends JPanel implements Observer {
 		frame.setSize(dimension);
 		frame.setResizable(flag);
 	}
+	/**
+	 * @param obs
+	 * @param obj
+	 */
 
 	public void update(Observable obs, Object obj) {
 		leftPanel.update(obs, obj);

@@ -13,7 +13,7 @@ public class UTF {
 	
 	/**
 	 * Gibt Zähler als Polynom zurück.
-	 * @return
+	 * @return zahPoly
 	 */
 	public double[] getZahPoly(){
 		return zahPoly;
@@ -21,7 +21,7 @@ public class UTF {
 	
 	/**
 	 * Gibt Nenner als Polynom zurück.
-	 * @return
+	 * @return nenPoly
 	 */
 	public double[] getNenPoly(){
 		return nenPoly;
@@ -29,7 +29,8 @@ public class UTF {
 	
 	/**
 	 * Setzt die UTF mittels Zähler- und Nennerpolynome.
-	 * @return
+	 * @param zahPoly
+	 * @param nenPoly
 	 */
 	public void setUTFPoly(double[] zahPoly, double[] nenPoly){
 		this.zahPoly = zahPoly;
@@ -38,7 +39,7 @@ public class UTF {
 	
 	/**
 	 * Setzt die UTF mittels Zähler- und Nennerpolynome in einem Array.
-	 * @return
+	 * @param polyArray
 	 */
 	public void setUTFPoly(double[][] polyArray){
 		this.zahPoly = polyArray[0];
@@ -47,7 +48,7 @@ public class UTF {
 	
 	/**
 	 * Setzt den Zähler als Polynom aus einem Double-Array.
-	 * @return
+	 * @param zahPoly
 	 */
 	public void setZahPoly(double[] zahPoly){
 		this.zahPoly = zahPoly;
@@ -56,7 +57,7 @@ public class UTF {
 	
 	/**
 	 * Setzt den Zähler als Polynom aus einem Double-Array.
-	 * @return
+	 * @param nenPoly
 	 */
 	public void setNenPoly(double[] nenPoly){
 		this.nenPoly = nenPoly;
@@ -65,7 +66,7 @@ public class UTF {
 	
 	/**
 	 * Gibt Zähler faktorisiert zurück.
-	 * @return
+	 * @return zahFac
 	 */
 	public double[] getZahFac(){
 		return zahFac;
@@ -73,7 +74,7 @@ public class UTF {
 	
 	/**
 	 * Gibt Nenner faktorisiert zurück.
-	 * @return
+	 * @return nenFac
 	 */
 	public double[] getNenFac(){
 		return nenFac;
@@ -81,7 +82,8 @@ public class UTF {
 	
 	/**
 	 * Setzt die UTF mittels faktorisiertem Zähler und Nenner.
-	 * @return
+	 * @param zahFac
+	 * @param nenFac
 	 */
 	public void setUTFFac(double[] zahFac, double[] nenFac){
 		this.zahFac = zahFac;
@@ -90,15 +92,16 @@ public class UTF {
 	
 	/**
 	 * Setzt den faktorisierten Zähler aus einem Double-Array.
-	 * @return
+	 * @param zahFac
 	 */
+	
 	public void setZahFac(double[] zahFac){
 		this.zahFac = zahFac;
 	}
 	
 	/**
 	 * Setzt den faktorisierten Nenner aus einem Double-Array.
-	 * @return
+	 * @param nenFac
 	 */
 	public void setNenFac(double[] nenFac){
 		this.nenFac = nenPoly;

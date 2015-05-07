@@ -23,7 +23,10 @@ public class ControllerValuePanel extends JPanel {
 	public PhaseResponseMethodPanel phaseResponsePanel;
 	private JLabel lbRosenberg, lbOppelt, lbZNn, lbZNs, lbCHR2, lbCHRa, lbTSUMn, lbTSUMs, lbKR, lbTN, lbTV;
 	
-	
+	/**
+	 * 
+	 * @param controller
+	 */
 	public ControllerValuePanel(GUIController controller) {
 		super(new GridBagLayout());
 		this.guiController = controller;
@@ -42,6 +45,11 @@ public class ControllerValuePanel extends JPanel {
 						2, 2, 2, 2), 0, 0));
 	
 	}
+	/**
+	 * 
+	 * @param obs
+	 * @param obj
+	 */
 	
 	public void update(Observable obs, Object obj) {
 		phaseResponsePanel.update(obs, obj);

@@ -75,6 +75,12 @@ public class PhasenPlot extends JPanel {
 		ChartPanel panel = new ChartPanel(chart);
 		add(panel);
 	}
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return dataset
+	 */
 
 	public XYDataset createDataset(double[] x, double[] y) {
 		XYSeriesCollection dataset = new XYSeriesCollection();
@@ -87,11 +93,20 @@ public class PhasenPlot extends JPanel {
 
 		return dataset;
 	}
+	/**
+	 * 
+	 * @param index
+	 * @param dataset
+	 */
 	
 	public void addData(int index, XYDataset dataset) {
 		XYPlot xyplot = chart.getXYPlot();
 		xyplot.setDataset(index, dataset);
 	}
+	/**
+	 * 
+	 * @param index
+	 */
 	
 	public void setColor(int index){
 			xyplot.getRendererForDataset(xyplot.getDataset(index)).setSeriesPaint(0, StepResponsePanel.plotColor[index]);

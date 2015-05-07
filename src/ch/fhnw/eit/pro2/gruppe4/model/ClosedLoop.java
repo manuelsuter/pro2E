@@ -104,8 +104,13 @@ public class ClosedLoop {
 	
 	/**
 	 * Nimmt die InputValues entgegen und gibt sie den Unterklassen weiter
-	 * @param input (int ControllerCalculationTyp, int ControllerTyp, Path path, double Tp, double "phiR", double/int overshoot)
+	 * @param controleerTyp (int ControllerCalculationTyp, int ControllerTyp, Path path, double Tp, double "phiR", double/int overshoot)
 	 * 
+	 * @param path
+	 * 
+	 * @param Tp
+	 * 
+	 * @return viod
 	 */
 					
 	public void setData(int controllerTyp, Path path, double Tp) {

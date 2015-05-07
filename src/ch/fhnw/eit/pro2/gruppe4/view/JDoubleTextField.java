@@ -46,7 +46,9 @@ public class JDoubleTextField extends JTextField implements FocusListener, Mouse
 		addFocusListener(this);
 		addMouseListener(this);
 	}
-
+	/**
+	 * @return
+	 */
 	protected Document createDefaultModel() {
 		return new DoubleDocument(this);
 	}
@@ -108,7 +110,12 @@ public class JDoubleTextField extends JTextField implements FocusListener, Mouse
 			super();
 			this.tf = tf;
 		}
-
+		/**
+		 * @param offs
+		 * @param str
+		 * @param a
+		 * @return
+		 */
 		public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
 			try {
 				if (tf.allowNegativeValues == true) {

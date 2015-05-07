@@ -12,6 +12,13 @@ public class Path {
 	public Path(){		
 	}
 	
+	/**
+	 * 
+	 * @param Ks
+	 * @param Tu
+	 * @param Tg
+	 */
+	
 	public void setData(double Ks, double Tu, double Tg){
 		this.Ks = Ks;
 		this.Tu = Tu;
@@ -19,7 +26,10 @@ public class Path {
 		
 		calculate();
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	
 	public double[] getInputValues(){
 		double[] inputValues = new double[3];
@@ -47,6 +57,10 @@ public class Path {
 		return utf.getNenPoly();
 	}
 //TODO: name für getT rename.
+	/**
+	 * 
+	 * @return
+	 */
 	public double[] getT(){
 	
 		return t;

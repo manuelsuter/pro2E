@@ -118,7 +118,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 	}
 //TODO: Hinweis auf Ge�derte Werte in Textfelder falls Neuberechnenn noch nicht ausgel�st???
 	
-	
+
 	public void itemStateChanged(ItemEvent e) {
 		if (checkBoxPlot.isSelected() == false) {
 			guiController.setVisibility(false);
@@ -128,7 +128,11 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 			guiController.setVisibility(true);
 		}
 	}
-
+	/**
+	 * 
+	 * @param obs
+	 * @param obj
+	 */
 	public void update(Observable obs, Object obj) {
 
 	}

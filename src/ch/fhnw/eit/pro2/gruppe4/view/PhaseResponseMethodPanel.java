@@ -83,7 +83,11 @@ public class PhaseResponseMethodPanel extends JPanel {
 		
 	}
 	
-
+	/**
+	 * 
+	 * @param obs
+	 * @param obj
+	 */
 	public void update(Observable obs, Object obj) {
 		Model model = (Model)obs;
 		

@@ -21,7 +21,14 @@ public class Model extends Observable {
 			closedLoop[i] = new ClosedLoop(i-(closedLoop.length-6));
 		}	
 	}
-
+	/**
+	 * 
+	 * @param Ks
+	 * @param Tu
+	 * @param Tg
+	 * @param controllerTyp
+	 * @param Tp
+	 */
 	
 	public void setData(double Ks, double Tu, double Tg, int controllerTyp, double Tp) {
 		path.setData(Ks, Tu, Tg);

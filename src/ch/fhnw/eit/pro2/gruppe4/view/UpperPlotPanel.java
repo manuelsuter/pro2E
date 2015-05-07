@@ -24,7 +24,10 @@ public class UpperPlotPanel extends JTabbedPane {
 	private JPanel panel3;
 	private JPanel panel4;
 	
-	
+	/**
+	 * 
+	 * @param guiController
+	 */
 	public UpperPlotPanel(GUIController guiController){
 		this.guiController = guiController;
 		
@@ -49,6 +52,11 @@ public class UpperPlotPanel extends JTabbedPane {
 		addTab("Einstell-Regler", panel4);
 	
 	}
+	/**
+	 * 
+	 * @param obs
+	 * @param obj
+	 */
 	public void update(Observable obs, Object obj) {
 
 	}

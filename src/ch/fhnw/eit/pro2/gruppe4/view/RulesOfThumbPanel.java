@@ -30,7 +30,10 @@ public class RulesOfThumbPanel extends JPanel {
 	private JLabel[] lbTn;
 	private JLabel[] lbTv;
 	
-	
+	/**
+	 * 
+	 * @param controller
+	 */
 	public RulesOfThumbPanel(GUIController controller) {
 		super(new GridBagLayout());
 		this.guiController = controller;
@@ -80,7 +83,14 @@ public class RulesOfThumbPanel extends JPanel {
 	}
 	
 	
-	
+	/**
+	 * 
+	 * @param lbRule
+	 * @param lbKr
+	 * @param lbTn
+	 * @param lbTv
+	 * @param y
+	 */
 	public void makeRulesOfThumbLine(String lbRule, String lbKr, String lbTn, String lbTv, int y){
 		
 		add(new JLabel(lbRule), new GridBagConstraints(0, y, 1, 1, 0.0, 0.0,
@@ -101,7 +111,11 @@ public class RulesOfThumbPanel extends JPanel {
 	}
 	
 	
-	
+	/**
+	 * 
+	 * @param obs
+	 * @param obj
+	 */
 	public void update(Observable obs, Object obj) {
 		Model model = (Model)obs;
 		

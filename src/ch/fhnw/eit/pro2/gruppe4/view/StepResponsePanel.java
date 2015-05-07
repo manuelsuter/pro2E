@@ -39,7 +39,10 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 	private double[][][] ytValues;
 	public static final Color[] plotColor = {Color.RED, Color.MAGENTA, Color.ORANGE, Color.BLACK, Color.GREEN,Color.BLUE, Color.lightGray, Color.PINK};
 
-	
+	/**
+	 * 
+	 * @param controller
+	 */
 	public StepResponsePanel(GUIController controller) {
 		super(new BorderLayout());
 		this.guiController = controller;
@@ -153,7 +156,11 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 		}
 	}
 
-	
+	/**
+	 * 
+	 * @param obs
+	 * @param obj
+	 */
 	public void update(Observable obs, Object obj) {
 		Model model = (Model)obs;
 		

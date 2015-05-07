@@ -26,19 +26,16 @@ public class Calc {
 
 	/**
 	 * 
-	 * Berechnet linspace mittels startValue, endValue und length. Gibt ein
+	 * Berechnet linspace mittels startValue, endValue und count. Gibt ein
 	 * 
 	 * Array mit den entsprechenden Werten zurück.
 	 * 
 	 * 
 	 * 
 	 * @param startValue
-	 * 
 	 * @param endValue
-	 * 
 	 * @param count
-	 * 
-	 * @return
+	 * @return array
 	 */
 
 	public static double[] linspace(double startValue, double endValue,
@@ -72,12 +69,9 @@ public class Calc {
 	 * 
 	 * 
 	 * @param startValue
-	 * 
 	 * @param endValue
-	 * 
-	 * @param length
-	 * 
-	 * @return
+	 * @param count
+	 * @return array
 	 */
 
 	public static double[] logspace(double startValue, double endValue,
@@ -113,18 +107,12 @@ public class Calc {
 	 * 
 	 * 
 	 * @param b
-	 * 
 	 *            Zählerpolynom
-	 * 
 	 * @param a
-	 * 
 	 *            Nennerpolynom
-	 * 
 	 * @param w
-	 * 
 	 *            w-Achse
-	 * 
-	 * @return Komplexwertiger Frequenzgang.
+	 * @return res Komplexwertiger Frequenzgang.
 	 */
 
 	public static final Complex[] freqs(double[] b, double[] a, double[] w) {
@@ -132,7 +120,7 @@ public class Calc {
 
 		for (int k = 0; k < res.length; k++) {
 			Complex jw = new Complex(0, w[k]);
-			
+
 			Complex zaehler = new Complex(0, 0);
 			for (int i = 0; i < b.length; i++) {
 				zaehler = zaehler.add(Calc.pow(jw, b.length - i - 1).multiply(
@@ -141,20 +129,18 @@ public class Calc {
 
 			Complex nenner = new Complex(0, 0);
 			for (int i = 0; i < a.length; i++) {
-				nenner = nenner
-						.add(Calc.pow(jw, a.length - i - 1).multiply(a[i]));
+				nenner = nenner.add(Calc.pow(jw, a.length - i - 1).multiply(
+						a[i]));
 
 			}
 			if (nenner.abs() == 0.0) {
-				res[k] = new Complex(0.0,0.0);
-			}
-			else{
-			res[k] = zaehler.divide(nenner);
+				res[k] = new Complex(0.0, 0.0);
+			} else {
+				res[k] = zaehler.divide(nenner);
 			}
 		}
 		return res;
 	}
-	
 
 	/**
 	 * 
@@ -165,8 +151,7 @@ public class Calc {
 	 * 
 	 * 
 	 * @param array
-	 * 
-	 * @return
+	 * @return index
 	 */
 
 	public static int diskMax(double[] array) {
@@ -195,15 +180,10 @@ public class Calc {
 	 * 
 	 * Setzt drei Arrays zu einem zusammen. Double-Version
 	 * 
-	 * 
-	 * 
 	 * @param x
-	 * 
 	 * @param y
-	 * 
 	 * @param z
-	 * 
-	 * @return
+	 * @return res
 	 */
 
 	public static double[] concat(double x[], double y[], double z[]) {
@@ -239,12 +219,9 @@ public class Calc {
 	 * 
 	 * 
 	 * @param x
-	 * 
 	 * @param y
-	 * 
 	 * @param z
-	 * 
-	 * @return
+	 * @return res
 	 */
 
 	public static Complex[] concat(Complex[] x, Complex[] y, Complex[] z) {
@@ -282,14 +259,10 @@ public class Calc {
 	 * 
 	 * 
 	 * @param x
-	 * 
 	 * @param start
-	 * 
 	 * @param stepsize
-	 * 
 	 * @param stop
-	 * 
-	 * @return
+	 * @return y
 	 */
 
 	public static double[] colonColon(double[] x, int start, int stepsize,
@@ -311,21 +284,24 @@ public class Calc {
 
 		return y;
 	}
+
 	/**
-	 * Addiert ein Array b mit dem Array a so zusammen, dass b in die hintersten Positionen von a addiert wird.
+	 * Addiert ein Array b mit dem Array a so zusammen, dass b in die hintersten
+	 * Positionen von a addiert wird.
+	 * 
 	 * @param a
 	 * @param b
-	 * @return
+	 * @return a
 	 */
-	public static double[] addArrayReverse(double[] a, double[] b){
-		
-		int index = b.length-1;
-		for (int i = a.length-1; i > a.length-b.length-1; i--) {
+	public static double[] addArrayReverse(double[] a, double[] b) {
+
+		int index = b.length - 1;
+		for (int i = a.length - 1; i > a.length - b.length - 1; i--) {
 			a[i] += b[index];
 			index--;
 		}
-		
-	return a;	
+
+		return a;
 	}
 
 	/**
@@ -337,14 +313,10 @@ public class Calc {
 	 * 
 	 * 
 	 * @param x
-	 * 
 	 * @param start
-	 * 
 	 * @param stepsize
-	 * 
 	 * @param stop
-	 * 
-	 * @return
+	 * @return y
 	 */
 
 	public static Complex[] colonColon(Complex[] x, int start, int stepsize,
@@ -372,9 +344,12 @@ public class Calc {
 	 * 
 	 * Gibt werte Reglerkonform als Array zurück.
 	 * 
-	 * 
-	 * 
-	 * @return
+	 * @param Krk
+	 * @param Tnk
+	 * @param Tvk
+	 * @param Tp
+	 * @param controllerTyp
+	 * @return res
 	 */
 
 	public static double[] controllerConform(double Krk, double Tnk,
@@ -411,9 +386,12 @@ public class Calc {
 	 * 
 	 * Gibt Werte Bodekonform zurück.
 	 * 
-	 * 
-	 * 
-	 * @return
+	 * @param Kr
+	 * @param Tn
+	 * @param Tv
+	 * @param Tp
+	 * @param controlerTyp
+	 * @return res
 	 */
 
 	public static double[] bodeConform(double Kr, double Tn, double Tv,
@@ -457,38 +435,30 @@ public class Calc {
 	 * 
 	 * 
 	 * @param zah
-	 * 
 	 *            = Zähler
-	 * 
 	 * @param nen
-	 * 
 	 *            = Nenner
-	 * 
 	 * @param fs
-	 * 
 	 *            = Frequenz
-	 * 
 	 * @param n
-	 * 
 	 *            = Länge
-	 * 
-	 * @return c = die Faltung
+	 * @return res = die Faltung
 	 */
 
-	public static double[][] schrittIfft(double[] zah, double[] nen, double fs, int n) {
+	public static double[][] schrittIfft(double[] zah, double[] nen, double fs,
+			int n) {
 
 		double T = (1 / fs); // Periode
 		Complex[] H;
-		
+
 		// Frequenzachse berechnen
 
 		// TODO: evtl. 2*Pi wegen Umrechnung Kreisfrequenz
 		double[] w = linspace(0.0, fs * Math.PI, n / 2); // Kreisfrequenz
-		
+
 		// Frequenzgang berechnen
 		H = freqs(zah, nen, w);
-		
-		
+
 		// Symmetrischen Vektor für Ifft erstellen:
 		Complex[] tmp = new Complex[H.length];
 		tmp = colonColon(H, (n / 2) - 1, -1, 1);
@@ -499,33 +469,33 @@ public class Calc {
 
 		Complex x = new Complex(0);
 		H = concat(colonColon(H, 0, 1, (n / 2) - 1), new Complex[] { x }, tmp);
-		
+
 		// Impulsantwort berechen
 		Complex[] h = new Complex[H.length]; // welche Länge
-		FastFourierTransformer f = new FastFourierTransformer(DftNormalization.STANDARD);
-		h = f.transform(H, TransformType.INVERSE);		
-	
-		//Realteil von h extrahieren.
+		FastFourierTransformer f = new FastFourierTransformer(
+				DftNormalization.STANDARD);
+		h = f.transform(H, TransformType.INVERSE);
+
+		// Realteil von h extrahieren.
 		double[] hReal = new double[h.length];
-		
+
 		for (int i = 0; i < h.length; i++) {
 			hReal[i] = h[i].getReal();
 		}
-		
+
 		// Schrittantwort berechnen
 		double[] y = Calc.diskConvOnes(hReal, n);
-		
-		
+
 		// Resultate ausschneiden. Halbiert die Länge von y.
 		double[] yShort = colonColon(y, 0, 1, (int) ((y.length / 2) - 1));
 
 		// Zeitachse generieren:
 		double[] t;
 		t = linspace(0.0, (yShort.length - 1) * T, yShort.length);
-		
+
 		// für Output zusammmensetzen:
 		double[][] res = new double[2][yShort.length];
-		
+
 		for (int j = 0; j < res[0].length; j++) {
 			res[0][j] = yShort[j];
 		}
@@ -538,22 +508,18 @@ public class Calc {
 	/**
 	 * 
 	 * Ausmultiplizieren von Polynomen der Form: (1+x_1)*(1+x_2)*...
-	 * 
-	 * 
-	 * 
-	 * @param x
-	 * 
+	 * @param poly
 	 *            double[]
-	 * 
+	 * @param x
 	 * @return res
 	 */
 
 	public static double[] poly(double[] x) {
 
-		double[] res = {x[0], 1.0};
-	
+		double[] res = { x[0], 1.0 };
+
 		for (int i = 1; i < x.length; i++) {
-			double[] c = {x[i], 1.0};
+			double[] c = { x[i], 1.0 };
 			res = diskConv(c, res);
 		}
 		return res;
@@ -562,17 +528,10 @@ public class Calc {
 	/**
 	 * 
 	 * Berechnet die diskrete Faltung
-	 * 
-	 * 
-	 * 
 	 * @param b
-	 * 
 	 *            = Nenner
-	 * 
 	 * @param a
-	 * 
 	 *            = Zähler
-	 * 
 	 * @return c = die Faltung
 	 */
 
@@ -605,12 +564,9 @@ public class Calc {
 	 * 
 	 * 
 	 * @param y
-	 * 
 	 * @param x
-	 * 
 	 * @param index
-	 * 
-	 * @return gradient
+	 * @return diff
 	 */
 
 	public static double diskDiff(double[] x, double[] y, int index) {
@@ -637,13 +593,9 @@ public class Calc {
 	 * 
 	 * steigend bzw. fallend ist.
 	 * 
-	 * 
-	 * 
 	 * @param array
-	 * 
 	 * @param referenceValue
-	 * 
-	 * @return previous Index
+	 * @return index
 	 */
 
 	public static int diskFind(double[] array, double referenceValue) {
@@ -841,13 +793,19 @@ public class Calc {
 		return index;
 
 	}
-	
-	
-	public static double[] diskConvOnes(double[] a, int b){
+
+	/**
+	 * 
+	 * @param a
+	 * @param b
+	 * @return res
+	 */
+
+	public static double[] diskConvOnes(double[] a, int b) {
 		double[] res = new double[b];
 		res[1] = a[1];
 		for (int i = 1; i < b; i++) {
-			res[i] = res[i-1] + a[i];
+			res[i] = res[i - 1] + a[i];
 		}
 		return res;
 	}
@@ -859,22 +817,17 @@ public class Calc {
 	 * 
 	 * 
 	 * @param controllerTyp
-	 * 
 	 * @param Krk
-	 * 
 	 * @param Tnk
-	 * 
 	 * @param Tvk
-	 * 
 	 * @param Tp
-	 * 
-	 * @return koeffizienten
+	 * @return res =koeffizienten
 	 */
 
 	public static double[][] utfController(int controllerTyp, double Krk,
 
 	double Tnk, double Tvk, double Tp) {
-		
+
 		double[][] res;
 
 		switch (controllerTyp) {
@@ -882,14 +835,14 @@ public class Calc {
 		// PI-Regler
 
 		case 2:
-			
+
 			res = new double[2][2];
-			
-			//Zaehler
+
+			// Zaehler
 			res[0][0] = Krk * Tnk;
 			res[0][1] = Krk;
-			
-			//Nenner
+
+			// Nenner
 			res[1][0] = Tnk;
 			res[1][1] = 0;
 
@@ -898,17 +851,19 @@ public class Calc {
 		// PID-Regler
 
 		case 3:
-			
+
 			res = new double[2][];
 			res[0] = new double[3];
 			res[1] = new double[2];
-			
+
 			// Zaehler
 			for (int i = 0; i < 3; i++) {
-				res[0][i] = Krk * Calc.diskConv(new double[] {Tvk, 1.0}, new double[] {Tnk, 1.0})[i];
+				res[0][i] = Krk
+						* Calc.diskConv(new double[] { Tvk, 1.0 },
+								new double[] { Tnk, 1.0 })[i];
 			}
-			
-			//Nenner
+
+			// Nenner
 			res[1][0] = Tnk;
 			res[1][1] = 0;
 
@@ -921,7 +876,7 @@ public class Calc {
 			break;
 
 		}
-			
+
 		return res;
 	}
 
@@ -929,15 +884,11 @@ public class Calc {
 	 * 
 	 * Spline Interpolation mittels SplineNAK.
 	 * 
-	 * 
-	 * 
+
 	 * @param x
-	 * 
 	 * @param y
-	 * 
 	 * @param v
-	 * 
-	 * @return
+	 * @return res
 	 */
 
 	public static double spline(double[] x, double[] y, double v) {
@@ -966,12 +917,8 @@ public class Calc {
 	 * 
 	 * einem double-Array zurück.
 	 * 
-	 * 
-	 * 
 	 * @param Tu
-	 * 
 	 * @param Tg
-	 * 
 	 * @return
 	 */
 
@@ -1754,33 +1701,31 @@ public class Calc {
 		return T;
 
 	}
-	
-	
-	//Complex Extensions
-	
+
+	// Complex Extensions
+
 	static public Complex pow(Complex a, double x) {
-		return new Complex(Math.pow(a.abs(), x) * Math.cos(x * a.getArgument()),
-				Math.pow(a.abs(), x) * Math.sin(x * a.getArgument()));
+		return new Complex(
+				Math.pow(a.abs(), x) * Math.cos(x * a.getArgument()), Math.pow(
+						a.abs(), x) * Math.sin(x * a.getArgument()));
 	}
-	
-//	static public Complex div(Complex a, Complex b) {
-//		return new Complex((a.abs() / b.abs())
-//				* Math.cos(a.getArgument() - b.getArgument()), (a.abs() / b.abs())
-//				* Math.sin(a.getArgument() - b.getArgument()));
-//	}
-	
-//	public static double angle(Complex c) {
-//		return Math.atan2(c.im, c.re);
-//	}
-//
-//	public static double[] angle(Complex[] c) {
-//		double[] res = new double[c.length];
-//		for (int i = 0; i < res.length; i++) {
-//			res[i] = angle(c[i]);
-//		}
-//		return res;
-//	}
+
+	// static public Complex div(Complex a, Complex b) {
+	// return new Complex((a.abs() / b.abs())
+	// * Math.cos(a.getArgument() - b.getArgument()), (a.abs() / b.abs())
+	// * Math.sin(a.getArgument() - b.getArgument()));
+	// }
+
+	// public static double angle(Complex c) {
+	// return Math.atan2(c.im, c.re);
+	// }
+	//
+	// public static double[] angle(Complex[] c) {
+	// double[] res = new double[c.length];
+	// for (int i = 0; i < res.length; i++) {
+	// res[i] = angle(c[i]);
+	// }
+	// return res;
+	// }
 
 }
-
-

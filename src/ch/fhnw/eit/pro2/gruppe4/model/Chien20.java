@@ -4,7 +4,6 @@ public class Chien20 extends Controller {
 	
 	
 
-	
 	public Chien20(){	
 		CALCULATIONTYP = 4;
 	}

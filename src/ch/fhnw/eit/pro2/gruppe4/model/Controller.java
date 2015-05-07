@@ -65,6 +65,7 @@ public abstract class Controller {
 	/** 
 	 * Setzt die Input-Wert für die Berechnung.
 	 * Löst calculate() aus.
+	 * @param controllerTyp
 	 * @param path
 	 */
 	public void setData(int controllerTyp, Path path){
