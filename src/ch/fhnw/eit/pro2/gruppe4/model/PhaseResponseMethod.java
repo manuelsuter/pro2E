@@ -14,6 +14,12 @@ public class PhaseResponseMethod extends Controller {
 	private int omegaControllerIndex;
 	private double[] phiO;
 	private Complex[] Ho;
+	Complex[] Hs;
+	double[] phiS; 
+	int pointNumber;
+	double[] omega;
+	double[] phiR;
+
 	
 	public PhaseResponseMethod(){	
 		CALCULATIONTYP = 0;
@@ -51,14 +57,22 @@ public class PhaseResponseMethod extends Controller {
 	}
 
 	//Phasenrand manuell ändern
-	public void setPhaseMargin(double phiR) {
-		this.alpha = phiR;
-		calculate();
+	public void setPhaseMargin(double alpha) {
+		System.out.println("set phaseMargin con Phasengang ausgelöst");
+		this.alpha = alpha;
+		//Berechnung Tnk und Tvk
+		calculateTnkTvk();
+		//Berechnung Krk
+		calculateKrk();
+		// Umrechnung Reglerkonform
+		calculatecontrollerConf();
+		//UTF setzen
+		setUTF();
 	}
 	
 	public void setKrk(double Krk) {
 		this.Krk = Krk;
-		Calc.controllerConform(this.Krk, Tnk, Tvk, Tp, controllerTyp);
+		calculatecontrollerConf();
 		setUTF();
 	}
 	
@@ -69,25 +83,24 @@ public class PhaseResponseMethod extends Controller {
 	 */
 	public void setTp(double Tp){
 		this.Tp = Tp;
-	//TODO: calculate() richtig auslösen
+		setUTF();
 	}		
 
 	protected void calculate() {
 		System.out.println("Phasengangmethode calculate() ausgelöst");
-		// UTF Strecke aus Strecke holen
+		// UTF Strecke aus Strecke holen 
 		double Ks = path.getUTFZahPoly()[0];
 		double[] Ts = path.getT();
 		
 		
 		// Omega-Achse erstellen
-		double[] omega = createOmegaAxis(Ts);
-		int pointNumber = omega.length;
+		omega = createOmegaAxis(Ts);
+		pointNumber = omega.length;
 		
 		
 		// Hs und phiS berechnen
-		Complex[] Hs = new Complex[pointNumber];
-		double[] phiS = new double[pointNumber]; 
-
+		Hs = new Complex[pointNumber];
+		phiS = new double[pointNumber];
 		for (int i = 0; i < pointNumber; i++) {
 			Hs[i] = new Complex(Ks);
 			phiS[i] = 0;
@@ -95,11 +108,21 @@ public class PhaseResponseMethod extends Controller {
 		for (int i = 0; i < Hs.length; i++) {
 			for (int n = 0; n < Ts.length; n++) {
 				Hs[i] = Hs[i].multiply(new Complex(1).divide(new Complex(1, Ts[n] * omega[i])));
-
+				
 				phiS[i] = phiS[i] - Math.atan(omega[i] * Ts[n]);
 			}
 		}
-
+		//Berechnung Tnk und Tvk
+		calculateTnkTvk();
+		//Berechnung Krk
+		calculateKrk();
+		// Umrechnung Reglerkonform
+		calculatecontrollerConf();
+		//UTF setzen
+		setUTF();
+	}
+		
+	private void calculateTnkTvk(){
 		// Bestimmung der Frequenz im Phasenrand alpha
 		omegaControllerIndex = Calc.diskFind(phiS, alpha);
 		double omegaController = omega[omegaControllerIndex];
@@ -108,7 +131,7 @@ public class PhaseResponseMethod extends Controller {
 		// Reglerspezifische Berechnungen
 		Complex[] Hr = new Complex[pointNumber];
 		Ho = new Complex[pointNumber];
-		double[] phiR = new double[pointNumber];
+		phiR = new double[pointNumber];
 		phiO = new double[pointNumber];
 		
 		switch (controllerTyp) {
@@ -162,27 +185,19 @@ public class PhaseResponseMethod extends Controller {
 		default:
 			// TODO: Controller Exception erstellen
 			break;
-		}
-		
-		
-		
-		//Krk berechnen
-			//Phasengang des offenen Regelkreises berechnen
-		for (int i = 0; i < phiO.length; i++) {
-			phiO[i] = phiR[i] + phiS[i];
-		}
-		calculateKrk();	
+		}	
 
-		// Umrechnung Reglerkonform
 		//TODO: TP!
 		Tp = Tvk/10;
-		calculatecontrollerConf();
 		
-		//UTF setzen
-		setUTF();
 	}
 	
 	private void calculateKrk(){
+		//Krk berechnen
+		//Phasengang des offenen Regelkreises berechnen
+	for (int i = 0; i < phiO.length; i++) {
+		phiO[i] = phiR[i] + phiS[i];
+	}
 		// Bestimmung omegaD für die gewünschte Überschwingung
 		int omegaDIndex;
 		if (phiU == -2.3561945) {
@@ -241,10 +256,10 @@ public class PhaseResponseMethod extends Controller {
 					stop = 1/Ts[5];
 					break;
 				case 7:
-					stop = 1/Ts[Ts.length-1];
+					stop = 1/Ts[6];
 					break;
 				case 8:
-					stop = 1/Ts[Ts.length-1];
+					stop = 1/Ts[7];
 					break;
 				default:
 					stop = 1/Ts[1];
@@ -252,7 +267,8 @@ public class PhaseResponseMethod extends Controller {
 				}
 				//int pointNumber = (int) (Math.pow(10, 6));
 				//double[] omega = Calc.logspace(-5, 2, pointNumber);
-				return Calc.logspace(-5, stop, (int) (Math.pow(10, 6)*(stop/2)));
+				//return Calc.logspace(-5, stop, (int) (Math.pow(10,6)*stop/2));
+				return Calc.logspace(-5, stop, (int) (20000*stop));
 	}
 	
 	//phiU gemäss gewünschtem Überschwingen bestimmen
