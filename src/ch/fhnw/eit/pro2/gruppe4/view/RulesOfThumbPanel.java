@@ -70,13 +70,7 @@ public class RulesOfThumbPanel extends JPanel {
 		lbTn[0].setText("<html><i>T<sub>n</sub></html></i>");
 		lbTv[0].setText("<html><i>T<sub>v</sub></html></i>");	
 		
-		// Initialisierungswerte der Reglerausgabe.
-		for (int i = 0; i < Controller.calculationTypName.length-1; i++) {
-			lbMethod[i+1].setText(Controller.calculationTypName[i+1]);
-			lbKr[i+1].setText("0.000");
-			lbTn[i+1].setText("0.000");
-			lbTv[i+1].setText("0.000");
-		}	
+		setInitialValues();
 	}
 	
 	
@@ -98,6 +92,16 @@ public class RulesOfThumbPanel extends JPanel {
 		add(new JLabel(lbTv), new GridBagConstraints(3, y, 1, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
 						5, 10, 5, 10), 0, 0));
+	}
+	
+	public void setInitialValues(){
+		// Initialisierungswerte der Reglerausgabe.
+		for (int i = 0; i < Controller.calculationTypName.length-1; i++) {
+		lbMethod[i+1].setText(Controller.calculationTypName[i+1]);
+		lbKr[i+1].setText("0.000");
+		lbTn[i+1].setText("0.000");
+		lbTv[i+1].setText("0.000");
+		}	
 	}
 	
 	

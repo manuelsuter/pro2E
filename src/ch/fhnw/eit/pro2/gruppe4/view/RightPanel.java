@@ -21,7 +21,7 @@ public class RightPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private GUIController guiController;
 	private UpperPlotPanel upperPlotPanel;
-	private StepResponsePanel stepResponsePanel;
+	public StepResponsePanel stepResponsePanel;
 
 	
 	

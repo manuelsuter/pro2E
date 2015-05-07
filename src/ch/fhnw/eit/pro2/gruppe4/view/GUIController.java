@@ -61,7 +61,10 @@ public class GUIController {
 	public void clear(){		
 		view.leftPanel.inputPanel.tfKs.setText("");
 		view.leftPanel.inputPanel.tfTu.setText("");
-		view.leftPanel.inputPanel.tfTg.setText("");	
+		view.leftPanel.inputPanel.tfTg.setText("");
+		view.leftPanel.controllerValuePanel.phaseResponsePanel.setInitialValues();
+		view.leftPanel.controllerValuePanel.rulesOfThumbPanel.setInitialValues();
+		view.rightPanel.stepResponsePanel.deleteDatasets();
 	}
 	
 
@@ -78,9 +81,5 @@ public class GUIController {
 	}
 	*/
 
-	//public void btAction(String stInfo) {
-	//	model.setData(stInfo);
-		// Klasse.Methode(Übergabewert)
-
-	//}
+	
 }

@@ -23,7 +23,7 @@ public class View extends JPanel implements Observer {
 	
 	private static final long serialVersionUID = 1L;
 	public LeftPanel leftPanel;
-	private RightPanel rightPanel;
+	public RightPanel rightPanel;
 	private JFrame frame;
 
 //TODO: Wie genau müssen wir Konstruktoren spezifizieren?

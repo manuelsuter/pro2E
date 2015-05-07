@@ -26,15 +26,15 @@ public class ControllerChooserPanel extends JPanel {
 	private ButtonGroup bGroup;
 
 	
-	public ControllerChooserPanel(GUIController controller) {
+	public ControllerChooserPanel(GUIController guiController) {
 		super(new GridBagLayout());
-		this.guiController = controller;
+		this.guiController = guiController;
 		setBorder(MyBorderFactory.createMyBorder(" PI / PID-T1 Regler "));
 		
 		btPI = new JToggleButton("PI");
 		btPID = new JToggleButton("PID-T1", true);
 				
-		ButtonGroup bGroup = new ButtonGroup();
+		bGroup = new ButtonGroup();
 		bGroup.add(btPI);
 		bGroup.add(btPID);
 		
