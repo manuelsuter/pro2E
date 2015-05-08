@@ -44,7 +44,7 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 	
 	public StepResponsePanel(GUIController controller) {
 		super(new BorderLayout());
-		this.guiController = controller;
+		this.guiController = guiController;
 		setBorder(MyBorderFactory.createMyBorder(" Schrittantworten "));
 		
 		//Plot dem Panel hinzufügen.

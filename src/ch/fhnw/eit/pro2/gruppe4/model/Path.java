@@ -58,11 +58,9 @@ public class Path {
 		utf.setZahPoly(KsArray);
 		try {
 			t = Calc.sani(Tu, Tg);
-			utf.setNenPoly(Calc.poly(t));
-		} catch (ControllerException e) {
-			System.out.println(e);
+			utf.setNenPoly(Calc.poly(t));		
+		} catch (SaniException e) {
 		}
-		
 		
 	}
 }

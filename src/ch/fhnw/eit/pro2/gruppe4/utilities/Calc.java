@@ -22,7 +22,7 @@ import java.lang.Enum;
 
 import org.apache.commons.math3.complex.Complex;
 
-import ch.fhnw.eit.pro2.gruppe4.model.ControllerException;
+import ch.fhnw.eit.pro2.gruppe4.model.SaniException;
 
 public class Calc {
 
@@ -977,7 +977,7 @@ public class Calc {
 	 * @return
 	 */
 
-	public static final double[] sani(double Tu, double Tg) throws ControllerException{
+	public static final double[] sani(double Tu, double Tg) throws SaniException{
 
 		double[][] t_Tg = {
 
@@ -1670,17 +1670,17 @@ public class Calc {
 		int n;
 
 		if (Tu <= 0 || Tg <= 0) {
-			throw new ControllerException("Tu und Tg dürfen nicht gleich 0 sein.");
+			throw new SaniException("Tu und Tg dürfen nicht gleich 0 sein.");
 		}
 
 		double v = Tu / Tg;
 
 		if (v > 0.64173) {
-			throw new ControllerException("Tu/Tg zu gross -> N > 8!");
+			throw new SaniException("Tu/Tg zu gross!");
 		}
 
 		if (v < 0.001) {
-			throw new ControllerException("Tu/Tg zu klein -> N = 1!!");
+			throw new SaniException("Tu/Tg zu klein!");
 		}
 
 		double[] ri = Calc.linspace(0.0, 1.0, 50);

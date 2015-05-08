@@ -6,50 +6,106 @@ package ch.fhnw.eit.pro2.gruppe4.view;
  * 
  * */
 
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyEvent;
 import java.util.Observable;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import ch.fhnw.eit.pro2.gruppe4.model.PTn;
 
 
-public class UpperPlotPanel extends JTabbedPane {
-
-	
+public class UpperPlotPanel extends JPanel implements ChangeListener  {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private GUIController guiController;
-	private PTn pTnPanel;
-	private JPanel panel2;
-	private JPanel panel3;
-	private JPanel panel4;
+	private JSlider jsPhaseMargin;
+	private JSlider jsOverShoot;
+	private JLabel lbPhaseMargin, lbOverShoot;
+	int phaseMarginValue;
+	int overShootValue;
 	
-	
+		
 	public UpperPlotPanel(GUIController guiController){
+		super(new GridBagLayout());
 		this.guiController = guiController;
+		setBorder(MyBorderFactory.createMyBorder(" Optimierungen "));
 		
+		lbOverShoot = new JLabel("Überschwingen");
+		add(lbOverShoot, new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0,
+				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
+						5, 10, 5, 10), 0, 0));
+		
+		
+		jsOverShoot = new JSlider(0, 30, 0);
+		jsOverShoot.setMajorTickSpacing(5);
+		jsOverShoot.setPaintTicks(true);
+		jsOverShoot.setPaintLabels(true);
+		jsOverShoot.setSnapToTicks(true);
+		add(jsOverShoot, new GridBagConstraints(0, 1, 1, 1, 1.0, 0.0,
+				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
+						5, 10, 5, 10), 0, 0));
+		jsOverShoot.addChangeListener(this);
+
+				
+		lbPhaseMargin = new JLabel("Phasenrand");
+		add(lbPhaseMargin, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0,
+				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
+						5, 10, 5, 10), 0, 0));
+		
+		jsPhaseMargin = new JSlider(0, 50, 0);
+		jsPhaseMargin.setMajorTickSpacing(5);
+		jsPhaseMargin.setPaintTicks(true);
+		jsPhaseMargin.setPaintLabels(true);
+		jsPhaseMargin.setSnapToTicks(true);
 
 		
-		
-		pTnPanel = new PTn(guiController);
-		panel2 = new JPanel();
-		panel3 = new JPanel();
-		panel4 = new JPanel();
-		
-		
-		setTabPlacement(JTabbedPane.TOP);
+		add(jsPhaseMargin, new GridBagConstraints(1, 1, 1, 1, 1.0, 0.0,
+				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
+						5, 10, 5, 10), 0, 0));
+		jsPhaseMargin.addChangeListener(this);
 		
 		
-		addTab("PTn-Strecke", pTnPanel);
 		
-		addTab("Amplitudengang", panel2);
-
-		addTab("Phasengang", panel3);
-	
-		addTab("Einstell-Regler", panel4);
-	
+		
 	}
+	
+	
+	
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+	
+		if (e.getSource() == jsOverShoot) {
+			overShootValue = jsOverShoot.getValue();
+			guiController.setOverShoot(overShootValue);
+			System.out.println(overShootValue+"over");
+
+		}
+		if (e.getSource() == jsPhaseMargin) {
+			phaseMarginValue = jsPhaseMargin.getValue();
+			guiController.setPhaseMargin(phaseMarginValue);
+			System.out.println(phaseMarginValue+"margin");
+		}		
+	}
+	
+	
 	public void update(Observable obs, Object obj) {
 
 	}
+
 }

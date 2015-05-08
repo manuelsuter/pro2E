@@ -7,18 +7,16 @@ import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 
 public class PhaseResponseMethod extends Controller {
 
-	public static final int OVERSHOOT0 = 0, OVERSHOOT4_6 = 1, OVERSHOOT16_3 = 2, OVERSHOOT23_3 = 3;
-	private int overShoot = 3;
-	private double phiU = -2.3561945;
-	private double alpha;
+	public static final double OVERSHOOT0 = -1.8099064, OVERSHOOT4_6 = -2.0001473, OVERSHOOT16_3 = -2.2427481, OVERSHOOT23_3 = -2.3561945;
+	private double phiU = OVERSHOOT23_3;
+	public static final double PHASEMARGINPI = -1.5707963, PHASEMARGINPID = -2.3561802;
+	private double phaseMargin;
+	
 	private int omegaControllerIndex;
-	private double[] phiO;
-	private Complex[] Ho;
-	Complex[] Hs;
-	double[] phiS; 
+	private double[] phiO, phiS, phiR;
+	private Complex[] Ho, Hs, Hr;
 	int pointNumber;
 	double[] omega;
-	double[] phiR;
 
 	
 	public PhaseResponseMethod(){	
@@ -43,34 +41,39 @@ public class PhaseResponseMethod extends Controller {
 
 	 */
 	public void setData(int controllerTyp, Path path){
-		System.out.println("setData von Phasengangmethode ausgelöst");
+		System.out.println("setData ohne Phasenrand von Phasengangmethode ausgelöst");
 		this.controllerTyp = controllerTyp;
 		this.path = path;
 		calculatePhaseMargin();
 		calculate();
 	}
 	
-	public void setOverShoot(int overShoot) {
-		this.overShoot = overShoot;
-		calculatePhiU();
+	public void setData(int controllerTyp, Path path, double phaseMargin){
+		System.out.println("setData mit Phasenrand von Phasengangmethode ausgelöst");
+		this.controllerTyp = controllerTyp;
+		this.path = path;
+		this.phaseMargin = phaseMargin;
 		calculate();
+	}
+	
+	
+	
+	public void setOverShoot(double phiU) {
+		System.out.println("setOverShoot(phiU) von Phasengangmethode ausgelöst");
+		this.phiU = phiU;
+		calculateKrk();
 	}
 
 	//Phasenrand manuell ändern
-	public void setPhaseMargin(double alpha) {
-		System.out.println("set phaseMargin con Phasengang ausgelöst");
-		this.alpha = alpha;
+	public void setPhaseMargin(double phaseMargin) {
+		System.out.println("set phaseMargin(phaseMargin) von Phasengang ausgelöst");
+		this.phaseMargin = phaseMargin;
 		//Berechnung Tnk und Tvk
 		calculateTnkTvk();
-		//Berechnung Krk
-		calculateKrk();
-		// Umrechnung Reglerkonform
-		calculatecontrollerConf();
-		//UTF setzen
-		setUTF();
 	}
 	
 	public void setKrk(double Krk) {
+		System.out.println("setKrk(Krk) von Phasengangmethode ausgelöst");
 		this.Krk = Krk;
 		calculatecontrollerConf();
 		setUTF();
@@ -82,7 +85,9 @@ public class PhaseResponseMethod extends Controller {
 	 * @param path
 	 */
 	public void setTp(double Tp){
+		System.out.println("setTp(Tp) von Phasengangmethode ausgelöst");
 		this.Tp = Tp;
+		calculatecontrollerConf();
 		setUTF();
 	}		
 
@@ -114,22 +119,16 @@ public class PhaseResponseMethod extends Controller {
 		}
 		//Berechnung Tnk und Tvk
 		calculateTnkTvk();
-		//Berechnung Krk
-		calculateKrk();
-		// Umrechnung Reglerkonform
-		calculatecontrollerConf();
-		//UTF setzen
-		setUTF();
 	}
 		
 	private void calculateTnkTvk(){
 		// Bestimmung der Frequenz im Phasenrand alpha
-		omegaControllerIndex = Calc.diskFind(phiS, alpha);
+		omegaControllerIndex = Calc.diskFind(phiS, phaseMargin);
 		double omegaController = omega[omegaControllerIndex];
 		
 		
 		// Reglerspezifische Berechnungen
-		Complex[] Hr = new Complex[pointNumber];
+		Hr = new Complex[pointNumber];
 		Ho = new Complex[pointNumber];
 		phiR = new double[pointNumber];
 		phiO = new double[pointNumber];
@@ -189,6 +188,8 @@ public class PhaseResponseMethod extends Controller {
 
 		//TODO: TP!
 		Tp = Tvk/10;
+		//Berechnung Krk
+		calculateKrk();
 		
 	}
 	
@@ -209,6 +210,11 @@ public class PhaseResponseMethod extends Controller {
 
 			// Berechnung von Krk
 		Krk = 1 / Ho[omegaDIndex].abs();
+		
+		// Umrechnung Reglerkonform
+		calculatecontrollerConf();
+		//UTF setzen
+		setUTF();
 	}
 
 	private void setUTF(){
@@ -228,10 +234,10 @@ public class PhaseResponseMethod extends Controller {
 		// alpha/Phasenrand bestimmen je nach Reglertyp
 		switch (controllerTyp) {
 		case 2:
-			alpha = -1.5707963;
+			phaseMargin = PHASEMARGINPI;
 			break;
 		case 3:
-			alpha = -2.3561802;
+			phaseMargin = PHASEMARGINPID;
 			break;
 		default:
 			// TODO: Controller Exception erstellen
@@ -269,23 +275,5 @@ public class PhaseResponseMethod extends Controller {
 				//double[] omega = Calc.logspace(-5, 2, pointNumber);
 				//return Calc.logspace(-5, stop, (int) (Math.pow(10,6)*stop/2));
 				return Calc.logspace(-5, stop, (int) (20000*stop));
-	}
-	
-	//phiU gemäss gewünschtem Überschwingen bestimmen
-	private void calculatePhiU (){
-			switch (overShoot) {
-			case 0:
-				phiU = -1.8099064; // 0%
-				break;
-			case 1:
-				phiU = -2.0001473; // 4.6%
-				break;
-			case 2:
-				phiU = -2.2427481; // 16.3%
-				break;
-			default:
-				phiU = -2.3561945; // 23.3%
-				break;
-			}
 	}
 }

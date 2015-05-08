@@ -10,6 +10,7 @@ import java.awt.Dimension;
 
 import ch.fhnw.eit.pro2.gruppe4.model.Controller;
 import ch.fhnw.eit.pro2.gruppe4.model.Model;
+import ch.fhnw.eit.pro2.gruppe4.model.PhaseResponseMethod;
 
 public class GUIController {
 	private Model model;
@@ -53,7 +54,6 @@ public class GUIController {
 					
 					if ((Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText()) == 0.0) || (Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText()) == 0.0) || (Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText()) == 0.0)) {
 						view.leftPanel.inputPanel.lbMessage.setText("Werte dürfen nicht 0 sein!");
-						System.out.println("Fehler");
 					}else {	
 					//TODO: Tp noch verarbeiten.
 					//double Tp = Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp.getText());	
@@ -74,6 +74,7 @@ public class GUIController {
 					view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp.setText("Hallo");
 					System.out.println("Ungültige Eingabe");
 				}
+				
 			
 	}	
 	
@@ -87,6 +88,21 @@ public class GUIController {
 		view.rightPanel.stepResponsePanel.deleteDatasets();
 	}
 	
+	public void setExceptionPanel(Exception e){
+		view.leftPanel.inputPanel.lbMessage.setText(e.getMessage());
+	}
+
+
+	public void setPhaseMargin(int phaseMargin){
+//		model.setPhaseMargin
+	}
+
+	public void setOverShoot(int overShoot){
+//		model.setOverShoot
+
+	}
+	
+
 
 	
 	public void setView(View view) {
