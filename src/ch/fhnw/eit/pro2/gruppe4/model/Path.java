@@ -12,7 +12,7 @@ public class Path {
 	public Path(){		
 	}
 	
-	public void setData(double Ks, double Tu, double Tg){
+	public void setData(double Ks, double Tu, double Tg) throws SaniException{
 		this.Ks = Ks;
 		this.Tu = Tu;
 		this.Tg = Tg;
@@ -52,15 +52,13 @@ public class Path {
 		return t;
 	}
 	
-	private void calculate(){
+	private void calculate()throws SaniException {
 		double[] KsArray = new double[1];
 		KsArray[0] = Ks;
 		utf.setZahPoly(KsArray);
-		try {
-			t = Calc.sani(Tu, Tg);
-			utf.setNenPoly(Calc.poly(t));		
-		} catch (SaniException e) {
-		}
 		
+		t = Calc.sani(Tu, Tg);
+		
+		utf.setNenPoly(Calc.poly(t));		
 	}
 }

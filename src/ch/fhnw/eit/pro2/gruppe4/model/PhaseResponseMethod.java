@@ -24,21 +24,10 @@ public class PhaseResponseMethod extends Controller {
 	}
 
 	/**
-
-	 * 
-
 	 * Setzt die Input-Wert für die Berechnung.
-
-	 * 
-
 	 * Löst calculate() aus.
-
-	 * 
-
 	 * @param path
-
 	 * @throws ControllerException 
-
 	 */
 	public void setData(int controllerTyp, Path path){
 		System.out.println("setData ohne Phasenrand von Phasengangmethode ausgelöst");
@@ -56,8 +45,7 @@ public class PhaseResponseMethod extends Controller {
 		calculate();
 	}
 	
-	
-	
+
 	public void setOverShoot(double overShootValue) {
 		System.out.println("setOverShoot(phiU) von Phasengangmethode ausgelöst");
 

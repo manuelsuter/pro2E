@@ -26,9 +26,10 @@ public class Model extends Observable {
 	}
 
 	
-	public void setData(double Ks, double Tu, double Tg, int controllerTyp, double Tp, double phaseMarginOffset) {
-		path.setData(Ks, Tu, Tg);
-		
+	public void setData(double Ks, double Tu, double Tg, int controllerTyp, double Tp, double phaseMarginOffset) throws SaniException {
+			path.setData(Ks, Tu, Tg);
+	
+				
 		if (controllerTyp == 2) {
 			phaseMarginOffsetPos = PhaseResponseMethod.PHASEMARGINPI + (phaseMarginOffset/180*2*Math.PI);
 			phaseMarginOffsetNeg = PhaseResponseMethod.PHASEMARGINPI - (phaseMarginOffset/180*2*Math.PI);

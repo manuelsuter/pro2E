@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import ch.fhnw.eit.pro2.gruppe4.model.Controller;
 import ch.fhnw.eit.pro2.gruppe4.model.Model;
 import ch.fhnw.eit.pro2.gruppe4.model.PhaseResponseMethod;
+import ch.fhnw.eit.pro2.gruppe4.model.SaniException;
 
 public class GUIController {
 	private Model model;
@@ -42,7 +43,7 @@ public class GUIController {
 	public void calculate(){	
 		
 		view.leftPanel.inputPanel.lbMessage.setText(" ");
-
+		
 				
 				try {
 					double Ks = Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText());
@@ -70,7 +71,10 @@ public class GUIController {
 				} catch (NumberFormatException e) {
 					view.leftPanel.inputPanel.lbMessage.setText("Eigabefeld darf nicht leer sein.");
 					System.out.println("Ungültige Eingabe");
+				} catch (SaniException e){
+					view.leftPanel.inputPanel.lbMessage.setText(e.getLocalizedMessage());
 				}
+			
 				
 			
 	}	
