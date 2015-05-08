@@ -8,7 +8,7 @@ import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 public class PhaseResponseMethod extends Controller {
 
 	public static final double OVERSHOOT0 = -1.8099064, OVERSHOOT4_6 = -2.0001473, OVERSHOOT16_3 = -2.2427481, OVERSHOOT23_3 = -2.3561945;
-	private double phiU = OVERSHOOT23_3;
+	private double phiU = OVERSHOOT0;
 	public static final double PHASEMARGINPI = -1.5707963, PHASEMARGINPID = -2.3561802;
 	private double phaseMargin;
 	
@@ -58,9 +58,19 @@ public class PhaseResponseMethod extends Controller {
 	
 	
 	
-	public void setOverShoot(double phiU) {
+	public void setOverShoot(double overShootValue) {
 		System.out.println("setOverShoot(phiU) von Phasengangmethode ausgelöst");
-		this.phiU = phiU;
+
+		if (overShootValue <= 4) {
+			phiU = OVERSHOOT0;
+		}else if (overShootValue <= 16) {
+			phiU = OVERSHOOT16_3;
+		}
+		else if (overShootValue <= 23) {
+			phiU = OVERSHOOT23_3;
+		}
+		
+//		this.phiU = phiU;
 		calculateKrk();
 	}
 

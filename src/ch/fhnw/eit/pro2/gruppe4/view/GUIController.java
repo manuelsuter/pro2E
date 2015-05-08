@@ -35,28 +35,27 @@ public class GUIController {
 		}
 	}
 	
-	public void setData(double Ks, double Tu, double Tg, int controllerTyp, double Tp){
-		model.setData(Ks, Tu, Tg, controllerTyp, Tp);
-	}
+//	public void setData(double Ks, double Tu, double Tg, int controllerTyp, double Tp){
+//		model.setData(Ks, Tu, Tg, controllerTyp, Tp);
+//	}
 	
-	public void calculate(){			
+	public void calculate(){	
 		
-//			if (view.leftPanel.inputPanel.tfTu.getText().equals("") || view.leftPanel.inputPanel.tfTg.getText().equals("") || view.leftPanel.inputPanel.tfKs.getText().equals("")
-//					|| view.leftPanel.inputPanel.tfTu.getText().equals(" ") || view.leftPanel.inputPanel.tfTg.getText().equals(" ") || view.leftPanel.inputPanel.tfKs.getText().equals(" ")) {
-//				System.out.println("Felder dürfen nicht leer sein oder Leerzeichen enthalten.");
-//				
-//				
+		view.leftPanel.inputPanel.lbMessage.setText(" ");
+
+				
 				try {
 					double Ks = Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText());
 					double Tu = Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText());
 					double Tg = Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText());
 					double Tp = 0.0;
 					
+					double phaseMarginOffset = view.rightPanel.upperPlotPanel.jsPhaseMargin.getValue();
+					
 					if ((Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText()) == 0.0) || (Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText()) == 0.0) || (Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText()) == 0.0)) {
 						view.leftPanel.inputPanel.lbMessage.setText("Werte dürfen nicht 0 sein!");
 					}else {	
-					//TODO: Tp noch verarbeiten.
-					//double Tp = Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp.getText());	
+					
 					int controllerTyp;
 					
 					if (view.leftPanel.controllerChooserPanel.btPI.isSelected() == true) {
@@ -64,19 +63,37 @@ public class GUIController {
 					}else{
 						controllerTyp = Controller.PID;
 					}
-					model.setData(Ks, Tu, Tg, controllerTyp, Tp);
-					
+					model.setData(Ks, Tu, Tg, controllerTyp, Tp, phaseMarginOffset);
 					}
 					
 					
 				} catch (NumberFormatException e) {
 					view.leftPanel.inputPanel.lbMessage.setText("Eigabefeld darf nicht leer sein.");
-					view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp.setText("Hallo");
 					System.out.println("Ungültige Eingabe");
 				}
 				
 			
 	}	
+	
+	public void setTp(){
+		
+		view.leftPanel.inputPanel.lbMessage.setText(" ");
+		
+		try {
+			
+		
+		double Tp = Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp.getText());
+		if ((Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp.getText()) == 0.0) || (Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp.getText()) == 0.0) || (Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp.getText()) == 0.0)) {
+			view.leftPanel.inputPanel.lbMessage.setText("Werte dürfen nicht 0 sein!");
+		}else {		
+			
+		model.setTp(Tp);
+		}
+		
+		} catch (NumberFormatException e) {
+			setExceptionLabel("Eigabefeld darf nicht leer sein.");
+		}
+	}
 	
 	
 	public void clear(){		
@@ -88,21 +105,20 @@ public class GUIController {
 		view.rightPanel.stepResponsePanel.deleteDatasets();
 	}
 	
-	public void setExceptionPanel(Exception e){
-		view.leftPanel.inputPanel.lbMessage.setText(e.getMessage());
+	public void setExceptionLabel(String exception){
+		view.leftPanel.inputPanel.lbMessage.setText(exception);
 	}
 
 
-	public void setPhaseMargin(int phaseMargin){
+	public void setPhaseMargin(double phaseMargin){
 //		model.setPhaseMargin
 	}
 
-	public void setOverShoot(int overShoot){
-//		model.setOverShoot
-
+	public void setOverShoot(double overShoot){
+		double overShootValue = view.rightPanel.upperPlotPanel.jsOverShoot.getValue();
+		model.setOverShoot(overShootValue);
 	}
 	
-
 
 	
 	public void setView(View view) {

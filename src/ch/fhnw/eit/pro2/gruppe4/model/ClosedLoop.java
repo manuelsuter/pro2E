@@ -108,6 +108,24 @@ public class ClosedLoop {
 	 * 
 	 */
 					
+	public void setData(int controllerTyp, Path path, double Tp, double phaseMarginOffset) {
+		this.path = path;
+	
+		controller.setData(controllerTyp, path, phaseMarginOffset);
+		
+		//TODO: Lösung fpr setTP
+//		controller.setTp(Tp);
+		
+		calculate();
+	}
+	
+	
+	/**
+	 * Nimmt die InputValues entgegen und gibt sie den Unterklassen weiter
+	 * @param input (int ControllerCalculationTyp, int ControllerTyp, Path path, double Tp, double "phiR", double/int overshoot)
+	 * 
+	 */
+	
 	public void setData(int controllerTyp, Path path, double Tp) {
 		this.path = path;
 	
@@ -118,6 +136,16 @@ public class ClosedLoop {
 		
 		calculate();
 	}
+	
+	public void setOverShoot(double overShootValue){
+		controller.setOverShoot(overShootValue);
+	}
+	
+	public void setTp(double Tp){
+		controller.setTp(Tp);
+		calculate();
+	}
+	
 	
 	/**
 	 * Gibt Controller zurück

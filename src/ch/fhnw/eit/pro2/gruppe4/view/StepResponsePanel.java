@@ -37,9 +37,21 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 	private JPanel checkBoxPanel;	
 	private PhasenPlot phasenPlot = new PhasenPlot();
 	private double[][][] ytValues;
-	public static final Color[] plotColor = {Color.RED, Color.MAGENTA, Color.ORANGE, Color.BLACK, Color.GREEN,Color.BLUE, Color.lightGray, Color.PINK};
-	private XYDataset[] datasetArray = new XYDataset[8];
+	private static final Color firebrick = new Color(139,26,26);
+	private static final Color tomato = new Color(240,185,37);
+	private static final Color springgreen = new Color(102,205,0);
+	private static final Color limegreen = new Color(32,178,120);
+	private static final Color slategray = new Color(84,84,84);
+	private static final Color tan = new Color(255,52,179);
 
+
+	
+	
+	
+	
+	public static final Color[] plotColor = {firebrick, Color.RED, tomato, springgreen, Color.BLUE, limegreen, slategray, tan};
+	private XYDataset[] datasetArray = new XYDataset[8];
+	
 	
 	
 	public StepResponsePanel(GUIController controller) {
@@ -55,7 +67,7 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 		
 		//Check-Box der Phasengangmethode.
 		checkBox[0] = new JCheckBox(Controller.calculationTypName[0], true);
-		checkBox[0].setForeground(plotColor[0]);
+		checkBox[0].setForeground(plotColor[1]);
 		checkBoxPanel.add(checkBox[0]);
 		checkBox[0].addItemListener(this);
 		

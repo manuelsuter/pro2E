@@ -17,6 +17,8 @@ public abstract class Controller {
 	protected Path path;
 	protected UTF utf = new UTF();
 	
+	private double phaseMarginOffset;
+	
 	public Controller(){
 		
 	}
@@ -63,7 +65,7 @@ public abstract class Controller {
 	}
 	
 	/** 
-	 * Setzt die Input-Wert für die Berechnung.
+	 * Setzt die Input-Wert für die Berechnung ohne Phasenrandverschiebung.
 	 * Löst calculate() aus.
 	 * @param path
 	 */
@@ -74,6 +76,30 @@ public abstract class Controller {
 		calculate();
 	}		
 	
+	/** 
+	 * Setzt die Input-Wert für die Berechnung inklusive Phasenrandverschiebung..
+	 * Löst calculate() aus.
+	 * @param path
+	 */
+	public void setData(int controllerTyp, Path path, double phaseMarginOffset){
+		this.controllerTyp = controllerTyp;
+		this.path = path;
+		this.phaseMarginOffset = phaseMarginOffset;
+
+		calculate();
+	}		
+	/**
+	 * Setzte das Überschingen der Phasengangmethode.
+	 * @param phiU
+	 */
+	
+	public void setOverShoot(double phiU) {
+		
+	}
+	
+	public void setTp(double Tp) {
+		
+	}
 
 
 	/**

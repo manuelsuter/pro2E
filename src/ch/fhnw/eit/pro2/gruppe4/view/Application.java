@@ -47,7 +47,7 @@ public class Application extends JFrame {
 	public static void main(String[] args) {
 		Application frame = new Application();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Reglerdimensionierung nach Phasanegang-Methode");
+		frame.setTitle("Reglerdimensionierung nach Phasengang-Methode");
 		// To set a logo:
 		//frame.setIconImage(new ImageIcon(Application.class.getResource("resources/logo.png")).getImage());
 		frame.setResizable(true);

@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.Observable;
 
@@ -20,14 +22,17 @@ import javax.swing.JTextField;
 import ch.fhnw.eit.pro2.gruppe4.model.ClosedLoop;
 import ch.fhnw.eit.pro2.gruppe4.model.Controller;
 import ch.fhnw.eit.pro2.gruppe4.model.Model;
+import ch.fhnw.eit.pro2.gruppe4.model.PhaseResponseMethod;
 
 
-public class PhaseResponseMethodPanel extends JPanel {
+public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private GUIController guiController;
 	public JDoubleTextField tfTp;
 	private DecimalFormat f = new DecimalFormat("#0.000");
-	private String[] methodDesignation = {"Überschwingen                                 ", "wenig", "mittel", "stark"};
+	private DecimalFormat f2 = new DecimalFormat("#0");
+
+	private String[] methodDesignation = {"Phasenrand                                        ", "wenig", "mittel", "stark"};
 	private JLabel[] lbMethod = new JLabel[methodDesignation.length];
 	private JLabel[] lbKr = new JLabel[lbMethod.length];
 	private JLabel[] lbTn = new JLabel[lbMethod.length];
@@ -62,7 +67,6 @@ public class PhaseResponseMethodPanel extends JPanel {
 					GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
 							5, 10, 5, 10), 0, 0));
 		}
-		// Setzte die Werte Zeile für Kr, Tn, Tv.
 		lbKr[0].setText("<html><i>K<sub>r</sub></html></i>");
 		lbTn[0].setText("<html><i>T<sub>n</sub></html></i>");
 		lbTv[0].setText("<html><i>T<sub>v</sub></html></i>");
@@ -76,19 +80,27 @@ public class PhaseResponseMethodPanel extends JPanel {
 		add(tfTp, new GridBagConstraints(1, 4, 3, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						5, 10, 5, 10), 0, 0));
+		tfTp.addActionListener(this);
 		
 		// Initialisierungswerte der Reglerausgabe.
 		setInitialValues();
 	}
 	
 	public void setInitialValues(){
-		for (int i = 0; i < methodDesignation.length-1; i++) {
-			lbMethod[i+1].setText(methodDesignation[i+1]);
+		for (int i = 0; i < methodDesignation.length-1; i++) {			
+			lbMethod[i+1].setText(""+f2.format(Math.round(PhaseResponseMethod.PHASEMARGINPID/(2*Math.PI)*180*10.0/10.0)));
 			lbKr[i+1].setText("0.000");
 			lbTn[i+1].setText("0.000");
 			lbTv[i+1].setText("0.000");
 		}
 		tfTp.setText("0.000");
+		
+		for (int i = 0; i < methodDesignation.length-1; i++) {
+			lbMethod[i+1].setForeground(StepResponsePanel.plotColor[i]);
+			lbKr[i+1].setForeground(StepResponsePanel.plotColor[i]);
+			lbTn[i+1].setForeground(StepResponsePanel.plotColor[i]);
+			lbTv[i+1].setForeground(StepResponsePanel.plotColor[i]);
+		}
 	}
 	
 
@@ -102,8 +114,13 @@ public class PhaseResponseMethodPanel extends JPanel {
 				lbKr[i+1].setText(""+f.format(Math.round((controllerValues[0])*1000.0)/1000.0));
 				lbTn[i+1].setText(""+f.format(Math.round((controllerValues[1])*1000.0)/1000.0));
 				lbTv[i+1].setText(""+f.format(Math.round((controllerValues[2])*1000.0)/1000.0));
+
 				tfTp.setText(""+Math.round((controllerValues[3])*1000.0)/1000.0);
 			}	
+			
+			lbMethod[1].setText(""+f2.format(Math.round(model.phaseMarginOffsetNeg/(2*Math.PI)*180*1000.0/1000.0)));
+			lbMethod[3].setText(""+f2.format(Math.round(model.phaseMarginOffsetPos/(2*Math.PI)*180*1000.0/1000.0)));
+
 			
 			if (model.getClosedLoop()[0].getController().getControllerTyp() != Controller.PID) {
 				for (int i = 0; i < lbTv.length; i++) {
@@ -111,10 +128,20 @@ public class PhaseResponseMethodPanel extends JPanel {
 				}
 				tfTp.setVisible(false);
 				lbTp.setForeground(getBackground());
+				lbMethod[2].setText(""+f2.format(Math.round(PhaseResponseMethod.PHASEMARGINPI/(2*Math.PI)*180*10.0/10.0)));
+
 			}
 			else{
 				tfTp.setVisible(true);
 				lbTp.setForeground(Color.BLACK);
+				lbMethod[2].setText(""+f2.format(Math.round(PhaseResponseMethod.PHASEMARGINPID/(2*Math.PI)*180*10.0/10.0)));
+
 			}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == tfTp)
+		guiController.setTp();
 	}
 }

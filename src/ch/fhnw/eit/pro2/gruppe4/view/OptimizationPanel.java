@@ -27,30 +27,30 @@ import javax.swing.event.ChangeListener;
 import ch.fhnw.eit.pro2.gruppe4.model.PTn;
 
 
-public class UpperPlotPanel extends JPanel implements ChangeListener  {
+public class OptimizationPanel extends JPanel implements ChangeListener  {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private GUIController guiController;
-	private JSlider jsPhaseMargin;
-	private JSlider jsOverShoot;
+	public JSlider jsPhaseMargin;
+	public JSlider jsOverShoot;
 	private JLabel lbPhaseMargin, lbOverShoot;
-	int phaseMarginValue;
-	int overShootValue;
+	private double phaseMarginOffset;
+	private double overShootValue;
 	
 		
-	public UpperPlotPanel(GUIController guiController){
+	public OptimizationPanel(GUIController guiController){
 		super(new GridBagLayout());
 		this.guiController = guiController;
 		setBorder(MyBorderFactory.createMyBorder(" Optimierungen "));
 		
-		lbOverShoot = new JLabel("Überschwingen");
+		lbOverShoot = new JLabel("Überschwingen in %");
 		add(lbOverShoot, new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						5, 10, 5, 10), 0, 0));
 		
-		
+		//Baut und added Slider für Überschwingen.
 		jsOverShoot = new JSlider(0, 30, 0);
 		jsOverShoot.setMajorTickSpacing(5);
 		jsOverShoot.setPaintTicks(true);
@@ -61,13 +61,14 @@ public class UpperPlotPanel extends JPanel implements ChangeListener  {
 						5, 10, 5, 10), 0, 0));
 		jsOverShoot.addChangeListener(this);
 
-				
-		lbPhaseMargin = new JLabel("Phasenrand");
+		//Baut und added Slider für Pasenrandverschiebung.
+		lbPhaseMargin = new JLabel("Phasenrandverschiebung in Grad");
 		add(lbPhaseMargin, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						5, 10, 5, 10), 0, 0));
 		
-		jsPhaseMargin = new JSlider(0, 50, 0);
+		//TODO: Phasenverschiebung ab 50 Grad geht nicht! Wieso?
+		jsPhaseMargin = new JSlider(0, 45, 5);
 		jsPhaseMargin.setMajorTickSpacing(5);
 		jsPhaseMargin.setPaintTicks(true);
 		jsPhaseMargin.setPaintLabels(true);
@@ -78,14 +79,8 @@ public class UpperPlotPanel extends JPanel implements ChangeListener  {
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						5, 10, 5, 10), 0, 0));
 		jsPhaseMargin.addChangeListener(this);
-		
-		
-		
-		
 	}
-	
-	
-	
+		
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
@@ -93,13 +88,15 @@ public class UpperPlotPanel extends JPanel implements ChangeListener  {
 		if (e.getSource() == jsOverShoot) {
 			overShootValue = jsOverShoot.getValue();
 			guiController.setOverShoot(overShootValue);
+			guiController.calculate();	
 			System.out.println(overShootValue+"over");
 
 		}
 		if (e.getSource() == jsPhaseMargin) {
-			phaseMarginValue = jsPhaseMargin.getValue();
-			guiController.setPhaseMargin(phaseMarginValue);
-			System.out.println(phaseMarginValue+"margin");
+			phaseMarginOffset = jsPhaseMargin.getValue();
+			guiController.setPhaseMargin(phaseMarginOffset);
+			guiController.calculate();	
+			System.out.println(phaseMarginOffset+"margin");
 		}		
 	}
 	
