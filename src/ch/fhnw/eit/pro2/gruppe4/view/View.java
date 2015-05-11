@@ -25,7 +25,7 @@ public class View extends JPanel implements Observer {
 	public LeftPanel leftPanel;
 	public RightPanel rightPanel;
 	private JFrame frame;
-
+//TODO: MinimumSize setzen.
 //TODO: Wie genau müssen wir Konstruktoren spezifizieren?
 	public View(GUIController guiController) {
 		super(new GridBagLayout());

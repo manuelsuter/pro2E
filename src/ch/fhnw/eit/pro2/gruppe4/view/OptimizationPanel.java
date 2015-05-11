@@ -82,7 +82,7 @@ public class OptimizationPanel extends JPanel implements ChangeListener  {
 	}
 		
 
-	@Override
+	
 	public void stateChanged(ChangeEvent e) {
 	
 		if (e.getSource() == jsOverShoot) {

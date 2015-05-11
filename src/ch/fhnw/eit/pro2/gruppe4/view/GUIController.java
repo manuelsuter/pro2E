@@ -28,7 +28,7 @@ public class GUIController {
 	 * Allows the user to resize the Frame-Size.
 	 * @param flag
 	 */
-	public void setVisibility(Boolean flag){
+	public void setVisibility(boolean flag){
 		if (flag == false) {
 			view.setVisibility(flag, view.leftPanel.getSize());
 		}
@@ -52,7 +52,7 @@ public class GUIController {
 					double Ks = Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText());
 					double Tu = Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText());
 					double Tg = Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText());
-					double Tp = 0.0;
+					double Tp = Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp.getText());
 					
 					double phaseMarginOffset = view.rightPanel.upperPlotPanel.jsPhaseMargin.getValue();
 					double overShoot = view.rightPanel.upperPlotPanel.jsOverShoot.getValue();
@@ -68,7 +68,7 @@ public class GUIController {
 					}else{
 						controllerTyp = Controller.PID;
 					}
-					model.setData(Ks, Tu, Tg, controllerTyp, Tp, phaseMarginOffset, overShoot);
+					model.setData(Ks, Tu, Tg, controllerTyp, Tp, overShoot, phaseMarginOffset);
 					}
 					
 					

@@ -33,31 +33,35 @@ public class PhaseResponseMethod extends Controller {
 		System.out.println("setData ohne Phasenrand von Phasengangmethode ausgelöst");
 		this.controllerTyp = controllerTyp;
 		this.path = path;
+		Tp = 0.0;
 		calculatePhaseMargin();
 		calculate();
 	}
 	
-	public void setData(int controllerTyp, Path path, double phaseMargin, double overShoot){
-		System.out.println("setData mit Phasenrand von Phasengangmethode ausgelöst");
+	/**
+	 * Setzt die Input-Wert für die Berechnung.
+	 * Löst calculate() aus.
+	 * @param path
+	 * @throws ControllerException 
+	 */
+	public void setData(int controllerTyp, Path path, double Tp){
+		System.out.println("setData ohne Phasenrand mit Tp von Phasengangmethode ausgelöst");
 		this.controllerTyp = controllerTyp;
 		this.path = path;
-		this.phaseMargin = phaseMargin;
-		this.overShoot = overShoot;
-		
-		calculateOverShoot();
+		this.Tp = Tp;
+		calculatePhaseMargin();
 		calculate();
 	}
 	
-	private void calculateOverShoot(){
-		if (overShoot <= 4) {
-		phiU = OVERSHOOT0;
-	}else if (overShoot <= 16) {
-		phiU = OVERSHOOT16_3;
-	}
-	else if (overShoot <= 23) {
-		phiU = OVERSHOOT23_3;
-	}
-		
+	public void setData(int controllerTyp, Path path, double Tp, double overShoot, double phaseMargin){
+		System.out.println("setData mit Phasenrand und Tp und Overshoot von Phasengangmethode ausgelöst");
+		this.controllerTyp = controllerTyp;
+		this.path = path;
+		this.Tp = Tp;
+		this.phaseMargin = phaseMargin;
+		this.overShoot = overShoot;
+		calculateOverShoot();
+		calculate();
 	}
 	
 
@@ -156,8 +160,6 @@ public class PhaseResponseMethod extends Controller {
 			}
 			break;
 		case 3:
-
-
 			// Steigung Strecke
 			double dPhiS = Calc.diskDiff(omega, phiS, omegaControllerIndex);
 			double beta_u = Math.pow(10, -12);
@@ -196,7 +198,10 @@ public class PhaseResponseMethod extends Controller {
 		}	
 
 		//TODO: TP!
-		Tp = Tvk/10;
+		if (Tp == 0.0){
+			Tp = Tvk/10;
+		}
+		
 		//Berechnung Krk
 		calculateKrk();
 		
@@ -252,6 +257,18 @@ public class PhaseResponseMethod extends Controller {
 			// TODO: Controller Exception erstellen
 			break;
 		}
+	}
+	
+	private void calculateOverShoot(){
+		if (overShoot <= 4) {
+		phiU = OVERSHOOT0;
+		}else if (overShoot <= 16) {
+		phiU = OVERSHOOT16_3;
+		}
+		else if (overShoot <= 23) {
+		phiU = OVERSHOOT23_3;
+		}
+		
 	}
 	
 	

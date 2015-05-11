@@ -9,7 +9,7 @@ public class ZieglerNichols extends Controller {
 	}
 
 
-	@Override
+	
 	protected void calculate() {
 		double[] inputValues = path.getInputValues();
 		double Ks = inputValues[Path.KsPOS];

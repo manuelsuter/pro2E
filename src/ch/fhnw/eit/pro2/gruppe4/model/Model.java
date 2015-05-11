@@ -24,19 +24,20 @@ public class Model extends Observable {
 	}
 
 	
-	public void setData(double Ks, double Tu, double Tg, int controllerTyp, double Tp, double phaseMarginOffset, double overShoot) throws SaniException, ControllerException{
+	public void setData(double Ks, double Tu, double Tg, int controllerTyp, double Tp, double overShoot, double phaseMarginOffset) throws SaniException, ControllerException{
 			path.setData(Ks, Tu, Tg);
-		double phaseMarginOffsetPos;
-		double phaseMarginOffsetNeg;
+		double phaseMargin, phaseMarginPos, phaseMarginNeg;
 
 		switch (controllerTyp) {
 		case Controller.PI:
-			phaseMarginOffsetPos = PhaseResponseMethod.PHASEMARGINPI + (phaseMarginOffset/180*2*Math.PI);
-			phaseMarginOffsetNeg = PhaseResponseMethod.PHASEMARGINPI - (phaseMarginOffset/180*2*Math.PI);
+			phaseMargin = PhaseResponseMethod.PHASEMARGINPI;
+			phaseMarginPos = phaseMargin + (phaseMarginOffset/180*2*Math.PI);
+			phaseMarginNeg = phaseMargin - (phaseMarginOffset/180*2*Math.PI);
 			break;
 		case Controller.PID:
-			phaseMarginOffsetPos = PhaseResponseMethod.PHASEMARGINPID + (phaseMarginOffset/180*2*Math.PI);
-			phaseMarginOffsetNeg = PhaseResponseMethod.PHASEMARGINPID - (phaseMarginOffset/180*2*Math.PI);
+			phaseMargin = PhaseResponseMethod.PHASEMARGINPID;
+			phaseMarginPos = phaseMargin + (phaseMarginOffset/180*2*Math.PI);
+			phaseMarginNeg = phaseMargin - (phaseMarginOffset/180*2*Math.PI);
 			break;
 
 		default:
@@ -44,9 +45,9 @@ public class Model extends Observable {
 		}		
 		
 		
-		closedLoop[0].setData(controllerTyp, path, Tp, phaseMarginOffsetPos, overShoot);
-		closedLoop[1].setData(controllerTyp, path, Tp);
-		closedLoop[2].setData(controllerTyp, path, Tp, phaseMarginOffsetNeg, overShoot);
+		closedLoop[0].setData(controllerTyp, path, Tp, overShoot, phaseMarginPos);
+		closedLoop[1].setData(controllerTyp, path, Tp, overShoot, phaseMargin);
+		closedLoop[2].setData(controllerTyp, path, Tp, overShoot, phaseMarginNeg);
 		
 		
 //		for (int i = 0; i < closedLoop.length-5; i++) {
