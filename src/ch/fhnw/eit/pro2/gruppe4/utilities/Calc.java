@@ -616,19 +616,17 @@ public class Calc {
 	 */
 
 	public static double diskDiff(double[] x, double[] y, int index) {
-
-		double diff1 = (y[index] - y[index - 1])
-
-		/ (x[index] - x[index - 1]);
-
-		double diff2 = (y[index + 1] - y[index])
-
-		/ (x[index + 1] - x[index]);
-
-		double diff = (diff1 + diff2) / 2;
-
-		return diff;
-
+		
+		double diff2 = (y[index + 1] - y[index]) / (x[index + 1] - x[index]);
+		
+		switch (index) {
+		case 0:
+			return diff2;
+		default:
+			double diff1 = (y[index] - y[index - 1]) / (x[index] - x[index - 1]);
+			double diff = (diff1 + diff2) / 2;
+			return diff;
+		}
 	}
 
 	/**

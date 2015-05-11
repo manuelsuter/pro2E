@@ -17,7 +17,7 @@ public abstract class Controller {
 	protected Path path;
 	protected UTF utf = new UTF();
 	
-	private double phaseMarginOffset;
+	protected double phaseMarginOffset, overShoot;
 	
 	public Controller(){
 		
@@ -45,6 +45,10 @@ public abstract class Controller {
 	 */
 	public int getControllerTyp(){
 		return controllerTyp;
+	}
+	
+	public double getPhaseMargin(){
+		return phaseMarginOffset;
 	}
 
 	
@@ -81,10 +85,11 @@ public abstract class Controller {
 	 * Löst calculate() aus.
 	 * @param path
 	 */
-	public void setData(int controllerTyp, Path path, double phaseMarginOffset){
+	public void setData(int controllerTyp, Path path, double phaseMarginOffset, double overShoot){
 		this.controllerTyp = controllerTyp;
 		this.path = path;
 		this.phaseMarginOffset = phaseMarginOffset;
+		this.overShoot = overShoot;
 
 		calculate();
 	}		
@@ -99,6 +104,10 @@ public abstract class Controller {
 	
 	public void setTp(double Tp) {
 		
+	}
+	
+	public void setPhaseMargin(double phaseMargin) {
+
 	}
 
 

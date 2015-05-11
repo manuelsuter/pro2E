@@ -53,6 +53,8 @@ public class ClosedLoop {
 	 */
 	
 	protected void calculate() {
+		System.out.println("calculate() von CloseLoop ausgelöst");
+		//TODO: Optimieren
 		double[] zah_c = controller.getUTFZahPoly();
 		double[] nen_c = controller.getUTFNenPoly();
 		double[] zah_p = path.getUTFZahPoly();
@@ -108,10 +110,10 @@ public class ClosedLoop {
 	 * 
 	 */
 					
-	public void setData(int controllerTyp, Path path, double Tp, double phaseMarginOffset) {
+	public void setData(int controllerTyp, Path path, double Tp, double phaseMarginOffset, double overShoot) {
 		this.path = path;
 	
-		controller.setData(controllerTyp, path, phaseMarginOffset);
+		controller.setData(controllerTyp, path, phaseMarginOffset, overShoot);
 		
 		//TODO: Lösung fpr setTP
 //		controller.setTp(Tp);
@@ -139,10 +141,16 @@ public class ClosedLoop {
 	
 	public void setOverShoot(double overShootValue){
 		controller.setOverShoot(overShootValue);
+		calculate();
 	}
 	
 	public void setTp(double Tp){
 		controller.setTp(Tp);
+		calculate();
+	}
+	
+	public void setPhaseMargin(double phaseMargin){
+		controller.setPhaseMargin(phaseMargin);
 		calculate();
 	}
 	

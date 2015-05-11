@@ -121,10 +121,11 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 	}
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btBerechne){
-			guiController.calculate();		
+			guiController.calculate();	
 		}
 		if(e.getSource()==btClear){
-			guiController.clear();		
+			guiController.clear();
+			
 		}
 	}
 //TODO: Hinweis auf Ge�derte Werte in Textfelder falls Neuberechnenn noch nicht ausgel�st???

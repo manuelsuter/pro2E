@@ -110,6 +110,9 @@ public class JDoubleTextField extends JTextField implements FocusListener, Mouse
 		}
 
 		public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+			if (str.equals(" ")) {
+				return;
+			}
 			try {
 				if (tf.allowNegativeValues == true) {
 					if (str.equals("-") || str.equals("+") || str.equals("e") || str.equals(".")) {

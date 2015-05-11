@@ -9,6 +9,7 @@ package ch.fhnw.eit.pro2.gruppe4.view;
 import java.awt.Dimension;
 
 import ch.fhnw.eit.pro2.gruppe4.model.Controller;
+import ch.fhnw.eit.pro2.gruppe4.model.ControllerException;
 import ch.fhnw.eit.pro2.gruppe4.model.Model;
 import ch.fhnw.eit.pro2.gruppe4.model.PhaseResponseMethod;
 import ch.fhnw.eit.pro2.gruppe4.model.SaniException;
@@ -16,6 +17,7 @@ import ch.fhnw.eit.pro2.gruppe4.model.SaniException;
 public class GUIController {
 	private Model model;
 	private View view;
+	private boolean controllerCalculated = false;
 	
 
 	public GUIController(Model model) {
@@ -44,6 +46,7 @@ public class GUIController {
 		
 		view.leftPanel.inputPanel.lbMessage.setText(" ");
 		
+		controllerCalculated = true;
 				
 				try {
 					double Ks = Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText());
@@ -52,7 +55,8 @@ public class GUIController {
 					double Tp = 0.0;
 					
 					double phaseMarginOffset = view.rightPanel.upperPlotPanel.jsPhaseMargin.getValue();
-					
+					double overShoot = view.rightPanel.upperPlotPanel.jsOverShoot.getValue();
+
 					if ((Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText()) == 0.0) || (Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText()) == 0.0) || (Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText()) == 0.0)) {
 						view.leftPanel.inputPanel.lbMessage.setText("Werte dürfen nicht 0 sein!");
 					}else {	
@@ -64,14 +68,13 @@ public class GUIController {
 					}else{
 						controllerTyp = Controller.PID;
 					}
-					model.setData(Ks, Tu, Tg, controllerTyp, Tp, phaseMarginOffset);
+					model.setData(Ks, Tu, Tg, controllerTyp, Tp, phaseMarginOffset, overShoot);
 					}
 					
 					
-				} catch (NumberFormatException e) {
-					view.leftPanel.inputPanel.lbMessage.setText("Eigabefeld darf nicht leer sein.");
-					System.out.println("Ungültige Eingabe");
 				} catch (SaniException e){
+					view.leftPanel.inputPanel.lbMessage.setText(e.getLocalizedMessage());
+				} catch (ControllerException e){
 					view.leftPanel.inputPanel.lbMessage.setText(e.getLocalizedMessage());
 				}
 			
@@ -107,6 +110,8 @@ public class GUIController {
 		view.leftPanel.controllerValuePanel.phaseResponsePanel.setInitialValues();
 		view.leftPanel.controllerValuePanel.rulesOfThumbPanel.setInitialValues();
 		view.rightPanel.stepResponsePanel.deleteDatasets();
+		
+		controllerCalculated = false;
 	}
 	
 	public void setExceptionLabel(String exception){
@@ -115,12 +120,16 @@ public class GUIController {
 
 
 	public void setPhaseMargin(double phaseMargin){
-//		model.setPhaseMargin
+		if (controllerCalculated == true) {
+			model.setPhaseMargin(phaseMargin);
+		}
+		
 	}
 
 	public void setOverShoot(double overShoot){
-		double overShootValue = view.rightPanel.upperPlotPanel.jsOverShoot.getValue();
-		model.setOverShoot(overShootValue);
+		if (controllerCalculated == true) {
+			model.setOverShoot(view.rightPanel.upperPlotPanel.jsOverShoot.getValue());
+		}
 	}
 	
 

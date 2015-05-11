@@ -76,7 +76,7 @@ public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
 						5, 10, 5, 10), 0, 0));
 		
-		tfTp = new JDoubleTextField("",100,false);
+		tfTp = new JDoubleTextField("",105,false);
 		add(tfTp, new GridBagConstraints(1, 4, 3, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						5, 10, 5, 10), 0, 0));
@@ -118,8 +118,8 @@ public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 				tfTp.setText(""+Math.round((controllerValues[3])*1000.0)/1000.0);
 			}	
 			
-			lbMethod[1].setText(""+f2.format(Math.round(model.phaseMarginOffsetNeg/(2*Math.PI)*180*1000.0/1000.0)));
-			lbMethod[3].setText(""+f2.format(Math.round(model.phaseMarginOffsetPos/(2*Math.PI)*180*1000.0/1000.0)));
+			lbMethod[1].setText(""+f2.format(Math.round(model.getClosedLoop()[0].getController().getPhaseMargin()/(2*Math.PI)*180*1000.0/1000.0)));
+			lbMethod[3].setText(""+f2.format(Math.round(model.getClosedLoop()[2].getController().getPhaseMargin()/(2*Math.PI)*180*1000.0/1000.0)));
 
 			
 			if (model.getClosedLoop()[0].getController().getControllerTyp() != Controller.PID) {
@@ -139,7 +139,6 @@ public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 			}
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == tfTp)
 		guiController.setTp();

@@ -88,14 +88,12 @@ public class OptimizationPanel extends JPanel implements ChangeListener  {
 		if (e.getSource() == jsOverShoot) {
 			overShootValue = jsOverShoot.getValue();
 			guiController.setOverShoot(overShootValue);
-			guiController.calculate();	
 			System.out.println(overShootValue+"over");
 
 		}
 		if (e.getSource() == jsPhaseMargin) {
 			phaseMarginOffset = jsPhaseMargin.getValue();
 			guiController.setPhaseMargin(phaseMarginOffset);
-			guiController.calculate();	
 			System.out.println(phaseMarginOffset+"margin");
 		}		
 	}

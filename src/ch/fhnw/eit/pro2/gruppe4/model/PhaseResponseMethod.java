@@ -37,28 +37,34 @@ public class PhaseResponseMethod extends Controller {
 		calculate();
 	}
 	
-	public void setData(int controllerTyp, Path path, double phaseMargin){
+	public void setData(int controllerTyp, Path path, double phaseMargin, double overShoot){
 		System.out.println("setData mit Phasenrand von Phasengangmethode ausgelöst");
 		this.controllerTyp = controllerTyp;
 		this.path = path;
 		this.phaseMargin = phaseMargin;
+		this.overShoot = overShoot;
+		
+		calculateOverShoot();
 		calculate();
 	}
 	
-
-	public void setOverShoot(double overShootValue) {
-		System.out.println("setOverShoot(phiU) von Phasengangmethode ausgelöst");
-
-		if (overShootValue <= 4) {
-			phiU = OVERSHOOT0;
-		}else if (overShootValue <= 16) {
-			phiU = OVERSHOOT16_3;
-		}
-		else if (overShootValue <= 23) {
-			phiU = OVERSHOOT23_3;
-		}
+	private void calculateOverShoot(){
+		if (overShoot <= 4) {
+		phiU = OVERSHOOT0;
+	}else if (overShoot <= 16) {
+		phiU = OVERSHOOT16_3;
+	}
+	else if (overShoot <= 23) {
+		phiU = OVERSHOOT23_3;
+	}
 		
-//		this.phiU = phiU;
+	}
+	
+
+	public void setOverShoot(double overShoot) {
+		System.out.println("setOverShoot(overShootValue) von Phasengangmethode ausgelöst");
+		this.overShoot = overShoot;
+		calculateOverShoot();
 		calculateKrk();
 	}
 
@@ -68,6 +74,10 @@ public class PhaseResponseMethod extends Controller {
 		this.phaseMargin = phaseMargin;
 		//Berechnung Tnk und Tvk
 		calculateTnkTvk();
+	}
+	
+	public double getPhaseMargin(){
+		return phaseMargin;
 	}
 	
 	public void setKrk(double Krk) {
@@ -120,6 +130,7 @@ public class PhaseResponseMethod extends Controller {
 	}
 		
 	private void calculateTnkTvk(){
+		System.out.println("calculateTnkTvk() von Phasengangmethode ausgelöst");
 		// Bestimmung der Frequenz im Phasenrand alpha
 		omegaControllerIndex = Calc.diskFind(phiS, phaseMargin);
 		double omegaController = omega[omegaControllerIndex];
