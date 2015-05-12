@@ -71,15 +71,15 @@ public class GUIController {
 					model.setData(Ks, Tu, Tg, controllerTyp, Tp, overShoot, phaseMarginOffset);
 					}
 					
-					
+                } catch (NumberFormatException e) {
+                    view.leftPanel.inputPanel.lbMessage.setText("Eigabefeld darf nicht leer sein.");
 				} catch (SaniException e){
 					view.leftPanel.inputPanel.lbMessage.setText(e.getLocalizedMessage());
 				} catch (ControllerException e){
 					view.leftPanel.inputPanel.lbMessage.setText(e.getLocalizedMessage());
 				}
-			
 				
-			
+				controllerCalculated = true;	
 	}	
 	
 	public void setTp(){

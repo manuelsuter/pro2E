@@ -7,6 +7,7 @@ package ch.fhnw.eit.pro2.gruppe4.view;
  * */
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -19,6 +20,7 @@ import java.awt.event.KeyEvent;
 import java.util.Observable;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.JCheckBox;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
@@ -110,7 +112,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 		btClear = new JButton("Löschen");
 		add(btClear, new GridBagConstraints(2, 4, 2, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE,
-				new Insets(10, 0, 10, 10), 40, 0));
+				new Insets(10, 0, 10, 10), 49, 0));
 		btClear.addActionListener(this);
 		
 		checkBoxPlot = new JCheckBox("erweitert", true);
@@ -118,7 +120,13 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE,
 				new Insets(10, 10, 10, 10), 0, 0));
 		checkBoxPlot.addItemListener(this);
+		
+//		add(Box.createRigidArea(new Dimension(300, 0)), new GridBagConstraints(0, 5, 4, 1, 1.0, 0.0,
+//				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+
+		
 	}
+	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btBerechne){
 			guiController.calculate();	

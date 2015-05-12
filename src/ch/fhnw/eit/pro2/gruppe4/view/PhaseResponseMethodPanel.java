@@ -76,7 +76,7 @@ public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
 						5, 10, 5, 10), 0, 0));
 		
-		tfTp = new JDoubleTextField("",105,false);
+		tfTp = new JDoubleTextField("",170,false);
 		add(tfTp, new GridBagConstraints(1, 4, 3, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL, new Insets(
 						5, 10, 5, 10), 0, 0));
@@ -88,7 +88,7 @@ public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 	
 	public void setInitialValues(){
 		for (int i = 0; i < methodDesignation.length-1; i++) {			
-			lbMethod[i+1].setText(""+f2.format(Math.round(PhaseResponseMethod.PHASEMARGINPID/(2*Math.PI)*180*10.0/10.0)));
+			lbMethod[i+1].setText(""+f2.format(Math.round(PhaseResponseMethod.PHASEMARGINPID/(2*Math.PI)*180*10.0/10.0))+"°");
 			lbKr[i+1].setText("0.000");
 			lbTn[i+1].setText("0.000");
 			lbTv[i+1].setText("0.000");
@@ -118,23 +118,24 @@ public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 				tfTp.setText(""+Math.round((controllerValues[3])*1000.0)/1000.0);
 			}	
 			
-			lbMethod[1].setText(""+f2.format(Math.round(model.getClosedLoop()[0].getController().getPhaseMargin()/(2*Math.PI)*180*1000.0/1000.0)));
-			lbMethod[3].setText(""+f2.format(Math.round(model.getClosedLoop()[2].getController().getPhaseMargin()/(2*Math.PI)*180*1000.0/1000.0)));
+			lbMethod[1].setText(""+f2.format(Math.round(model.getClosedLoop()[0].getController().getPhaseMargin()/(2*Math.PI)*180*1000.0/1000.0))+"°");
+			lbMethod[3].setText(""+f2.format(Math.round(model.getClosedLoop()[2].getController().getPhaseMargin()/(2*Math.PI)*180*1000.0/1000.0))+"°");
 
 			
 			if (model.getClosedLoop()[0].getController().getControllerTyp() != Controller.PID) {
 				for (int i = 0; i < lbTv.length; i++) {
-					lbTv[i].setText("             ");
+					lbTv[i].setText("                 ");
 				}
 				tfTp.setVisible(false);
 				lbTp.setForeground(getBackground());
-				lbMethod[2].setText(""+f2.format(Math.round(PhaseResponseMethod.PHASEMARGINPI/(2*Math.PI)*180*10.0/10.0)));
+				lbMethod[2].setText(""+f2.format(Math.round(PhaseResponseMethod.PHASEMARGINPI/(2*Math.PI)*180*10.0/10.0))+"°");
 
 			}
 			else{
+				lbTv[0].setText("<html><i>T<sub>v</sub></html></i>");
 				tfTp.setVisible(true);
 				lbTp.setForeground(Color.BLACK);
-				lbMethod[2].setText(""+f2.format(Math.round(PhaseResponseMethod.PHASEMARGINPID/(2*Math.PI)*180*10.0/10.0)));
+				lbMethod[2].setText(""+f2.format(Math.round(PhaseResponseMethod.PHASEMARGINPID/(2*Math.PI)*180*10.0/10.0))+"°");
 
 			}
 	}

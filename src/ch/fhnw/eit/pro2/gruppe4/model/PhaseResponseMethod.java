@@ -120,15 +120,19 @@ public class PhaseResponseMethod extends Controller {
 		phiS = new double[pointNumber];
 		for (int i = 0; i < pointNumber; i++) {
 			Hs[i] = new Complex(Ks);
+			//TODO: weg
 			phiS[i] = 0;
 		}
 		for (int i = 0; i < Hs.length; i++) {
 			for (int n = 0; n < Ts.length; n++) {
 				Hs[i] = Hs[i].multiply(new Complex(1).divide(new Complex(1, Ts[n] * omega[i])));
-				
-				phiS[i] = phiS[i] - Math.atan(omega[i] * Ts[n]);
+				//TODO: weg
+				//phiS[i] = phiS[i] - Math.atan(omega[i] * Ts[n]);
 			}
 		}
+		phiS = Calc.ComplexAngleUnwraped(Hs);
+		
+		
 		//Berechnung Tnk und Tvk
 		calculateTnkTvk();
 	}
@@ -143,6 +147,7 @@ public class PhaseResponseMethod extends Controller {
 		// Reglerspezifische Berechnungen
 		Hr = new Complex[pointNumber];
 		Ho = new Complex[pointNumber];
+		//TODO: weg
 		phiR = new double[pointNumber];
 		phiO = new double[pointNumber];
 		
@@ -156,8 +161,10 @@ public class PhaseResponseMethod extends Controller {
 			for (int i = 0; i < pointNumber; i++) {
 				Hr[i] = new Complex(0, omega[i] * Tnk).pow(-1).add(1);
 				Ho[i] = Hs[i].multiply(Hr[i]);
-				phiR[i] = Math.atan(omega[i] * Tnk) - Math.PI/2;
+				//TODO: weg
+				//phiR[i] = Math.atan(omega[i] * Tnk) - Math.PI/2;
 			}
+			phiR = Calc.ComplexAngleUnwraped(Hr);
 			break;
 		case 3:
 			// Steigung Strecke
@@ -177,9 +184,11 @@ public class PhaseResponseMethod extends Controller {
 							new Complex(1, omega[i] * Tvk))
 							.divide(new Complex(0, omega[i] * Tnk));
 					Ho[i] = Hs[i].multiply(Hr[i]);
-
-					phiR[i] = Math.atan(omega[i] * Tnk) + Math.atan(omega[i] *Tvk) - Math.PI/2;
+					//TODO: weg
+					//phiR[i] = Math.atan(omega[i] * Tnk) + Math.atan(omega[i] *Tvk) - Math.PI/2;
 				}
+				phiR = Calc.ComplexAngleUnwraped(Hr);
+				
 
 				dPhiR = Calc.diskDiff(omega, phiR, omegaControllerIndex);
 				dPhiO = dPhiS + dPhiR;
@@ -210,9 +219,13 @@ public class PhaseResponseMethod extends Controller {
 	private void calculateKrk(){
 		//Krk berechnen
 		//Phasengang des offenen Regelkreises berechnen
-	for (int i = 0; i < phiO.length; i++) {
-		phiO[i] = phiR[i] + phiS[i];
-	}
+//TODO: weg
+//		for (int i = 0; i < phiO.length; i++) {
+//			phiO[i] = phiR[i] + phiS[i];
+//		}
+		phiO = Calc.ComplexAngleUnwraped(Ho);
+		
+	
 		// Bestimmung omegaD für die gewünschte Überschwingung
 		int omegaDIndex;
 		if (phiU == -2.3561945) {
@@ -222,7 +235,7 @@ public class PhaseResponseMethod extends Controller {
 			omegaDIndex = Calc.diskFind(phiO, phiU);
 		}
 
-			// Berechnung von Krk
+		// Berechnung von Krk
 		Krk = 1 / Ho[omegaDIndex].abs();
 		
 		// Umrechnung Reglerkonform
@@ -276,30 +289,51 @@ public class PhaseResponseMethod extends Controller {
 	private double[] createOmegaAxis(double[] Ts){
 		//TODO: Verifizieren ob so richtig!!!
 		
-				double stop;
-				switch (Ts.length) {
-				case 4:
-					stop = 1/Ts[2];
-					break;
-				case 5:
-					stop = 1/Ts[3];
-					break;
-				case 6:
-					stop = 1/Ts[5];
-					break;
-				case 7:
-					stop = 1/Ts[6];
-					break;
-				case 8:
-					stop = 1/Ts[7];
-					break;
-				default:
-					stop = 1/Ts[1];
-					break;
-				}
-				//int pointNumber = (int) (Math.pow(10, 6));
-				//double[] omega = Calc.logspace(-5, 2, pointNumber);
-				//return Calc.logspace(-5, stop, (int) (Math.pow(10,6)*stop/2));
-				return Calc.logspace(-5, stop, (int) (20000*stop));
+		double stop;
+		switch (Ts.length) {
+		case 4:
+			stop = 1/Ts[2];
+			break;
+		case 5:
+			stop = 1/Ts[3];
+			break;
+		case 6:
+			stop = 1/Ts[5];
+			break;
+		case 7:
+			stop = 1/Ts[6];
+			break;
+		case 8:
+			stop = 1/Ts[7];
+			break;
+		default:
+			stop = 1/Ts[1];
+			break;
+		}
+		
+		//TODO: Grenzen richtig bestimmen
+//		Complex H = new Complex(path.getUTFZahPoly()[0]);
+//		Complex previousH = H;
+//		int bordermax = 8;
+//		int bordermin = -6;
+//		int border;
+//		for (int i = 0; i < 5; i++) {
+//			border = (bordermax - bordermin) / 2 + bordermin;
+//			for (int n = 0; n < Ts.length; n++) {
+//				H = H.multiply(new Complex(1).divide(new Complex(1, Ts[n] * Math.pow(10, border))));
+//			}
+//			if(H.getArgument() < -3.1)
+//				bordermax = border;
+//			else
+//				bordermin = border;
+//			System.out.println(border+"Border");
+//			System.out.println(H.getArgument()+"Winkel");
+//		}
+//		border = (bordermax - bordermin) / 2 + bordermin;
+		
+//		System.exit(0);
+
+		return Calc.logspace(-7, stop, (int) (20000*stop));
+//		return Calc.logspace(-5, stop, (int) (20000*stop));
 	}
 }

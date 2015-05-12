@@ -43,9 +43,7 @@ public class Calc {
 	 * @return
 	 */
 
-	public static double[] linspace(double startValue, double endValue,
-
-	int count) {
+	public static double[] linspace(double startValue, double endValue, int count) {
 
 		double delta = (endValue - startValue) / (count - 1);
 
@@ -631,7 +629,7 @@ public class Calc {
 
 	/**
 	 * 
-	 * Sucht den Wert im Array x der am nächsten bei xx liegt und gibt der
+	 * Sucht den Wert im Array x der am nächsten bei xx liegt und gibt den
 	 * 
 	 * ArrayIndex zurück. Es kann davon ausgegangen werden, dass x monoton
 	 * 
@@ -1774,7 +1772,62 @@ public class Calc {
 //		}
 //		return res;
 //	}
-
+	
+//	static public double[] ComplexAngleUnwraped(Complex[] a){
+//		boolean signNegative;
+//		boolean signNegativeStart;
+//		double[] b = new double[a.length];
+//		b[0] = a[0].getArgument();
+//		if (b[0] <= 0)
+//			signNegativeStart = true;
+//		else 
+//			signNegativeStart = false;
+//		
+//		for (int i = 1; i < a.length; i++) {
+//			
+//			if (a[i].getArgument() <= 0)
+//				signNegative = true;
+//			else 
+//				signNegative = false;
+//			if (signNegative != signNegativeStart){
+//				if (signNegative)
+//					b[i] = a[i].getArgument() + 2 * Math.PI;
+//				else
+//					b[i] = a[i].getArgument() - 2 * Math.PI;
+//				signNegative = signNegativeStart;
+//			}else
+//				b[i] = a[i].getArgument();
+//		}
+//		return b;
+//	}
+	
+	
+	static public double[] ComplexAngleUnwraped(Complex[] a){
+		double[] b = new double[a.length];
+		b[0] = a[0].getArgument();
+		for (int i = 1; i < b.length; i++) {
+			b[i] = unwrap (b[i-1], a[i].getArgument());
+		}
+		return b;
+	}
+	
+	static public double unwrap(double previousAngle, double angle){
+		//Angle wrap/Sprünge hinzufügen
+		double wrapedAngle = angle % (2 * Math.PI);
+		
+		//Differenz Bilden von vorigem wraped Winkel und aktuellen wraped Winkel
+		double angleDiff = previousAngle % (2 * Math.PI) - wrapedAngle;
+		
+		//Je nach Differenz Winkelangabe drehen oder nicht
+		double angleNew;
+		if (Math.abs(angleDiff) > Math.PI)
+			angleNew = -2 * Math.PI + angle;
+		else
+			angleNew = wrapedAngle;
+		
+		//Neuer Winkel anzahl Wraps dazuzählen
+		return angleNew + (previousAngle - (previousAngle % (2 * Math.PI)));
+	}
 }
 
 

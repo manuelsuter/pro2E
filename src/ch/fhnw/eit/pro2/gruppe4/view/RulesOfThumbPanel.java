@@ -74,6 +74,8 @@ public class RulesOfThumbPanel extends JPanel {
 	
 	public void setInitialValues(){
 		// Initialisierungswerte der Reglerausgabe.
+		lbMethod[0].setText("                                                                     ");
+
 		for (int i = 0; i < Controller.calculationTypName.length-1; i++) {
 		lbMethod[i+1].setText(Controller.calculationTypName[i+1]);
 		lbKr[i+1].setText("0.000");
@@ -102,6 +104,9 @@ public class RulesOfThumbPanel extends JPanel {
 			for (int i = 0; i < lbTv.length; i++) {
 				lbTv[i].setText("           ");
 			}
+		}else{
+			lbTv[0].setText("<html><i>T<sub>v</sub></html></i>");
+
 		}
 	}
 	
