@@ -1,9 +1,5 @@
 package ch.fhnw.eit.pro2.gruppe4.model;
 
-import java.lang.invoke.SwitchPoint;
-
-import org.apache.commons.math3.geometry.euclidean.twod.DiskGenerator;
-
 import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 
 public class ClosedLoop {
@@ -84,8 +80,19 @@ public class ClosedLoop {
 		// n evtl. höhr / tiefer setzen.
 		
 		double fs = 1 / path.getInputValues()[Path.TgPOS] * 100;
-		int n = 512;
+//		
+//		double summeT = 0;
+//		for (int i = 0; i < path.getT().length; i++) {
+//			summeT += path.getT()[i];
+//		}
+//	
+//		fs = summeT * path.getT().length * 0.04;
+//		fs = summeT * 1/path.getT().length * 10;
 		
+		//fs = (path.getInputValues()[Path.TgPOS] + path.getInputValues()[Path.TuPOS]);
+		//je grösser fs desto kleiner der Bereich
+		
+		int n = 512;
 		
 		yt = Calc.schrittIfft(zah, nen, fs, n);	
 	}
@@ -96,7 +103,7 @@ public class ClosedLoop {
 	 * @param a
 	 * @return
 	 */
-	
+	//TODO: In Calc verschieben??
 	protected double[] add(double[] b, double[] a) {
 		double[] res = new double[a.length + b.length];
 		//TODO: Vereinfachen mit Referenzen
@@ -141,12 +148,7 @@ public class ClosedLoop {
 	
 	public void setData(int controllerTyp, Path path, double Tp) throws ControllerException {
 		this.path = path;
-	
 		controller.setData(controllerTyp, path, Tp);
-		
-		//TODO: Lösung fpr setTP
-//		controller.setTp(Tp);
-		
 		calculate();
 	}
 	
@@ -196,34 +198,8 @@ public class ClosedLoop {
 	public UTF getUTF() {
 		return utf;
 	}
-	
-//	private void overShootOptimazation(){
-////		int indexmax = Calc.diskMax(yt[0]);
-////		for (int i = 0; i < yt[0].length; i++) {
-////			System.out.println(yt[0][i]+" yyyyyyy");
-////		}
-////		System.out.println(yt[0][indexmax]+"Maximales Überschwingen");
-//		for (int i = 0; i < 20; i++) {
-//			int indexmax = Calc.diskMax(yt[0]);
-////			for (int k = 0; k < yt[0].length; k++) {
-////			System.out.println(yt[0][k]+" yyyyyyy");
-////			}
-////			System.out.println(yt[0][indexmax]+"Maximales Überschwingen");
-////			System.out.println(controller.overShoot/100.0+1.0+"Überschwingen aus Controller");
-//			
-//
-////			if (controller.overShoot / 100.0 + 1.0 < yt[0][indexmax]){
-////				PhaseResponseMethod phaseResponseMethode = (PhaseResponseMethod) controller;
-////				phaseResponseMethode.setKrk(phaseResponseMethode.getControllerValues()[PhaseResponseMethod.KrPOS] / 1.5);
-////			}
-////			else if (controller.overShoot / 100.0 + 1.0 > yt[0][indexmax]){
-////				PhaseResponseMethod phaseResponseMethode = (PhaseResponseMethod) controller;
-////				phaseResponseMethode.setKrk(phaseResponseMethode.getControllerValues()[PhaseResponseMethod.KrPOS] * 1.2);
-////			}
-////			calculateStepResponse();
-//		}
-//		
-//	}
+	//TODO: Sicherstellen dass Endwert erreicht wird!!!!!!
+	//TODO: eventuel schneller machen mit berücksichtigung des faktors
 	private void overShootOptimazation(){
 		double max = yt[0][Calc.diskMax(yt[0])];
 		PhaseResponseMethod phaseResponseMethod = (PhaseResponseMethod) controller;
@@ -232,7 +208,6 @@ public class ClosedLoop {
 			while (max > controller.overShoot / 100.0 + 1.0) {
 				Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
 				phaseResponseMethod.setKrk(Krk / 1.05);
-				System.out.println(Krk+" Krk von >>>>> Optimierung");
 				calculateStepResponse();
 				max = yt[0][Calc.diskMax(yt[0])];
 			}
@@ -240,14 +215,9 @@ public class ClosedLoop {
 			while (max < controller.overShoot / 100.0 + 1.0 & Krk < 1000) {
 				Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
 				phaseResponseMethod.setKrk(Krk * 1.05);
-				System.out.println(Krk+" Krk von <<<<<< Optimierung");
 				calculateStepResponse();
-				System.out.println(max+" max von <<<<<<<<");
 				max = yt[0][Calc.diskMax(yt[0])];
 			}
 		}
-		
-		System.out.println(max+"Maximum");
 	}
-
 }

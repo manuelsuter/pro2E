@@ -22,6 +22,7 @@ import java.lang.Enum;
 
 import org.apache.commons.math3.complex.Complex;
 
+import ch.fhnw.eit.pro2.gruppe4.model.Controller;
 import ch.fhnw.eit.pro2.gruppe4.model.SaniException;
 
 public class Calc {
@@ -141,8 +142,7 @@ public class Calc {
 
 			Complex nenner = new Complex(0, 0);
 			for (int i = 0; i < a.length; i++) {
-				nenner = nenner
-						.add(Calc.pow(jw, a.length - i - 1).multiply(a[i]));
+				nenner = nenner.add(Calc.pow(jw, a.length - i - 1).multiply(a[i]));
 
 			}
 			if (nenner.abs() == 0.0) {
@@ -477,7 +477,7 @@ public class Calc {
 
 	public static double[][] schrittIfft(double[] zah, double[] nen, double fs, int n) {
 
-		double T = (1 / fs); // Periode
+		double T = 1 / fs; // Periode
 		Complex[] H;
 		
 		// Frequenzachse berechnen
@@ -485,9 +485,9 @@ public class Calc {
 		// TODO: evtl. 2*Pi wegen Umrechnung Kreisfrequenz
 		double[] w = linspace(0.0, fs * Math.PI, n / 2); // Kreisfrequenz
 		
+		
 		// Frequenzgang berechnen
 		H = freqs(zah, nen, w);
-		
 		
 		// Symmetrischen Vektor für Ifft erstellen:
 		Complex[] tmp = new Complex[H.length];
@@ -501,7 +501,7 @@ public class Calc {
 		H = concat(colonColon(H, 0, 1, (n / 2) - 1), new Complex[] { x }, tmp);
 		
 		// Impulsantwort berechen
-		Complex[] h = new Complex[H.length]; // welche Länge
+		Complex[] h;// = new Complex[H.length];
 		FastFourierTransformer f = new FastFourierTransformer(DftNormalization.STANDARD);
 		h = f.transform(H, TransformType.INVERSE);		
 	
@@ -512,8 +512,14 @@ public class Calc {
 			hReal[i] = h[i].getReal();
 		}
 		
+		//TODO: geändert da schneller und vorallem RICHTIG SOOOO!!!!!!!!!!!!!!
 		// Schrittantwort berechnen
-		double[] y = Calc.diskConvOnes(hReal, n);
+		//double[] y = Calc.diskConvOnes(hReal, n);
+		double[] y = new double[n];
+		y[0] = hReal[0];
+		for (int i = 1; i < y.length; i++) {
+			y[i] = y[i-1] + hReal[i];
+		}
 		
 		
 		// Resultate ausschneiden. Halbiert die Länge von y.
@@ -582,16 +588,13 @@ public class Calc {
 
 		for (int n = 0; n < c.length; n++) {
 
-			for (int i = Math.max(0, n - a.length + 1); i <= Math.min(
-
-			b.length - 1, n); i++) {
+			for (int i = Math.max(0, n - a.length + 1); i <= Math.min(b.length - 1, n); i++) {
 
 				c[n] += b[i] * a[n - i];
 			}
 		}
 
 		return c;
-
 	}
 
 	// TODO: classe final setzen um Überschreiben zu verhindern.
@@ -614,17 +617,19 @@ public class Calc {
 	 */
 
 	public static double diskDiff(double[] x, double[] y, int index) {
-		
-		double diff2 = (y[index + 1] - y[index]) / (x[index + 1] - x[index]);
-		
-		switch (index) {
-		case 0:
-			return diff2;
-		default:
+		if (index > 0 & index < x.length - 1){
+			double diff2 = (y[index + 1] - y[index]) / (x[index + 1] - x[index]);
 			double diff1 = (y[index] - y[index - 1]) / (x[index] - x[index - 1]);
 			double diff = (diff1 + diff2) / 2;
 			return diff;
 		}
+		else if (index == 0)
+			return (y[index + 1] - y[index]) / (x[index + 1] - x[index]);
+		else if (index == x.length)
+			return (y[index] - y[index - 1]) / (x[index] - x[index - 1]);
+		else
+			//TODO: Exeption für den fall dass index grösser Arraylänge
+			return 0;
 	}
 
 	/**
@@ -646,41 +651,9 @@ public class Calc {
 
 	public static int diskFind(double[] array, double referenceValue) {
 
-		/*
-		 * 
-		 * // TEST CASES
-		 * 
-		 * for (int i=0;i<1000000;i++){
-		 * 
-		 * array[i] = Math.log((double)(i+1));
-		 * 
-		 * // array[i] = -Math.log((double)(i+1));
-		 * 
-		 * }
-		 * 
-		 * referenceValue = 4.3;
-		 * 
-		 * // referenceValue = -4.3;
-		 * 
-		 * // referenceValue = 100;
-		 * 
-		 * // referenceValue = -100;
-		 */
-
 		int length = array.length;
 
 		int index = 0;
-
-		/*
-		 * 
-		 * System.out.println(length + "length");
-		 * 
-		 * System.out.println(referenceValue + "ref");
-		 * 
-		 * System.out.println(array[0]+"first");
-		 * 
-		 * System.out.println(array[length-1]+"last");
-		 */
 
 		int lower_index = 0;
 
@@ -696,12 +669,6 @@ public class Calc {
 		int iterations = (int) (Math.log((double) (length)) / Math
 				.log((double) (2))) + 2;
 
-		/*
-		 * 
-		 * System.out.println(iterations+"iters");
-		 * 
-		 * System.out.println("\n");
-		 */
 
 		if (array[0] > array[length - 1]) {
 
@@ -711,15 +678,11 @@ public class Calc {
 
 				// Reference Value is larger than largest array value.
 
-				// System.out.println("fallend, value too large");
-
 				return 0;
 
 			} else if (referenceValue < array[length - 1]) {
 
 				// Reference Value is smaller than smallest array value.
-
-				// System.out.println("fallend, value too small");
 
 				return length - 1;
 
@@ -730,39 +693,22 @@ public class Calc {
 				index = (int) (Math.ceil((upper_index - lower_index) / 2
 						+ lower_index));
 
-				/*
-				 * 
-				 * System.out.println(index+"index_fallend");
-				 * 
-				 * System.out.println(lower_index+"lower_index_fallend");
-				 * 
-				 * System.out.println(upper_index+"upper_index_fallend");
-				 */
-
 				double value = array[index];
 
-				// System.out.println(value+"value");
 
 				if (value > referenceValue) {
 
 					lower_index = index;
 
-					// System.out.println(value+" is larger than "+referenceValue);
-
 				} else if (value < referenceValue) {
 
 					upper_index = index;
-
-					// System.out.println(value+" is smaller than "+referenceValue);
 
 				} else {
 
 					break;
 
 				}
-
-				// System.out.println("\n");
-
 			}
 
 		} else {
@@ -773,15 +719,11 @@ public class Calc {
 
 				// Reference Value is smaller than largest array value.
 
-				// System.out.println("steigend, value too small");
-
 				return 0;
 
 			} else if (referenceValue > array[length - 1]) {
 
 				// Reference Value is largest than smallest array value.
-
-				// System.out.println("steigend, value too large");
 
 				return length - 1;
 
@@ -789,31 +731,15 @@ public class Calc {
 
 			for (int i = 0; i < iterations; i++) {
 
-				index = (int) (Math
-						.ceil((double) ((upper_index - lower_index) / 2 + lower_index)));
-
-				/*
-				 * 
-				 * System.out.println(index+"steigend");
-				 * 
-				 * System.out.println(lower_index+"lower_index_steigend");
-				 * 
-				 * System.out.println(upper_index+"upper_index_steigend\n");
-				 */
+				index = (int) (Math.ceil((double) ((upper_index - lower_index) / 2 + lower_index)));
 
 				double value = array[index];
 
-				// System.out.println(value+"value");
-
 				if (value < referenceValue) {
-
-					// System.out.println(value+" is smaller than "+referenceValue);
 
 					lower_index = index;
 
 				} else if (value > referenceValue) {
-
-					// System.out.println(value+" is larger than "+referenceValue);
 
 					upper_index = index;
 
@@ -822,32 +748,26 @@ public class Calc {
 					break;
 
 				}
-
-				// System.out.println("\n");
-
 			}
-
 		}
-
-		/*
-		 * 
-		 * System.out.println(index+"index");
-		 * 
-		 * System.out.println(array[index]+"value");
-		 */
-
 		return index;
 
 	}
 	
-	
+	//TODO: brauchts glaubs nicht mehr
 	public static double[] diskConvOnes(double[] a, int b){
-		double[] res = new double[b];
-		res[1] = a[1];
-		for (int i = 1; i < b; i++) {
-			res[i] = res[i-1] + a[i];
+		double[] c = new double[b];
+		for (int i = 0; i < c.length; i++) {
+			c[i] = 1.0;
 		}
-		return res;
+		return Calc.diskConv(a, c);
+		//TODO: Wär hed sone scheiss gschrebe??????? 3h arbet för nix......
+//		double[] res = new double[b];
+//		res[1] = a[1];
+//		for (int i = 1; i < b; i++) {
+//			res[i] = res[i-1] + a[i];
+//		}
+//		return res;
 	}
 
 	/**
@@ -869,9 +789,7 @@ public class Calc {
 	 * @return koeffizienten
 	 */
 
-	public static double[][] utfController(int controllerTyp, double Krk,
-
-	double Tnk, double Tvk, double Tp) {
+	public static double[][] utfController(int controllerTyp, double Krk, double Tnk, double Tvk, double Tp) {
 		
 		double[][] res;
 
@@ -879,7 +797,7 @@ public class Calc {
 
 		// PI-Regler
 
-		case 2:
+		case Controller.PI:
 			
 			res = new double[2][2];
 			
@@ -895,15 +813,16 @@ public class Calc {
 
 		// PID-Regler
 
-		case 3:
+		case Controller.PID:
 			
 			res = new double[2][];
 			res[0] = new double[3];
 			res[1] = new double[2];
 			
 			// Zaehler
+			double[] conv = Calc.diskConv(new double[] {Tvk, 1.0}, new double[] {Tnk, 1.0});
 			for (int i = 0; i < 3; i++) {
-				res[0][i] = Krk * Calc.diskConv(new double[] {Tvk, 1.0}, new double[] {Tnk, 1.0})[i];
+				res[0][i] = Krk * conv[i];
 			}
 			
 			//Nenner
@@ -975,6 +894,7 @@ public class Calc {
 
 	public static final double[] sani(double Tu, double Tg) throws SaniException{
 
+		//TODO: eventuell extern laden und final static draus machen???
 		double[][] t_Tg = {
 
 		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1747,59 +1667,11 @@ public class Calc {
 
 	}
 	
-	
-	//Complex Extensions
-	
+	//TODO: so umbauen dass einfach abfrage ob Complex =0 dann null sonst pow von Complex???
 	static public Complex pow(Complex a, double x) {
 		return new Complex(Math.pow(a.abs(), x) * Math.cos(x * a.getArgument()),
 				Math.pow(a.abs(), x) * Math.sin(x * a.getArgument()));
 	}
-	
-//	static public Complex div(Complex a, Complex b) {
-//		return new Complex((a.abs() / b.abs())
-//				* Math.cos(a.getArgument() - b.getArgument()), (a.abs() / b.abs())
-//				* Math.sin(a.getArgument() - b.getArgument()));
-//	}
-	
-//	public static double angle(Complex c) {
-//		return Math.atan2(c.im, c.re);
-//	}
-//
-//	public static double[] angle(Complex[] c) {
-//		double[] res = new double[c.length];
-//		for (int i = 0; i < res.length; i++) {
-//			res[i] = angle(c[i]);
-//		}
-//		return res;
-//	}
-	
-//	static public double[] ComplexAngleUnwraped(Complex[] a){
-//		boolean signNegative;
-//		boolean signNegativeStart;
-//		double[] b = new double[a.length];
-//		b[0] = a[0].getArgument();
-//		if (b[0] <= 0)
-//			signNegativeStart = true;
-//		else 
-//			signNegativeStart = false;
-//		
-//		for (int i = 1; i < a.length; i++) {
-//			
-//			if (a[i].getArgument() <= 0)
-//				signNegative = true;
-//			else 
-//				signNegative = false;
-//			if (signNegative != signNegativeStart){
-//				if (signNegative)
-//					b[i] = a[i].getArgument() + 2 * Math.PI;
-//				else
-//					b[i] = a[i].getArgument() - 2 * Math.PI;
-//				signNegative = signNegativeStart;
-//			}else
-//				b[i] = a[i].getArgument();
-//		}
-//		return b;
-//	}
 	
 	
 	static public double[] ComplexAngleUnwraped(Complex[] a){

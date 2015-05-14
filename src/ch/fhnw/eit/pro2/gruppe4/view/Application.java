@@ -11,7 +11,6 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import ch.fhnw.eit.pro2.gruppe4.model.Model;

@@ -9,6 +9,9 @@ public class PhaseResponseMethod extends Controller {
 
 	public static final double OVERSHOOT0 = -1.8099064, OVERSHOOT4_6 = -2.0001473, OVERSHOOT16_3 = -2.2427481, OVERSHOOT23_3 = -2.3561945;
 	private double phiU = OVERSHOOT0;
+	//TODO:Winkel richtig bestimmen PI letzter stimmt schon
+	private static final double[] MINIMUMANGLEPI = new double[]  {-3.1, -3.1, -3.1, -3.1, -3.1, -3.1, -3.1, -5.1};
+	private static final double[] MINIMUMANGLEPID = new double[] {-3.1, -3.1, -3.1, -3.1, -3.1, -3.1, -3.1, -3.1};
 	public static final double PHASEMARGINPI = -1.5707963, PHASEMARGINPID = -2.3561802;
 	private double phaseMargin;
 	
@@ -116,18 +119,14 @@ public class PhaseResponseMethod extends Controller {
 		
 		
 		// Hs und phiS berechnen
+		//TODO: SInnvoller Hs aus UTF von Path berechnen??
 		Hs = new Complex[pointNumber];
-		phiS = new double[pointNumber];
 		for (int i = 0; i < pointNumber; i++) {
 			Hs[i] = new Complex(Ks);
-			//TODO: weg
-			phiS[i] = 0;
 		}
 		for (int i = 0; i < Hs.length; i++) {
 			for (int n = 0; n < Ts.length; n++) {
 				Hs[i] = Hs[i].multiply(new Complex(1).divide(new Complex(1, Ts[n] * omega[i])));
-				//TODO: weg
-				//phiS[i] = phiS[i] - Math.atan(omega[i] * Ts[n]);
 			}
 		}
 		phiS = Calc.ComplexAngleUnwraped(Hs);
@@ -147,9 +146,6 @@ public class PhaseResponseMethod extends Controller {
 		// Reglerspezifische Berechnungen
 		Hr = new Complex[pointNumber];
 		Ho = new Complex[pointNumber];
-		//TODO: weg
-		phiR = new double[pointNumber];
-		phiO = new double[pointNumber];
 		
 		switch (controllerTyp) {
 		case 2:
@@ -161,8 +157,6 @@ public class PhaseResponseMethod extends Controller {
 			for (int i = 0; i < pointNumber; i++) {
 				Hr[i] = new Complex(0, omega[i] * Tnk).pow(-1).add(1);
 				Ho[i] = Hs[i].multiply(Hr[i]);
-				//TODO: weg
-				//phiR[i] = Math.atan(omega[i] * Tnk) - Math.PI/2;
 			}
 			phiR = Calc.ComplexAngleUnwraped(Hr);
 			break;
@@ -184,12 +178,9 @@ public class PhaseResponseMethod extends Controller {
 							new Complex(1, omega[i] * Tvk))
 							.divide(new Complex(0, omega[i] * Tnk));
 					Ho[i] = Hs[i].multiply(Hr[i]);
-					//TODO: weg
-					//phiR[i] = Math.atan(omega[i] * Tnk) + Math.atan(omega[i] *Tvk) - Math.PI/2;
 				}
 				phiR = Calc.ComplexAngleUnwraped(Hr);
 				
-
 				dPhiR = Calc.diskDiff(omega, phiR, omegaControllerIndex);
 				dPhiO = dPhiS + dPhiR;
 
@@ -205,8 +196,8 @@ public class PhaseResponseMethod extends Controller {
 			// TODO: Controller Exception erstellen
 			break;
 		}	
-
-		//TODO: TP!
+		phiO = Calc.ComplexAngleUnwraped(Ho);
+		
 		if (Tp == 0.0){
 			Tp = Tvk/10;
 		}
@@ -219,13 +210,6 @@ public class PhaseResponseMethod extends Controller {
 	private void calculateKrk(){
 		//Krk berechnen
 		//Phasengang des offenen Regelkreises berechnen
-//TODO: weg
-//		for (int i = 0; i < phiO.length; i++) {
-//			phiO[i] = phiR[i] + phiS[i];
-//		}
-		phiO = Calc.ComplexAngleUnwraped(Ho);
-		
-	
 		// Bestimmung omegaD für die gewünschte Überschwingung
 		int omegaDIndex;
 		if (phiU == -2.3561945) {
@@ -273,67 +257,44 @@ public class PhaseResponseMethod extends Controller {
 	}
 	
 	private void calculateOverShoot(){
-		if (overShoot <= 4) {
-		phiU = OVERSHOOT0;
-		}else if (overShoot <= 16) {
-		phiU = OVERSHOOT16_3;
-		}
-		else if (overShoot <= 23) {
-		phiU = OVERSHOOT23_3;
-		}
-		
+		if (overShoot <= 1)
+			phiU = OVERSHOOT0;
+		else if (overShoot <= 4.6)
+			phiU = OVERSHOOT4_6;
+		else if (overShoot <= 16)
+			phiU = OVERSHOOT16_3;
+		else if (overShoot <= 23)
+			phiU = OVERSHOOT23_3;	
 	}
 	
 	
-	//Erstellt die Omegaachse in abhängigkeit von Ts und dessen Länge
+	//Erstellt die Omega-Achse in Abhängigkeit vom Phasengang und des benötigten Winkelbereichs
 	private double[] createOmegaAxis(double[] Ts){
-		//TODO: Verifizieren ob so richtig!!!
-		
-		double stop;
-		switch (Ts.length) {
-		case 4:
-			stop = 1/Ts[2];
-			break;
-		case 5:
-			stop = 1/Ts[3];
-			break;
-		case 6:
-			stop = 1/Ts[5];
-			break;
-		case 7:
-			stop = 1/Ts[6];
-			break;
-		case 8:
-			stop = 1/Ts[7];
-			break;
-		default:
-			stop = 1/Ts[1];
-			break;
-		}
-		
-		//TODO: Grenzen richtig bestimmen
-//		Complex H = new Complex(path.getUTFZahPoly()[0]);
-//		Complex previousH = H;
-//		int bordermax = 8;
-//		int bordermin = -6;
-//		int border;
-//		for (int i = 0; i < 5; i++) {
-//			border = (bordermax - bordermin) / 2 + bordermin;
-//			for (int n = 0; n < Ts.length; n++) {
-//				H = H.multiply(new Complex(1).divide(new Complex(1, Ts[n] * Math.pow(10, border))));
-//			}
-//			if(H.getArgument() < -3.1)
-//				bordermax = border;
-//			else
-//				bordermin = border;
-//			System.out.println(border+"Border");
-//			System.out.println(H.getArgument()+"Winkel");
-//		}
-//		border = (bordermax - bordermin) / 2 + bordermin;
-		
-//		System.exit(0);
 
-		return Calc.logspace(-7, stop, (int) (20000*stop));
-//		return Calc.logspace(-5, stop, (int) (20000*stop));
+		int borderMax = -5;
+		int borderMin = -6;
+		double minimumAngle;
+		
+		if (controllerTyp == Controller.PI)
+			minimumAngle = MINIMUMANGLEPI[Ts.length - 1];
+		else if (controllerTyp == Controller.PID)
+			minimumAngle = MINIMUMANGLEPID[Ts.length - 1];
+		else
+			minimumAngle = -3.1;
+		
+		double phi = 0;
+		do {
+			for (int n = 0; n < Ts.length; n++) {
+				phi -= new Complex(1, Math.pow(10, borderMax) * Ts[n]).getArgument();
+			}
+			borderMax ++;
+			
+		} while (phi > minimumAngle);
+		
+		System.out.println(borderMax+"BorderMax Phasengang");
+		
+		//TODO: eventuell minimumAngel durch border Max ersetzen
+		return Calc.logspace(borderMin, borderMax, (int) (-3226 * minimumAngle));
+		
 	}
 }

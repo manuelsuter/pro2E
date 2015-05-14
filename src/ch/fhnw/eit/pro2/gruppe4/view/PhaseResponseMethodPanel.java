@@ -24,7 +24,7 @@ import ch.fhnw.eit.pro2.gruppe4.model.Controller;
 import ch.fhnw.eit.pro2.gruppe4.model.Model;
 import ch.fhnw.eit.pro2.gruppe4.model.PhaseResponseMethod;
 
-
+//TODO: Wenn Tp feld leer ist soll Berechnung trotzdem möglich sein und Tp = 0.0 übergeben werden
 public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private GUIController guiController;
