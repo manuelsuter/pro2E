@@ -35,7 +35,7 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 	private GUIController guiController;
 	private JCheckBox[] checkBox = new JCheckBox[Controller.calculationTypName.length];
 	private JPanel checkBoxPanel;	
-	private PhasenPlot phasenPlot = new PhasenPlot();
+	private Plotter phasenPlot = new Plotter();
 	private double[][][] ytValues;
 	private static final Color firebrick = new Color(139,26,26);
 	private static final Color tomato = new Color(240,185,37);
@@ -49,8 +49,8 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 	
 	
 	
-	public static final Color[] plotColor = {firebrick, Color.RED, tomato, springgreen, Color.BLUE, limegreen, slategray, tan};
-	private XYDataset[] datasetArray = new XYDataset[8];
+	public static final Color[] plotColor = {firebrick, Color.RED, tomato, springgreen, Color.BLUE, slategray, tan};
+	private XYDataset[] datasetArray = new XYDataset[7];
 	
 	
 	

@@ -39,7 +39,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 	public JDoubleTextField tfKs, tfTu, tfTg;
 	private JButton btBerechne, btClear;
 	private JCheckBox checkBoxPlot;
-	public JLabel lbMessage;
+	public JLabel lbMessage, lbOrder;
 
 	/**
 	 * Constructor for the InputPanel. Includes the Textfields for InputValues and the Buttons.
@@ -69,6 +69,12 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 		add(tfKs, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
 				new Insets(10, 10, 5, 10), 0, 0));
+		
+		lbOrder = new JLabel("Ordnung: ");
+		add(lbOrder, new GridBagConstraints(3, 0, 2, 1, 0.0, 0.0,
+				GridBagConstraints.LINE_START, GridBagConstraints.NONE,
+				new Insets(10, 10, 5, 10), 0, 0));
+		
 		
 		add(new JLabel("<html><i>T<sub>u</sub></i></html>"),
 				new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
@@ -120,11 +126,6 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE,
 				new Insets(10, 10, 10, 10), 0, 0));
 		checkBoxPlot.addItemListener(this);
-		
-//		add(Box.createRigidArea(new Dimension(300, 0)), new GridBagConstraints(0, 5, 4, 1, 1.0, 0.0,
-//				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-
-		
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -133,11 +134,9 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener {
 		}
 		if(e.getSource()==btClear){
 			guiController.clear();
-			
 		}
 	}
 //TODO: Hinweis auf Ge�derte Werte in Textfelder falls Neuberechnenn noch nicht ausgel�st???
-	
 	
 	public void itemStateChanged(ItemEvent e) {
 		if (checkBoxPlot.isSelected() == false) {

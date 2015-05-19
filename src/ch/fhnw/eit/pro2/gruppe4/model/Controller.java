@@ -10,7 +10,7 @@ public abstract class Controller {
 	
 	public static final int KrPOS = 0, TnPOS = 1, TvPOS = 2, TpPOS = 3,CONTROLLERTYPPOS = 4, CALCULATIONTYPPOS = 5, KrkPOS = 6, TnkPOS = 7, TvkPOS = 8; 
 	public static final int P = 0, I = 1, PI = 2, PID = 3;
-	public static final String[] calculationTypName = {"Phasengang", "Rosenberg", "Oppelt", "Ziegler/Nichols", "Chien/Hrones/Reswick (20%)", "Chien/Hrones/Reswick (aperiod.)"};
+	public static final String[] calculationTypName = {"Phasengang", "Rosenberg", "Oppelt", "Chien/Hrones/Reswick (20%)", "Chien/Hrones/Reswick (aperiod.)"};
 	
 	protected int controllerTyp; // PI/PID
 	protected int CALCULATIONTYP; // Rosenberg, CHN...

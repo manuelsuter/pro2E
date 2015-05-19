@@ -28,17 +28,17 @@ import ch.fhnw.eit.pro2.gruppe4.model.Controller;
 import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 
 
-public class PhasenPlot extends JPanel {
+public class Plotter extends JPanel {
 	private static final long serialVersionUID = 2848069135069767765L;
 	private JFreeChart chart = ChartFactory.createXYLineChart("",
-			"Sekunden [s]", "y(t)", null, PlotOrientation.VERTICAL,
+			"Zeit t/s", "y(t)", null, PlotOrientation.VERTICAL,
 			false, false, false);;
 	public XYLineAndShapeRenderer[] rendererArray = new XYLineAndShapeRenderer[8];	
 	private Paint[] paint;
 	private XYPlot xyplot;
 	
 	
-	public PhasenPlot() {
+	public Plotter() {
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(300, 200));
 		

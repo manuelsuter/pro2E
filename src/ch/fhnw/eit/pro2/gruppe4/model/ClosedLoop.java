@@ -146,9 +146,9 @@ public class ClosedLoop {
 	 * 
 	 */
 	
-	public void setData(int controllerTyp, Path path, double Tp) throws ControllerException {
+	public void setData(int controllerTyp, Path path) throws ControllerException {
 		this.path = path;
-		controller.setData(controllerTyp, path, Tp);
+		controller.setData(controllerTyp, path);
 		calculate();
 	}
 	

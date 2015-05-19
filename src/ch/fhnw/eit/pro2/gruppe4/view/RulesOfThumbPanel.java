@@ -63,6 +63,13 @@ public class RulesOfThumbPanel extends JPanel {
 							5, 10, 5, 10), 0, 0));
 		}
 		
+		for (int i = 0; i < StepResponsePanel.plotColor.length-3; i++) {
+			lbMethod[i+1].setForeground(StepResponsePanel.plotColor[i+3]);
+			lbKr[i+1].setForeground(StepResponsePanel.plotColor[i+3]);
+			lbTn[i+1].setForeground(StepResponsePanel.plotColor[i+3]);
+			lbTv[i+1].setForeground(StepResponsePanel.plotColor[i+3]);
+		}
+		
 		// Erzeugt die erste Zeile für Kr, Tn, Tv.
 		lbKr[0].setText("<html><i>K<sub>r</sub></html></i>");
 		lbTn[0].setText("<html><i>T<sub>n</sub></html></i>");
@@ -90,9 +97,8 @@ public class RulesOfThumbPanel extends JPanel {
 		Model model = (Model)obs;
 		
 		ClosedLoop[] closedLoop = model.getClosedLoop();
-		//TODO: Gut fragen ob Label nicht direkt double verarbeiten kann
 		
-		for (int i = 0; i < closedLoop.length-3; i++) {
+		for (int i = 0; i < closedLoop.length-4; i++) {
 			double[] controllerValues = closedLoop[i+3].getController().getControllerValues();
 			lbMethod[i+1].setText(""+Controller.calculationTypName[(int)controllerValues[5]]);
 			lbKr[i+1].setText(""+f.format(Math.round((controllerValues[0])*1000.0)/1000.0));

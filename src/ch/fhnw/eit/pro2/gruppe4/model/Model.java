@@ -24,7 +24,7 @@ public class Model extends Observable {
 	}
 
 	
-	public void setData(double Ks, double Tu, double Tg, int controllerTyp, double Tp, double overShoot, double phaseMarginOffset) throws SaniException, ControllerException{
+	public void setData(double Ks, double Tu, double Tg, int controllerTyp, double[] Tp, double overShoot, double phaseMarginOffset) throws SaniException, ControllerException{
 			path.setData(Ks, Tu, Tg);
 		double phaseMargin, phaseMarginPos, phaseMarginNeg;
 
@@ -45,16 +45,16 @@ public class Model extends Observable {
 		}		
 		
 		
-		closedLoop[0].setData(controllerTyp, path, Tp, overShoot, phaseMarginPos);
-		closedLoop[1].setData(controllerTyp, path, Tp, overShoot, phaseMargin);
-		closedLoop[2].setData(controllerTyp, path, Tp, overShoot, phaseMarginNeg);
+		closedLoop[0].setData(controllerTyp, path, Tp[0], overShoot, phaseMarginPos);
+		closedLoop[1].setData(controllerTyp, path, Tp[1], overShoot, phaseMargin);
+		closedLoop[2].setData(controllerTyp, path, Tp[2], overShoot, phaseMarginNeg);
 		
 		
 //		for (int i = 0; i < closedLoop.length-5; i++) {
 //			closedLoop[i].setData(controllerTyp, path, Tp, phaseMarginOffset);
 //		}
 		for (int i = closedLoop.length-5; i < closedLoop.length; i++) {
-			closedLoop[i].setData(controllerTyp, path, Tp);
+			closedLoop[i].setData(controllerTyp, path);
 		}
 		notifyObservers();
 	}
@@ -66,11 +66,16 @@ public class Model extends Observable {
 		notifyObservers();
 	}
 	
-	public void setTp(double Tp){
+	public void setTp(double[] tpValues){
 		for (int j = 0; j < closedLoop.length-5; j++) {
-			closedLoop[j].setTp(Tp);
+			closedLoop[j].setTp(tpValues[j]);
 		}	
 		notifyObservers();
+	}
+	
+	
+	public Path getPath(){
+		return path;
 	}
 	
 	public void setPhaseMargin(double phaseMarginOffset){
