@@ -1,4 +1,5 @@
 package ch.fhnw.eit.pro2.gruppe4.utilities;
+
 // Source: http://www.pcs.cnu.edu/~bbradie/cpp/interp.C
 
 public class SplineNAK {
@@ -181,4 +182,3 @@ public class SplineNAK {
 		return (t);
 	}
 }
-

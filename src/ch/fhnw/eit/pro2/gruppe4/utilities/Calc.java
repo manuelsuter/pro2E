@@ -45,7 +45,8 @@ public class Calc {
 	 * @return
 	 */
 
-	public static double[] linspace(double startValue, double endValue, int count) {
+	public static double[] linspace(double startValue, double endValue,
+			int count) {
 
 		double delta = (endValue - startValue) / (count - 1);
 
@@ -134,7 +135,7 @@ public class Calc {
 
 		for (int k = 0; k < res.length; k++) {
 			Complex jw = new Complex(0, w[k]);
-			
+
 			Complex zaehler = new Complex(0, 0);
 			for (int i = 0; i < b.length; i++) {
 				zaehler = zaehler.add(Calc.pow(jw, b.length - i - 1).multiply(
@@ -143,19 +144,18 @@ public class Calc {
 
 			Complex nenner = new Complex(0, 0);
 			for (int i = 0; i < a.length; i++) {
-				nenner = nenner.add(Calc.pow(jw, a.length - i - 1).multiply(a[i]));
+				nenner = nenner.add(Calc.pow(jw, a.length - i - 1).multiply(
+						a[i]));
 
 			}
 			if (nenner.abs() == 0.0) {
-				res[k] = new Complex(0.0,0.0);
-			}
-			else{
-			res[k] = zaehler.divide(nenner);
+				res[k] = new Complex(0.0, 0.0);
+			} else {
+				res[k] = zaehler.divide(nenner);
 			}
 		}
 		return res;
 	}
-	
 
 	/**
 	 * 
@@ -312,21 +312,24 @@ public class Calc {
 
 		return y;
 	}
+
 	/**
-	 * Addiert ein Array b mit dem Array a so zusammen, dass b in die hintersten Positionen von a addiert wird.
+	 * Addiert ein Array b mit dem Array a so zusammen, dass b in die hintersten
+	 * Positionen von a addiert wird.
+	 * 
 	 * @param a
 	 * @param b
 	 * @return
 	 */
-	public static double[] addArrayReverse(double[] a, double[] b){
-		
-		int index = b.length-1;
-		for (int i = a.length-1; i > a.length-b.length-1; i--) {
+	public static double[] addArrayReverse(double[] a, double[] b) {
+
+		int index = b.length - 1;
+		for (int i = a.length - 1; i > a.length - b.length - 1; i--) {
 			a[i] += b[index];
 			index--;
 		}
-		
-	return a;	
+
+		return a;
 	}
 
 	/**
@@ -476,20 +479,20 @@ public class Calc {
 	 * @return c = die Faltung
 	 */
 
-	public static double[][] schrittIfft(double[] zah, double[] nen, double fs, int n) {
+	public static double[][] schrittIfft(double[] zah, double[] nen, double fs,
+			int n) {
 
 		double T = 1 / fs; // Periode
 		Complex[] H;
-		
+
 		// Frequenzachse berechnen
 
 		// TODO: evtl. 2*Pi wegen Umrechnung Kreisfrequenz
 		double[] w = linspace(0.0, fs * Math.PI, n / 2); // Kreisfrequenz
-		
-		
+
 		// Frequenzgang berechnen
 		H = freqs(zah, nen, w);
-		
+
 		// Symmetrischen Vektor für Ifft erstellen:
 		Complex[] tmp = new Complex[H.length];
 		tmp = colonColon(H, (n / 2) - 1, -1, 1);
@@ -500,39 +503,39 @@ public class Calc {
 
 		Complex x = new Complex(0);
 		H = concat(colonColon(H, 0, 1, (n / 2) - 1), new Complex[] { x }, tmp);
-		
+
 		// Impulsantwort berechen
 		Complex[] h;// = new Complex[H.length];
-		FastFourierTransformer f = new FastFourierTransformer(DftNormalization.STANDARD);
-		h = f.transform(H, TransformType.INVERSE);		
-	
-		//Realteil von h extrahieren.
+		FastFourierTransformer f = new FastFourierTransformer(
+				DftNormalization.STANDARD);
+		h = f.transform(H, TransformType.INVERSE);
+
+		// Realteil von h extrahieren.
 		double[] hReal = new double[h.length];
-		
+
 		for (int i = 0; i < h.length; i++) {
 			hReal[i] = h[i].getReal();
 		}
-		
-		//TODO: geändert da schneller und vorallem RICHTIG SOOOO!!!!!!!!!!!!!!
+
+		// TODO: geändert da schneller und vorallem RICHTIG SOOOO!!!!!!!!!!!!!!
 		// Schrittantwort berechnen
-		//double[] y = Calc.diskConvOnes(hReal, n);
+		// double[] y = Calc.diskConvOnes(hReal, n);
 		double[] y = new double[n];
 		y[0] = hReal[0];
 		for (int i = 1; i < y.length; i++) {
-			y[i] = y[i-1] + hReal[i];
+			y[i] = y[i - 1] + hReal[i];
 		}
-		
-		
+
 		// Resultate ausschneiden. Halbiert die Länge von y.
 		double[] yShort = colonColon(y, 0, 1, (int) ((y.length / 2) - 1));
 
 		// Zeitachse generieren:
 		double[] t;
 		t = linspace(0.0, (yShort.length - 1) * T, yShort.length);
-		
+
 		// für Output zusammmensetzen:
 		double[][] res = new double[2][yShort.length];
-		
+
 		for (int j = 0; j < res[0].length; j++) {
 			res[0][j] = yShort[j];
 		}
@@ -557,10 +560,10 @@ public class Calc {
 
 	public static double[] poly(double[] x) {
 
-		double[] res = {x[0], 1.0};
-	
+		double[] res = { x[0], 1.0 };
+
 		for (int i = 1; i < x.length; i++) {
-			double[] c = {x[i], 1.0};
+			double[] c = { x[i], 1.0 };
 			res = diskConv(c, res);
 		}
 		return res;
@@ -589,7 +592,8 @@ public class Calc {
 
 		for (int n = 0; n < c.length; n++) {
 
-			for (int i = Math.max(0, n - a.length + 1); i <= Math.min(b.length - 1, n); i++) {
+			for (int i = Math.max(0, n - a.length + 1); i <= Math.min(
+					b.length - 1, n); i++) {
 
 				c[n] += b[i] * a[n - i];
 			}
@@ -618,18 +622,19 @@ public class Calc {
 	 */
 
 	public static double diskDiff(double[] x, double[] y, int index) {
-		if (index > 0 & index < x.length - 1){
-			double diff2 = (y[index + 1] - y[index]) / (x[index + 1] - x[index]);
-			double diff1 = (y[index] - y[index - 1]) / (x[index] - x[index - 1]);
+		if (index > 0 & index < x.length - 1) {
+			double diff2 = (y[index + 1] - y[index])
+					/ (x[index + 1] - x[index]);
+			double diff1 = (y[index] - y[index - 1])
+					/ (x[index] - x[index - 1]);
 			double diff = (diff1 + diff2) / 2;
 			return diff;
-		}
-		else if (index == 0)
+		} else if (index == 0)
 			return (y[index + 1] - y[index]) / (x[index + 1] - x[index]);
 		else if (index == x.length)
 			return (y[index] - y[index - 1]) / (x[index] - x[index - 1]);
 		else
-			//TODO: Exeption für den fall dass index grösser Arraylänge
+			// TODO: Exeption für den fall dass index grösser Arraylänge
 			return 0;
 	}
 
@@ -670,7 +675,6 @@ public class Calc {
 		int iterations = (int) (Math.log((double) (length)) / Math
 				.log((double) (2))) + 2;
 
-
 		if (array[0] > array[length - 1]) {
 
 			// Monoton fallend
@@ -695,7 +699,6 @@ public class Calc {
 						+ lower_index));
 
 				double value = array[index];
-
 
 				if (value > referenceValue) {
 
@@ -732,7 +735,8 @@ public class Calc {
 
 			for (int i = 0; i < iterations; i++) {
 
-				index = (int) (Math.ceil((double) ((upper_index - lower_index) / 2 + lower_index)));
+				index = (int) (Math
+						.ceil((double) ((upper_index - lower_index) / 2 + lower_index)));
 
 				double value = array[index];
 
@@ -754,21 +758,21 @@ public class Calc {
 		return index;
 
 	}
-	
-	//TODO: brauchts glaubs nicht mehr
-	public static double[] diskConvOnes(double[] a, int b){
+
+	// TODO: brauchts glaubs nicht mehr
+	public static double[] diskConvOnes(double[] a, int b) {
 		double[] c = new double[b];
 		for (int i = 0; i < c.length; i++) {
 			c[i] = 1.0;
 		}
 		return Calc.diskConv(a, c);
-		//TODO: Wär hed sone scheiss gschrebe??????? 3h arbet för nix......
-//		double[] res = new double[b];
-//		res[1] = a[1];
-//		for (int i = 1; i < b; i++) {
-//			res[i] = res[i-1] + a[i];
-//		}
-//		return res;
+		// TODO: Wär hed sone scheiss gschrebe??????? 3h arbet för nix......
+		// double[] res = new double[b];
+		// res[1] = a[1];
+		// for (int i = 1; i < b; i++) {
+		// res[i] = res[i-1] + a[i];
+		// }
+		// return res;
 	}
 
 	/**
@@ -790,8 +794,9 @@ public class Calc {
 	 * @return koeffizienten
 	 */
 
-	public static double[][] utfController(int controllerTyp, double Krk, double Tnk, double Tvk, double Tp) {
-		
+	public static double[][] utfController(int controllerTyp, double Krk,
+			double Tnk, double Tvk, double Tp) {
+
 		double[][] res;
 
 		switch (controllerTyp) {
@@ -799,14 +804,14 @@ public class Calc {
 		// PI-Regler
 
 		case Controller.PI:
-			
+
 			res = new double[2][2];
-			
-			//Zaehler
+
+			// Zaehler
 			res[0][0] = Krk * Tnk;
 			res[0][1] = Krk;
-			
-			//Nenner
+
+			// Nenner
 			res[1][0] = Tnk;
 			res[1][1] = 0;
 
@@ -815,18 +820,19 @@ public class Calc {
 		// PID-Regler
 
 		case Controller.PID:
-			
+
 			res = new double[2][];
 			res[0] = new double[3];
 			res[1] = new double[2];
-			
+
 			// Zaehler
-			double[] conv = Calc.diskConv(new double[] {Tvk, 1.0}, new double[] {Tnk, 1.0});
+			double[] conv = Calc.diskConv(new double[] { Tvk, 1.0 },
+					new double[] { Tnk, 1.0 });
 			for (int i = 0; i < 3; i++) {
 				res[0][i] = Krk * conv[i];
 			}
-			
-			//Nenner
+
+			// Nenner
 			res[1][0] = Tnk;
 			res[1][1] = 0;
 
@@ -839,7 +845,7 @@ public class Calc {
 			break;
 
 		}
-			
+
 		return res;
 	}
 
@@ -877,9 +883,10 @@ public class Calc {
 		return res;
 
 	}
-	
+
 	/**
 	 * Berechnet Nullstellen
+	 * 
 	 * @param p
 	 * @return
 	 */
@@ -889,12 +896,11 @@ public class Calc {
 
 		// To be conform with Matlab ...
 		for (int i = 0; i < flip.length; i++) {
-		flip[p.length - i - 1] = p[i];
+			flip[p.length - i - 1] = p[i];
 		}
 
 		return solver.solveAllComplex(flip, 0.0);
-		}
-	
+	}
 
 	/**
 	 * 
@@ -911,9 +917,10 @@ public class Calc {
 	 * @return
 	 */
 
-	public static final double[] sani(double Tu, double Tg) throws SaniException{
+	public static final double[] sani(double Tu, double Tg)
+			throws SaniException {
 
-		//TODO: eventuell extern laden und final static draus machen???
+		// TODO: eventuell extern laden und final static draus machen???
 		double[][] t_Tg = {
 
 		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1685,40 +1692,40 @@ public class Calc {
 		return T;
 
 	}
-	
-	//TODO: so umbauen dass einfach abfrage ob Complex =0 dann null sonst pow von Complex???
+
+	// TODO: so umbauen dass einfach abfrage ob Complex =0 dann null sonst pow
+	// von Complex???
 	static public Complex pow(Complex a, double x) {
-		return new Complex(Math.pow(a.abs(), x) * Math.cos(x * a.getArgument()),
-				Math.pow(a.abs(), x) * Math.sin(x * a.getArgument()));
+		return new Complex(
+				Math.pow(a.abs(), x) * Math.cos(x * a.getArgument()), Math.pow(
+						a.abs(), x) * Math.sin(x * a.getArgument()));
 	}
-	
-	
-	static public double[] ComplexAngleUnwraped(Complex[] a){
+
+	static public double[] ComplexAngleUnwraped(Complex[] a) {
 		double[] b = new double[a.length];
 		b[0] = a[0].getArgument();
 		for (int i = 1; i < b.length; i++) {
-			b[i] = unwrap (b[i-1], a[i].getArgument());
+			b[i] = unwrap(b[i - 1], a[i].getArgument());
 		}
 		return b;
 	}
-	
-	static public double unwrap(double previousAngle, double angle){
-		//Angle wrap/Sprünge hinzufügen
+
+	static public double unwrap(double previousAngle, double angle) {
+		// Angle wrap/Sprünge hinzufügen
 		double wrapedAngle = angle % (2 * Math.PI);
-		
-		//Differenz Bilden von vorigem wraped Winkel und aktuellen wraped Winkel
+
+		// Differenz Bilden von vorigem wraped Winkel und aktuellen wraped
+		// Winkel
 		double angleDiff = previousAngle % (2 * Math.PI) - wrapedAngle;
-		
-		//Je nach Differenz Winkelangabe drehen oder nicht
+
+		// Je nach Differenz Winkelangabe drehen oder nicht
 		double angleNew;
 		if (Math.abs(angleDiff) > Math.PI)
 			angleNew = -2 * Math.PI + angle;
 		else
 			angleNew = wrapedAngle;
-		
-		//Neuer Winkel anzahl Wraps dazuzählen
+
+		// Neuer Winkel anzahl Wraps dazuzählen
 		return angleNew + (previousAngle - (previousAngle % (2 * Math.PI)));
 	}
 }
-
-

@@ -27,40 +27,38 @@ import org.jfree.data.xy.XYSeriesCollection;
 import ch.fhnw.eit.pro2.gruppe4.model.Controller;
 import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 
-
 public class Plotter extends JPanel {
 	private static final long serialVersionUID = 2848069135069767765L;
-	private JFreeChart chart = ChartFactory.createXYLineChart("",
-			"Zeit t/s", "y(t)", null, PlotOrientation.VERTICAL,
-			false, false, false);;
-	public XYLineAndShapeRenderer[] rendererArray = new XYLineAndShapeRenderer[8];	
+	private JFreeChart chart = ChartFactory.createXYLineChart("", "Zeit t/s",
+			"y(t)", null, PlotOrientation.VERTICAL, false, false, false);;
+	public XYLineAndShapeRenderer[] rendererArray = new XYLineAndShapeRenderer[8];
 	private Paint[] paint;
 	private XYPlot xyplot;
-	
-	
+
 	public Plotter() {
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(300, 200));
-		
+
 		for (int i = 0; i < rendererArray.length; i++) {
 			rendererArray[i] = new XYLineAndShapeRenderer(true, false);
 		}
-		
+
 		// Farben und Settings
 		chart.setBackgroundPaint(Color.white);
 		xyplot = chart.getXYPlot();
 		xyplot.setBackgroundPaint(Color.WHITE);
 		xyplot.setRangeGridlinePaint(Color.black);
 		xyplot.setDomainGridlinePaint(Color.black);
-		
+
 		for (int i = 0; i < rendererArray.length; i++) {
-			xyplot.getRendererForDataset(xyplot.getDataset(i)).setSeriesPaint(0, Color.green);
+			xyplot.getRendererForDataset(xyplot.getDataset(i)).setSeriesPaint(
+					0, Color.green);
 		}
-				
+
 		for (int i = 0; i < rendererArray.length; i++) {
 			xyplot.setRenderer(i, rendererArray[i]);
 		}
-		
+
 		ValueAxis axis = xyplot.getDomainAxis();
 		axis.setRange(0, 10);
 		axis.setAutoRange(true);
@@ -78,7 +76,7 @@ public class Plotter extends JPanel {
 
 	public XYDataset createDataset(double[] x, double[] y) {
 		XYSeriesCollection dataset = new XYSeriesCollection();
-		
+
 		XYSeries series = new XYSeries("Object");
 		for (int i = 0; i < y.length; i++) {
 			series.add(x[i], y[i]);
@@ -87,15 +85,15 @@ public class Plotter extends JPanel {
 
 		return dataset;
 	}
-	
+
 	public void addData(int index, XYDataset dataset) {
 		XYPlot xyplot = chart.getXYPlot();
 		xyplot.setDataset(index, dataset);
 	}
-	
-	public void setColor(int index){
-			xyplot.getRendererForDataset(xyplot.getDataset(index)).setSeriesPaint(0, StepResponsePanel.plotColor[index]);
+
+	public void setColor(int index) {
+		xyplot.getRendererForDataset(xyplot.getDataset(index)).setSeriesPaint(
+				0, StepResponsePanel.plotColor[index]);
 	}
-	
-	
+
 }
