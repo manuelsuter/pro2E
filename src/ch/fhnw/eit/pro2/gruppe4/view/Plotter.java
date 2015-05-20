@@ -3,36 +3,27 @@ package ch.fhnw.eit.pro2.gruppe4.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Paint;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
-import javax.swing.text.StyledEditorKit.ForegroundAction;
 
-import org.apache.commons.math3.complex.Complex;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-import ch.fhnw.eit.pro2.gruppe4.model.Controller;
-import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 
 public class Plotter extends JPanel {
 	private static final long serialVersionUID = 2848069135069767765L;
 	private JFreeChart chart = ChartFactory.createXYLineChart("", "Zeit t/s",
 			"y(t)", null, PlotOrientation.VERTICAL, false, false, false);;
 	public XYLineAndShapeRenderer[] rendererArray = new XYLineAndShapeRenderer[8];
-	private Paint[] paint;
 	private XYPlot xyplot;
 
 	public Plotter() {

@@ -10,22 +10,16 @@ package ch.fhnw.eit.pro2.gruppe4.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Observable;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
-import ch.fhnw.eit.pro2.gruppe4.model.ClosedLoop;
 import ch.fhnw.eit.pro2.gruppe4.model.Controller;
 import ch.fhnw.eit.pro2.gruppe4.model.Model;
-import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 
-import org.apache.commons.math3.complex.Complex;
 import org.jfree.data.xy.XYDataset;
 
 public class StepResponsePanel extends JPanel implements ItemListener {

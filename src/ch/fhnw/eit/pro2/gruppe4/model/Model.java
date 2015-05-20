@@ -71,10 +71,9 @@ public class Model extends Observable {
 		notifyObservers();
 	}
 
-	public void setTp(double[] tpValues) {
-		for (int j = 0; j < closedLoop.length - 5; j++) {
-			closedLoop[j].setTp(tpValues[j]);
-		}
+	public void setTp(double[] tpValues, int index) {
+			closedLoop[index].setTp(tpValues[index]);
+		
 		notifyObservers();
 	}
 

@@ -9,22 +9,17 @@ package ch.fhnw.eit.pro2.gruppe4.view;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.Observable;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
-import javax.swing.UIManager;
 
 public class ControllerChooserPanel extends JPanel implements ActionListener {
 

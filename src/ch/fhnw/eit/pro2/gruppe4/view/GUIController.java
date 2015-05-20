@@ -7,6 +7,7 @@ package ch.fhnw.eit.pro2.gruppe4.view;
  * 
  * */
 
+import java.awt.Color;
 import java.awt.Dimension;
 
 import ch.fhnw.eit.pro2.gruppe4.model.Controller;
@@ -44,8 +45,8 @@ public class GUIController {
 	// }
 
 	public void calculate() {
-
-		view.leftPanel.inputPanel.lbMessage.setText(" ");
+		
+		setExceptionLabel(" ", Color.RED);
 
 		try {
 			double[] tpValues = new double[3];
@@ -87,8 +88,7 @@ public class GUIController {
 							.getText()) == 0.0)
 					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTg
 							.getText()) == 0.0)) {
-				view.leftPanel.inputPanel.lbMessage
-						.setText("Werte dürfen nicht 0 sein!");
+				setExceptionLabel("Werte dürfen nicht 0 sein!", Color.RED);
 			} else {
 				int controllerTyp;
 
@@ -106,23 +106,19 @@ public class GUIController {
 							+ model.getPath().getT().length);
 
 		} catch (NumberFormatException e) {
-			view.leftPanel.inputPanel.lbMessage
-					.setText("Eigabefeld darf nicht leer sein.");
+			setExceptionLabel("Eigabefeld darf nicht leer sein.", Color.RED);
 		} catch (SaniException e) {
-			view.leftPanel.inputPanel.lbMessage
-					.setText(e.getLocalizedMessage());
+			setExceptionLabel(e.getLocalizedMessage(), Color.RED);
 		} catch (ControllerException e) {
-			view.leftPanel.inputPanel.lbMessage
-					.setText(e.getLocalizedMessage());
+			setExceptionLabel(e.getLocalizedMessage(), Color.RED);
 		}
 
 		controllerCalculated = true;
-		// model.getClosedLoop()
 	}
 
-	public void setTp() {
+	public void setTp(int index) {
 
-		view.leftPanel.inputPanel.lbMessage.setText(" ");
+		setExceptionLabel(" ", Color.red);
 
 		try {
 			double[] tpValues = new double[3];
@@ -145,13 +141,13 @@ public class GUIController {
 					|| (Double
 							.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[0]
 									.getText()) == 0.0)) {
-				setExceptionLabel("Werte dürfen nicht 0 sein!");
+				setExceptionLabel("Werte dürfen nicht 0 sein!", Color.red);
 			} else {
-				model.setTp(tpValues);
+				model.setTp(tpValues, index);
 			}
 
 		} catch (NumberFormatException e) {
-			setExceptionLabel("Eingabefeld darf nicht leer sein.");
+			setExceptionLabel("Eingabefeld darf nicht leer sein.", Color.red);
 		}
 	}
 
@@ -168,7 +164,8 @@ public class GUIController {
 		controllerCalculated = false;
 	}
 
-	public void setExceptionLabel(String exception) {
+	public void setExceptionLabel(String exception, Color color) {
+		view.leftPanel.inputPanel.lbMessage.setForeground(color);
 		view.leftPanel.inputPanel.lbMessage.setText(exception);
 	}
 

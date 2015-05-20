@@ -23,11 +23,11 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class InputPanel extends JPanel implements ActionListener, ItemListener,
-		KeyListener, ChangeListener {
+		KeyListener, DocumentListener {
 
 	private static final long serialVersionUID = 1L;
 	private GUIController guiController;
@@ -61,7 +61,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener,
 		// TODO: Textfelder wieder löschen.
 		tfKs = new JDoubleTextField("2.0", 100, false);
 		tfKs.addKeyListener(this);
-
+		tfKs.getDocument().addDocumentListener(this);
 		add(tfKs, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
 				new Insets(10, 10, 5, 10), 0, 0));
@@ -78,6 +78,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener,
 
 		tfTu = new JDoubleTextField("1.1", 100, false);
 		tfTu.addKeyListener(this);
+		tfTu.getDocument().addDocumentListener(this);
 		add(tfTu, new GridBagConstraints(1, 1, 1, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
 				new Insets(10, 10, 5, 10), 0, 0));
@@ -89,7 +90,6 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener,
 		add(lbMessage = new JLabel("      "), new GridBagConstraints(0, 3, 4,
 				1, 0.0, 0.0, GridBagConstraints.LINE_START,
 				GridBagConstraints.NONE, new Insets(0, 10, 0, 10), 0, 0));
-		lbMessage.setForeground(Color.red);
 
 		add(new JLabel("<html><i>T<sub>g</sub></i></html>"),
 				new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
@@ -98,6 +98,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener,
 
 		tfTg = new JDoubleTextField("8.9", 100, false);
 		tfTg.addKeyListener(this);
+		tfTg.getDocument().addDocumentListener(this);
 		add(tfTg, new GridBagConstraints(1, 2, 1, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
 				new Insets(10, 10, 5, 10), 0, 0));
@@ -164,9 +165,23 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener,
 	}
 
 	@Override
-	public void stateChanged(ChangeEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void changedUpdate(DocumentEvent e) {
+		lbMessage.setForeground(Color.orange);
+		lbMessage.setText("Nicht berechnete Änderungen");
 	}
+
+	@Override
+	public void insertUpdate(DocumentEvent e) {
+		lbMessage.setForeground(Color.orange);
+		lbMessage.setText("Nicht berechnete Änderungen");		
+	}
+
+	@Override
+	public void removeUpdate(DocumentEvent e) {
+		lbMessage.setForeground(Color.orange);
+		lbMessage.setText("Nicht berechnete Änderungen");		
+	}
+
+	
 
 }

@@ -12,7 +12,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.Observable;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ControllerValuePanel extends JPanel {

@@ -13,6 +13,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
 import java.util.Observable;
 
@@ -24,8 +26,7 @@ import ch.fhnw.eit.pro2.gruppe4.model.Controller;
 import ch.fhnw.eit.pro2.gruppe4.model.Model;
 import ch.fhnw.eit.pro2.gruppe4.model.PhaseResponseMethod;
 
-//TODO: Wenn Tp feld leer ist soll Berechnung trotzdem möglich sein und Tp = 0.0 übergeben werden
-public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
+public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 	private static final long serialVersionUID = 1L;
 	private GUIController guiController;
 	private DecimalFormat f = new DecimalFormat("#0.000");
@@ -69,12 +70,14 @@ public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 		}
 		for (int i = 0; i < tfTp.length; i++) {
 			tfTp[i] = new JDoubleTextField("", 5, false);
+			tfTp[i].addKeyListener(this);
 			add(tfTp[i], new GridBagConstraints(4, i + 1, 3, 1, 1.0, 0.0,
 					GridBagConstraints.LINE_START,
 					GridBagConstraints.HORIZONTAL, new Insets(5, 10, 5, 10), 0,
 					0));
-			tfTp[i].addActionListener(this);
 		}
+
+
 
 		lbKr[0].setText("<html><i>K<sub>r</sub></html></i>");
 		lbTn[0].setText("<html><i>T<sub>n</sub></html></i>");
@@ -110,11 +113,12 @@ public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 		}
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == tfTp) {
-			guiController.setTp();
-		}
-	}
+//	public void actionPerformed(ActionEvent e) {
+//		if (e.getSource() == tfTp) {
+//			guiController.setTp();
+//			System.out.println("Action Performed.");
+//		}
+//	}
 
 	public void update(Observable obs, Object obj) {
 		Model model = (Model) obs;
@@ -173,6 +177,32 @@ public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 					+ f2.format(Math.round(PhaseResponseMethod.PHASEMARGINPID
 							/ (2 * Math.PI) * 180 * 10.0 / 10.0)) + "°");
 		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == 10) {
+			if (e.getSource() == tfTp[0]) {
+				guiController.setTp(0);
+			}else if (e.getSource() == tfTp[1]){
+				guiController.setTp(1);
+			}else if (e.getSource() == tfTp[2]){
+				guiController.setTp(2);
+			}
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
