@@ -14,6 +14,7 @@ package ch.fhnw.eit.pro2.gruppe4.utilities;
 
 import org.apache.commons.math3.analysis.interpolation.SplineInterpolator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
+import org.apache.commons.math3.analysis.solvers.LaguerreSolver;
 import org.apache.commons.math3.transform.FastFourierTransformer;
 import org.apache.commons.math3.transform.DftNormalization;
 import org.apache.commons.math3.transform.TransformType;
@@ -876,6 +877,24 @@ public class Calc {
 		return res;
 
 	}
+	
+	/**
+	 * Berechnet Nullstellen
+	 * @param p
+	 * @return
+	 */
+	public static final Complex[] roots(double[] p) {
+		final LaguerreSolver solver = new LaguerreSolver();
+		double[] flip = new double[p.length];
+
+		// To be conform with Matlab ...
+		for (int i = 0; i < flip.length; i++) {
+		flip[p.length - i - 1] = p[i];
+		}
+
+		return solver.solveAllComplex(flip, 0.0);
+		}
+	
 
 	/**
 	 * 

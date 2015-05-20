@@ -1,5 +1,7 @@
 package ch.fhnw.eit.pro2.gruppe4.model;
 
+import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
+
 public class Chien20 extends Controller {
 	
 	
@@ -33,6 +35,13 @@ public class Chien20 extends Controller {
 			break;
 		}
 		setUTFcontrollerConf();
+		
+		System.out.println(Tv +"Tv von Chien20");
+		
+//		double[] array = Calc.bodeConform(Tu, Ks, Tg, Tp, 3);
+//		for (int i = 0; i < array.length; i++) {
+//			System.out.println(array[i]+"Bodekonf");
+//		}
 	}
 }
 

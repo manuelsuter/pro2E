@@ -62,6 +62,11 @@ public class RulesOfThumbPanel extends JPanel {
 					GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
 							5, 10, 5, 10), 0, 0));
 		}
+
+		add(new JLabel(), new GridBagConstraints(4, 0, 1, 1, 1.0, 0.0,
+				GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(
+						0,0,0,0), 0, 0));
+
 		
 		for (int i = 0; i < StepResponsePanel.plotColor.length-3; i++) {
 			lbMethod[i+1].setForeground(StepResponsePanel.plotColor[i+3]);

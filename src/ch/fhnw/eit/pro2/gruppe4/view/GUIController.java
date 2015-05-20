@@ -65,8 +65,8 @@ public class GUIController {
 					double Tg = Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText());
 					
 					
-					double phaseMarginOffset = view.rightPanel.upperPlotPanel.jsPhaseMargin.getValue();
-					double overShoot = view.rightPanel.upperPlotPanel.jsOverShoot.getValue();
+					double phaseMarginOffset = view.rightPanel.optimizationPanel.getPhaseMargin();
+					double overShoot = view.rightPanel.optimizationPanel.getOverShoot();
 
 					if ((Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText()) == 0.0) || (Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText()) == 0.0) || (Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText()) == 0.0)) {
 						view.leftPanel.inputPanel.lbMessage.setText("Werte dürfen nicht 0 sein!");
@@ -91,7 +91,8 @@ public class GUIController {
 					view.leftPanel.inputPanel.lbMessage.setText(e.getLocalizedMessage());
 				}
 				
-				controllerCalculated = true;	
+				controllerCalculated = true;
+//				model.getClosedLoop()
 	}	
 	
 	public void setTp(){

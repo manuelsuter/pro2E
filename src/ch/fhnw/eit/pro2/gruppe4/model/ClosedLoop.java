@@ -60,8 +60,6 @@ public class ClosedLoop {
 	 */
 	
 	protected void calculateStepResponse() {
-		//TODO: SYSO entfernen
-		//System.out.println("calculate() von CloseLoop ausgelöst");
 		//TODO: Optimieren
 		double[] zah_c = controller.getUTFZahPoly();
 		double[] nen_c = controller.getUTFNenPoly();

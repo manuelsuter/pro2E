@@ -59,15 +59,15 @@ public class ControllerChooserPanel extends JPanel implements ActionListener {
 		
 		add(btPI, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
-						10, 0, 10, 10), 51, 0));
+						10, 10, 10, 10), 51, 0));
 
 		add(btPID, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
-						10, 0, 10, 10), 45, 0));
+						10, 0, 10, 10), 51, 0));
 		
-		add(new JLabel(""), new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
-						10, 10, 10, 10), 65, 0));
+		add(new JLabel(), new GridBagConstraints(2, 0, 1, 1, 1.0, 0.0,
+				GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(
+						0,0,0,0), 0, 0));
 	}
 	public void update(Observable obs, Object obj) {
 

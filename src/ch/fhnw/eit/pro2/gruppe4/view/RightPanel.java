@@ -20,7 +20,7 @@ public class RightPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private GUIController guiController;
-	public OptimizationPanel upperPlotPanel;
+	public OptimizationPanel optimizationPanel;
 	public StepResponsePanel stepResponsePanel;
 
 	
@@ -30,8 +30,8 @@ public class RightPanel extends JPanel {
 		this.guiController = controller;
 		
 		// Construct the upperPlotPanel and the stepResponsePanel
-		upperPlotPanel = new OptimizationPanel(controller);
-		add(upperPlotPanel, new GridBagConstraints(0, 0, 1, 1, 1.0, 0.1,
+		optimizationPanel = new OptimizationPanel(controller);
+		add(optimizationPanel, new GridBagConstraints(0, 0, 1, 1, 1.0, 0.1,
 				GridBagConstraints.FIRST_LINE_START, GridBagConstraints.BOTH, new Insets(
 						2, 2, 2, 2), 0, 0));
 		
@@ -43,7 +43,7 @@ public class RightPanel extends JPanel {
 	}	
 	
 	public void update(Observable obs, Object obj) {
-		upperPlotPanel.update(obs, obj);
+		optimizationPanel.update(obs, obj);
 		stepResponsePanel.update(obs, obj);
 	}
 }

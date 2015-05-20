@@ -141,6 +141,7 @@ public abstract class Controller {
 
 	//TODO: Name der Methode?
 	protected void setUTFcontrollerConf(){
+		Tp = Tv/10;
 		double[] bodeConf = Calc.bodeConform(Kr, Tn, Tv, Tp, controllerTyp);
 		Krk = bodeConf[0];
 		Tnk = bodeConf[1];

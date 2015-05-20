@@ -17,7 +17,6 @@ import java.util.Observable;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import ch.fhnw.eit.pro2.gruppe4.model.ClosedLoop;
 import ch.fhnw.eit.pro2.gruppe4.model.Controller;
@@ -30,8 +29,7 @@ public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 	private GUIController guiController;
 	private DecimalFormat f = new DecimalFormat("#0.000");
 	private DecimalFormat f2 = new DecimalFormat("#0");
-
-	private String[] methodDesignation = {"Reglerknickpunkt                     ", "wenig", "mittel", "stark"};
+	private String[] methodDesignation = {"Regler-Knickpunkt      ", "wenig", "mittel", "stark"};
 	private JLabel[] lbMethod = new JLabel[methodDesignation.length];
 	private JLabel[] lbKr = new JLabel[lbMethod.length];
 	private JLabel[] lbTn = new JLabel[lbMethod.length];
@@ -46,6 +44,7 @@ public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 		this.guiController = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Phasengang-Methode "));
 		
+		//Baut die Ausgabe-Panel der Phasengangmethode:
 		for (int i = 0; i < lbMethod.length; i++) {
 			lbMethod[i] = new JLabel(methodDesignation[i]);
 			add(lbMethod[i], new GridBagConstraints(0, i, 1, 1, 0.0, 0.0,
@@ -83,6 +82,10 @@ public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(
 						5, 10, 5, 10), 0, 0));
 		
+		add(new JLabel(), new GridBagConstraints(5, 0, 1, 1, 1.0, 0.0,
+				GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(
+						0,0,0,0), 0, 0));
+		
 		
 		
 		// Initialisierungswerte der Reglerausgabe.
@@ -91,16 +94,12 @@ public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 	
 	public void setInitialValues(){
 		for (int i = 0; i < methodDesignation.length-1; i++) {			
-			lbMethod[i+1].setText(""+f2.format(Math.round(PhaseResponseMethod.PHASEMARGINPID/(2*Math.PI)*180*10.0/10.0))+"°");
+//			lbMethod[i+1].setText(""+f2.format(Math.round(PhaseResponseMethod.PHASEMARGINPID/(2*Math.PI)*180*10.0/10.0))+"°");
 			lbKr[i+1].setText("0.000");
 			lbTn[i+1].setText("0.000");
 			lbTv[i+1].setText("0.000");
 			tfTp[i].setText("");
 		}
-		
-//		tfTp[1].setText("0.000");
-//		tfTp[2].setText("0.000");
-
 		
 		for (int i = 0; i < methodDesignation.length-1; i++) {
 			lbMethod[i+1].setForeground(StepResponsePanel.plotColor[i]);
@@ -119,6 +118,8 @@ public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 	public void update(Observable obs, Object obj) {
 		Model model = (Model)obs;
 		
+			// Holt die jeweiligen ClosedLoops in die Methode.
+			// Setzt die aktuellen Werte auf die Labels und Textfelder.
 			ClosedLoop[] closedLoop = model.getClosedLoop();
 			for (int i = 0; i < methodDesignation.length-1; i++) {
 				double[] controllerValues = closedLoop[i].getController().getControllerValues();
@@ -128,12 +129,10 @@ public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 			}	
 			for (int i = 0; i < methodDesignation.length-1; i++) {
 				tfTp[i].setText(""+Math.ceil((closedLoop[i].getController().getControllerValues()[Controller.TpPOS])*1000.0)/1000.0);
-			}
-			
-			lbMethod[1].setText(""+f2.format(Math.round(model.getClosedLoop()[0].getController().getPhaseMargin()/(2*Math.PI)*180*1000.0/1000.0))+"°");
-			lbMethod[3].setText(""+f2.format(Math.round(model.getClosedLoop()[2].getController().getPhaseMargin()/(2*Math.PI)*180*1000.0/1000.0))+"°");
+				lbMethod[i+1].setText("Winkel: "+f2.format(Math.round(model.getClosedLoop()[i].getController().getPhaseMargin()/(2*Math.PI)*180*1000.0/1000.0))+"°");
 
-			
+			}
+						
 			if (model.getClosedLoop()[0].getController().getControllerTyp() != Controller.PID) {
 				for (int i = 0; i < lbTv.length; i++) {
 					lbTv[i].setText("                 ");
@@ -143,8 +142,7 @@ public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 				tfTp[2].setVisible(false);
 
 				lbTp.setForeground(getBackground());
-				lbMethod[2].setText(""+f2.format(Math.round(PhaseResponseMethod.PHASEMARGINPI/(2*Math.PI)*180*10.0/10.0))+"°");
-
+				lbMethod[2].setText("Winkel: "+f2.format(Math.round(PhaseResponseMethod.PHASEMARGINPI/(2*Math.PI)*180*10.0/10.0))+"°");
 			}
 			else{
 				lbTv[0].setText("<html><i>T<sub>v</sub></html></i>");
@@ -152,8 +150,7 @@ public class PhaseResponseMethodPanel extends JPanel implements ActionListener {
 				tfTp[1].setVisible(true);
 				tfTp[2].setVisible(true);
 				lbTp.setForeground(Color.BLACK);
-				lbMethod[2].setText(""+f2.format(Math.round(PhaseResponseMethod.PHASEMARGINPID/(2*Math.PI)*180*10.0/10.0))+"°");
-
+				lbMethod[2].setText("Winkel: "+f2.format(Math.round(PhaseResponseMethod.PHASEMARGINPID/(2*Math.PI)*180*10.0/10.0))+"°");
 			}
 	}
 

@@ -40,15 +40,8 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 	private static final Color firebrick = new Color(139,26,26);
 	private static final Color tomato = new Color(240,185,37);
 	private static final Color springgreen = new Color(102,205,0);
-	private static final Color limegreen = new Color(32,178,120);
 	private static final Color slategray = new Color(84,84,84);
 	private static final Color tan = new Color(255,52,179);
-
-
-	
-	
-	
-	
 	public static final Color[] plotColor = {firebrick, Color.RED, tomato, springgreen, Color.BLUE, slategray, tan};
 	private XYDataset[] datasetArray = new XYDataset[7];
 	
