@@ -36,8 +36,6 @@ public class PhaseResponseMethod extends Controller {
 	 * @throws ControllerException
 	 */
 	public void setData(int controllerTyp, Path path) {
-		System.out
-				.println("setData ohne Phasenrand von Phasengangmethode ausgelöst");
 		this.controllerTyp = controllerTyp;
 		this.path = path;
 		Tp = 0.0;
@@ -52,8 +50,6 @@ public class PhaseResponseMethod extends Controller {
 	 * @throws ControllerException
 	 */
 	public void setData(int controllerTyp, Path path, double Tp) {
-		System.out
-				.println("setData ohne Phasenrand mit Tp von Phasengangmethode ausgelöst");
 		this.controllerTyp = controllerTyp;
 		this.path = path;
 		this.Tp = Tp;
@@ -63,8 +59,6 @@ public class PhaseResponseMethod extends Controller {
 
 	public void setData(int controllerTyp, Path path, double Tp,
 			double overShoot, double phaseMargin) {
-		System.out
-				.println("setData mit Phasenrand und Tp und Overshoot von Phasengangmethode ausgelöst");
 		this.controllerTyp = controllerTyp;
 		this.path = path;
 		this.Tp = Tp;
@@ -75,8 +69,6 @@ public class PhaseResponseMethod extends Controller {
 	}
 
 	public void setOverShoot(double overShoot) {
-		System.out
-				.println("setOverShoot(overShootValue) von Phasengangmethode ausgelöst");
 		this.overShoot = overShoot;
 		calculateOverShoot();
 		calculateKrk();
@@ -84,8 +76,6 @@ public class PhaseResponseMethod extends Controller {
 
 	// Phasenrand manuell ändern
 	public void setPhaseMargin(double phaseMargin) {
-		System.out
-				.println("set phaseMargin(phaseMargin) von Phasengang ausgelöst");
 		this.phaseMargin = phaseMargin;
 		// Berechnung Tnk und Tvk
 		calculateTnkTvk();
@@ -96,7 +86,6 @@ public class PhaseResponseMethod extends Controller {
 	}
 
 	public void setKrk(double Krk) {
-		System.out.println("setKrk(Krk) von Phasengangmethode ausgelöst");
 		this.Krk = Krk;
 		calculatecontrollerConf();
 		setUTF();
@@ -108,14 +97,12 @@ public class PhaseResponseMethod extends Controller {
 	 * @param path
 	 */
 	public void setTp(double Tp) {
-		System.out.println("setTp(Tp) von Phasengangmethode ausgelöst");
 		this.Tp = Tp;
 		calculatecontrollerConf();
 		setUTF();
 	}
 
 	protected void calculate() {
-		System.out.println("Phasengangmethode calculate() ausgelöst");
 		// UTF Strecke aus Strecke holen
 		double Ks = path.getUTFZahPoly()[0];
 		double[] Ts = path.getT();
@@ -143,7 +130,6 @@ public class PhaseResponseMethod extends Controller {
 	}
 
 	private void calculateTnkTvk() {
-		System.out.println("calculateTnkTvk() von Phasengangmethode ausgelöst");
 		// Bestimmung der Frequenz im Phasenrand alpha
 		omegaControllerIndex = Calc.diskFind(phiS, phaseMargin);
 		double omegaController = omega[omegaControllerIndex];
@@ -154,7 +140,6 @@ public class PhaseResponseMethod extends Controller {
 
 		switch (controllerTyp) {
 		case 2:
-			System.out.println("Berechnung PI");
 			Tnk = 1 / omegaController;
 			Tvk = 0;
 			Tp = 0;
@@ -217,7 +202,7 @@ public class PhaseResponseMethod extends Controller {
 		// Phasengang des offenen Regelkreises berechnen
 		// Bestimmung omegaD für die gewünschte Überschwingung
 		int omegaDIndex;
-		if (phiU == -2.3561945) {
+		if (phiU == -2.3561945 & controllerTyp == Controller.PI) {
 			omegaDIndex = omegaControllerIndex;
 		} else {
 			omegaDIndex = Calc.diskFind(phiO, phiU);
@@ -297,7 +282,6 @@ public class PhaseResponseMethod extends Controller {
 
 		} while (phi > minimumAngle);
 
-		System.out.println(borderMax + "BorderMax Phasengang");
 
 		// TODO: eventuell minimumAngel durch border Max ersetzen
 		return Calc

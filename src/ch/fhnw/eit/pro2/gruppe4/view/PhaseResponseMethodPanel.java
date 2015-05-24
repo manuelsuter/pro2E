@@ -179,7 +179,6 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 		}
 	}
 
-	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == 10) {
 			if (e.getSource() == tfTp[0]) {
@@ -193,13 +192,11 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 		
 	}
 
-	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		

@@ -149,34 +149,28 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener,
 	public void update(Observable obs, Object obj) {
 	}
 
-	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == 10) {
 			guiController.calculate();
 		}
 	}
 
-	@Override
 	public void keyReleased(KeyEvent e) {
 	}
 
-	@Override
 	public void keyTyped(KeyEvent e) {
 	}
 
-	@Override
 	public void changedUpdate(DocumentEvent e) {
 		lbMessage.setForeground(Color.orange);
 		lbMessage.setText("Nicht berechnete Änderungen");
 	}
 
-	@Override
 	public void insertUpdate(DocumentEvent e) {
 		lbMessage.setForeground(Color.orange);
 		lbMessage.setText("Nicht berechnete Änderungen");		
 	}
 
-	@Override
 	public void removeUpdate(DocumentEvent e) {
 		lbMessage.setForeground(Color.orange);
 		lbMessage.setText("Nicht berechnete Änderungen");		

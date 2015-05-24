@@ -84,7 +84,7 @@ public abstract class Controller {
 	 * @param path
 	 * @throws ControllerException
 	 */
-	// TODO: Kann man glaubs entfernen wird nicht gebraucht.
+	// TODO: Könnte man glaubs entfernen wird nicht gebraucht. ev. drin lassen aus lo
 	public void setData(int controllerTyp, Path path)
 			throws ControllerException {
 		this.controllerTyp = controllerTyp;
@@ -100,14 +100,15 @@ public abstract class Controller {
 	 * @param path
 	 * @throws ControllerException
 	 */
-	public void setData(int controllerTyp, Path path, double Tp)
-			throws ControllerException {
-		this.controllerTyp = controllerTyp;
-		this.path = path;
-		this.Tp = Tp;
-
-		calculate();
-	}
+	//TODO braucht es garnicht oder????
+//	public void setData(int controllerTyp, Path path, double Tp)
+//			throws ControllerException {
+//		this.controllerTyp = controllerTyp;
+//		this.path = path;
+//		this.Tp = Tp;
+//
+//		calculate();
+//	}
 
 	/**
 	 * Setzt die Input-Wert für die Berechnung inklusive

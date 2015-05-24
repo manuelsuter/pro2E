@@ -47,19 +47,19 @@ public class Model extends Observable {
 		default:
 			throw new ControllerException("Regler-Typ ist nicht Implementiert.");
 		}
-
-		closedLoop[0].setData(controllerTyp, path, Tp[0], overShoot,
-				phaseMarginPos);
+		
 		closedLoop[1].setData(controllerTyp, path, Tp[1], overShoot,
 				phaseMargin);
+		double fs = closedLoop[1].getFs();
+		
+		closedLoop[0].setData(controllerTyp, path, Tp[0], overShoot,
+				phaseMarginPos, fs);
+		
 		closedLoop[2].setData(controllerTyp, path, Tp[2], overShoot,
-				phaseMarginNeg);
+				phaseMarginNeg, fs);
 
-		// for (int i = 0; i < closedLoop.length-5; i++) {
-		// closedLoop[i].setData(controllerTyp, path, Tp, phaseMarginOffset);
-		// }
 		for (int i = closedLoop.length - 5; i < closedLoop.length; i++) {
-			closedLoop[i].setData(controllerTyp, path);
+			closedLoop[i].setData(controllerTyp, path, fs);
 		}
 		notifyObservers();
 	}

@@ -169,6 +169,8 @@ public class Calc {
 	 * 
 	 * @return
 	 */
+	
+	//TODO Name ändern in Max
 
 	public static int diskMax(double[] array) {
 
@@ -890,6 +892,7 @@ public class Calc {
 	 * @param p
 	 * @return
 	 */
+	//TODO: Kann wahrscheinlich weg da nicht verwendet
 	public static final Complex[] roots(double[] p) {
 		final LaguerreSolver solver = new LaguerreSolver();
 		double[] flip = new double[p.length];
@@ -900,6 +903,16 @@ public class Calc {
 		}
 
 		return solver.solveAllComplex(flip, 0.0);
+	}
+	
+	//TODO: Beschreibung
+	public static final double polyval (double[] poly, double a){
+		int high = poly.length - 1;
+		double y = poly[0] * Math.pow(a, high);
+		for (int i = 1; i < poly.length; i++) {
+			y += poly[i] * Math.pow(a, high - i);
+		}
+		return y;
 	}
 
 	/**
