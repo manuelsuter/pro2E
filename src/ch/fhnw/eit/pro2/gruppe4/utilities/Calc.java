@@ -394,7 +394,7 @@ public class Calc {
 
 		if (controllerTyp == 3) {
 
-			res[0] = Krk * (1 + Tvk / Tnk); // Kr
+			res[0] = Krk * (1 + (Tvk - Tp) / Tnk); // Kr
 
 			res[1] = Tnk + Tvk - Tp; // Tn
 
