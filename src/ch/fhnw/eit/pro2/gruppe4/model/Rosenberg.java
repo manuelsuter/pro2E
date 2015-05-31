@@ -1,7 +1,5 @@
 package ch.fhnw.eit.pro2.gruppe4.model;
 
-import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
-
 class Rosenberg extends Controller {
 
 	public Rosenberg() {

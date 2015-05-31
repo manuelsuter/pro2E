@@ -19,10 +19,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Observable;
 
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -58,7 +58,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener,
 				new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
 						GridBagConstraints.LINE_START, GridBagConstraints.NONE,
 						new Insets(10, 10, 5, 10), 0, 0)); // .setText("K"+"<html><center><font face=\"Arial, Verdana, Sans Serif\" color=\"#FFFFFF\" size=\"-2\">Please insert</font></center></html>");
-		// TODO: Textfelder wieder löschen.
+
 		tfKs = new JDoubleTextField("2.0", 100, false);
 		tfKs.addKeyListener(this);
 		tfKs.getDocument().addDocumentListener(this);
@@ -135,7 +135,6 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener,
 		}
 	}
 
-
 	public void itemStateChanged(ItemEvent e) {
 		if (checkBoxPlot.isSelected() == false) {
 			guiController.setVisibility(false);
@@ -168,14 +167,12 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener,
 
 	public void insertUpdate(DocumentEvent e) {
 		lbMessage.setForeground(Color.orange);
-		lbMessage.setText("Nicht berechnete Änderungen");		
+		lbMessage.setText("Nicht berechnete Änderungen");
 	}
 
 	public void removeUpdate(DocumentEvent e) {
 		lbMessage.setForeground(Color.orange);
-		lbMessage.setText("Nicht berechnete Änderungen");		
+		lbMessage.setText("Nicht berechnete Änderungen");
 	}
-
-	
 
 }

@@ -7,12 +7,12 @@ package ch.fhnw.eit.pro2.gruppe4.view;
  * 
  * */
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.Observable;
 import java.util.Observer;
-import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

@@ -11,8 +11,6 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
@@ -29,10 +27,10 @@ import ch.fhnw.eit.pro2.gruppe4.model.PhaseResponseMethod;
 public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 	private static final long serialVersionUID = 1L;
 	private GUIController guiController;
-	private DecimalFormat f = new DecimalFormat("#0.000");
+	private DecimalFormat f = new DecimalFormat("0.000");
 	private DecimalFormat f2 = new DecimalFormat("#0");
-	private String[] methodDesignation = {"Regler-Knickpunkt",
-			"wenig", "mittel", "stark"};
+	private String[] methodDesignation = { "Regler-Knickpunkt", "wenig",
+			"mittel", "stark" };
 	private JLabel[] lbMethod = new JLabel[methodDesignation.length];
 	private JLabel[] lbKr = new JLabel[lbMethod.length];
 	private JLabel[] lbTn = new JLabel[lbMethod.length];
@@ -77,8 +75,6 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 					0));
 		}
 
-
-
 		lbKr[0].setText("<html><i>K<sub>r</sub></html></i>");
 		lbTn[0].setText("<html><i>T<sub>n</sub></html></i>");
 		lbTv[0].setText("<html><i>T<sub>v</sub></html></i>");
@@ -113,12 +109,12 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 		}
 	}
 
-//	public void actionPerformed(ActionEvent e) {
-//		if (e.getSource() == tfTp) {
-//			guiController.setTp();
-//			System.out.println("Action Performed.");
-//		}
-//	}
+	// public void actionPerformed(ActionEvent e) {
+	// if (e.getSource() == tfTp) {
+	// guiController.setTp();
+	// System.out.println("Action Performed.");
+	// }
+	// }
 
 	public void update(Observable obs, Object obj) {
 		Model model = (Model) obs;
@@ -132,15 +128,15 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 			lbKr[i + 1]
 					.setText(""
 							+ f.format(Math
-									.round((controllerValues[Controller.KrPOS]) * 1000.0) / 1000.0));
+									.ceil((controllerValues[Controller.KrPOS]) * 1000.0) / 1000.0));
 			lbTn[i + 1]
 					.setText(""
 							+ f.format(Math
-									.round((controllerValues[Controller.TnPOS]) * 1000.0) / 1000.0));
+									.ceil((controllerValues[Controller.TnPOS]) * 1000.0) / 1000.0));
 			lbTv[i + 1]
 					.setText(""
 							+ f.format(Math
-									.round((controllerValues[Controller.TvPOS]) * 1000.0) / 1000.0));
+									.ceil((controllerValues[Controller.TvPOS]) * 1000.0) / 1000.0));
 		}
 		for (int i = 0; i < methodDesignation.length - 1; i++) {
 			tfTp[i].setText(""
@@ -183,23 +179,19 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 		if (e.getKeyCode() == 10) {
 			if (e.getSource() == tfTp[0]) {
 				guiController.setTp(0);
-			}else if (e.getSource() == tfTp[1]){
+			} else if (e.getSource() == tfTp[1]) {
 				guiController.setTp(1);
-			}else if (e.getSource() == tfTp[2]){
+			} else if (e.getSource() == tfTp[2]) {
 				guiController.setTp(2);
 			}
 		}
-		
+
 	}
 
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

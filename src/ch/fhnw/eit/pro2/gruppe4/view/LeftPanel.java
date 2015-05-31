@@ -19,15 +19,12 @@ import javax.swing.UIManager;
 public class LeftPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private GUIController guiController;
-	private View view;
 	public InputPanel inputPanel;
 	public ControllerChooserPanel controllerChooserPanel;
 	public ControllerValuePanel controllerValuePanel;
 
 	public LeftPanel(GUIController controller) {
 		super(new GridBagLayout());
-		this.guiController = controller;
 
 		UIManager.put("ToggleButton.select", Color.ORANGE);
 

@@ -17,13 +17,11 @@ import javax.swing.JPanel;
 public class ControllerValuePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private GUIController guiController;
 	public RulesOfThumbPanel rulesOfThumbPanel;
 	public PhaseResponseMethodPanel phaseResponsePanel;
 
 	public ControllerValuePanel(GUIController guiController) {
 		super(new GridBagLayout());
-		this.guiController = guiController;
 		setBorder(MyBorderFactory.createMyBorder(" Reglerwerte "));
 
 		phaseResponsePanel = new PhaseResponseMethodPanel(guiController);

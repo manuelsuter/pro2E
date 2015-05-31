@@ -17,15 +17,14 @@ import java.util.Observable;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
+import org.jfree.data.xy.XYDataset;
+
 import ch.fhnw.eit.pro2.gruppe4.model.Controller;
 import ch.fhnw.eit.pro2.gruppe4.model.Model;
-
-import org.jfree.data.xy.XYDataset;
 
 public class StepResponsePanel extends JPanel implements ItemListener {
 
 	private static final long serialVersionUID = 1L;
-	private GUIController guiController;
 	private JCheckBox[] checkBox = new JCheckBox[Controller.calculationTypName.length];
 	private JPanel checkBoxPanel;
 	private Plotter phasenPlot = new Plotter();
@@ -41,7 +40,6 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 
 	public StepResponsePanel(GUIController controller) {
 		super(new BorderLayout());
-		this.guiController = guiController;
 		setBorder(MyBorderFactory.createMyBorder(" Schrittantworten "));
 
 		// Plot dem Panel hinzufügen.

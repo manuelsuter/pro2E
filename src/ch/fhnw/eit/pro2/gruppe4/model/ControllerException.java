@@ -9,5 +9,4 @@ public class ControllerException extends Exception {
 		// erscheinenden Fehlertext
 		super(string);
 	}
-
 }

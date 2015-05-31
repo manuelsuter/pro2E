@@ -48,7 +48,8 @@ public class Application extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Reglerdimensionierung nach Phasengang-Methode");
 		// To set a logo:
-		// frame.setIconImage(new ImageIcon(Application.class.getResource("images/logo.png")).getImage());
+		// frame.setIconImage(new
+		// ImageIcon(Application.class.getResource("images/logo.png")).getImage());
 		frame.setResizable(true);
 		// Set preferred size of the JFrame in function of the inner screen size
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -59,7 +60,7 @@ public class Application extends JFrame {
 		int innerScreenHeight = screenSize.height - screenInsets.top
 				- screenInsets.bottom;
 		Dimension minimumSize = new Dimension(200, 768);
-		
+
 		if (innerScreenWidth < minimumSize.width) {
 			minimumSize.width = innerScreenWidth;
 		}

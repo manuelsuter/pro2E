@@ -282,7 +282,6 @@ public class PhaseResponseMethod extends Controller {
 
 		} while (phi > minimumAngle);
 
-
 		// TODO: eventuell minimumAngel durch border Max ersetzen
 		return Calc
 				.logspace(borderMin, borderMax, (int) (-3226 * minimumAngle));

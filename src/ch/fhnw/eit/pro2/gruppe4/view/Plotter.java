@@ -6,7 +6,6 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -17,7 +16,6 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-
 
 public class Plotter extends JPanel {
 	private static final long serialVersionUID = 2848069135069767765L;

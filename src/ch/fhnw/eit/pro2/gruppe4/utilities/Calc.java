@@ -12,16 +12,11 @@ package ch.fhnw.eit.pro2.gruppe4.utilities;
 
  * */
 
-import org.apache.commons.math3.analysis.interpolation.SplineInterpolator;
-import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
 import org.apache.commons.math3.analysis.solvers.LaguerreSolver;
-import org.apache.commons.math3.transform.FastFourierTransformer;
-import org.apache.commons.math3.transform.DftNormalization;
-import org.apache.commons.math3.transform.TransformType;
-
-import java.lang.Enum;
-
 import org.apache.commons.math3.complex.Complex;
+import org.apache.commons.math3.transform.DftNormalization;
+import org.apache.commons.math3.transform.FastFourierTransformer;
+import org.apache.commons.math3.transform.TransformType;
 
 import ch.fhnw.eit.pro2.gruppe4.model.Controller;
 import ch.fhnw.eit.pro2.gruppe4.model.SaniException;
@@ -169,10 +164,8 @@ public class Calc {
 	 * 
 	 * @return
 	 */
-	
-	//TODO Name ändern in Max
 
-	public static int diskMax(double[] array) {
+	public static int max(double[] array) {
 
 		double largest = array[0];
 
@@ -488,8 +481,6 @@ public class Calc {
 		Complex[] H;
 
 		// Frequenzachse berechnen
-
-		// TODO: evtl. 2*Pi wegen Umrechnung Kreisfrequenz
 		double[] w = linspace(0.0, fs * Math.PI, n / 2); // Kreisfrequenz
 
 		// Frequenzgang berechnen
@@ -768,13 +759,6 @@ public class Calc {
 			c[i] = 1.0;
 		}
 		return Calc.diskConv(a, c);
-		// TODO: Wär hed sone scheiss gschrebe??????? 3h arbet för nix......
-		// double[] res = new double[b];
-		// res[1] = a[1];
-		// for (int i = 1; i < b; i++) {
-		// res[i] = res[i-1] + a[i];
-		// }
-		// return res;
 	}
 
 	/**
@@ -892,7 +876,7 @@ public class Calc {
 	 * @param p
 	 * @return
 	 */
-	//TODO: Kann wahrscheinlich weg da nicht verwendet
+	// TODO: Kann wahrscheinlich weg da nicht verwendet
 	public static final Complex[] roots(double[] p) {
 		final LaguerreSolver solver = new LaguerreSolver();
 		double[] flip = new double[p.length];
@@ -904,9 +888,9 @@ public class Calc {
 
 		return solver.solveAllComplex(flip, 0.0);
 	}
-	
-	//TODO: Beschreibung
-	public static final double polyval (double[] poly, double a){
+
+	// TODO: Beschreibung
+	public static final double polyval(double[] poly, double a) {
 		int high = poly.length - 1;
 		double y = poly[0] * Math.pow(a, high);
 		for (int i = 1; i < poly.length; i++) {

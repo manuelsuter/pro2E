@@ -23,7 +23,6 @@ import ch.fhnw.eit.pro2.gruppe4.model.Model;
 public class RulesOfThumbPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private GUIController guiController;
 	private DecimalFormat f = new DecimalFormat("#0.000");
 	private JLabel[] lbMethod;
 	private JLabel[] lbKr;
@@ -32,7 +31,6 @@ public class RulesOfThumbPanel extends JPanel {
 
 	public RulesOfThumbPanel(GUIController controller) {
 		super(new GridBagLayout());
-		this.guiController = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Faustformeln "));
 
 		lbMethod = new JLabel[Controller.calculationTypName.length];

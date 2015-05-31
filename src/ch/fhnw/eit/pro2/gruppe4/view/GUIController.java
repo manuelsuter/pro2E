@@ -45,7 +45,7 @@ public class GUIController {
 	// }
 
 	public void calculate() {
-		
+
 		setExceptionLabel(" ", Color.RED);
 
 		try {
@@ -140,7 +140,23 @@ public class GUIController {
 									.getText()) == 0.0)
 					|| (Double
 							.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[0]
-									.getText()) == 0.0)) {
+									.getText()) == 0.0) || (Double
+											.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[1]
+													.getText()) == 0.0)
+											|| (Double
+													.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[1]
+															.getText()) == 0.0)
+											|| (Double
+													.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[1]
+															.getText()) == 0.0) || (Double
+																	.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[2]
+																			.getText()) == 0.0)
+																	|| (Double
+																			.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[2]
+																					.getText()) == 0.0)
+																	|| (Double
+																			.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[2]
+																					.getText()) == 0.0)) {
 				setExceptionLabel("Werte dürfen nicht 0 sein!", Color.red);
 			} else {
 				model.setTp(tpValues, index);
