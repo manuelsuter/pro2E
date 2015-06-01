@@ -21,6 +21,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
+import ch.fhnw.eit.pro2.gruppe4.utilities.Utility;
+
 public class ControllerChooserPanel extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -33,15 +35,14 @@ public class ControllerChooserPanel extends JPanel implements ActionListener {
 		this.guiController = guiController;
 		setBorder(MyBorderFactory.createMyBorder(" PI / PID-T1 Regler "));
 
-		ImageIcon iconPI = new ImageIcon(new ImageIcon("images/PI.png")
-				.getImage().getScaledInstance(50, 25,
-						java.awt.Image.SCALE_SMOOTH));
+		
+		ImageIcon iconPI = new ImageIcon(Utility.loadResourceIcon("PI.png").getImage().getScaledInstance(50, 25, java.awt.Image.SCALE_SMOOTH));
 		btPI = new JToggleButton("PI", iconPI);
 		btPI.setHorizontalTextPosition(AbstractButton.CENTER);
 		btPI.setVerticalTextPosition(AbstractButton.TOP);
 		btPI.addActionListener(this);
 
-		ImageIcon iconPID = new ImageIcon(new ImageIcon("images/PID.png")
+		ImageIcon iconPID = new ImageIcon(Utility.loadResourceIcon("PID.png")
 				.getImage().getScaledInstance(50, 25,
 						java.awt.Image.SCALE_SMOOTH));
 		btPID = new JToggleButton("PID-T1", iconPID, true);

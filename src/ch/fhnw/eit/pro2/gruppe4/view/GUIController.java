@@ -39,10 +39,7 @@ public class GUIController {
 		}
 	}
 
-	// public void setData(double Ks, double Tu, double Tg, int controllerTyp,
-	// double Tp){
-	// model.setData(Ks, Tu, Tg, controllerTyp, Tp);
-	// }
+
 
 	public void calculate() {
 
@@ -69,7 +66,6 @@ public class GUIController {
 				tpValues[2] = Double
 						.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[2]
 								.getText());
-
 			}
 
 			double Ks = Double.parseDouble(view.leftPanel.inputPanel.tfKs

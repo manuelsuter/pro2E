@@ -68,7 +68,7 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 		jsOverShoot.addChangeListener(this);
 
 		// Baut und added Slider für Pasenrandverschiebung.
-		lbPhaseMargin = new JLabel("Regler-Knickpunkt in Grad");
+		lbPhaseMargin = new JLabel("Optimierung");
 		add(lbPhaseMargin, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
 				new Insets(5, 10, 5, 10), 0, 0));
