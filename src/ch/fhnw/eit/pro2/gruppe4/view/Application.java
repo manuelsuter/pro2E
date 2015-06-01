@@ -12,9 +12,11 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import ch.fhnw.eit.pro2.gruppe4.model.Model;
+import ch.fhnw.eit.pro2.gruppe4.utilities.Utility;
 
 public class Application extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -48,8 +50,8 @@ public class Application extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Reglerdimensionierung nach Phasengang-Methode");
 		// To set a logo:
-		// frame.setIconImage(new
-		// ImageIcon(Application.class.getResource("images/logo.png")).getImage());
+		ImageIcon icon = Utility.loadResourceIcon("PID.png");
+		frame.setIconImage(icon.getImage());
 		frame.setResizable(true);
 		// Set preferred size of the JFrame in function of the inner screen size
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

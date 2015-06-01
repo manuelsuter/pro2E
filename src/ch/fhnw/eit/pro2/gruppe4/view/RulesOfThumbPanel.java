@@ -96,6 +96,14 @@ public class RulesOfThumbPanel extends JPanel {
 		Model model = (Model) obs;
 
 		ClosedLoop[] closedLoop = model.getClosedLoop();
+		
+//		double controllerValue = closedLoop[3].getController().getControllerValues()[0];
+//		
+//		for (int i = 0 ; controllerValue < 1.0; i++) {
+//			
+//		}
+			
+		
 
 		for (int i = 0; i < closedLoop.length - 4; i++) {
 			double[] controllerValues = closedLoop[i + 3].getController()
