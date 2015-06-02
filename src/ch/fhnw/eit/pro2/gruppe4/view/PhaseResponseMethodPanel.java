@@ -26,8 +26,7 @@ import ch.fhnw.eit.pro2.gruppe4.model.Model;
 public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 	private static final long serialVersionUID = 1L;
 	private GUIController guiController;
-	private DecimalFormat f = new DecimalFormat("0.000");
-//	private DecimalFormat f2 = new DecimalFormat("#0");
+	private DecimalFormat f = new DecimalFormat("0.00");
 	
 	public JLabel[] lbMethod = new JLabel[4];
 	private JLabel[] lbKr = new JLabel[lbMethod.length];
@@ -35,6 +34,8 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 	private JLabel[] lbTv = new JLabel[lbMethod.length];
 	public JDoubleTextField[] tfTp = new JDoubleTextField[3];
 	private JLabel lbTp;
+	public static final String[] unitName = { "a", "f", "p", "n", "u", "m", "", "k", "M", "G","T","P", "E"};
+
 
 	public PhaseResponseMethodPanel(GUIController controller) {
 
@@ -100,7 +101,6 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 
 	public void setInitialValues() {
 		for (int i = 0; i < lbMethod.length - 1; i++) {
-			// lbMethod[i+1].setText(""+f2.format(Math.round(PhaseResponseMethod.PHASEMARGINPID/(2*Math.PI)*180*10.0/10.0))+"°");
 			lbKr[i + 1].setText("0.000");
 			lbTn[i + 1].setText("0.000");
 			lbTv[i + 1].setText("0.000");
@@ -115,46 +115,64 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 		}
 	}
 
-	// public void actionPerformed(ActionEvent e) {
-	// if (e.getSource() == tfTp) {
-	// guiController.setTp();
-	// System.out.println("Action Performed.");
-	// }
-	// }
 
 	public void update(Observable obs, Object obj) {
 		Model model = (Model) obs;
 
+		ClosedLoop[] closedLoop = model.getClosedLoop();
+		
+		// Einheiten-Index berechnen für Tn/Tv
+				double controllerValueTnTv = closedLoop[0].getController().getControllerValues()[1];
+				int unitIndexTnTv = 0;
+				if (controllerValueTnTv < 1.00) {
+					while (controllerValueTnTv < 1.00) {
+						controllerValueTnTv = controllerValueTnTv * 1000.0;
+						unitIndexTnTv++;
+					}
+				} else if (controllerValueTnTv > 100.0) {
+					while (controllerValueTnTv > 100.0) {
+						controllerValueTnTv = controllerValueTnTv / 1000.0;
+						unitIndexTnTv--;
+					}	
+				}
+
+				// Einheiten-Index berechnen für Kr
+						double controllerValueKr = closedLoop[0].getController().getControllerValues()[0];
+						int unitIndexKr = 0;
+						if (controllerValueKr < 1.00) {
+							while (controllerValueKr < 1.00) {
+								controllerValueKr = controllerValueKr * 1000.0;
+								unitIndexKr++;
+							}
+						} else if (controllerValueKr > 100.0) {
+							while (controllerValueKr > 100.0) {
+								controllerValueKr = controllerValueKr / 1000.0;
+								unitIndexKr--;
+							}	
+						}
 		// Holt die jeweiligen ClosedLoops in die Methode.
 		// Setzt die aktuellen Werte auf die Labels und Textfelder.
-		ClosedLoop[] closedLoop = model.getClosedLoop();
 		for (int i = 0; i < lbMethod.length - 1; i++) {
 			double[] controllerValues = closedLoop[i].getController()
 					.getControllerValues();
 			lbKr[i + 1]
 					.setText(""
 							+ f.format(Math
-									.ceil((controllerValues[Controller.KrPOS]) * 1000.0) / 1000.0));
+									.ceil((controllerValues[Controller.KrPOS]) * 1000.0*Math.pow(1000,unitIndexKr)) / 1000.0)+" "+unitName[-unitIndexKr+6]+"s");
 			lbTn[i + 1]
 					.setText(""
 							+ f.format(Math
-									.ceil((controllerValues[Controller.TnPOS]) * 1000.0) / 1000.0));
+									.ceil((controllerValues[Controller.TnPOS]) * 1000.0*Math.pow(1000,unitIndexTnTv)) / 1000.0)+" "+unitName[-unitIndexTnTv+6]+"s");
 			lbTv[i + 1]
 					.setText(""
 							+ f.format(Math
-									.ceil((controllerValues[Controller.TvPOS]) * 1000.0) / 1000.0));
+									.ceil((controllerValues[Controller.TvPOS]) * 1000.0*Math.pow(1000,unitIndexTnTv)) / 1000.0)+" "+unitName[-unitIndexTnTv+6]+"s");
 		}
 		for (int i = 0; i < lbMethod.length - 1; i++) {
 			tfTp[i].setText(""
 					+ Math.ceil((closedLoop[i].getController()
 							.getControllerValues()[Controller.TpPOS]) * 1000.0)
 					/ 1000.0);
-//			lbMethod[i + 1].setText(""
-//					+ f2.format(Math.round(model.getClosedLoop()[i]
-//							.getController().getPhaseMargin()
-//							/ (2 * Math.PI)
-//							* 180 * 1000.0 / 1000.0)));
-			
 		}
 		
 

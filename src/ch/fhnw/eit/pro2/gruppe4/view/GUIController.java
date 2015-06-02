@@ -42,6 +42,9 @@ public class GUIController {
 
 
 	public void calculate() {
+		
+		view.leftPanel.controllerValuePanel.phaseResponsePanel
+		.setInitialValues();
 
 		setExceptionLabel(" ", Color.RED);
 

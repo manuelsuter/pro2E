@@ -23,11 +23,12 @@ import ch.fhnw.eit.pro2.gruppe4.model.Model;
 public class RulesOfThumbPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private DecimalFormat f = new DecimalFormat("#0.000");
+	private DecimalFormat f = new DecimalFormat("#0.00");
 	private JLabel[] lbMethod;
 	private JLabel[] lbKr;
 	private JLabel[] lbTn;
 	private JLabel[] lbTv;
+	public static final String[] unitName = { "a", "f", "p", "n", "u", "m", "", "k", "M", "G","T","P", "E"};
 
 	public RulesOfThumbPanel(GUIController controller) {
 		super(new GridBagLayout());
@@ -97,12 +98,35 @@ public class RulesOfThumbPanel extends JPanel {
 
 		ClosedLoop[] closedLoop = model.getClosedLoop();
 		
-//		double controllerValue = closedLoop[3].getController().getControllerValues()[0];
-//		
-//		for (int i = 0 ; controllerValue < 1.0; i++) {
-//			
-//		}
-			
+		// Einheiten-Index berechnen für Tn/Tv
+		double controllerValueTnTv = closedLoop[4].getController().getControllerValues()[1];
+		int unitIndexTnTv = 0;
+		if (controllerValueTnTv < 1.00) {
+			while (controllerValueTnTv < 1.00) {
+				controllerValueTnTv = controllerValueTnTv * 1000.0;
+				unitIndexTnTv++;
+			}
+		} else if (controllerValueTnTv > 100.0) {
+			while (controllerValueTnTv > 100.0) {
+				controllerValueTnTv = controllerValueTnTv / 1000.0;
+				unitIndexTnTv--;
+			}	
+		}
+
+		// Einheiten-Index berechnen für Kr
+				double controllerValueKr = closedLoop[4].getController().getControllerValues()[0];
+				int unitIndexKr = 0;
+				if (controllerValueKr < 1.00) {
+					while (controllerValueKr < 1.00) {
+						controllerValueKr = controllerValueKr * 1000.0;
+						unitIndexKr++;
+					}
+				} else if (controllerValueKr > 100.0) {
+					while (controllerValueKr > 100.0) {
+						controllerValueKr = controllerValueKr / 1000.0;
+						unitIndexKr--;
+					}	
+				}
 		
 
 		for (int i = 0; i < closedLoop.length - 4; i++) {
@@ -113,15 +137,15 @@ public class RulesOfThumbPanel extends JPanel {
 			lbKr[i + 1]
 					.setText(""
 							+ f.format(Math
-									.round((controllerValues[0]) * 1000.0) / 1000.0));
+									.round((controllerValues[0]) * 1000.0*Math.pow(1000,unitIndexKr)) / 1000.0)+" "+unitName[-unitIndexKr+6]+"s");
 			lbTn[i + 1]
 					.setText(""
 							+ f.format(Math
-									.round((controllerValues[1]) * 1000.0) / 1000.0));
+									.round((controllerValues[1]) * 1000.0*Math.pow(1000,unitIndexTnTv)) / 1000.0)+" "+unitName[-unitIndexTnTv+6]+"s");
 			lbTv[i + 1]
 					.setText(""
 							+ f.format(Math
-									.round((controllerValues[2]) * 1000.0) / 1000.0));
+									.round((controllerValues[2]) * 1000.0*Math.pow(1000,unitIndexTnTv)) / 1000.0)+" "+unitName[-unitIndexTnTv+6]+"s");
 		}
 
 		if (model.getClosedLoop()[0].getController().getControllerTyp() != Controller.PID) {
