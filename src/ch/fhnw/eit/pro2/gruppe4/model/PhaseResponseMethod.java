@@ -130,6 +130,7 @@ public class PhaseResponseMethod extends Controller {
 	}
 
 	private void calculateTnkTvk() {
+		System.out.println(phaseMargin+"phase");
 		// Bestimmung der Frequenz im Phasenrand alpha
 		omegaControllerIndex = Calc.diskFind(phiS, phaseMargin);
 		double omegaController = omega[omegaControllerIndex];
@@ -261,30 +262,46 @@ public class PhaseResponseMethod extends Controller {
 	// benötigten Winkelbereichs
 	private double[] createOmegaAxis(double[] Ts) {
 
-		int borderMax = -5;
-		int borderMin = -6;
+		int borderMin = 12;
 		double minimumAngle;
+		double startAngle = -1.3;
 
-		if (controllerTyp == Controller.PI)
+		if (controllerTyp == Controller.PI){
 			minimumAngle = MINIMUMANGLEPI[Ts.length - 1];
-		else if (controllerTyp == Controller.PID)
+			startAngle = -0.05;
+		}
+		else if (controllerTyp == Controller.PID){
 			minimumAngle = MINIMUMANGLEPID[Ts.length - 1];
-		else
+			startAngle = -0.75;
+		}
+		else{
 			minimumAngle = -3.1;
+			startAngle = -1.3;
+		}
+		
+		double phi = -100.0;
+		while (phi < startAngle){
+			phi = 0.0;
+			borderMin--;
+			for (int n = 0; n < Ts.length; n++) {
+				phi -= new Complex(1, Math.pow(10, borderMin) * Ts[n])
+						.getArgument();
+			}
+		}
 
-		double phi = 0;
-		do {
+		
+		int borderMax = borderMin;
+		while (phi > minimumAngle){
+			phi = 0.0;
+			borderMax++;
 			for (int n = 0; n < Ts.length; n++) {
 				phi -= new Complex(1, Math.pow(10, borderMax) * Ts[n])
 						.getArgument();
 			}
-			borderMax++;
+		}
 
-		} while (phi > minimumAngle);
-
-		// TODO: eventuell minimumAngel durch border Max ersetzen
 		return Calc
-				.logspace(borderMin, borderMax, (int) (-3226 * minimumAngle));
+				.logspace(borderMin, borderMax, (borderMax-borderMin) * 5000);
 
 	}
 }
