@@ -75,16 +75,16 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 
 		jsPhaseMargin = new JSlider(0, 9, 2);
 		Hashtable<Integer, JLabel> tablePhaseMargin = new Hashtable<Integer, JLabel>();
-		tablePhaseMargin.put(0, new JLabel("0"));
-		tablePhaseMargin.put(1, new JLabel("5"));
-		tablePhaseMargin.put(2, new JLabel("10"));
-		tablePhaseMargin.put(3, new JLabel("15"));
-		tablePhaseMargin.put(4, new JLabel("20"));
-		tablePhaseMargin.put(5, new JLabel("25"));
-		tablePhaseMargin.put(6, new JLabel("30"));
-		tablePhaseMargin.put(7, new JLabel("35"));
-		tablePhaseMargin.put(8, new JLabel("40"));
-		tablePhaseMargin.put(9, new JLabel("45"));
+		tablePhaseMargin.put(0, new JLabel(" "));
+		tablePhaseMargin.put(1, new JLabel(" "));
+		tablePhaseMargin.put(2, new JLabel(" "));
+		tablePhaseMargin.put(3, new JLabel(" "));
+		tablePhaseMargin.put(4, new JLabel(" "));
+		tablePhaseMargin.put(5, new JLabel(" "));
+		tablePhaseMargin.put(6, new JLabel(" "));
+		tablePhaseMargin.put(7, new JLabel(" "));
+		tablePhaseMargin.put(8, new JLabel(" "));
+		tablePhaseMargin.put(9, new JLabel(" "));
 
 		jsPhaseMargin.setLabelTable(tablePhaseMargin);
 		jsPhaseMargin.setMajorTickSpacing(1);
