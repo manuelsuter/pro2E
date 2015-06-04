@@ -13,7 +13,7 @@ package ch.fhnw.eit.pro2.gruppe4.model;
 import java.util.Observable;
 
 public class Model extends Observable {
-	private ClosedLoop[] closedLoop = new ClosedLoop[8];
+	private ClosedLoop[] closedLoop = new ClosedLoop[7];
 	private Path path = new Path();
 
 	/**
@@ -21,11 +21,13 @@ public class Model extends Observable {
 	 * Faustormeln.
 	 */
 	public Model() {
+		//closedLoops für Phasengang-Methode
 		for (int i = 0; i < closedLoop.length - 5; i++) {
 			closedLoop[i] = new ClosedLoop(0);
 		}
+		// closedLoops für Faustformeln
 		for (int i = closedLoop.length - 5; i < closedLoop.length; i++) {
-			closedLoop[i] = new ClosedLoop(i - (closedLoop.length - 6));
+			closedLoop[i] = new ClosedLoop(i - (closedLoop.length - 5));
 		}
 	}
 
@@ -57,7 +59,7 @@ public class Model extends Observable {
 
 		closedLoop[2].setData(controllerTyp, path, Tp[2], overShoot, phaseMarginNeg, fs);
 
-		for (int i = closedLoop.length - 5; i < closedLoop.length; i++) {
+		for (int i = closedLoop.length - 4; i < closedLoop.length; i++) {
 			closedLoop[i].setData(controllerTyp, path, fs);
 		}
 		notifyObservers();
@@ -69,7 +71,7 @@ public class Model extends Observable {
 	 * @param overShootValue
 	 */
 	public void setOverShoot(double overShootValue) {
-		for (int j = 0; j < closedLoop.length - 5; j++) {
+		for (int j = 0; j < closedLoop.length - 4; j++) {
 			closedLoop[j].setOverShoot(overShootValue);
 		}
 		notifyObservers();

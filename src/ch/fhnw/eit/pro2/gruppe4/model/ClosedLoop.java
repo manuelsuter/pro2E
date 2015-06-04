@@ -27,14 +27,10 @@ public class ClosedLoop {
 			break;
 
 		case 3:
-			controller = new ZieglerNichols();
-			break;
-
-		case 4:
 			controller = new Chien20();
 			break;
 
-		case 5:
+		case 4:
 			controller = new ChienApper();
 			break;
 
@@ -56,7 +52,6 @@ public class ClosedLoop {
 	/**
 	 * Berechnet den geschlossenen Regelkreis.
 	 */
-
 	protected void calculateStepResponse() {
 		// TODO: Optimieren
 		double[] zah_c = controller.getUTFZahPoly();

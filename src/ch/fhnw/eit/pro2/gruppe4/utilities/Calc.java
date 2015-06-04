@@ -506,14 +506,6 @@ public class Calc {
 		return index;
 	}
 
-	// TODO: brauchts glaubs nicht mehr
-	public static final double[] diskConvOnes(double[] a, int b) {
-		double[] c = new double[b];
-		for (int i = 0; i < c.length; i++) {
-			c[i] = 1.0;
-		}
-		return Calc.diskConv(a, c);
-	}
 
 	/**
 	 * Berechnte Zähler und Nennerpolynom eines Reglers.

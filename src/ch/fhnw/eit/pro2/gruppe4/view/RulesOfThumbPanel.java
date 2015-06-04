@@ -89,9 +89,9 @@ public class RulesOfThumbPanel extends JPanel {
 
 		ClosedLoop[] closedLoop = model.getClosedLoop();
 
-		for (int i = 0; i < closedLoop.length - 4; i++) {
+		for (int i = 0; i < closedLoop.length - 3; i++) {
 			double[] controllerValues = closedLoop[i + 3].getController().getControllerValues();
-			lbMethod[i + 1].setText("" + Controller.calculationTypName[(int) controllerValues[5]]);
+			lbMethod[i + 1].setText("" + Controller.calculationTypName[(int) controllerValues[Controller.CALCULATIONTYPPOS]]);
 			
 			lbKr[i + 1].setText(controllerValues[Controller.KrPOS]);
 			lbTn[i + 1].setText(controllerValues[Controller.TnPOS],"s");

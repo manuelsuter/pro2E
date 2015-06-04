@@ -13,7 +13,7 @@ package ch.fhnw.eit.pro2.gruppe4.model;
 public class Chien20 extends Controller {
 
 	public Chien20() {
-		CALCULATIONTYP = 4;
+		CALCULATIONTYP = 3;
 	}
 
 	/**

@@ -86,7 +86,7 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 			stepResponsePlot.setColor(i);
 		}
 
-		// Sichtbarkeit der Faustformel prüfen.
+		// Sichtbarkeit der Phasengang-Methode prüfen.
 		if (checkBox[0].isSelected() == false) {
 			stepResponsePlot.rendererArray[0].setSeriesLinesVisible(0, false);
 			stepResponsePlot.rendererArray[1].setSeriesLinesVisible(0, false);
@@ -156,7 +156,7 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 	public void update(Observable obs, Object obj) {
 		Model model = (Model) obs;
 
-		ytValues = new double[8][][];
+		ytValues = new double[7][][];
 		for (int i = 0; i < ytValues.length; i++) {
 			ytValues[i] = model.getClosedLoop()[i].getStepResponse();
 		}

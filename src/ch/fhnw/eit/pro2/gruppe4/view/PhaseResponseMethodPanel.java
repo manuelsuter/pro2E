@@ -65,8 +65,11 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 		for (int i = 0; i < tfTp.length; i++) {
 			tfTp[i] = new JUnitTextField("", 5, false);
 			tfTp[i].addKeyListener(this);
-			add(tfTp[i], new GridBagConstraints(4, i + 1, 3, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
+			add(tfTp[i], new GridBagConstraints(4, i + 1, 1, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
 					GridBagConstraints.HORIZONTAL, new Insets(5, 10, 5, 10), 0, 0));
+			
+			add(new JUnitLabel("s"), new GridBagConstraints(6, i + 1, 1, 1, 0.0, 0.0, GridBagConstraints.LINE_START,
+					GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 		}
 
 		lbKr[0].setText("<html><i>K<sub>r</sub></html></i>");
@@ -76,7 +79,8 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 		add(lbTp = new JUnitLabel("<html><i>T<sub>p</sub></i></html>"), new GridBagConstraints(4, 0, 1, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(5, 10, 9, 10), 0, 0));
 
-		add(new JUnitLabel(), new GridBagConstraints(5, 0, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER,
+		
+		add(new JUnitLabel(), new GridBagConstraints(6, 0, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER,
 				GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 
 		// Initialisierungswerte der Reglerausgabe.
