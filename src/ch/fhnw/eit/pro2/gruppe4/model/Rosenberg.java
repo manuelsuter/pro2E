@@ -18,8 +18,9 @@ class Rosenberg extends Controller {
 
 	/**
 	 * Berechnet Reglerwerte mittels Faustformel Rosenberg. Setzt die UTF.
+	 * @throws ControllerException 
 	 */
-	protected void calculate() {
+	protected void calculate() throws ControllerException {
 		double[] inputValues = path.getInputValues();
 		double Ks = inputValues[Path.KsPOS];
 		double Tg = inputValues[Path.TgPOS];
@@ -40,8 +41,7 @@ class Rosenberg extends Controller {
 			break;
 
 		default:
-			System.out.println("!!!! Reglertyp nicht berechenbar !!!!");
-			break;
+			throw new ControllerException();
 		}
 		setUTFcontrollerConf();
 	}

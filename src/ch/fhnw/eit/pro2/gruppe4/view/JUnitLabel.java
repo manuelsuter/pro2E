@@ -22,7 +22,6 @@ public class JUnitLabel extends JLabel {
 	}
 	
 	public void setText(double value) {
-		System.out.println(value+"Value");
 		int unitIndex = 0;
 		if (Math.abs(value) < 1e-18) {
 			value = 0.0;
@@ -46,7 +45,6 @@ public class JUnitLabel extends JLabel {
 	
 
 	public void setText(double value, String unit) {
-		System.out.println(value+"Value");
 		int unitIndex = 0;
 		if (Math.abs(value) < 1e-18) {
 			value = 0.0;

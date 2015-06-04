@@ -31,6 +31,7 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 	private JUnitLabel[] lbTv = new JUnitLabel[lbMethod.length];
 	public JUnitTextField[] tfTp = new JUnitTextField[3];
 	private JUnitLabel lbTp;
+	private JUnitLabel[] lbS = new JUnitLabel[3];
 	public static final String[] unitName = { "a", "f", "p", "n", "u", "m", "", "k", "M", "G", "T", "P", "E" };
 
 	public PhaseResponseMethodPanel(GUIController controller) {
@@ -68,7 +69,8 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 			add(tfTp[i], new GridBagConstraints(4, i + 1, 1, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
 					GridBagConstraints.HORIZONTAL, new Insets(5, 10, 5, 10), 0, 0));
 			
-			add(new JUnitLabel("s"), new GridBagConstraints(6, i + 1, 1, 1, 0.0, 0.0, GridBagConstraints.LINE_START,
+			lbS[i] = new JUnitLabel("s");
+			add(lbS[i], new GridBagConstraints(6, i + 1, 1, 1, 0.0, 0.0, GridBagConstraints.LINE_START,
 					GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 		}
 
@@ -126,16 +128,17 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 			for (int i = 0; i < lbTv.length; i++) {
 				lbTv[i].setText("                 ");
 			}
-			tfTp[0].setVisible(false);
-			tfTp[1].setVisible(false);
-			tfTp[2].setVisible(false);
-
+			for (int i = 0; i < lbS.length; i++) {
+				tfTp[i].setVisible(false);
+				lbS[i].setVisible(false);
+			}
 			lbTp.setForeground(getBackground());
 		} else {
 			lbTv[0].setText("<html><i>T<sub>v</sub></html></i>");
-			tfTp[0].setVisible(true);
-			tfTp[1].setVisible(true);
-			tfTp[2].setVisible(true);
+			for (int i = 0; i < lbS.length; i++) {
+				tfTp[i].setVisible(true);
+				lbS[i].setVisible(true);
+			}
 			lbTp.setForeground(Color.BLACK);
 		}
 	}

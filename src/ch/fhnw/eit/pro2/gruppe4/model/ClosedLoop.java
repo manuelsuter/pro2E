@@ -3,6 +3,7 @@ package ch.fhnw.eit.pro2.gruppe4.model;
 import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 
 public class ClosedLoop {
+	
 
 	private double[][] yt;
 	private Controller controller;
@@ -35,7 +36,7 @@ public class ClosedLoop {
 			break;
 
 		default:
-			// TODO: Exception!
+			controller = new PhaseResponseMethod();
 			break;
 		}
 	}
@@ -53,7 +54,6 @@ public class ClosedLoop {
 	 * Berechnet den geschlossenen Regelkreis.
 	 */
 	protected void calculateStepResponse() {
-		// TODO: Optimieren
 		double[] zah_c = controller.getUTFZahPoly();
 		double[] nen_c = controller.getUTFNenPoly();
 		double[] zah_p = path.getUTFZahPoly();
@@ -76,9 +76,6 @@ public class ClosedLoop {
 				x = 1.5 * x;
 			}
 			fs = x * 2;
-
-			// TODO. Man müsste irgendwie schauen dass alle das selbe Fs
-			// verwenden sonst floppt es in der Darstellung
 
 			// Version gemäss Gut
 			// double wsc = 1.0;
@@ -190,7 +187,7 @@ public class ClosedLoop {
 		calculate();
 	}
 
-	public void setPhaseMargin(double phaseMargin) {
+	public void setPhaseMargin(double phaseMargin) throws ControllerException {
 		controller.setPhaseMargin(phaseMargin);
 		calculate();
 	}

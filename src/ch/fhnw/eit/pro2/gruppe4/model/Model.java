@@ -49,7 +49,7 @@ public class Model extends Observable {
 			break;
 
 		default:
-			throw new ControllerException("Regler-Typ ist nicht Implementiert.");
+			throw new ControllerException();
 		}
 
 		closedLoop[1].setData(controllerTyp, path, Tp[1], overShoot, phaseMargin);
@@ -94,20 +94,26 @@ public class Model extends Observable {
 	 * @param phaseMarginOffset
 	 */
 	public void setPhaseMargin(double phaseMarginOffset) {
-		switch (closedLoop[0].getController().getControllerTyp()) {
-		case Controller.PI:
-			closedLoop[0].setPhaseMargin(PhaseResponseMethod.PHASEMARGINPI + (phaseMarginOffset / 180 * 2 * Math.PI));
-			closedLoop[2].setPhaseMargin(PhaseResponseMethod.PHASEMARGINPI - (phaseMarginOffset / 180 * 2 * Math.PI));
-			break;
-		case Controller.PID:
-			closedLoop[0].setPhaseMargin(PhaseResponseMethod.PHASEMARGINPID + (phaseMarginOffset / 180 * 2 * Math.PI));
-			closedLoop[2].setPhaseMargin(PhaseResponseMethod.PHASEMARGINPID - (phaseMarginOffset / 180 * 2 * Math.PI));
-			break;
+		try {
+			switch (closedLoop[0].getController().getControllerTyp()) {
+			case Controller.PI:
+				closedLoop[0].setPhaseMargin(PhaseResponseMethod.PHASEMARGINPI + (phaseMarginOffset / 180 * 2 * Math.PI));
+				closedLoop[2].setPhaseMargin(PhaseResponseMethod.PHASEMARGINPI - (phaseMarginOffset / 180 * 2 * Math.PI));
+				break;
+			case Controller.PID:
+				closedLoop[0].setPhaseMargin(PhaseResponseMethod.PHASEMARGINPID + (phaseMarginOffset / 180 * 2 * Math.PI));
+				closedLoop[2].setPhaseMargin(PhaseResponseMethod.PHASEMARGINPID - (phaseMarginOffset / 180 * 2 * Math.PI));
+				break;
 
-		default:
-			break;
+			default:
+				break;
+			}
+			notifyObservers();
+			
+		} catch (ControllerException e) {
+			// kann nicht auftreten, da nur PI- und PID- Regler gewählt werden kann.
 		}
-		notifyObservers();
+		
 	}
 
 	public ClosedLoop[] getClosedLoop() {

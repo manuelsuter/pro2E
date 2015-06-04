@@ -19,8 +19,8 @@ public class PhaseResponseMethod extends Controller {
 	public static final double OVERSHOOT0 = -1.8099064, OVERSHOOT4_6 = -2.0001473, OVERSHOOT16_3 = -2.2427481,
 			OVERSHOOT23_3 = -2.3561945;
 	private double phiU = OVERSHOOT0;
-	// TODO:Winkel richtig bestimmen PI letzter stimmt schon
-	private static final double[] MINIMUMANGLEPI = new double[] { -3.1, -3.1, -3.1, -3.1, -3.1, -3.1, -3.1, -5.1 };
+	// Wenn der Phasenrand-Winkel in Abhängigkeit der Regelstrecken-Ordnung geändert werden soll, kann hier der Ordnung entsprechend der Maximal-Winkel für die Berechnung des logspace gewählt werden.
+	private static final double[] MINIMUMANGLEPI = new double[] { -3.1, -3.1, -3.1, -3.1, -3.1, -3.1, -3.1, -3.1 };
 	private static final double[] MINIMUMANGLEPID = new double[] { -3.1, -3.1, -3.1, -3.1, -3.1, -3.1, -3.1, -3.1 };
 	public static final double PHASEMARGINPI = -1.5707963, PHASEMARGINPID = -2.3561802;
 	private double phaseMargin;
@@ -41,8 +41,9 @@ public class PhaseResponseMethod extends Controller {
 	 * 
 	 * @param controllerTyp
 	 * @param path
+	 * @throws ControllerException 
 	 */
-	public void setData(int controllerTyp, Path path) {
+	public void setData(int controllerTyp, Path path) throws ControllerException {
 		this.controllerTyp = controllerTyp;
 		this.path = path;
 		Tp = 0.0;
@@ -57,8 +58,9 @@ public class PhaseResponseMethod extends Controller {
 	 * @param controllerTyp
 	 * @param path
 	 * @param Tp
+	 * @throws ControllerException 
 	 */
-	public void setData(int controllerTyp, Path path, double Tp) {
+	public void setData(int controllerTyp, Path path, double Tp) throws ControllerException {
 		this.controllerTyp = controllerTyp;
 		this.path = path;
 		this.Tp = Tp;
@@ -67,9 +69,10 @@ public class PhaseResponseMethod extends Controller {
 	}
 
 	/**
+	 * @throws ControllerException 
 	 * 
 	 */
-	public void setData(int controllerTyp, Path path, double Tp, double overShoot, double phaseMargin) {
+	public void setData(int controllerTyp, Path path, double Tp, double overShoot, double phaseMargin) throws ControllerException {
 		this.controllerTyp = controllerTyp;
 		this.path = path;
 		this.Tp = Tp;
@@ -88,7 +91,7 @@ public class PhaseResponseMethod extends Controller {
 		calculateKrk();
 	}
 
-	public void setPhaseMargin(double phaseMargin) {
+	public void setPhaseMargin(double phaseMargin) throws ControllerException {
 		this.phaseMargin = phaseMargin;
 
 		calculateTnkTvk();
@@ -119,7 +122,7 @@ public class PhaseResponseMethod extends Controller {
 		setUTF();
 	}
 
-	protected void calculate() {
+	protected void calculate() throws ControllerException {
 		// UTF Strecke aus Strecke holen
 		double Ks = path.getUTFZahPoly()[0];
 		double[] Ts = path.getT();
@@ -129,7 +132,6 @@ public class PhaseResponseMethod extends Controller {
 		pointNumber = omega.length;
 
 		// Hs und phiS berechnen
-		// TODO: SInnvoller Hs aus UTF von Path berechnen??
 		Hs = new Complex[pointNumber];
 		for (int i = 0; i < pointNumber; i++) {
 			Hs[i] = new Complex(Ks);
@@ -145,8 +147,7 @@ public class PhaseResponseMethod extends Controller {
 		calculateTnkTvk();
 	}
 
-	private void calculateTnkTvk() {
-		System.out.println(phaseMargin + "phase");
+	private void calculateTnkTvk() throws ControllerException {
 		// Bestimmung der Frequenz im Phasenrand alpha
 		omegaControllerIndex = Calc.diskFind(phiS, phaseMargin);
 		double omegaController = omega[omegaControllerIndex];
@@ -199,8 +200,7 @@ public class PhaseResponseMethod extends Controller {
 			}
 			break;
 		default:
-			// TODO: Controller Exception erstellen
-			break;
+			throw new ControllerException();
 		}
 		phiO = Calc.ComplexAngleUnwraped(Ho);
 
@@ -245,7 +245,7 @@ public class PhaseResponseMethod extends Controller {
 	}
 
 	// Phasenrand bestimmen je nach Reglertyp
-	private void calculatePhaseMargin() {
+	private void calculatePhaseMargin() throws ControllerException {
 
 		// alpha/Phasenrand bestimmen je nach Reglertyp
 		switch (controllerTyp) {
@@ -256,8 +256,7 @@ public class PhaseResponseMethod extends Controller {
 			phaseMargin = PHASEMARGINPID;
 			break;
 		default:
-			// TODO: Controller Exception erstellen
-			break;
+			throw new ControllerException();
 		}
 	}
 

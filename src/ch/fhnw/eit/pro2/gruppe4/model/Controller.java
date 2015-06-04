@@ -42,7 +42,6 @@ public abstract class Controller {
 	 * @param path
 	 * @throws ControllerException
 	 */
-	// TODO: Könnte man glaubs entfernen wird nicht gebraucht. ev. drin lassen
 	public void setData(int controllerTyp, Path path) throws ControllerException {
 		this.controllerTyp = controllerTyp;
 		this.path = path;
@@ -57,7 +56,6 @@ public abstract class Controller {
 	 * @param path
 	 * @throws ControllerException
 	 */
-	// TODO: phaseMarginOffset richtig???
 	public void setData(int controllerTyp, Path path, double Tp, double overShoot, double phaseMarginOffset)
 			throws ControllerException {
 		this.controllerTyp = controllerTyp;
@@ -92,14 +90,13 @@ public abstract class Controller {
 	 * 
 	 * @param phaseMargin
 	 */
-	public void setPhaseMargin(double phaseMargin) {
+	public void setPhaseMargin(double phaseMargin) throws ControllerException {
 
 	}
 
 	/**
 	 * Setzte die UTF mit reglerkonformen Werten.
 	 */
-	// TODO: Name der Methode?
 	protected void setUTFcontrollerConf() {
 		Tp = Tv / 10;
 		double[] bodeConf = Calc.bodeConform(Kr, Tn, Tv, Tp, controllerTyp);

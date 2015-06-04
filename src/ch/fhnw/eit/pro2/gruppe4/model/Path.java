@@ -56,10 +56,11 @@ public class Path {
 	public double[] getUTFNenPoly() {
 		return utf.getNenPoly();
 	}
-
-	// TODO: name für getT rename.
+	/**
+	 * Gibt die Zeitkonstante t der Regel-Strecke zurück.
+	 * @return
+	 */
 	public double[] getT() {
-
 		return t;
 	}
 

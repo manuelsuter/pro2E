@@ -132,7 +132,6 @@ public class BarChartFXDemo1 extends Application implements ChartMouseListenerFX
      */
     @Override
     public void chartMouseClicked(ChartMouseEventFX event) {
-        System.out.println(event);
     }
 
     /**
@@ -142,7 +141,6 @@ public class BarChartFXDemo1 extends Application implements ChartMouseListenerFX
      */
     @Override
     public void chartMouseMoved(ChartMouseEventFX event) {
-        System.out.println(event);
     }
   
 }

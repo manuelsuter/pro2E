@@ -19,8 +19,9 @@ public class Chien20 extends Controller {
 	/**
 	 * Berechnet Reglerwerte mittels Faustformel Chien/Hrones/Reswick 20%. Setzt
 	 * die UTF.
+	 * @throws ControllerException 
 	 */
-	protected void calculate() {
+	protected void calculate() throws ControllerException {
 		double[] inputValues = path.getInputValues();
 		double Ks = inputValues[Path.KsPOS];
 		double Tg = inputValues[Path.TgPOS];
@@ -40,8 +41,7 @@ public class Chien20 extends Controller {
 			Tv = 0.42 * Tu;
 			break;
 		default:
-			System.out.println("!!!! Reglertyp nicht berechenbar !!!!");
-			break;
+			throw new ControllerException();
 		}
 		setUTFcontrollerConf();
 	}

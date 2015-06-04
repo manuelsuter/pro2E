@@ -346,9 +346,7 @@ public class Calc {
 			hReal[i] = h[i].getReal();
 		}
 
-		// TODO: geändert da schneller und vorallem RICHTIG SOOOO!!!!!!!!!!!!!!
 		// Schrittantwort berechnen
-		// double[] y = Calc.diskConvOnes(hReal, n);
 		double[] y = new double[n];
 		y[0] = hReal[0];
 		for (int i = 1; i < y.length; i++) {
@@ -436,9 +434,8 @@ public class Calc {
 		else if (index == x.length)
 			return (y[index] - y[index - 1]) / (x[index] - x[index - 1]);
 		else
-			// TODO: Exeption für den fall dass index grösser Arraylänge
-			return 0;
-	}
+			throw new ArrayIndexOutOfBoundsException(index);
+		}
 
 	/**
 	 * Sucht den Wert im Array x der am nächsten bei xx liegt und gibt den
