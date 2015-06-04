@@ -20,6 +20,11 @@ public class RightPanel extends JPanel {
 	public OptimizationPanel optimizationPanel;
 	public StepResponsePanel stepResponsePanel;
 
+	/**
+	 * Setzt GridBagLayout.
+	 * Erzugt und platziert optimizationPanel und stepResponsePanel.
+	 * @param controller
+	 */
 	public RightPanel(GUIController controller) {
 		super(new GridBagLayout());
 
@@ -33,7 +38,12 @@ public class RightPanel extends JPanel {
 				GridBagConstraints.BOTH, new Insets(2, 2, 2, 2), 0, 0));
 
 	}
-
+	
+	/**
+	 * Übergibt obs und obj an optimizationPanel und stepResponsePanel weiter.
+	 * @param obs
+	 * @param obj
+	 */
 	public void update(Observable obs, Object obj) {
 		optimizationPanel.update(obs, obj);
 		stepResponsePanel.update(obs, obj);

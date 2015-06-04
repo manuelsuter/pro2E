@@ -12,13 +12,15 @@ package ch.fhnw.eit.pro2.gruppe4.model;
 
 public class ChienApper extends Controller {
 
+	/**
+	 * Setzt Calculationtyp.
+	 */
 	public ChienApper() {
 		CALCULATIONTYP = 4;
 	}
 
 	/**
-	 * Berechnet Reglerwerte mittels Faustformel Chien/Hrones/Reswick
-	 * (apperiodisch). Setzt die UTF.
+	 * Berechnet Reglerwerte mittels Faustformel Chien/Hrones/Reswick und löst setUTFControllerConf() aus.
 	 * @throws ControllerException 
 	 */
 	protected void calculate() throws ControllerException {

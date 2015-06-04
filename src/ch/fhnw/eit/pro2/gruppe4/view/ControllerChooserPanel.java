@@ -30,6 +30,11 @@ public class ControllerChooserPanel extends JPanel implements ActionListener {
 	public JToggleButton btPI, btPID;
 	private ButtonGroup bGroup;
 
+	/**
+	 * Setzt GridBagLayout.
+	 * Baut eine ButtonGroup mit den Button zur Wahl von PI und PID.
+	 * @param guiController
+	 */
 	public ControllerChooserPanel(GUIController guiController) {
 		super(new GridBagLayout());
 		this.guiController = guiController;
@@ -67,6 +72,9 @@ public class ControllerChooserPanel extends JPanel implements ActionListener {
 
 	}
 
+	/**
+	 * Löst calculate() des guiControllers auf.
+	 */
 	public void actionPerformed(ActionEvent e) {
 		guiController.calculate();
 	}

@@ -17,7 +17,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Observable;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -35,10 +34,11 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 	private JCheckBox checkBoxPlot;
 	public JLabel lbMessage, lbOrder;
 
+
 	/**
-	 * Constructor for the InputPanel. Includes the Textfields for InputValues
-	 * and the Buttons.
-	 * 
+	 * Setzt GridBagLayout.
+	 * Erzeugt die Textfelder der Eingabewerte sowie die Button btBerechne und btClear.
+	 * Besitzt die CheckBox checkBoxPlot zum ein- und ausblenden des rightPanels.
 	 * @param controller
 	 */
 	public InputPanel(GUIController controller) {
@@ -46,15 +46,8 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 		this.guiController = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Schrittantwort vermessen "));
 
-		/*
-		 * x, y, x-span, y-span, x-weight, y-weight, anchor, fill, insets(int
-		 * top, int left, int bottom, int right), internal padding x, internal
-		 * padding y.
-		 */
-
-		// Construct the components of inputPanel
 		add(new JLabel("<html><i>K<sub>s</sub></i></html>"), new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(10, 10, 5, 10), 0, 0)); // .setText("K"+"<html><center><font face=\"Arial, Verdana, Sans Serif\" color=\"#FFFFFF\" size=\"-2\">Please insert</font></center></html>");
+				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(10, 10, 5, 10), 0, 0)); 
 
 		tfKs = new JDoubleTextField("2.0", 100, false);
 		tfKs.addKeyListener(this);
@@ -108,6 +101,10 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 				GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 		checkBoxPlot.addItemListener(this);
 	}
+	
+	/**
+	 * Löst bei gedrücktem btBerechne calculate() und bei gedrücktem btClear clear() des guiControllers auf.
+	 */
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btBerechne) {
@@ -118,6 +115,9 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 		}
 	}
 
+	/**
+	 * Prüft ob checkBoxPlot selektiert ist. Ruft setVisibility() des guiControllers auf und übergibt Status der CheckBox.
+	 */
 	public void itemStateChanged(ItemEvent e) {
 		if (checkBoxPlot.isSelected() == false) {
 			guiController.setVisibility(false);
@@ -128,31 +128,46 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 		}
 	}
 
-	public void update(Observable obs, Object obj) {
-	}
-
+	/**
+	 * Wenn Enter-Taste gedrückt, wird calculate() vom guiController aufgerufen.
+	 */
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == 10) {
 			guiController.calculate();
 		}
 	}
 
+	/**
+	 * Kein Verwendung.
+	 */
 	public void keyReleased(KeyEvent e) {
 	}
 
+	/**
+	 * Kein Verwendung.
+	 */
 	public void keyTyped(KeyEvent e) {
 	}
 
+	/**
+	 * Erkennt geänderte in Textfelder und setzt Hinweis darüber in lbMessage.
+	 */
 	public void changedUpdate(DocumentEvent e) {
 		lbMessage.setForeground(Color.magenta);
 		lbMessage.setText("Nicht berechnete Änderungen");
 	}
 
+	/**
+	 * Erkennt geänderte in Textfelder und setzt Hinweis darüber in lbMessage.
+	 */
 	public void insertUpdate(DocumentEvent e) {
 		lbMessage.setForeground(Color.magenta);
 		lbMessage.setText("Nicht berechnete Änderungen");
 	}
-
+	
+	/**
+	 * Erkennt geänderte in Textfelder und setzt Hinweis darüber in lbMessage.
+	 */
 	public void removeUpdate(DocumentEvent e) {
 		lbMessage.setForeground(Color.magenta);
 		lbMessage.setText("Nicht berechnete Änderungen");

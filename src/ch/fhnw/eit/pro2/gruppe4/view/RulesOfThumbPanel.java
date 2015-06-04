@@ -27,6 +27,12 @@ public class RulesOfThumbPanel extends JPanel {
 	private JUnitLabel[] lbTv;
 	public static final String[] unitName = { "a", "f", "p", "n", "u", "m", "", "k", "M", "G", "T", "P", "E" };
 
+	/**
+	 * Setzt GridBagLayout.
+	 * Baut das rulesOfThumbPanel zur Ausgabe der Reglerwerte.
+	 * Setzt mittels setIntialValues() Initialisierungswerte.
+	 * @param controller
+	 */
 	public RulesOfThumbPanel(GUIController controller) {
 		super(new GridBagLayout());
 		setBorder(MyBorderFactory.createMyBorder(" Faustformeln "));
@@ -72,6 +78,9 @@ public class RulesOfThumbPanel extends JPanel {
 		setInitialValues();
 	}
 
+	/**
+	 * Setzt Initialisierungs-Werte (Null-Werte).
+	 */
 	public void setInitialValues() {
 		// Initialisierungswerte der Reglerausgabe.
 		lbMethod[0].setText("                                                                     ");
@@ -84,6 +93,12 @@ public class RulesOfThumbPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Castet obs zu einem Model.
+	 * Setzt die aktuellen Regler-Werte auf die Labels und regelt die Sichtbarkeit der einzelnen Komponenten.
+	 * @param obs
+	 * @param obj
+	 */
 	public void update(Observable obs, Object obj) {
 		Model model = (Model) obs;
 

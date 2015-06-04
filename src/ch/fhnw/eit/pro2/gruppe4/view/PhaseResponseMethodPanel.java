@@ -34,8 +34,13 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 	private JUnitLabel[] lbS = new JUnitLabel[3];
 	public static final String[] unitName = { "a", "f", "p", "n", "u", "m", "", "k", "M", "G", "T", "P", "E" };
 
+	/**
+	 * Setzt das GridBagLayout.
+	 * Baut das phaseRepsonseMethodPanel zur Ausgabe der Reglerwerte.
+	 * Setzt mittels setIntialValues() Initialisierungswerte.
+	 * @param controller
+	 */
 	public PhaseResponseMethodPanel(GUIController controller) {
-
 		super(new GridBagLayout());
 		this.guiController = controller;
 		setBorder(MyBorderFactory.createMyBorder(" Phasengang-Methode "));
@@ -89,6 +94,9 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 		setInitialValues();
 	}
 
+	/**
+	 * Setzt Initialisierungs-Werte (Null-Werte).
+	 */
 	public void setInitialValues() {
 		for (int i = 0; i < lbMethod.length - 1; i++) {
 			lbKr[i + 1].setText("0.000");
@@ -105,6 +113,12 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 		}
 	}
 
+	/**
+	 * Castet obs zu einem Model.
+	 * Setzt die aktuellen Regler-Werte auf die Labels und regelt die Sichtbarkeit der einzelnen Komponenten.
+	 * @param obs
+	 * @param obj
+	 */
 	public void update(Observable obs, Object obj) {
 		Model model = (Model) obs;
 
@@ -143,6 +157,9 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 		}
 	}
 
+	/** 
+	 * Setzt die Werte für Tp mittels setTp() des guiController, sobald mit Enter bestätigt.
+	 */
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == 10) {
 			if (e.getSource() == tfTp[0]) {
@@ -156,9 +173,15 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 
 	}
 
+	/**
+	 * Keine Verwenung bis dato.
+	 */
 	public void keyReleased(KeyEvent e) {
 	}
 
+	/**
+	 * Keine Verwenung bis dato.
+	 */
 	public void keyTyped(KeyEvent e) {
 	}
 

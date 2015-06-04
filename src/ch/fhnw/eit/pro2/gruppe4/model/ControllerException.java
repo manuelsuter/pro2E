@@ -14,6 +14,9 @@ public class ControllerException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Gibt die ControllerException an die Superklasse weiter.
+	 */
 	public ControllerException() {
 		// Aufruf des übergeordneten Konstruktors mit dem zu
 		// erscheinenden Fehlertext.

@@ -31,6 +31,9 @@ public class PhaseResponseMethod extends Controller {
 	int pointNumber;
 	double[] omega;
 
+	/**
+	 * Setzt Calculationtyp.
+	 */
 	public PhaseResponseMethod() {
 		CALCULATIONTYP = 0;
 	}
@@ -69,8 +72,13 @@ public class PhaseResponseMethod extends Controller {
 	}
 
 	/**
-	 * @throws ControllerException 
+	 * Setzt die Input-Wert für die Berechnung. Löst calculatePhaseMargin() und
+	 * calculate() aus.
 	 * 
+	 * @param controllerTyp
+	 * @param path
+	 * @param Tp
+	 * @throws ControllerException 
 	 */
 	public void setData(int controllerTyp, Path path, double Tp, double overShoot, double phaseMargin) throws ControllerException {
 		this.controllerTyp = controllerTyp;
@@ -83,7 +91,7 @@ public class PhaseResponseMethod extends Controller {
 	}
 
 	/**
-	 * 
+	 * Setzt das Überschwingen.
 	 */
 	public void setOverShoot(double overShoot) {
 		this.overShoot = overShoot;
@@ -91,23 +99,29 @@ public class PhaseResponseMethod extends Controller {
 		calculateKrk();
 	}
 
+	/**
+	 * Setzt den Phasenrand..
+	 */
 	public void setPhaseMargin(double phaseMargin) throws ControllerException {
 		this.phaseMargin = phaseMargin;
 
 		calculateTnkTvk();
 	}
 
+	/**
+	 * Gibt den Phasenrand zurück.
+	 */
 	public double getPhaseMargin() {
 		return phaseMargin;
 	}
 
 	/**
-	 * 
+	 * Setzt Krk.
 	 * @param Krk
 	 */
 	public void setKrk(double Krk) {
 		this.Krk = Krk;
-		calculatecontrollerConf();
+		calculateControllerConf();
 		setUTF();
 	}
 
@@ -118,10 +132,14 @@ public class PhaseResponseMethod extends Controller {
 	 */
 	public void setTp(double Tp) {
 		this.Tp = Tp;
-		calculatecontrollerConf();
+		calculateControllerConf();
 		setUTF();
 	}
 
+	/**
+	 * Löst createOmegaAxis() aus und berechnet Hs der Regelstrecke.
+	 * Löst calculateTnk() aus. 
+	 */
 	protected void calculate() throws ControllerException {
 		// UTF Strecke aus Strecke holen
 		double Ks = path.getUTFZahPoly()[0];
@@ -147,6 +165,11 @@ public class PhaseResponseMethod extends Controller {
 		calculateTnkTvk();
 	}
 
+	/**
+	 * Berechnet Tnk und Tvk anhand der Phasengang-Methode.
+	 * Löst calculateKrk() aus.
+	 * @throws ControllerException
+	 */
 	private void calculateTnkTvk() throws ControllerException {
 		// Bestimmung der Frequenz im Phasenrand alpha
 		omegaControllerIndex = Calc.diskFind(phiS, phaseMargin);
@@ -213,6 +236,10 @@ public class PhaseResponseMethod extends Controller {
 
 	}
 
+	/**
+	 * Berechnet Krk anhand der Phasengang-Methode.
+	 * Löst calculateControllerConf() und setUTF() aus.
+	 */
 	private void calculateKrk() {
 		// Krk berechnen
 		// Phasengang des offenen Regelkreises berechnen
@@ -228,23 +255,32 @@ public class PhaseResponseMethod extends Controller {
 		Krk = 1 / Ho[omegaDIndex].abs();
 
 		// Umrechnung Reglerkonform
-		calculatecontrollerConf();
+		calculateControllerConf();
 		// UTF setzen
 		setUTF();
 	}
 
+	/**
+	 * Setzt die Übertragungsfunktion des Reglers.
+	 */
 	private void setUTF() {
 		utf.setUTFPoly(Calc.utfController(controllerTyp, Krk, Tnk, Tvk, Tp));
 	}
 
-	private void calculatecontrollerConf() {
+	/**
+	 * Berechnet die reglerkonformen Attribute.
+	 */
+	private void calculateControllerConf() {
 		double[] controllerConf = Calc.controllerConform(Krk, Tnk, Tvk, Tp, controllerTyp);
 		Kr = controllerConf[0];
 		Tn = controllerConf[1];
 		Tv = controllerConf[2];
 	}
 
-	// Phasenrand bestimmen je nach Reglertyp
+	/**
+	 * Setzt den Phasenrand entsprechend des Reglertyps.
+	 * @throws ControllerException
+	 */
 	private void calculatePhaseMargin() throws ControllerException {
 
 		// alpha/Phasenrand bestimmen je nach Reglertyp
@@ -260,6 +296,9 @@ public class PhaseResponseMethod extends Controller {
 		}
 	}
 
+	/**
+	 * Setzt piU entsprechend dem gewählten Überschwingen.
+	 */
 	private void calculateOverShoot() {
 		if (overShoot <= 1)
 			phiU = OVERSHOOT0;
@@ -271,9 +310,11 @@ public class PhaseResponseMethod extends Controller {
 			phiU = OVERSHOOT23_3;
 	}
 
-	// Erstellt die Omega-Achse in Abhängigkeit vom Phasengang und des
-	// benötigten Winkelbereichs
-
+	/**
+	 * Erstellt die Omega-Achse in Abhängigkeit vom Phasengang und des benötigten Winkelbereichs
+	 * @param Ts
+	 * @return
+	 */
 	private double[] createOmegaAxis(double[] Ts) {
 
 		int borderMin = 12;

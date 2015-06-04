@@ -25,7 +25,7 @@ public class View extends JPanel implements Observer {
 	private JFrame frame;
 
 	/**
-	 * Setzt das Layout auf ein GridBagLayout.
+	 * Setzt das GridBagLayout.
 	 * Erzeugt das leftPanel und das rightPanel. Platziert diese auf der View.
 	 * @param guiController
 	 */

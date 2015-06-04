@@ -20,13 +20,16 @@ public class GUIController {
 	private View view;
 	private boolean controllerCalculated = false;
 
+	/**
+	 * Setzt Attribut model gleich model.
+	 * @param model
+	 */
 	public GUIController(Model model) {
 		this.model = model;
 	}
 
 	/**
-	 * Allows the user to resize the Frame-Size.
-	 * 
+	 * Löst setVisibility() der view aus und übergibt dich Sichtbarkeit des RightPanels mittels flag.
 	 * @param flag
 	 */
 	public void setVisibility(boolean flag) {
@@ -39,6 +42,9 @@ public class GUIController {
 		}
 	}
 
+	/**
+	 * Überprüft die Benutzer-Eingaben auf Korrektheit. Löst setData() des models auf.
+	 */
 	public void calculate() {
 
 		view.leftPanel.controllerValuePanel.phaseResponsePanel.setInitialValues();
@@ -73,7 +79,16 @@ public class GUIController {
 					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText()) == 0.0)
 					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText()) == 0.0)) {
 				setExceptionLabel("Werte dürfen nicht 0 sein!", Color.RED);
-			} else {
+			} else if ((Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText()) < 1e-9)
+					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText()) < 1e-9)
+					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText()) < 1e-9)){
+				setExceptionLabel("Eingabewerte zu klein (Minimum: 1e-9)", Color.RED);				
+			} else if((Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText()) > 1e6)
+					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText()) > 1e6)
+					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText()) > 1e6)){
+				setExceptionLabel("Eingabewerte zu gross (Minimum: 1e6)", Color.RED);				
+			}
+			else {
 				int controllerTyp;
 
 				if (view.leftPanel.controllerChooserPanel.btPI.isSelected() == true) {
@@ -97,6 +112,10 @@ public class GUIController {
 		controllerCalculated = true;
 	}
 
+	/**
+	 * Überprüft die Benutzeringaben auf Richtigkeit und löst setTp() des models auf.
+	 * @param index
+	 */
 	public void setTp(int index) {
 
 		setExceptionLabel(" ", Color.red);
@@ -126,6 +145,9 @@ public class GUIController {
 		}
 	}
 
+	/**
+	 * Löscht alle Benutzereingaben und die Plots.
+	 */
 	public void clear() {
 		view.leftPanel.inputPanel.tfKs.setText("");
 		view.leftPanel.inputPanel.tfTu.setText("");
@@ -137,11 +159,20 @@ public class GUIController {
 		controllerCalculated = false;
 	}
 
+	/**
+	 * Übergibt einen String und Farbe an das JLabel lbMessage des inputPanels.
+	 * @param exception
+	 * @param color
+	 */
 	public void setExceptionLabel(String exception, Color color) {
 		view.leftPanel.inputPanel.lbMessage.setForeground(color);
 		view.leftPanel.inputPanel.lbMessage.setText(exception);
 	}
 
+	/**
+	 * Übergibt den Phasenrand an setPhaseMargin() des models.
+	 * @param phaseMargin
+	 */
 	public void setPhaseMargin(double phaseMargin) {
 		if (controllerCalculated == true) {
 			model.setPhaseMargin(phaseMargin);
@@ -149,22 +180,21 @@ public class GUIController {
 
 	}
 
+	/**
+	 * Übergibt das Überschwingen an setOverShoot() des models.
+	 * @param overShoot
+	 */
 	public void setOverShoot(double overShoot) {
 		if (controllerCalculated == true) {
 			model.setOverShoot(overShoot);
 		}
 	}
 
+	/**
+	 * Setzt Attribut view gleich view.
+	 * @param view
+	 */
 	public void setView(View view) {
 		this.view = view;
 	}
-
-	/**
-	 * public void setFrame(Application frame){
-	 * 
-	 * this.frame = frame;
-	 * 
-	 * }
-	 */
-
 }

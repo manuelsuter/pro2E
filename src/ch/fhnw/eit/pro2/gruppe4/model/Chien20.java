@@ -11,14 +11,16 @@ package ch.fhnw.eit.pro2.gruppe4.model;
  * */
 
 public class Chien20 extends Controller {
-
+	
+	/**
+	 * Setzt Calculationtyp.
+	 */
 	public Chien20() {
 		CALCULATIONTYP = 3;
 	}
 
 	/**
-	 * Berechnet Reglerwerte mittels Faustformel Chien/Hrones/Reswick 20%. Setzt
-	 * die UTF.
+	 * Berechnet Reglerwerte mittels Faustformel Chien/Hrones/Reswick 20% und löst setUTFControllerConf() aus.
 	 * @throws ControllerException 
 	 */
 	protected void calculate() throws ControllerException {

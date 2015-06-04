@@ -12,12 +12,15 @@ package ch.fhnw.eit.pro2.gruppe4.model;
 
 public class Oppelt extends Controller {
 
+	/**
+	 * Setzt Calculationtyp.
+	 */
 	public Oppelt() {
 		CALCULATIONTYP = 2;
 	}
 
 	/**
-	 * Berechnet Reglerwerte mittels Faustformel Oppelt. Setzt die UTF.
+	 * Berechnet Reglerwerte mittels Faustformel Oppelt und löst setUTFControllerConf() aus.
 	 * @throws ControllerException 
 	 */
 	protected void calculate() throws ControllerException {

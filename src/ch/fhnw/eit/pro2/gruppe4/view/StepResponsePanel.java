@@ -38,9 +38,8 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 	private XYDataset[] datasetArray = new XYDataset[7];
 
 	/**
-	 * Setzt das Layout auf ein BorderLayout.
-	 * Platziert den Plot-Bereich im Zentrum.
-	 * Erszeugt ein checkBoxPanel mit all den CheckBoxen für Plot, das im Süden platziert wird.
+	 * Setzt Border-Layout.
+	 * Platziert Plot und CheckBoxen.
 	 * @param controller
 	 */
 	public StepResponsePanel(GUIController controller) {
@@ -149,7 +148,7 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 
 	/**
 	 * Castet obs als Model und weisst es model zu.
-	 * Erzeugt ein 3-dimensionales double-Array und speichert darin die aktuellen 
+	 * Erzeugt ein 3-dimensionales double-Array und speichert darin die aktuellen yt-Werte.
 	 * @param obs
 	 * @param obj
 	 */

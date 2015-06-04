@@ -68,11 +68,11 @@ public abstract class Controller {
 	}
 
 	/**
-	 * Setzte das Überschingen der Phasengangmethode.
+	 * Setzt Überschwingen.
 	 * 
 	 * @param phiU
 	 */
-	public void setOverShoot(double phiU) {
+	public void setOverShoot(double overShoot) {
 
 	}
 

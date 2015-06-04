@@ -26,14 +26,12 @@ public class Application extends JFrame {
 	private MenuBar menuBar = new MenuBar(guiController, this);
 
 	/**
-	 * Add the view to the content pane and register the view as observer of the
-	 * model.
+	 * Fügt die View dem content pane hinzu und registriert die view als Observer des Models.
 	 */
 	public void init() {
 		view.setJFrame(this);
 		guiController.setView(view);
 		model.addObserver(view);
-		// model.notifyObservers();
 		model.addObserver(menuBar);
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(view, BorderLayout.CENTER);
@@ -42,14 +40,12 @@ public class Application extends JFrame {
 	}
 
 	/**
-	 * Entry method of the application. Sets the preferred size and the minimum
-	 * size of the JFrame.
+	 * Start-Methode der Applikation. Setzt die präferenzierte und minimale Grösse der Applikation. 
 	 */
 	public static void main(String[] args) {
 		Application frame = new Application();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Reglerdimensionierung nach Phasengang-Methode");
-		// To set a logo:
 		ImageIcon icon = Utility.loadResourceIcon("PID.png");
 		frame.setIconImage(icon.getImage());
 		frame.setResizable(true);

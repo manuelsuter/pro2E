@@ -22,8 +22,7 @@ import ch.fhnw.eit.pro2.gruppe4.model.SaniException;
 public class Calc {
 
 	/**
-	 * Berechnet linspace mittels startValue, endValue und length. Gibt ein
-	 * Array mit den entsprechenden Werten zurück.
+	 * Berechnet linspace mittels startValue, endValue und length.
 	 * 
 	 * @param startValue
 	 * @param endValue
@@ -42,10 +41,7 @@ public class Calc {
 	}
 
 	/**
-	 * Berechnet logspace mittels startValue, endValue und count. Generiert ein
-	 * Array mit "count" Punkten logarithmisch zwischen 10^startValue und
-	 * 10^endValue aufgespannt. Gibt ein Array mit den entsprechenden Werten
-	 * zurück.
+	 * Berechnet logspace mittels startValue, endValue und count.
 	 * 
 	 * @param startValue
 	 * @param endValue
@@ -104,8 +100,7 @@ public class Calc {
 	}
 
 	/**
-	 * Sucht den Höchstwert von x und gibt dessen Index zurück. Kommt die der
-	 * Höchstwert mehrfach vor, wird der Index des ersten Wertes ausgegeben.
+	 * Sucht den ersten Höchstwert von x und gibt dessen Index zurück.
 	 * 
 	 * @param array
 	 * @return
@@ -179,8 +174,7 @@ public class Calc {
 	}
 
 	/**
-	 * Gibt die Werte des Array x in gewünschter Reihenfolge zurück (z.B.
-	 * invertiert). (Double-Version)
+	 * Gibt die Werte des Arrays x in gewünschter Reihenfolge zurück. (Double-Version)
 	 * 
 	 * @param x
 	 * @param start
@@ -202,8 +196,7 @@ public class Calc {
 	}
 	
 	/**
-	 * Gibt die Werte des Array x in gewünschter Reihenfolge zurück (z.B.
-	 * invertiert). (Complex-Version)
+	 * Gibt die Werte des Array x in gewünschter Reihenfolge zurück. (Complex-Version)
 	 * 
 	 * @param x
 	 * @param start
@@ -271,7 +264,7 @@ public class Calc {
 	}
 
 	/**
-	 * Gibt Reglerwerte bodekonform zurück.
+	 * Gibt Reglerwerte bodekonform als Array zurück.
 	 * @param Kr
 	 * @param Tn
 	 * @param Tv
@@ -439,8 +432,7 @@ public class Calc {
 
 	/**
 	 * Sucht den Wert im Array x der am nächsten bei xx liegt und gibt den
-	 * ArrayIndex zurück. Es kann davon ausgegangen werden, dass x monoton
-	 * steigend bzw. fallend ist.
+	 * ArrayIndex zurück.
 	 * 
 	 * @param array
 	 * @param referenceValue
@@ -505,7 +497,7 @@ public class Calc {
 
 
 	/**
-	 * Berechnte Zähler und Nennerpolynom eines Reglers.
+	 * Berechnet Zähler- und Nenner-Polynom eines Reglers.
 	 * 
 	 * @param controllerTyp
 	 * @param Krk
@@ -606,7 +598,9 @@ public class Calc {
 	 * Berechnet den Wert des Polynoms an gegebener Stelle.
 	 * 
 	 * @param poly
+	 * 			= Polynom
 	 * @param a
+	 *			= Stelle
 	 * @return
 	 */
 	public static final double polyval(double[] poly, double a) {
@@ -619,8 +613,7 @@ public class Calc {
 	}
 
 	/**
-	 * Berechnet die Sani-Methode gemäss Matlab-File. Gibt die berechneten Werte in
-	 * einem double-Array zurück.
+	 * Berechnet die Sani-Methode gemäss Matlab-File. Gibt die Zeitkonstanten t in einem Double-Array zurück.
 	 * 
 	 * @param Tu
 	 * @param Tg
@@ -1073,7 +1066,7 @@ public class Calc {
 	}
 
 	/**
-	 * Eliminiert die Sprünge von 2*pi im Arcustangens.
+	 * Eliminiert die Sprünge von 2*pi im ArcusTangens.
 	 * @param previousAngle
 	 * @param angle
 	 * @return

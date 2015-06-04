@@ -13,7 +13,10 @@ package ch.fhnw.eit.pro2.gruppe4.model;
 public class SaniException extends Exception {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	/**
+	 * Gibt die SaniException an die Superklasse weiter.
+	 */
 	public SaniException(String string) {
 		// Aufruf des übergeordneten Konstruktors mit dem zu
 		// erscheinenden Fehlertext

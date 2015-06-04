@@ -112,6 +112,7 @@ public class ClosedLoop {
 		}
 		pointnumber = 512;
 
+
 		yt = Calc.schrittIfft(zah, nen, fs, pointnumber);
 	}
 

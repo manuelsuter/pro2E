@@ -12,12 +12,15 @@ package ch.fhnw.eit.pro2.gruppe4.model;
 
 class Rosenberg extends Controller {
 
+	/**
+	 * Setzt Calculationtyp.
+	 */
 	public Rosenberg() {
 		CALCULATIONTYP = 1;
 	}
 
 	/**
-	 * Berechnet Reglerwerte mittels Faustformel Rosenberg. Setzt die UTF.
+	 * Berechnet Reglerwerte mittels Faustformel Rosenberg und löst setUTFControllerConf() aus.
 	 * @throws ControllerException 
 	 */
 	protected void calculate() throws ControllerException {

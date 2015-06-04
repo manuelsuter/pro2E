@@ -31,6 +31,19 @@ public class Model extends Observable {
 		}
 	}
 
+	/**
+	 * Setzt alle für die Berechnung notwenidigen Werte.
+	 * Löst notifyObservers() aus.
+	 * @param Ks
+	 * @param Tu
+	 * @param Tg
+	 * @param controllerTyp
+	 * @param Tp
+	 * @param overShoot
+	 * @param phaseMarginOffset
+	 * @throws SaniException
+	 * @throws ControllerException
+	 */
 	public void setData(double Ks, double Tu, double Tg, int controllerTyp, double[] Tp, double overShoot,
 			double phaseMarginOffset) throws SaniException, ControllerException {
 		path.setData(Ks, Tu, Tg);
@@ -89,7 +102,7 @@ public class Model extends Observable {
 	}
 
 	/**
-	 * Setzt die Phasenverschiebung. Löst notifyOberservers() aus.
+	 * Setzt den Phasenrand. Löst notifyOberservers() aus.
 	 * 
 	 * @param phaseMarginOffset
 	 */
@@ -116,10 +129,18 @@ public class Model extends Observable {
 		
 	}
 
+	/**
+	 * Gibt den gschlossenen Regelkreis zurück.
+	 * @return
+	 */
 	public ClosedLoop[] getClosedLoop() {
 		return closedLoop;
 	}
 
+	/**
+	 * Gibt die Strecke zurück.
+	 * @return
+	 */
 	public Path getPath() {
 		return path;
 	}

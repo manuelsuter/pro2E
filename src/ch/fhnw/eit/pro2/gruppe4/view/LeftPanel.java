@@ -44,7 +44,7 @@ public class LeftPanel extends JPanel {
 	}
 
 	public void update(Observable obs, Object obj) {
-		inputPanel.update(obs, obj);
+//		inputPanel.update(obs, obj);
 		controllerChooserPanel.update(obs, obj);
 		controllerValuePanel.update(obs, obj);
 	}

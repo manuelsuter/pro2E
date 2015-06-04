@@ -20,6 +20,11 @@ public class ControllerValuePanel extends JPanel {
 	public RulesOfThumbPanel rulesOfThumbPanel;
 	public PhaseResponseMethodPanel phaseResponsePanel;
 
+	/** 
+	 * Setzt das GridBagLayout.
+	 * Besitzt das phaseResponseMethodPanel sowie das rulesOfThumbPanel.
+	 * @param guiController
+	 */
 	public ControllerValuePanel(GUIController guiController) {
 		super(new GridBagLayout());
 		setBorder(MyBorderFactory.createMyBorder(" Reglerwerte "));
@@ -32,8 +37,11 @@ public class ControllerValuePanel extends JPanel {
 		add(rulesOfThumbPanel, new GridBagConstraints(0, 1, 1, 1, 1.0, 1.0, GridBagConstraints.LINE_START,
 				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 
-	}
-
+	}	
+	
+	/**
+	 * Übergibt obs und obj an das phaseResponsePanel und rulesOfThumbPanel.
+	 */
 	public void update(Observable obs, Object obj) {
 		phaseResponsePanel.update(obs, obj);
 		rulesOfThumbPanel.update(obs, obj);

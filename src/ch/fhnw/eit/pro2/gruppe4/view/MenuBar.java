@@ -20,9 +20,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 public class MenuBar extends JMenuBar implements Observer, ActionListener {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	JMenu menu, menu2;
 	JMenuItem menuItemOnTop;
@@ -30,6 +28,11 @@ public class MenuBar extends JMenuBar implements Observer, ActionListener {
 	JMenuItem menuItemPlot;
 	JFrame frame;
 
+	/**
+	 * Baut Menubar.
+	 * @param controller
+	 * @param frame
+	 */
 	public MenuBar(GUIController controller, JFrame frame) {
 		this.frame = frame;
 		menu = new JMenu("Ansicht");
@@ -42,45 +45,19 @@ public class MenuBar extends JMenuBar implements Observer, ActionListener {
 		menuItemOnTop.addActionListener(this);
 		menu.add(menuItemOnTop);
 
-		/**
-		 * menuItemPrint = new JMenuItem("Print", KeyEvent.VK_P);
-		 * menuItemPrint.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,
-		 * ActionEvent.CTRL_MASK)); menuItemOnTop.setActionCommand("Print");
-		 * menuItemOnTop.addActionListener(this); menu.add(menuItemPrint);
-		 * 
-		 * JMenuItem menuItemResizable = new JMenuItem("Resizable",
-		 * KeyEvent.VK_R);
-		 * menuItemResizable.setAccelerator(KeyStroke.getKeyStroke
-		 * (KeyEvent.VK_R, ActionEvent.ALT_MASK));
-		 * menuItemResizable.setActionCommand("Resizable");
-		 * menuItemResizable.addActionListener(this);
-		 * menu.add(menuItemResizable);
-		 * 
-		 * JMenuItem menuItemNotResizable = new JMenuItem("Not Resizable",
-		 * KeyEvent.VK_N);
-		 * menuItemNotResizable.setAccelerator(KeyStroke.getKeyStroke
-		 * (KeyEvent.VK_N, ActionEvent.ALT_MASK));
-		 * menuItemNotResizable.setActionCommand("NotResizable");
-		 * menuItemNotResizable.addActionListener(this);
-		 * menu.add(menuItemNotResizable);
-		 */
 		add(menu);
 	}
 
+	/**
+	 * Keine Verwendung bis dato.
+	 */
 	public void update(Observable o, Object arg) {
 	}
 
+	/**
+	 * Setzt Zustand JFrames und Text des menuItemOnTop.
+	 */
 	public void actionPerformed(ActionEvent e) {
-		/**
-		 * if (e.getActionCommand().equals("Resizable")) {
-		 * 
-		 * 
-		 * frame.setResizable(true); Dimension dim = frame.getSize(); dim.width
-		 * -=100; frame.setSize(dim); } if
-		 * (e.getActionCommand().equals("NotResizable")) {
-		 * frame.setResizable(false); Dimension dim = frame.getSize(); dim.width
-		 * +=100; frame.setSize(dim); }
-		 */
 
 		if (e.getActionCommand().equals("OnTop")) {
 			if (((JFrame) this.getTopLevelAncestor()).isAlwaysOnTop()) {

@@ -32,6 +32,11 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 	private double overShootValue;
 	public static final String[] phaseMarginValues = { "0.1", "1", "2", "5", "10", "15", "20", "25", "30" };
 
+	/**
+	 * Setzt GridBagLayout.
+	 * Besitzt die Slider und Labels für das Optimierungspanel.
+	 * @param guiController
+	 */
 	public OptimizationPanel(GUIController guiController) {
 		super(new GridBagLayout());
 		this.guiController = guiController;
@@ -86,13 +91,16 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 		jsPhaseMargin.setMajorTickSpacing(1);
 		jsPhaseMargin.setPaintTicks(true);
 		jsPhaseMargin.setPaintLabels(true);
-		// jsPhaseMargin.setSnapToTicks(true);
 
 		add(jsPhaseMargin, new GridBagConstraints(1, 1, 1, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
 				GridBagConstraints.HORIZONTAL, new Insets(5, 10, 5, 10), 0, 0));
 		jsPhaseMargin.addChangeListener(this);
 	}
 
+	/**
+	 * Setzt das Überschwingen in Abhängigkeit der Slider-Position.
+	 * @return
+	 */
 	public double getOverShoot() {
 		int overShootSliderValue = jsOverShoot.getValue();
 
@@ -136,6 +144,10 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 		return overShootValue;
 	}
 
+	/**
+	 * Setzt den Phasenrand in Abhängikeit der Slider-Position.
+	 * @return
+	 */
 	public double getPhaseMargin() {
 		int phaseMarginSliderValue = jsPhaseMargin.getValue();
 
@@ -183,6 +195,9 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 		return phaseMarginOffset;
 	}
 
+	/**
+	 * Erkennt Sliderbewegung und übergibt die Werte an setOverShoot() und setPhaseMargin() des guiControllers.
+	 */
 	public void stateChanged(ChangeEvent e) {
 
 		if (e.getSource() == jsOverShoot) {
@@ -277,8 +292,12 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 		}
 	}
 
+	/**
+	 * Keine Verwendung bis dato.
+	 * @param obs
+	 * @param obj
+	 */
 	public void update(Observable obs, Object obj) {
-
 	}
 
 }
