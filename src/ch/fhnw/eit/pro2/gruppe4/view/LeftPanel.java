@@ -31,18 +31,15 @@ public class LeftPanel extends JPanel {
 		// Construct the inputPanel, regulatorChooserPanel and
 		// regulatorValuePanel
 		inputPanel = new InputPanel(controller);
-		add(inputPanel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
-				GridBagConstraints.FIRST_LINE_START,
+		add(inputPanel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.FIRST_LINE_START,
 				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 
 		controllerChooserPanel = new ControllerChooserPanel(controller);
-		add(controllerChooserPanel, new GridBagConstraints(0, 1, 1, 1, 0.0,
-				0.0, GridBagConstraints.FIRST_LINE_START,
+		add(controllerChooserPanel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.FIRST_LINE_START,
 				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 
 		controllerValuePanel = new ControllerValuePanel(controller);
-		add(controllerValuePanel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
-				GridBagConstraints.FIRST_LINE_START,
+		add(controllerValuePanel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.FIRST_LINE_START,
 				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 	}
 

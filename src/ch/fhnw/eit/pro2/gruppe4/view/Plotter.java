@@ -1,5 +1,12 @@
 package ch.fhnw.eit.pro2.gruppe4.view;
 
+/*
+ * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Mueller, Florian Alber, Manuel Suter
+ * 
+ * Authors: Manuel Suter
+ * 
+ * */
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,8 +26,8 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 public class Plotter extends JPanel {
 	private static final long serialVersionUID = 2848069135069767765L;
-	private JFreeChart chart = ChartFactory.createXYLineChart("", "Zeit t/s",
-			"y(t)", null, PlotOrientation.VERTICAL, false, false, false);;
+	private JFreeChart chart = ChartFactory.createXYLineChart("", "Zeit t/s", "y(t)", null, PlotOrientation.VERTICAL,
+			false, false, false);;
 	public XYLineAndShapeRenderer[] rendererArray = new XYLineAndShapeRenderer[8];
 	private XYPlot xyplot;
 
@@ -40,8 +47,7 @@ public class Plotter extends JPanel {
 		xyplot.setDomainGridlinePaint(Color.black);
 
 		for (int i = 0; i < rendererArray.length; i++) {
-			xyplot.getRendererForDataset(xyplot.getDataset(i)).setSeriesPaint(
-					0, Color.green);
+			xyplot.getRendererForDataset(xyplot.getDataset(i)).setSeriesPaint(0, Color.green);
 		}
 
 		for (int i = 0; i < rendererArray.length; i++) {
@@ -81,8 +87,7 @@ public class Plotter extends JPanel {
 	}
 
 	public void setColor(int index) {
-		xyplot.getRendererForDataset(xyplot.getDataset(index)).setSeriesPaint(
-				0, StepResponsePanel.plotColor[index]);
+		xyplot.getRendererForDataset(xyplot.getDataset(index)).setSeriesPaint(0, StepResponsePanel.plotColor[index]);
 	}
 
 }

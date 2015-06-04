@@ -37,8 +37,7 @@ public class MenuBar extends JMenuBar implements Observer, ActionListener {
 		add(menu);
 
 		menuItemOnTop = new JMenuItem("Immer im Vordergrund", KeyEvent.VK_A);
-		menuItemOnTop.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,
-				ActionEvent.CTRL_MASK));
+		menuItemOnTop.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
 		menuItemOnTop.setActionCommand("OnTop");
 		menuItemOnTop.addActionListener(this);
 		menu.add(menuItemOnTop);

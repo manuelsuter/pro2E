@@ -1,5 +1,15 @@
 package ch.fhnw.eit.pro2.gruppe4.model;
 
+/*
+
+ * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Mueller, Florian Alber, Manuel Suter
+
+ * Authors: Manuel Suter, Benjamin Müller
+
+ * 
+
+ * */
+
 import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 
 public class Path {
@@ -53,6 +63,13 @@ public class Path {
 		return t;
 	}
 
+	/**
+	 * Setzt Ks in ein KsArray. Setzt Ks Array als Zaehler der UTF in
+	 * Polynomform. Berechnet t mittels Tu, Tg und sani(). Setzt t als Nenner
+	 * der UTF.
+	 * 
+	 * @throws SaniException
+	 */
 	private void calculate() throws SaniException {
 		double[] KsArray = new double[1];
 		KsArray[0] = Ks;

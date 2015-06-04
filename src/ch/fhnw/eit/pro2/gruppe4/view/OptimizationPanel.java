@@ -30,8 +30,7 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 	private JLabel lbPhaseMargin, lbOverShoot;
 	private double phaseMarginOffset;
 	private double overShootValue;
-	public static final String[] phaseMarginValues = { "0.1", "1", "2", "5",
-			"10", "15", "20", "25", "30" };
+	public static final String[] phaseMarginValues = { "0.1", "1", "2", "5", "10", "15", "20", "25", "30" };
 
 	public OptimizationPanel(GUIController guiController) {
 		super(new GridBagLayout());
@@ -39,9 +38,8 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 		setBorder(MyBorderFactory.createMyBorder(" Optimierungen "));
 
 		lbOverShoot = new JLabel("Überschwingen in %");
-		add(lbOverShoot, new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
-				new Insets(5, 10, 5, 10), 0, 0));
+		add(lbOverShoot, new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
+				GridBagConstraints.HORIZONTAL, new Insets(5, 10, 5, 10), 0, 0));
 
 		// Baut und added Slider für Überschwingen.
 		jsOverShoot = new JSlider(0, 8, 0);
@@ -62,16 +60,14 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 		jsOverShoot.setMajorTickSpacing(1);
 		jsOverShoot.setPaintTicks(true);
 		jsOverShoot.setPaintLabels(true);
-		add(jsOverShoot, new GridBagConstraints(0, 1, 1, 1, 1.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
-				new Insets(5, 10, 5, 10), 0, 0));
+		add(jsOverShoot, new GridBagConstraints(0, 1, 1, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
+				GridBagConstraints.HORIZONTAL, new Insets(5, 10, 5, 10), 0, 0));
 		jsOverShoot.addChangeListener(this);
 
 		// Baut und added Slider für Pasenrandverschiebung.
 		lbPhaseMargin = new JLabel("Optimierung");
-		add(lbPhaseMargin, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
-				new Insets(5, 10, 5, 10), 0, 0));
+		add(lbPhaseMargin, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
+				GridBagConstraints.HORIZONTAL, new Insets(5, 10, 5, 10), 0, 0));
 
 		jsPhaseMargin = new JSlider(0, 9, 2);
 		Hashtable<Integer, JLabel> tablePhaseMargin = new Hashtable<Integer, JLabel>();
@@ -92,9 +88,8 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 		jsPhaseMargin.setPaintLabels(true);
 		// jsPhaseMargin.setSnapToTicks(true);
 
-		add(jsPhaseMargin, new GridBagConstraints(1, 1, 1, 1, 1.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
-				new Insets(5, 10, 5, 10), 0, 0));
+		add(jsPhaseMargin, new GridBagConstraints(1, 1, 1, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
+				GridBagConstraints.HORIZONTAL, new Insets(5, 10, 5, 10), 0, 0));
 		jsPhaseMargin.addChangeListener(this);
 	}
 

@@ -39,54 +39,39 @@ public class GUIController {
 		}
 	}
 
-
-
 	public void calculate() {
-		
-		view.leftPanel.controllerValuePanel.phaseResponsePanel
-		.setInitialValues();
+
+		view.leftPanel.controllerValuePanel.phaseResponsePanel.setInitialValues();
 
 		setExceptionLabel(" ", Color.RED);
 
 		try {
 			double[] tpValues = new double[3];
-			if ((view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[0]
-					.getText()).equals("")
-					|| (view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[1]
-							.getText()).equals("")
-					|| (view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[2]
-							.getText()).equals("")) {
+			if ((view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[0].getText()).equals("")
+					|| (view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[1].getText()).equals("")
+					|| (view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[2].getText()).equals("")) {
 				tpValues[0] = 0.0;
 				tpValues[1] = 0.0;
 				tpValues[2] = 0.0;
 			} else {
-				tpValues[0] = Double
-						.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[0]
-								.getText());
-				tpValues[1] = Double
-						.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[1]
-								.getText());
-				tpValues[2] = Double
-						.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[2]
-								.getText());
+				tpValues[0] = Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[0]
+						.getText());
+				tpValues[1] = Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[1]
+						.getText());
+				tpValues[2] = Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[2]
+						.getText());
 			}
 
-			double Ks = Double.parseDouble(view.leftPanel.inputPanel.tfKs
-					.getText());
-			double Tu = Double.parseDouble(view.leftPanel.inputPanel.tfTu
-					.getText());
-			double Tg = Double.parseDouble(view.leftPanel.inputPanel.tfTg
-					.getText());
+			double Ks = Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText());
+			double Tu = Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText());
+			double Tg = Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText());
 
-			double phaseMarginOffset = view.rightPanel.optimizationPanel
-					.getPhaseMargin();
+			double phaseMarginOffset = view.rightPanel.optimizationPanel.getPhaseMargin();
 			double overShoot = view.rightPanel.optimizationPanel.getOverShoot();
 
 			if ((Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText()) == 0.0)
-					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTu
-							.getText()) == 0.0)
-					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTg
-							.getText()) == 0.0)) {
+					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText()) == 0.0)
+					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText()) == 0.0)) {
 				setExceptionLabel("Werte dürfen nicht 0 sein!", Color.RED);
 			} else {
 				int controllerTyp;
@@ -96,13 +81,10 @@ public class GUIController {
 				} else {
 					controllerTyp = Controller.PID;
 				}
-				model.setData(Ks, Tu, Tg, controllerTyp, tpValues, overShoot,
-						phaseMarginOffset);
+				model.setData(Ks, Tu, Tg, controllerTyp, tpValues, overShoot, phaseMarginOffset);
 			}
 
-			view.leftPanel.inputPanel.lbOrder
-					.setText("        Strecken-Ordnung: "
-							+ model.getPath().getT().length);
+			view.leftPanel.inputPanel.lbOrder.setText("        Strecken-Ordnung: " + model.getPath().getT().length);
 
 		} catch (NumberFormatException e) {
 			setExceptionLabel("Eigabefeld darf nicht leer sein.", Color.RED);
@@ -121,41 +103,19 @@ public class GUIController {
 
 		try {
 			double[] tpValues = new double[3];
-			tpValues[0] = Double
-					.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[0]
-							.getText());
-			tpValues[1] = Double
-					.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[1]
-							.getText());
-			tpValues[2] = Double
-					.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[2]
-							.getText());
+			tpValues[0] = Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[0].getText());
+			tpValues[1] = Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[1].getText());
+			tpValues[2] = Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[2].getText());
 
-			if ((Double
-					.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[0]
-							.getText()) == 0.0)
-					|| (Double
-							.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[0]
-									.getText()) == 0.0)
-					|| (Double
-							.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[0]
-									.getText()) == 0.0) || (Double
-											.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[1]
-													.getText()) == 0.0)
-											|| (Double
-													.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[1]
-															.getText()) == 0.0)
-											|| (Double
-													.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[1]
-															.getText()) == 0.0) || (Double
-																	.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[2]
-																			.getText()) == 0.0)
-																	|| (Double
-																			.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[2]
-																					.getText()) == 0.0)
-																	|| (Double
-																			.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[2]
-																					.getText()) == 0.0)) {
+			if ((Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[0].getText()) == 0.0)
+					|| (Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[0].getText()) == 0.0)
+					|| (Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[0].getText()) == 0.0)
+					|| (Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[1].getText()) == 0.0)
+					|| (Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[1].getText()) == 0.0)
+					|| (Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[1].getText()) == 0.0)
+					|| (Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[2].getText()) == 0.0)
+					|| (Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[2].getText()) == 0.0)
+					|| (Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[2].getText()) == 0.0)) {
 				setExceptionLabel("Werte dürfen nicht 0 sein!", Color.red);
 			} else {
 				model.setTp(tpValues, index);
@@ -170,10 +130,8 @@ public class GUIController {
 		view.leftPanel.inputPanel.tfKs.setText("");
 		view.leftPanel.inputPanel.tfTu.setText("");
 		view.leftPanel.inputPanel.tfTg.setText("");
-		view.leftPanel.controllerValuePanel.phaseResponsePanel
-				.setInitialValues();
-		view.leftPanel.controllerValuePanel.rulesOfThumbPanel
-				.setInitialValues();
+		view.leftPanel.controllerValuePanel.phaseResponsePanel.setInitialValues();
+		view.leftPanel.controllerValuePanel.rulesOfThumbPanel.setInitialValues();
 		view.rightPanel.stepResponsePanel.deleteDatasets();
 
 		controllerCalculated = false;

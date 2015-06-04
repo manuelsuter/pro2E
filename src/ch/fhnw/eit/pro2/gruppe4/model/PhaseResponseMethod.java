@@ -1,22 +1,28 @@
 package ch.fhnw.eit.pro2.gruppe4.model;
 
+/*
+
+ * Copyright (c) 2015: Anita Rosenberger, Raphael Frey, Benjamin Mueller, Florian Alber, Manuel Suter
+
+ * Authors: Benjamin Müller
+
+ * 
+
+ * */
+
 import org.apache.commons.math3.complex.Complex;
 
 import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 
 public class PhaseResponseMethod extends Controller {
 
-	public static final double OVERSHOOT0 = -1.8099064,
-			OVERSHOOT4_6 = -2.0001473, OVERSHOOT16_3 = -2.2427481,
+	public static final double OVERSHOOT0 = -1.8099064, OVERSHOOT4_6 = -2.0001473, OVERSHOOT16_3 = -2.2427481,
 			OVERSHOOT23_3 = -2.3561945;
 	private double phiU = OVERSHOOT0;
 	// TODO:Winkel richtig bestimmen PI letzter stimmt schon
-	private static final double[] MINIMUMANGLEPI = new double[] { -3.1, -3.1,
-			-3.1, -3.1, -3.1, -3.1, -3.1, -5.1 };
-	private static final double[] MINIMUMANGLEPID = new double[] { -3.1, -3.1,
-			-3.1, -3.1, -3.1, -3.1, -3.1, -3.1 };
-	public static final double PHASEMARGINPI = -1.5707963,
-			PHASEMARGINPID = -2.3561802;
+	private static final double[] MINIMUMANGLEPI = new double[] { -3.1, -3.1, -3.1, -3.1, -3.1, -3.1, -3.1, -5.1 };
+	private static final double[] MINIMUMANGLEPID = new double[] { -3.1, -3.1, -3.1, -3.1, -3.1, -3.1, -3.1, -3.1 };
+	public static final double PHASEMARGINPI = -1.5707963, PHASEMARGINPID = -2.3561802;
 	private double phaseMargin;
 
 	private int omegaControllerIndex;
@@ -30,10 +36,11 @@ public class PhaseResponseMethod extends Controller {
 	}
 
 	/**
-	 * Setzt die Input-Wert für die Berechnung. Löst calculate() aus.
+	 * Setzt die Input-Wert für die Berechnung. Löst calculatePhaseMargin() und
+	 * calculate() aus.
 	 * 
+	 * @param controllerTyp
 	 * @param path
-	 * @throws ControllerException
 	 */
 	public void setData(int controllerTyp, Path path) {
 		this.controllerTyp = controllerTyp;
@@ -44,10 +51,12 @@ public class PhaseResponseMethod extends Controller {
 	}
 
 	/**
-	 * Setzt die Input-Wert für die Berechnung. Löst calculate() aus.
+	 * Setzt die Input-Wert für die Berechnung. Löst calculatePhaseMargin() und
+	 * calculate() aus.
 	 * 
+	 * @param controllerTyp
 	 * @param path
-	 * @throws ControllerException
+	 * @param Tp
 	 */
 	public void setData(int controllerTyp, Path path, double Tp) {
 		this.controllerTyp = controllerTyp;
@@ -57,8 +66,10 @@ public class PhaseResponseMethod extends Controller {
 		calculate();
 	}
 
-	public void setData(int controllerTyp, Path path, double Tp,
-			double overShoot, double phaseMargin) {
+	/**
+	 * 
+	 */
+	public void setData(int controllerTyp, Path path, double Tp, double overShoot, double phaseMargin) {
 		this.controllerTyp = controllerTyp;
 		this.path = path;
 		this.Tp = Tp;
@@ -68,16 +79,18 @@ public class PhaseResponseMethod extends Controller {
 		calculate();
 	}
 
+	/**
+	 * 
+	 */
 	public void setOverShoot(double overShoot) {
 		this.overShoot = overShoot;
 		calculateOverShoot();
 		calculateKrk();
 	}
 
-	// Phasenrand manuell ändern
 	public void setPhaseMargin(double phaseMargin) {
 		this.phaseMargin = phaseMargin;
-		// Berechnung Tnk und Tvk
+
 		calculateTnkTvk();
 	}
 
@@ -85,6 +98,10 @@ public class PhaseResponseMethod extends Controller {
 		return phaseMargin;
 	}
 
+	/**
+	 * 
+	 * @param Krk
+	 */
 	public void setKrk(double Krk) {
 		this.Krk = Krk;
 		calculatecontrollerConf();
@@ -119,8 +136,7 @@ public class PhaseResponseMethod extends Controller {
 		}
 		for (int i = 0; i < Hs.length; i++) {
 			for (int n = 0; n < Ts.length; n++) {
-				Hs[i] = Hs[i].multiply(new Complex(1).divide(new Complex(1,
-						Ts[n] * omega[i])));
+				Hs[i] = Hs[i].multiply(new Complex(1).divide(new Complex(1, Ts[n] * omega[i])));
 			}
 		}
 		phiS = Calc.ComplexAngleUnwraped(Hs);
@@ -130,7 +146,7 @@ public class PhaseResponseMethod extends Controller {
 	}
 
 	private void calculateTnkTvk() {
-		System.out.println(phaseMargin+"phase");
+		System.out.println(phaseMargin + "phase");
 		// Bestimmung der Frequenz im Phasenrand alpha
 		omegaControllerIndex = Calc.diskFind(phiS, phaseMargin);
 		double omegaController = omega[omegaControllerIndex];
@@ -166,8 +182,7 @@ public class PhaseResponseMethod extends Controller {
 				Tnk = 1 / (omegaController * beta);
 
 				for (int i = 0; i < pointNumber; i++) {
-					Hr[i] = new Complex(1, omega[i] * Tnk).multiply(
-							new Complex(1, omega[i] * Tvk)).divide(
+					Hr[i] = new Complex(1, omega[i] * Tnk).multiply(new Complex(1, omega[i] * Tvk)).divide(
 							new Complex(0, omega[i] * Tnk));
 					Ho[i] = Hs[i].multiply(Hr[i]);
 				}
@@ -223,8 +238,7 @@ public class PhaseResponseMethod extends Controller {
 	}
 
 	private void calculatecontrollerConf() {
-		double[] controllerConf = Calc.controllerConform(Krk, Tnk, Tvk, Tp,
-				controllerTyp);
+		double[] controllerConf = Calc.controllerConform(Krk, Tnk, Tvk, Tp, controllerTyp);
 		Kr = controllerConf[0];
 		Tn = controllerConf[1];
 		Tv = controllerConf[2];
@@ -260,48 +274,43 @@ public class PhaseResponseMethod extends Controller {
 
 	// Erstellt die Omega-Achse in Abhängigkeit vom Phasengang und des
 	// benötigten Winkelbereichs
+
 	private double[] createOmegaAxis(double[] Ts) {
 
 		int borderMin = 12;
 		double minimumAngle;
 		double startAngle = -1.3;
 
-		if (controllerTyp == Controller.PI){
+		if (controllerTyp == Controller.PI) {
 			minimumAngle = MINIMUMANGLEPI[Ts.length - 1];
 			startAngle = -0.05;
-		}
-		else if (controllerTyp == Controller.PID){
+		} else if (controllerTyp == Controller.PID) {
 			minimumAngle = MINIMUMANGLEPID[Ts.length - 1];
 			startAngle = -0.75;
-		}
-		else{
+		} else {
 			minimumAngle = -3.1;
 			startAngle = -1.3;
 		}
-		
+
 		double phi = -100.0;
-		while (phi < startAngle){
+		while (phi < startAngle) {
 			phi = 0.0;
 			borderMin--;
 			for (int n = 0; n < Ts.length; n++) {
-				phi -= new Complex(1, Math.pow(10, borderMin) * Ts[n])
-						.getArgument();
+				phi -= new Complex(1, Math.pow(10, borderMin) * Ts[n]).getArgument();
 			}
 		}
 
-		
 		int borderMax = borderMin;
-		while (phi > minimumAngle){
+		while (phi > minimumAngle) {
 			phi = 0.0;
 			borderMax++;
 			for (int n = 0; n < Ts.length; n++) {
-				phi -= new Complex(1, Math.pow(10, borderMax) * Ts[n])
-						.getArgument();
+				phi -= new Complex(1, Math.pow(10, borderMax) * Ts[n]).getArgument();
 			}
 		}
 
-		return Calc
-				.logspace(borderMin, borderMax, (borderMax-borderMin) * 5000);
+		return Calc.logspace(borderMin, borderMax, (borderMax - borderMin) * 5000);
 
 	}
 }

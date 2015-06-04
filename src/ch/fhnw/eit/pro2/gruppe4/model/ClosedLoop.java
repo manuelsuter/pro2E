@@ -133,8 +133,7 @@ public class ClosedLoop {
 	 * 
 	 */
 
-	public void setData(int controllerTyp, Path path)
-			throws ControllerException {
+	public void setData(int controllerTyp, Path path) throws ControllerException {
 		this.path = path;
 		controller.setData(controllerTyp, path);
 		fsNotGiven = true;
@@ -152,8 +151,7 @@ public class ClosedLoop {
 	 * 
 	 */
 
-	public void setData(int controllerTyp, Path path, double fs)
-			throws ControllerException {
+	public void setData(int controllerTyp, Path path, double fs) throws ControllerException {
 		this.fs = fs;
 		this.path = path;
 		controller.setData(controllerTyp, path);
@@ -170,8 +168,8 @@ public class ClosedLoop {
 	 * 
 	 */
 
-	public void setData(int controllerTyp, Path path, double Tp,
-			double overShoot, double phaseMargin) throws ControllerException {
+	public void setData(int controllerTyp, Path path, double Tp, double overShoot, double phaseMargin)
+			throws ControllerException {
 		this.path = path;
 		controller.setData(controllerTyp, path, Tp, overShoot, phaseMargin);
 		fsNotGiven = true;
@@ -179,8 +177,7 @@ public class ClosedLoop {
 		fsNotGiven = false;
 	}
 
-	public void setData(int controllerTyp, Path path, double Tp,
-			double overShoot, double phaseMargin, double fs)
+	public void setData(int controllerTyp, Path path, double Tp, double overShoot, double phaseMargin, double fs)
 			throws ControllerException {
 		this.fs = fs;
 		this.path = path;
@@ -242,13 +239,13 @@ public class ClosedLoop {
 	public double getFs() {
 		return fs;
 	}
-	
+
 	private void overShootOptimization() {
 		double max = yt[0][Calc.max(yt[0])];
 		PhaseResponseMethod phaseResponseMethod = (PhaseResponseMethod) controller;
 		double Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
-		
-		//Grobskalierung mit dem Faktor 1.15
+
+		// Grobskalierung mit dem Faktor 1.15
 		if (max - 0.1 > controller.overShoot / 100.0 + 1.0) {
 			while (max > controller.overShoot / 100.0 + 1.0) {
 				Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
@@ -265,7 +262,7 @@ public class ClosedLoop {
 			}
 		}
 
-		//Feinskalierung mit dem Faktor 1.05
+		// Feinskalierung mit dem Faktor 1.05
 		if (max > controller.overShoot / 100.0 + 1.0) {
 			while (max > controller.overShoot / 100.0 + 1.0) {
 				Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];

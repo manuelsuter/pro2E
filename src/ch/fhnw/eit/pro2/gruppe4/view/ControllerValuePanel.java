@@ -25,14 +25,12 @@ public class ControllerValuePanel extends JPanel {
 		setBorder(MyBorderFactory.createMyBorder(" Reglerwerte "));
 
 		phaseResponsePanel = new PhaseResponseMethodPanel(guiController);
-		add(phaseResponsePanel, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
-				new Insets(2, 2, 2, 2), 0, 0));
+		add(phaseResponsePanel, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.LINE_START,
+				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 
 		rulesOfThumbPanel = new RulesOfThumbPanel(guiController);
-		add(rulesOfThumbPanel, new GridBagConstraints(0, 1, 1, 1, 1.0, 1.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
-				new Insets(2, 2, 2, 2), 0, 0));
+		add(rulesOfThumbPanel, new GridBagConstraints(0, 1, 1, 1, 1.0, 1.0, GridBagConstraints.LINE_START,
+				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 
 	}
 

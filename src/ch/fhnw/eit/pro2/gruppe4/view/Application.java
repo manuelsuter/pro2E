@@ -55,12 +55,9 @@ public class Application extends JFrame {
 		frame.setResizable(true);
 		// Set preferred size of the JFrame in function of the inner screen size
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		Insets screenInsets = Toolkit.getDefaultToolkit().getScreenInsets(
-				frame.getGraphicsConfiguration());
-		int innerScreenWidth = screenSize.width - screenInsets.left
-				- screenInsets.right;
-		int innerScreenHeight = screenSize.height - screenInsets.top
-				- screenInsets.bottom;
+		Insets screenInsets = Toolkit.getDefaultToolkit().getScreenInsets(frame.getGraphicsConfiguration());
+		int innerScreenWidth = screenSize.width - screenInsets.left - screenInsets.right;
+		int innerScreenHeight = screenSize.height - screenInsets.top - screenInsets.bottom;
 		Dimension minimumSize = new Dimension(200, 768);
 
 		if (innerScreenWidth < minimumSize.width) {

@@ -24,36 +24,35 @@ public class View extends JPanel implements Observer {
 	public RightPanel rightPanel;
 	private JFrame frame;
 
-	// TODO: MinimumSize setzen.
-	// TODO: Wie genau müssen wir Konstruktoren spezifizieren?
+	/**
+	 * Setzt das Layout auf ein GridBagLayout.
+	 * Erzeugt das leftPanel und das rightPanel. Platziert diese auf der View.
+	 * @param guiController
+	 */
 	public View(GUIController guiController) {
 		super(new GridBagLayout());
 
 		// Construct the main left and main right panel
 		leftPanel = new LeftPanel(guiController);
-		add(leftPanel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
-				GridBagConstraints.FIRST_LINE_START, GridBagConstraints.NONE,
-				new Insets(2, 0, 0, 0), 0, 0));
+		add(leftPanel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.FIRST_LINE_START,
+				GridBagConstraints.NONE, new Insets(2, 0, 0, 0), 0, 0));
 
 		rightPanel = new RightPanel(guiController);
-		add(rightPanel, new GridBagConstraints(1, 0, 1, 1, 1.0, 1.0,
-				GridBagConstraints.FIRST_LINE_END, GridBagConstraints.BOTH,
-				new Insets(2, 0, 0, 0), 0, 0));
+		add(rightPanel, new GridBagConstraints(1, 0, 1, 1, 1.0, 1.0, GridBagConstraints.FIRST_LINE_END,
+				GridBagConstraints.BOTH, new Insets(2, 0, 0, 0), 0, 0));
 	}
 
 	/**
-	 * Connects the upper JFrame with the local JFrame.
+	 * Verbindet das übergeordnete JFrame mit dem lokalen Frame.
 	 * 
 	 * @param frame
 	 */
 	public void setJFrame(JFrame frame) {
 		this.frame = frame;
-
 	}
 
 	/**
-	 * Sets the visibility of the right panel, the new size of the frame and a
-	 * flag if the frame is resizable.
+	 * Setzt die Sichtbarkeit des richtPanel, die grösse des frames und ein Flag, ob das Frame in der Grösse veränderbar ist.
 	 * 
 	 * @param flag
 	 * @param dimension
@@ -64,6 +63,9 @@ public class View extends JPanel implements Observer {
 		frame.setResizable(flag);
 	}
 
+	/**
+	 * Übergibt obs und obj an das leftPanel und rightPanel.
+	 */
 	public void update(Observable obs, Object obj) {
 		leftPanel.update(obs, obj);
 		rightPanel.update(obs, obj);

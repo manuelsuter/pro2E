@@ -1,11 +1,17 @@
 package ch.fhnw.eit.pro2.gruppe4.utilities;
 
-// Source: http://www.pcs.cnu.edu/~bbradie/cpp/interp.C
+/*
+
+ * Copyright (c) 2015: Richard Gut
+ * Authors: Richard Gut
+
+ * Source: http://www.pcs.cnu.edu/~bbradie/cpp/interp.C
+
+ * */
 
 public class SplineNAK {
 
-	public static void tridiagonal(int n, double[] c, double[] a, double[] b,
-			double[] r) {
+	public static void tridiagonal(int n, double[] c, double[] a, double[] b, double[] r) {
 		int i;
 
 		for (i = 0; i < n - 1; i++) {
@@ -72,8 +78,7 @@ public class SplineNAK {
 	 * @param c
 	 * @param d
 	 */
-	public static void cubic_nak(int n, double[] x, double[] f, double[] b,
-			double[] c, double[] d)
+	public static void cubic_nak(int n, double[] x, double[] f, double[] b, double[] c, double[] d)
 
 	{
 		int i;
@@ -90,8 +95,7 @@ public class SplineNAK {
 
 		for (i = 0; i < n - 2; i++) {
 			dd[i] = 2.0 * (h[i] + h[i + 1]);
-			c[i] = (3.0 / h[i + 1]) * (f[i + 2] - f[i + 1]) - (3.0 / h[i])
-					* (f[i + 1] - f[i]);
+			c[i] = (3.0 / h[i + 1]) * (f[i + 2] - f[i + 1]) - (3.0 / h[i]) * (f[i + 1] - f[i]);
 		}
 		dd[0] += (h[0] + h[0] * h[0] / h[1]);
 		dd[n - 3] += (h[n - 2] + h[n - 2] * h[n - 2] / h[n - 3]);
@@ -103,12 +107,10 @@ public class SplineNAK {
 		for (i = n - 3; i >= 0; i--)
 			c[i + 1] = c[i];
 		c[0] = (1.0 + h[0] / h[1]) * c[1] - h[0] / h[1] * c[2];
-		c[n - 1] = (1.0 + h[n - 2] / h[n - 3]) * c[n - 2] - h[n - 2] / h[n - 3]
-				* c[n - 3];
+		c[n - 1] = (1.0 + h[n - 2] / h[n - 3]) * c[n - 2] - h[n - 2] / h[n - 3] * c[n - 3];
 		for (i = 0; i < n - 1; i++) {
 			d[i] = (c[i + 1] - c[i]) / (3.0 * h[i]);
-			b[i] = (f[i + 1] - f[i]) / h[i] - h[i] * (c[i + 1] + 2.0 * c[i])
-					/ 3.0;
+			b[i] = (f[i + 1] - f[i]) / h[i] - h[i] * (c[i + 1] + 2.0 * c[i]) / 3.0;
 		}
 
 	}
@@ -162,8 +164,7 @@ public class SplineNAK {
 	 * @param t
 	 * @return
 	 */
-	public static double spline_eval(int n, double[] x, double[] f, double[] b,
-			double[] c, double[] d, double t) {
+	public static double spline_eval(int n, double[] x, double[] f, double[] b, double[] c, double[] d, double t) {
 		int i;
 		boolean found;
 
@@ -175,10 +176,7 @@ public class SplineNAK {
 			else
 				i++;
 		}
-		t = f[i - 1]
-				+ (t - x[i - 1])
-				* (b[i - 1] + (t - x[i - 1])
-						* (c[i - 1] + (t - x[i - 1]) * d[i - 1]));
+		t = f[i - 1] + (t - x[i - 1]) * (b[i - 1] + (t - x[i - 1]) * (c[i - 1] + (t - x[i - 1]) * d[i - 1]));
 		return (t);
 	}
 }

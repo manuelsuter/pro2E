@@ -26,8 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class InputPanel extends JPanel implements ActionListener, ItemListener,
-		KeyListener, DocumentListener {
+public class InputPanel extends JPanel implements ActionListener, ItemListener, KeyListener, DocumentListener {
 
 	private static final long serialVersionUID = 1L;
 	private GUIController guiController;
@@ -54,75 +53,59 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener,
 		 */
 
 		// Construct the components of inputPanel
-		add(new JLabel("<html><i>K<sub>s</sub></i></html>"),
-				new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
-						GridBagConstraints.LINE_START, GridBagConstraints.NONE,
-						new Insets(10, 10, 5, 10), 0, 0)); // .setText("K"+"<html><center><font face=\"Arial, Verdana, Sans Serif\" color=\"#FFFFFF\" size=\"-2\">Please insert</font></center></html>");
+		add(new JLabel("<html><i>K<sub>s</sub></i></html>"), new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
+				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(10, 10, 5, 10), 0, 0)); // .setText("K"+"<html><center><font face=\"Arial, Verdana, Sans Serif\" color=\"#FFFFFF\" size=\"-2\">Please insert</font></center></html>");
 
 		tfKs = new JDoubleTextField("2.0", 100, false);
 		tfKs.addKeyListener(this);
 		tfKs.getDocument().addDocumentListener(this);
-		add(tfKs, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
-				new Insets(10, 10, 5, 10), 0, 0));
+		add(tfKs, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
+				GridBagConstraints.HORIZONTAL, new Insets(10, 10, 5, 10), 0, 0));
 
 		lbOrder = new JLabel("Ordnung: ");
-		add(lbOrder, new GridBagConstraints(3, 0, 2, 1, 0.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.NONE,
-				new Insets(10, 10, 5, 10), 0, 0));
+		add(lbOrder, new GridBagConstraints(3, 0, 2, 1, 0.0, 0.0, GridBagConstraints.LINE_START,
+				GridBagConstraints.NONE, new Insets(10, 10, 5, 10), 0, 0));
 
-		add(new JLabel("<html><i>T<sub>u</sub></i></html>"),
-				new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
-						GridBagConstraints.LINE_START, GridBagConstraints.NONE,
-						new Insets(10, 10, 5, 10), 0, 0));
+		add(new JLabel("<html><i>T<sub>u</sub></i></html>"), new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
+				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(10, 10, 5, 10), 0, 0));
 
 		tfTu = new JDoubleTextField("1.1", 100, false);
 		tfTu.addKeyListener(this);
 		tfTu.getDocument().addDocumentListener(this);
-		add(tfTu, new GridBagConstraints(1, 1, 1, 1, 1.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
-				new Insets(10, 10, 5, 10), 0, 0));
+		add(tfTu, new GridBagConstraints(1, 1, 1, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
+				GridBagConstraints.HORIZONTAL, new Insets(10, 10, 5, 10), 0, 0));
 
-		add(new JLabel("s"), new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.NONE,
-				new Insets(10, 0, 5, 10), 0, 0));
+		add(new JLabel("s"), new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0, GridBagConstraints.LINE_START,
+				GridBagConstraints.NONE, new Insets(10, 0, 5, 10), 0, 0));
 
-		add(lbMessage = new JLabel("      "), new GridBagConstraints(0, 3, 4,
-				1, 0.0, 0.0, GridBagConstraints.LINE_START,
-				GridBagConstraints.NONE, new Insets(0, 10, 0, 10), 0, 0));
+		add(lbMessage = new JLabel("      "), new GridBagConstraints(0, 3, 4, 1, 0.0, 0.0,
+				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(0, 10, 0, 10), 0, 0));
 
-		add(new JLabel("<html><i>T<sub>g</sub></i></html>"),
-				new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
-						GridBagConstraints.LINE_START, GridBagConstraints.NONE,
-						new Insets(10, 10, 5, 10), 0, 0));
+		add(new JLabel("<html><i>T<sub>g</sub></i></html>"), new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
+				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(10, 10, 5, 10), 0, 0));
 
 		tfTg = new JDoubleTextField("8.9", 100, false);
 		tfTg.addKeyListener(this);
 		tfTg.getDocument().addDocumentListener(this);
-		add(tfTg, new GridBagConstraints(1, 2, 1, 1, 1.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL,
-				new Insets(10, 10, 5, 10), 0, 0));
+		add(tfTg, new GridBagConstraints(1, 2, 1, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
+				GridBagConstraints.HORIZONTAL, new Insets(10, 10, 5, 10), 0, 0));
 
-		add(new JLabel("s"), new GridBagConstraints(3, 2, 1, 1, 0.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.NONE,
-				new Insets(10, 0, 5, 10), 0, 0));
+		add(new JLabel("s"), new GridBagConstraints(3, 2, 1, 1, 0.0, 0.0, GridBagConstraints.LINE_START,
+				GridBagConstraints.NONE, new Insets(10, 0, 5, 10), 0, 0));
 
 		btBerechne = new JButton("Berechnen");
-		add(btBerechne, new GridBagConstraints(0, 4, 2, 1, 0.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.NONE,
-				new Insets(10, 10, 10, 10), 40, 0));
+		add(btBerechne, new GridBagConstraints(0, 4, 2, 1, 0.0, 0.0, GridBagConstraints.LINE_START,
+				GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 40, 0));
 		btBerechne.addActionListener(this);
 
 		btClear = new JButton("Löschen");
-		add(btClear, new GridBagConstraints(2, 4, 2, 1, 0.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.NONE,
-				new Insets(10, 0, 10, 10), 49, 0));
+		add(btClear, new GridBagConstraints(2, 4, 2, 1, 0.0, 0.0, GridBagConstraints.LINE_START,
+				GridBagConstraints.NONE, new Insets(10, 0, 10, 10), 49, 0));
 		btClear.addActionListener(this);
 
 		checkBoxPlot = new JCheckBox("erweitert", true);
-		add(checkBoxPlot, new GridBagConstraints(4, 4, 2, 1, 0.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.NONE,
-				new Insets(10, 10, 10, 10), 0, 0));
+		add(checkBoxPlot, new GridBagConstraints(4, 4, 2, 1, 0.0, 0.0, GridBagConstraints.LINE_START,
+				GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 		checkBoxPlot.addItemListener(this);
 	}
 
@@ -161,17 +144,17 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener,
 	}
 
 	public void changedUpdate(DocumentEvent e) {
-		lbMessage.setForeground(Color.orange);
+		lbMessage.setForeground(Color.magenta);
 		lbMessage.setText("Nicht berechnete Änderungen");
 	}
 
 	public void insertUpdate(DocumentEvent e) {
-		lbMessage.setForeground(Color.orange);
+		lbMessage.setForeground(Color.magenta);
 		lbMessage.setText("Nicht berechnete Änderungen");
 	}
 
 	public void removeUpdate(DocumentEvent e) {
-		lbMessage.setForeground(Color.orange);
+		lbMessage.setForeground(Color.magenta);
 		lbMessage.setText("Nicht berechnete Änderungen");
 	}
 

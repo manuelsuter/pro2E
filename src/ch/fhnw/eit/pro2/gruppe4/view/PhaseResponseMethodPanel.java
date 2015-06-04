@@ -13,10 +13,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.text.DecimalFormat;
 import java.util.Observable;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import ch.fhnw.eit.pro2.gruppe4.model.ClosedLoop;
@@ -26,16 +24,14 @@ import ch.fhnw.eit.pro2.gruppe4.model.Model;
 public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 	private static final long serialVersionUID = 1L;
 	private GUIController guiController;
-	private DecimalFormat f = new DecimalFormat("0.00");
-	
-	public JLabel[] lbMethod = new JLabel[4];
-	private JLabel[] lbKr = new JLabel[lbMethod.length];
-	private JLabel[] lbTn = new JLabel[lbMethod.length];
-	private JLabel[] lbTv = new JLabel[lbMethod.length];
-	public JDoubleTextField[] tfTp = new JDoubleTextField[3];
-	private JLabel lbTp;
-	public static final String[] unitName = { "a", "f", "p", "n", "u", "m", "", "k", "M", "G","T","P", "E"};
 
+	public JUnitLabel[] lbMethod = new JUnitLabel[4];
+	private JUnitLabel[] lbKr = new JUnitLabel[lbMethod.length];
+	private JUnitLabel[] lbTn = new JUnitLabel[lbMethod.length];
+	private JUnitLabel[] lbTv = new JUnitLabel[lbMethod.length];
+	public JUnitTextField[] tfTp = new JUnitTextField[3];
+	private JUnitLabel lbTp;
+	public static final String[] unitName = { "a", "f", "p", "n", "u", "m", "", "k", "M", "G", "T", "P", "E" };
 
 	public PhaseResponseMethodPanel(GUIController controller) {
 
@@ -44,56 +40,44 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 		setBorder(MyBorderFactory.createMyBorder(" Phasengang-Methode "));
 
 		// Baut die Ausgabe-Panel der Phasengangmethode:
-		lbMethod[0] = new JLabel("Optimierung");
-		lbMethod[1] = new JLabel("Positiv");
-		lbMethod[2] = new JLabel("Standard");
-		lbMethod[3] = new JLabel("Negativ");
+		lbMethod[0] = new JUnitLabel("Optimierung");
+		lbMethod[1] = new JUnitLabel("Positiv");
+		lbMethod[2] = new JUnitLabel("Standard");
+		lbMethod[3] = new JUnitLabel("Negativ");
 
-
-		
-		
 		for (int i = 0; i < lbMethod.length; i++) {
-			
-			add(lbMethod[i], new GridBagConstraints(0, i, 1, 1, 0.0, 0.0,
-					GridBagConstraints.LINE_START, GridBagConstraints.NONE,
-					new Insets(5, 10, 9, 10), 0, 0));
 
-			lbKr[i] = new JLabel();
-			add(lbKr[i], new GridBagConstraints(1, i, 1, 1, 0.0, 0.0,
-					GridBagConstraints.LINE_START, GridBagConstraints.NONE,
-					new Insets(5, 10, 9, 10), 0, 0));
+			add(lbMethod[i], new GridBagConstraints(0, i, 1, 1, 0.0, 0.0, GridBagConstraints.LINE_START,
+					GridBagConstraints.NONE, new Insets(5, 10, 9, 10), 0, 0));
 
-			lbTn[i] = new JLabel();
-			add(lbTn[i], new GridBagConstraints(2, i, 1, 1, 0.0, 0.0,
-					GridBagConstraints.LINE_START, GridBagConstraints.NONE,
-					new Insets(5, 10, 9, 10), 0, 0));
+			lbKr[i] = new JUnitLabel();
+			add(lbKr[i], new GridBagConstraints(1, i, 1, 1, 0.0, 0.0, GridBagConstraints.LINE_START,
+					GridBagConstraints.NONE, new Insets(5, 10, 9, 10), 0, 0));
 
-			lbTv[i] = new JLabel();
-			add(lbTv[i], new GridBagConstraints(3, i, 1, 1, 0.0, 0.0,
-					GridBagConstraints.LINE_START, GridBagConstraints.NONE,
-					new Insets(5, 10, 9, 10), 0, 0));
+			lbTn[i] = new JUnitLabel();
+			add(lbTn[i], new GridBagConstraints(2, i, 1, 1, 0.0, 0.0, GridBagConstraints.LINE_START,
+					GridBagConstraints.NONE, new Insets(5, 10, 9, 10), 0, 0));
+
+			lbTv[i] = new JUnitLabel();
+			add(lbTv[i], new GridBagConstraints(3, i, 1, 1, 0.0, 0.0, GridBagConstraints.LINE_START,
+					GridBagConstraints.NONE, new Insets(5, 10, 9, 10), 0, 0));
 		}
 		for (int i = 0; i < tfTp.length; i++) {
-			tfTp[i] = new JDoubleTextField("", 5, false);
+			tfTp[i] = new JUnitTextField("", 5, false);
 			tfTp[i].addKeyListener(this);
-			add(tfTp[i], new GridBagConstraints(4, i + 1, 3, 1, 1.0, 0.0,
-					GridBagConstraints.LINE_START,
-					GridBagConstraints.HORIZONTAL, new Insets(5, 10, 5, 10), 0,
-					0));
+			add(tfTp[i], new GridBagConstraints(4, i + 1, 3, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
+					GridBagConstraints.HORIZONTAL, new Insets(5, 10, 5, 10), 0, 0));
 		}
 
 		lbKr[0].setText("<html><i>K<sub>r</sub></html></i>");
 		lbTn[0].setText("<html><i>T<sub>n</sub></html></i>");
 		lbTv[0].setText("<html><i>T<sub>v</sub></html></i>");
 
-		add(lbTp = new JLabel("<html><i>T<sub>p</sub></i></html>"),
-				new GridBagConstraints(4, 0, 1, 1, 0.0, 0.0,
-						GridBagConstraints.LINE_START, GridBagConstraints.NONE,
-						new Insets(5, 10, 9, 10), 0, 0));
+		add(lbTp = new JUnitLabel("<html><i>T<sub>p</sub></i></html>"), new GridBagConstraints(4, 0, 1, 1, 0.0, 0.0,
+				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(5, 10, 9, 10), 0, 0));
 
-		add(new JLabel(), new GridBagConstraints(5, 0, 1, 1, 1.0, 0.0,
-				GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-				new Insets(0, 0, 0, 0), 0, 0));
+		add(new JUnitLabel(), new GridBagConstraints(5, 0, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER,
+				GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 
 		// Initialisierungswerte der Reglerausgabe.
 		setInitialValues();
@@ -115,66 +99,24 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 		}
 	}
 
-
 	public void update(Observable obs, Object obj) {
 		Model model = (Model) obs;
 
 		ClosedLoop[] closedLoop = model.getClosedLoop();
-		
-		// Einheiten-Index berechnen für Tn/Tv
-				double controllerValueTnTv = closedLoop[0].getController().getControllerValues()[1];
-				int unitIndexTnTv = 0;
-				if (controllerValueTnTv < 1.00) {
-					while (controllerValueTnTv < 1.00) {
-						controllerValueTnTv = controllerValueTnTv * 1000.0;
-						unitIndexTnTv++;
-					}
-				} else if (controllerValueTnTv > 100.0) {
-					while (controllerValueTnTv > 100.0) {
-						controllerValueTnTv = controllerValueTnTv / 1000.0;
-						unitIndexTnTv--;
-					}	
-				}
 
-				// Einheiten-Index berechnen für Kr
-						double controllerValueKr = closedLoop[0].getController().getControllerValues()[0];
-						int unitIndexKr = 0;
-						if (controllerValueKr < 1.00) {
-							while (controllerValueKr < 1.00) {
-								controllerValueKr = controllerValueKr * 1000.0;
-								unitIndexKr++;
-							}
-						} else if (controllerValueKr > 100.0) {
-							while (controllerValueKr > 100.0) {
-								controllerValueKr = controllerValueKr / 1000.0;
-								unitIndexKr--;
-							}	
-						}
 		// Holt die jeweiligen ClosedLoops in die Methode.
 		// Setzt die aktuellen Werte auf die Labels und Textfelder.
 		for (int i = 0; i < lbMethod.length - 1; i++) {
-			double[] controllerValues = closedLoop[i].getController()
-					.getControllerValues();
-			lbKr[i + 1]
-					.setText(""
-							+ f.format(Math
-									.ceil((controllerValues[Controller.KrPOS]) * 1000.0*Math.pow(1000,unitIndexKr)) / 1000.0)+" "+unitName[-unitIndexKr+6]+"s");
-			lbTn[i + 1]
-					.setText(""
-							+ f.format(Math
-									.ceil((controllerValues[Controller.TnPOS]) * 1000.0*Math.pow(1000,unitIndexTnTv)) / 1000.0)+" "+unitName[-unitIndexTnTv+6]+"s");
-			lbTv[i + 1]
-					.setText(""
-							+ f.format(Math
-									.ceil((controllerValues[Controller.TvPOS]) * 1000.0*Math.pow(1000,unitIndexTnTv)) / 1000.0)+" "+unitName[-unitIndexTnTv+6]+"s");
+			double[] controllerValues = closedLoop[i].getController().getControllerValues();
+
+			lbKr[i + 1].setText(controllerValues[Controller.KrPOS]);
+			lbTn[i + 1].setText(controllerValues[Controller.TnPOS], "s");
+			lbTv[i + 1].setText(controllerValues[Controller.TvPOS], "s");
 		}
+
 		for (int i = 0; i < lbMethod.length - 1; i++) {
-			tfTp[i].setText(""
-					+ Math.ceil((closedLoop[i].getController()
-							.getControllerValues()[Controller.TpPOS]) * 1000.0)
-					/ 1000.0);
+			tfTp[i].setText(closedLoop[i].getController().getControllerValues()[Controller.TpPOS]);
 		}
-		
 
 		if (model.getClosedLoop()[0].getController().getControllerTyp() != Controller.PID) {
 			for (int i = 0; i < lbTv.length; i++) {

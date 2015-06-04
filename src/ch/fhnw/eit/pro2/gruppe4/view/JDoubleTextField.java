@@ -36,13 +36,11 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 
-public class JDoubleTextField extends JTextField implements FocusListener,
-		MouseListener {
+public class JDoubleTextField extends JTextField implements FocusListener, MouseListener {
 	private static final long serialVersionUID = 1L;
 	private boolean allowNegativeValues, mousePressed;
 
-	public JDoubleTextField(String text, int columns,
-			boolean allowNegativeValues) {
+	public JDoubleTextField(String text, int columns, boolean allowNegativeValues) {
 		super(text);
 		setColumns(columns);
 		this.allowNegativeValues = allowNegativeValues;
@@ -112,15 +110,13 @@ public class JDoubleTextField extends JTextField implements FocusListener,
 			this.tf = tf;
 		}
 
-		public void insertString(int offs, String str, AttributeSet a)
-				throws BadLocationException {
+		public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
 			if (str.equals(" ")) {
 				return;
 			}
 			try {
 				if (tf.allowNegativeValues == true) {
-					if (str.equals("-") || str.equals("+") || str.equals("e")
-							|| str.equals(".")) {
+					if (str.equals("-") || str.equals("+") || str.equals("e") || str.equals(".")) {
 						Double.parseDouble(tf.getText() + str + "0");
 					} else {
 						Double.parseDouble(tf.getText() + str);

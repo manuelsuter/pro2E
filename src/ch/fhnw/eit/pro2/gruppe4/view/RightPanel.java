@@ -25,14 +25,12 @@ public class RightPanel extends JPanel {
 
 		// Construct the upperPlotPanel and the stepResponsePanel
 		optimizationPanel = new OptimizationPanel(controller);
-		add(optimizationPanel, new GridBagConstraints(0, 0, 1, 1, 1.0, 0.1,
-				GridBagConstraints.FIRST_LINE_START, GridBagConstraints.BOTH,
-				new Insets(2, 2, 2, 2), 0, 0));
+		add(optimizationPanel, new GridBagConstraints(0, 0, 1, 1, 1.0, 0.1, GridBagConstraints.FIRST_LINE_START,
+				GridBagConstraints.BOTH, new Insets(2, 2, 2, 2), 0, 0));
 
 		stepResponsePanel = new StepResponsePanel(controller);
-		add(stepResponsePanel, new GridBagConstraints(0, 1, 1, 1, 1.0, 0.9,
-				GridBagConstraints.FIRST_LINE_START, GridBagConstraints.BOTH,
-				new Insets(2, 2, 2, 2), 0, 0));
+		add(stepResponsePanel, new GridBagConstraints(0, 1, 1, 1, 1.0, 0.9, GridBagConstraints.FIRST_LINE_START,
+				GridBagConstraints.BOTH, new Insets(2, 2, 2, 2), 0, 0));
 
 	}
 
