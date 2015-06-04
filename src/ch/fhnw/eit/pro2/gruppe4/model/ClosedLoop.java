@@ -61,58 +61,17 @@ public class ClosedLoop {
 
 		double[] nen = Calc.diskConv(nen_c, nen_p);
 		double[] zah = Calc.diskConv(zah_c, zah_p);
-
 		nen = Calc.addArrayReverse(nen, zah);
 
-		utf.setUTFPoly(zah, nen);
-
 		if (fsNotGiven) {
-			// TODO: noch optimieren, gibt Bereich an, welcher berechnet wird:
-			// double fs = 1.0/(path.getInputValues()[Path.TgPOS]*500); // Muss
-			// Potenz von 2 sein.
-			// n evtl. höhr / tiefer setzen.
-			double x = 1e-5;
-			while (Calc.polyval(zah, x) / Calc.polyval(nen, x) > 0.01) {
-				x = 1.5 * x;
-			}
-			fs = x * 2;
-
-			// Version gemäss Gut
-			// double wsc = 1.0;
-			// double[] A = new double[nen.length];
-			// for (int i = 0; i < nen.length; i++) {
-			// A[i] = nen[i] / Math.pow(wsc, A.length - i - 1);
-			// }
-			// double[] B = new double[zah.length];
-			// for (int i = 0; i < B.length; i++) {
-			// B[i] = zah[i] / Math.pow(wsc, B.length - i - 1);
-			// }
-			//
-			// Complex[] rootsNen = Calc.roots(A);
-			// double[] rootsNenImag = new double[rootsNen.length];
-			// double[] rootsNenReal = new double[rootsNen.length];
-			// for (int i = 0; i < rootsNen.length; i++) {
-			// rootsNenImag[i] = rootsNen[i].getImaginary();
-			// rootsNenReal[i] = rootsNen[i].getReal();
-			// }
-			// double fs = 500.0 *rootsNenImag[Calc.diskMax(rootsNenImag)] /
-			// (2.0 * Math.PI);
-			// double simgmaMax = Calc.diskMax(rootsNenReal);
-			// double N = fs * Math.log(0.005) / simgmaMax;
-			// N = Math.ceil(Math.log(N)/Math.log(2));
-			// N = Math.pow(2, N);
-			// int n = (int) N;
-
-			// Alte Version
-			// double fs = 1 / path.getInputValues()[Path.TgPOS] * 100;
-
-			// je grösser fs desto kleiner der Bereich
-
-			// int n = 512;
+			double[] fsN = Calc.calculateFsN(nen);
+			fs = fsN[0];
+			pointnumber = (int) fsN[1];
+			if (controller.controllerTyp == Controller.PID)
+				pointnumber *= 2;
+			else if (controller.controllerTyp == Controller.PI)
+				pointnumber *= 4;
 		}
-		pointnumber = 512;
-
-
 		yt = Calc.schrittIfft(zah, nen, fs, pointnumber);
 	}
 
@@ -137,15 +96,15 @@ public class ClosedLoop {
 	/**
 	 * Nimmt die InputValues entgegen und gibt sie den Unterklassen weiter
 	 * 
-	 * @param input
-	 *            (int ControllerCalculationTyp, int ControllerTyp, Path path,
-	 *            double Tp, double "phiR", double/int overshoot)
+	 * @param controllerTyp
+	 * @param path
+	 * @param fsN
 	 * @throws ControllerException
-	 * 
 	 */
-
-	public void setData(int controllerTyp, Path path, double fs) throws ControllerException {
-		this.fs = fs;
+	public void setData(int controllerTyp, Path path, double[] fsN)
+			throws ControllerException {
+		this.fs = fsN[0];
+		this.pointnumber = (int) fsN[1];
 		this.path = path;
 		controller.setData(controllerTyp, path);
 		calculate();
@@ -170,9 +129,11 @@ public class ClosedLoop {
 		fsNotGiven = false;
 	}
 
-	public void setData(int controllerTyp, Path path, double Tp, double overShoot, double phaseMargin, double fs)
+	public void setData(int controllerTyp, Path path, double Tp,
+			double overShoot, double phaseMargin, double[] fsN)
 			throws ControllerException {
-		this.fs = fs;
+		this.fs = fsN[0];
+		this.pointnumber = (int) fsN[1];
 		this.path = path;
 		controller.setData(controllerTyp, path, Tp, overShoot, phaseMargin);
 		calculate();
@@ -229,8 +190,8 @@ public class ClosedLoop {
 		return utf;
 	}
 
-	public double getFs() {
-		return fs;
+	public double[] getFsN() {
+		return new double[] { fs, pointnumber };
 	}
 
 	private void overShootOptimization() {

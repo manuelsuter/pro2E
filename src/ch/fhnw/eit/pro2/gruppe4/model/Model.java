@@ -33,7 +33,7 @@ public class Model extends Observable {
 
 	/**
 	 * Setzt alle für die Berechnung notwenidigen Werte.
-	 * Löst notifyObservers() aus.
+	 * Löst notifyObservers() aus.	
 	 * @param Ks
 	 * @param Tu
 	 * @param Tg
@@ -44,36 +44,44 @@ public class Model extends Observable {
 	 * @throws SaniException
 	 * @throws ControllerException
 	 */
-	public void setData(double Ks, double Tu, double Tg, int controllerTyp, double[] Tp, double overShoot,
-			double phaseMarginOffset) throws SaniException, ControllerException {
+	public void setData(double Ks, double Tu, double Tg, int controllerTyp,
+			double[] Tp, double overShoot, double phaseMarginOffset)
+			throws SaniException, ControllerException {
 		path.setData(Ks, Tu, Tg);
 		double phaseMargin, phaseMarginPos, phaseMarginNeg;
 
 		switch (controllerTyp) {
 		case Controller.PI:
 			phaseMargin = PhaseResponseMethod.PHASEMARGINPI;
-			phaseMarginPos = phaseMargin + (phaseMarginOffset / 180 * 2 * Math.PI);
-			phaseMarginNeg = phaseMargin - (phaseMarginOffset / 180 * 2 * Math.PI);
+			phaseMarginPos = phaseMargin
+					+ (phaseMarginOffset / 180 * 2 * Math.PI);
+			phaseMarginNeg = phaseMargin
+					- (phaseMarginOffset / 180 * 2 * Math.PI);
 			break;
 		case Controller.PID:
 			phaseMargin = PhaseResponseMethod.PHASEMARGINPID;
-			phaseMarginPos = phaseMargin + (phaseMarginOffset / 180 * 2 * Math.PI);
-			phaseMarginNeg = phaseMargin - (phaseMarginOffset / 180 * 2 * Math.PI);
+			phaseMarginPos = phaseMargin
+					+ (phaseMarginOffset / 180 * 2 * Math.PI);
+			phaseMarginNeg = phaseMargin
+					- (phaseMarginOffset / 180 * 2 * Math.PI);
 			break;
 
 		default:
 			throw new ControllerException();
 		}
 
-		closedLoop[1].setData(controllerTyp, path, Tp[1], overShoot, phaseMargin);
-		double fs = closedLoop[1].getFs();
+		closedLoop[1].setData(controllerTyp, path, Tp[1], overShoot,
+				phaseMargin);
+		double[] fsN = closedLoop[1].getFsN();
 
-		closedLoop[0].setData(controllerTyp, path, Tp[0], overShoot, phaseMarginPos, fs);
+		closedLoop[0].setData(controllerTyp, path, Tp[0], overShoot,
+				phaseMarginPos, fsN);
 
-		closedLoop[2].setData(controllerTyp, path, Tp[2], overShoot, phaseMarginNeg, fs);
+		closedLoop[2].setData(controllerTyp, path, Tp[2], overShoot,
+				phaseMarginNeg, fsN);
 
 		for (int i = closedLoop.length - 4; i < closedLoop.length; i++) {
-			closedLoop[i].setData(controllerTyp, path, fs);
+			closedLoop[i].setData(controllerTyp, path, fsN);
 		}
 		notifyObservers();
 	}

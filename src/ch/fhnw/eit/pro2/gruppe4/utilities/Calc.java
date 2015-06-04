@@ -79,20 +79,11 @@ public class Calc {
 
 		for (int k = 0; k < res.length; k++) {
 			Complex jw = new Complex(0, w[k]);
-
-			Complex zaehler = new Complex(0, 0);
-			for (int i = 0; i < b.length; i++) {
-				zaehler = zaehler.add(Calc.pow(jw, b.length - i - 1).multiply(b[i]));
-			}
-
-			Complex nenner = new Complex(0, 0);
-			for (int i = 0; i < a.length; i++) {
-				nenner = nenner.add(Calc.pow(jw, a.length - i - 1).multiply(a[i]));
-
-			}
+			Complex nenner = polyval(a, jw);
 			if (nenner.abs() == 0.0) {
 				res[k] = new Complex(0.0, 0.0);
 			} else {
+				Complex zaehler = polyval(b, jw);
 				res[k] = zaehler.divide(nenner);
 			}
 		}
@@ -581,21 +572,47 @@ public class Calc {
 	 * @param p
 	 * @return
 	 */
-	// TODO: Kann wahrscheinlich weg da nicht verwendet
+	
 	public static final Complex[] roots(double[] p) {
-		final LaguerreSolver solver = new LaguerreSolver();
+		final LaguerreSolver solver = new LaguerreSolver(1e-15);
 		double[] flip = new double[p.length];
 
-		// Um matlabkonform zu sein ...
-		for (int i = 0; i < flip.length; i++) {
-			flip[p.length - i - 1] = p[i];
+		// Koeffizient der höchsten Potenz auf durch Multiplikation mit einer
+		// Konstanten auf 1 normieren:
+		double s = 1.0 / p[0];
+		double[] pp = new double[p.length];
+		for (int i = 0; i < pp.length; i++) {
+			pp[i] = p[i] * s;
 		}
 
-		return solver.solveAllComplex(flip, 0.0);
+		// Normierungskonstante berechnen:
+		s = Math.pow(pp[pp.length - 1], 1.0 / (pp.length - 1));
+
+		// Durch [s^0 s^1 s^2 s^3 ... s^N] dividieren:
+		for (int i = 0; i < pp.length; i++)
+			pp[i] /= Math.pow(s, i);
+
+		// Um mit Matlab konform zu sein flippen:
+		for (int i = 0; i < flip.length; i++)
+			flip[pp.length - i - 1] = pp[i];
+
+		// Wurzeln berechnen und durch Multiplikation mit s wieder entnormieren:
+		Complex[] r = solver.solveAllComplex(flip, 0.0);
+		for (int i = 0; i < r.length; i++) {
+			r[i] = r[i].multiply(s);
+		}
+
+		Complex[] res = new Complex[r.length];
+
+		// Um mit Matlab konform zu sein flippen:
+		for (int i = 0; i < r.length; i++)
+			res[r.length - i - 1] = r[i];
+
+		return res;
 	}
 
 	/**
-	 * Berechnet den Wert des Polynoms an gegebener Stelle.
+	 * Berechnet den Wert des Polynoms an gegebener Stelle. (Double-Version)
 	 * 
 	 * @param poly
 	 * 			= Polynom
@@ -604,12 +621,35 @@ public class Calc {
 	 * @return
 	 */
 	public static final double polyval(double[] poly, double a) {
-		int high = poly.length - 1;
-		double y = poly[0] * Math.pow(a, high);
-		for (int i = 1; i < poly.length; i++) {
-			y += poly[i] * Math.pow(a, high - i);
+		if (Math.abs(a) < 1e-14)
+			return poly[poly.length - 1];
+		else {
+			int high = poly.length - 1;
+			double y = poly[0] * Math.pow(a, high);
+			for (int i = 1; i < poly.length; i++) {
+				y += poly[i] * Math.pow(a, high - i);
+			}
+			return y;
 		}
-		return y;
+	}
+	
+	/**
+	 * Berechnet den Wert des Polynoms an gegebener Stelle. (Complex-Version)
+	 * @param poly
+	 * @param a
+	 * @return
+	 */
+	public static final Complex polyval(double[] poly, Complex a) {
+		if (a.abs() < 1e-14)
+			return new Complex(poly[poly.length - 1]);
+		else {
+			int high = poly.length - 1;
+			Complex y = a.pow(high).multiply(poly[0]);
+			for (int i = 1; i < poly.length; i++) {
+				y = y.add(a.pow(high - i).multiply(poly[i]));
+			}
+			return y;
+		}
 	}
 
 	/**
@@ -1088,5 +1128,29 @@ public class Calc {
 
 		// Neuer Winkel anzahl Wraps dazuzählen
 		return angleNew + (previousAngle - (previousAngle % (2 * Math.PI)));
+	}
+	
+	public static double[] calculateFsN(double[] nen) {
+		Complex[] rootsNen = roots(nen);
+
+		double[] rootsNenImag = new double[rootsNen.length];
+		double[] rootsNenReal = new double[rootsNen.length];
+		for (int i = 0; i < rootsNen.length; i++) {
+			rootsNenImag[i] = rootsNen[i].getImaginary();
+			rootsNenReal[i] = rootsNen[i].getReal();
+		}
+
+		double fs = 500.0 * rootsNenImag[Calc.max(rootsNenImag)]
+				/ (2.0 * Math.PI);
+
+		if (fs < 1e-12)
+			fs = 500.0 * -rootsNen[0].getReal() / (2.0 * Math.PI);
+
+		double simgmaMax = rootsNenReal[Calc.max(rootsNenReal)];
+		double N = fs * Math.log(0.005) / simgmaMax;
+		double m = Math.ceil(Math.log(N) / Math.log(2));
+		N = Math.pow(2, m);
+
+		return new double[] { fs, N };
 	}
 }
