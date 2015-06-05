@@ -31,6 +31,7 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 	private double phaseMarginOffset;
 	private double overShootValue;
 	public static final String[] phaseMarginValues = { "0.1", "1", "2", "5", "10", "15", "20", "25", "30" };
+	
 
 	/**
 	 * Setzt GridBagLayout.
@@ -97,6 +98,7 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 		jsPhaseMargin.addChangeListener(this);
 	}
 
+	//TODO: Beschreibung falsch, wieso braucht es die überhaupt????
 	/**
 	 * Setzt das Überschwingen in Abhängigkeit der Slider-Position.
 	 * @return
