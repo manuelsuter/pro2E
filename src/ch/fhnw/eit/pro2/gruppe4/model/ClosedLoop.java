@@ -125,7 +125,6 @@ public class ClosedLoop {
 		controller.setOverShoot(overShootValue);
 		fsNotGiven = true;
 		calculate();
-		fsNotGiven = false;
 	}
 
 	/**
@@ -229,7 +228,9 @@ public class ClosedLoop {
 			double proportion = path.getInputValues()[Path.TuPOS]
 					/ path.getInputValues()[Path.TgPOS];
 			if (controller.controllerTyp == Controller.PID)
-				if (proportion < 0.02)
+				if (proportion < 0.015)
+					pointnumber /= 16;
+				else if (proportion < 0.02)
 					pointnumber /= 8;
 				else if (proportion < 0.05)
 					pointnumber /= 4;
