@@ -21,13 +21,13 @@ public class JUnitTextField extends JDoubleTextField {
 		if (Math.abs(value) < 1e-18) {
 			value = 0.0;
 			unitIndex = 0;
-		} else if (value < 1.00) {
-			while (value < 1.00) {
+		} else if (Math.abs(value) < 1.00) {
+			while (Math.abs(value) < 1.00) {
 				value = value * 1000.0;
 				unitIndex++;
 			}
-		} else if (value >= 1000.0) {
-			while (value >= 1000.0) {
+		} else if (Math.abs(value) >= 1000.0) {
+			while (Math.abs(value) >= 1000.0) {
 				value = value / 1000.0;
 				value--;
 			}
