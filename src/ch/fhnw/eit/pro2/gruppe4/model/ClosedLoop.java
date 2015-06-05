@@ -58,7 +58,6 @@ public class ClosedLoop {
 		controller.setData(controllerTyp, path);
 		fsNotGiven = true;
 		calculate();
-		fsNotGiven = false;
 	}
 
 	/**
@@ -94,7 +93,6 @@ public class ClosedLoop {
 		controller.setData(controllerTyp, path, Tp, overShoot, phaseMargin);
 		fsNotGiven = true;
 		calculate();
-		fsNotGiven = false;
 	}
 
 	/**
@@ -125,7 +123,9 @@ public class ClosedLoop {
 	 */
 	public void setOverShoot(double overShootValue) {
 		controller.setOverShoot(overShootValue);
+		fsNotGiven = true;
 		calculate();
+		fsNotGiven = false;
 	}
 
 	/**
@@ -212,6 +212,7 @@ public class ClosedLoop {
 	 * Berechnet den geschlossenen Regelkreis.
 	 */
 	private void calculateStepResponse() {
+		System.out.println("calculate Step Response");
 		double[] zah_c = controller.getUTFZahPoly();
 		double[] nen_c = controller.getUTFNenPoly();
 		double[] zah_p = path.getUTFZahPoly();
@@ -225,54 +226,82 @@ public class ClosedLoop {
 			double[] fsN = Calc.calculateFsN(nen);
 			fs = fsN[0];
 			pointnumber = (int) fsN[1];
+			double proportion = path.getInputValues()[Path.TuPOS]
+					/ path.getInputValues()[Path.TgPOS];
 			if (controller.controllerTyp == Controller.PID)
-				pointnumber *= 2;
+				if (proportion < 0.02)
+					pointnumber /= 8;
+				else if (proportion < 0.05)
+					pointnumber /= 4;
+				else if (proportion <= 0.103)
+					pointnumber /= 2;
+				else
+					pointnumber *= 2;
 			else if (controller.controllerTyp == Controller.PI)
-				pointnumber *= 4;
+				if (proportion < 0.05)
+					proportion /= 2;
+				else
+					pointnumber *= 4;
+			fsNotGiven = false;
 		}
 		yt = Calc.schrittIfft(zah, nen, fs, pointnumber);
+		
+		System.out.println("pointnumber"+pointnumber);
+
+		System.out.println("Ende calculate Step Response");
+
 	}
-	
+
 	/**
 	 * Optimiert das Überschwingen anhand des gewählten Überschwingens.
 	 */
 	private void overShootOptimization() {
-		double max = yt[0][Calc.max(yt[0])];
 		PhaseResponseMethod phaseResponseMethod = (PhaseResponseMethod) controller;
-		double Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
+		double max = yt[0][Calc.max(yt[0])];
 
-		// Grobskalierung mit dem Faktor 1.15
-		if (max - 0.1 > controller.overShoot / 100.0 + 1.0) {
-			while (max > controller.overShoot / 100.0 + 1.0) {
-				Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
-				phaseResponseMethod.setKrk(Krk / 1.15);
-				calculateStepResponse();
-				max = yt[0][Calc.max(yt[0])];
+		// TODO weg
+		// Zeitmessung
+		double zstVorher = System.currentTimeMillis();
+
+		// Grobskalierung
+		int order = path.getT().length;
+		double maxSoll = controller.overShoot / 100 + 1.0;
+		double KrkNew;
+		int count = 0;
+		while (Math.abs(maxSoll - max) > 0.08 & count < 5) {
+			count++;
+			double Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
+			if (max > maxSoll) {
+				KrkNew = Krk * maxSoll / max * (order / 8.0);
+
+			} else {
+				KrkNew = Krk * maxSoll / max * (8.0 / order);
 			}
-		} else {
-			while (max + 0.1 < controller.overShoot / 100.0 + 1.0 & Krk < 1000) {
-				Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
-				phaseResponseMethod.setKrk(Krk * 1.15);
-				calculateStepResponse();
-				max = yt[0][Calc.max(yt[0])];
-			}
+			phaseResponseMethod.setKrk(KrkNew);
+			calculateStepResponse();
+			max = yt[0][Calc.max(yt[0])];
 		}
 
 		// Feinskalierung mit dem Faktor 1.05
-		if (max > controller.overShoot / 100.0 + 1.0) {
-			while (max > controller.overShoot / 100.0 + 1.0) {
-				Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
+		double Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
+		if (max > maxSoll) {
+			while (max > maxSoll & Krk > 1e-19) {
 				phaseResponseMethod.setKrk(Krk / 1.05);
 				calculateStepResponse();
 				max = yt[0][Calc.max(yt[0])];
+				Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
 			}
 		} else {
-			while (max < controller.overShoot / 100.0 + 1.0 & Krk < 1000) {
-				Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
+			while (max < maxSoll & Krk < 1e16) {
 				phaseResponseMethod.setKrk(Krk * 1.05);
 				calculateStepResponse();
 				max = yt[0][Calc.max(yt[0])];
+				Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
 			}
 		}
+		// TODO weg
+		// Zeitmessung
+		double zstNachher = System.currentTimeMillis();
+		System.out.println("Time" + (zstNachher - zstVorher));
 	}
 }
