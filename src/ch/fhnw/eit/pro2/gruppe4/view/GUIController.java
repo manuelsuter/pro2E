@@ -49,7 +49,6 @@ public class GUIController {
 
 		view.leftPanel.controllerValuePanel.phaseResponsePanel.setInitialValues();
 
-		setExceptionLabel(" ", Color.MAGENTA);
 
 		try {
 			double[] tpValues = new double[3];
@@ -96,7 +95,9 @@ public class GUIController {
 				} else {
 					controllerTyp = Controller.PID;
 				}
+				setExceptionLabel("berechnen...", Color.MAGENTA);
 				model.setData(Ks, Tu, Tg, controllerTyp, tpValues, overShoot, phaseMarginOffset);
+				setExceptionLabel("gerechnet", Color.black);
 			}
 
 			view.leftPanel.inputPanel.lbOrder.setText("        Strecken-Ordnung: " + model.getPath().getT().length);
