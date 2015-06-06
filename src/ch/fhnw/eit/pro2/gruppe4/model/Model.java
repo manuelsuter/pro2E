@@ -83,7 +83,9 @@ public class Model extends Observable {
 		for (int i = closedLoop.length - 4; i < closedLoop.length; i++) {
 			closedLoop[i].setData(controllerTyp, path, fsN);
 		}
+
 		notifyObservers();
+	
 	}
 
 	/**
@@ -152,7 +154,8 @@ public class Model extends Observable {
 	public Path getPath() {
 		return path;
 	}
-
+	
+	
 	/**
 	 * Informiert die Observer über Änderung. Löst setChanged() aus.
 	 */

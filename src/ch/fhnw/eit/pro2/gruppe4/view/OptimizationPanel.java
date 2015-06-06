@@ -20,9 +20,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class OptimizationPanel extends JPanel implements ChangeListener {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private GUIController guiController;
 	public JSlider jsPhaseMargin;
@@ -30,6 +28,8 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 	private JLabel lbPhaseMargin, lbOverShoot;
 	private double phaseMarginOffset;
 	private double overShootValue;
+	private int phaseMarginSliderValue;
+	private int overShootSliderValue;
 	public static final String[] phaseMarginValues = { "0.1", "1", "2", "5", "10", "15", "20", "25", "30" };
 	
 
@@ -103,7 +103,7 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 	 * @return
 	 */
 	public double getOverShoot() {
-		int overShootSliderValue = jsOverShoot.getValue();
+		overShootSliderValue = jsOverShoot.getValue();
 
 		switch (overShootSliderValue) {
 		case 0:
@@ -150,7 +150,7 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 	 * @return
 	 */
 	public double getPhaseMargin() {
-		int phaseMarginSliderValue = jsPhaseMargin.getValue();
+		phaseMarginSliderValue = jsPhaseMargin.getValue();
 
 		switch (phaseMarginSliderValue) {
 		case 0:
@@ -202,94 +202,105 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 	public void stateChanged(ChangeEvent e) {
 
 		if (e.getSource() == jsOverShoot) {
-			int overShootSliderValue = jsOverShoot.getValue();
-
-			switch (overShootSliderValue) {
-			case 0:
-				overShootValue = 0.1;
-				break;
-
-			case 1:
-				overShootValue = 1.0;
-				break;
-
-			case 2:
-				overShootValue = 2.0;
-				break;
-
-			case 3:
-				overShootValue = 5.0;
-				break;
-
-			case 4:
-				overShootValue = 10.0;
-				break;
-
-			case 5:
-				overShootValue = 15.0;
-				break;
-
-			case 6:
-				overShootValue = 20.0;
-				break;
-
-			case 7:
-				overShootValue = 25.0;
-				break;
-
-			default:
-				overShootValue = 30.0;
-				break;
+			if (overShootSliderValue == jsOverShoot.getValue()) {
+				
+			} else {
+				overShootSliderValue = jsOverShoot.getValue();
+				switch (overShootSliderValue) {
+				case 0:
+					overShootValue = 0.1;
+					break;
+	
+				case 1:
+					overShootValue = 1.0;
+					break;
+	
+				case 2:
+					overShootValue = 2.0;
+					break;
+	
+				case 3:
+					overShootValue = 5.0;
+					break;
+	
+				case 4:
+					overShootValue = 10.0;
+					break;
+	
+				case 5:
+					overShootValue = 15.0;
+					break;
+	
+				case 6:
+					overShootValue = 20.0;
+					break;
+	
+				case 7:
+					overShootValue = 25.0;
+					break;
+	
+				default:
+					overShootValue = 30.0;
+					break;				
+				}
 			}
 			guiController.setOverShoot(overShootValue);
 		}
 		if (e.getSource() == jsPhaseMargin) {
-			// phaseMarginOffset = jsPhaseMargin.getValue();
-
-			int phaseMarginSliderValue = jsPhaseMargin.getValue();
-
-			switch (phaseMarginSliderValue) {
-			case 0:
-				phaseMarginOffset = 0.0;
-				break;
-
-			case 2:
-				phaseMarginOffset = 10.0;
-				break;
-
-			case 3:
-				phaseMarginOffset = 15.0;
-				break;
-
-			case 4:
-				phaseMarginOffset = 20.0;
-				break;
-
-			case 5:
-				phaseMarginOffset = 25.0;
-				break;
-
-			case 6:
-				phaseMarginOffset = 30.0;
-				break;
-
-			case 7:
-				phaseMarginOffset = 35.0;
-				break;
-
-			case 8:
-				phaseMarginOffset = 40.0;
-				break;
-
-			case 9:
-				phaseMarginOffset = 45.0;
-				break;
-
-			default:
-				phaseMarginOffset = 5.0;
-				break;
+			if (phaseMarginSliderValue == jsPhaseMargin.getValue()) {
+				
+			} else {
+				phaseMarginSliderValue = jsPhaseMargin.getValue();			
+				switch (phaseMarginSliderValue) {
+				case 0:
+					phaseMarginOffset = 0.0;
+					break;
+	
+				case 2:
+					phaseMarginOffset = 10.0;
+					break;
+	
+				case 3:
+					phaseMarginOffset = 15.0;
+					break;
+	
+				case 4:
+					phaseMarginOffset = 20.0;
+					break;
+	
+				case 5:
+					phaseMarginOffset = 25.0;
+					break;
+	
+				case 6:
+					phaseMarginOffset = 30.0;
+					break;
+	
+				case 7:
+					phaseMarginOffset = 35.0;
+					break;
+	
+				case 8:
+					phaseMarginOffset = 40.0;
+					break;
+	
+				case 9:
+					phaseMarginOffset = 45.0;
+					break;
+	
+				default:
+					phaseMarginOffset = 5.0;
+					break;
+				}
+				guiController.setPhaseMargin(phaseMarginOffset);
 			}
-			guiController.setPhaseMargin(phaseMarginOffset);
+		}
+		// Prüft die Position des Optimierungs-Sliders und deaktiviert den 
+		// Slider fürs Überschwingen, wenn die Optimierung gross ist.
+		if (jsPhaseMargin.getValue() >= 8) {
+			jsOverShoot.setEnabled(false);
+		}else{
+			jsOverShoot.setEnabled(true);
 		}
 	}
 

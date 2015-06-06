@@ -17,6 +17,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Observable;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -24,6 +25,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
+import ch.fhnw.eit.pro2.gruppe4.model.Model;
 
 public class InputPanel extends JPanel implements ActionListener, ItemListener, KeyListener, DocumentListener {
 
@@ -171,6 +174,17 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 	public void removeUpdate(DocumentEvent e) {
 		lbMessage.setForeground(Color.magenta);
 		lbMessage.setText("Nicht berechnete Änderungen");
+	}
+	
+	public void update(Observable obs, Object obj) {
+//		Model model = (Model) obs;
+//		if (model.getStatus() == false) {
+//			guiController.setExceptionLabel("Berechnen ...", Color.MAGENTA);			
+//		} else {
+//			guiController.setExceptionLabel("hallo ...", Color.MAGENTA);			
+//
+//		}
+		
 	}
 
 }

@@ -49,7 +49,7 @@ public class GUIController {
 
 		view.leftPanel.controllerValuePanel.phaseResponsePanel.setInitialValues();
 
-		setExceptionLabel(" ", Color.RED);
+		setExceptionLabel("Berechnen ...", Color.MAGENTA);
 
 		try {
 			double[] tpValues = new double[3];
@@ -97,6 +97,8 @@ public class GUIController {
 					controllerTyp = Controller.PID;
 				}
 				model.setData(Ks, Tu, Tg, controllerTyp, tpValues, overShoot, phaseMarginOffset);
+				setExceptionLabel("huhu ...", Color.MAGENTA);
+
 			}
 
 			view.leftPanel.inputPanel.lbOrder.setText("        Strecken-Ordnung: " + model.getPath().getT().length);
@@ -107,13 +109,15 @@ public class GUIController {
 			setExceptionLabel(e.getLocalizedMessage(), Color.RED);
 		} catch (ControllerException e) {
 			setExceptionLabel(e.getLocalizedMessage(), Color.RED);
-		}
-
+		} 
+		
 		controllerCalculated = true;
+
+
 	}
 
 	/**
-	 * Überprüft die Benutzeringaben auf Richtigkeit und löst setTp() des models auf.
+	 * Überprüft die Benutzereingaben auf Richtigkeit und löst setTp() des models auf.
 	 * @param index
 	 */
 	public void setTp(int index) {
