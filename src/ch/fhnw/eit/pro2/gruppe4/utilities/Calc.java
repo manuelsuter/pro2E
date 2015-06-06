@@ -1165,7 +1165,8 @@ public class Calc {
 
 		double simgmaMax = rootsNenReal[Calc.max(rootsNenReal)];
 		double N = fs * Math.log(0.005) / simgmaMax;
-		double m = Math.ceil(Math.log(N) / Math.log(2));
+		N = fs * -2.301029996 / simgmaMax;
+		double m = Math.ceil(Math.log(Math.abs(N)) / Math.log(2));
 		N = Math.pow(2, m);
 
 		return new double[] { fs, N };
