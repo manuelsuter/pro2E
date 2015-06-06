@@ -31,7 +31,8 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 	private int phaseMarginSliderValue;
 	private int overShootSliderValue;
 	public static final String[] phaseMarginValues = { "0.1", "1", "2", "5", "10", "15", "20", "25", "30" };
-	
+	int x = 0;
+
 
 	/**
 	 * Setzt GridBagLayout.
@@ -243,8 +244,8 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 					overShootValue = 30.0;
 					break;				
 				}
+				guiController.setOverShoot(overShootValue);
 			}
-			guiController.setOverShoot(overShootValue);
 		}
 		if (e.getSource() == jsPhaseMargin) {
 			if (phaseMarginSliderValue == jsPhaseMargin.getValue()) {
