@@ -238,28 +238,33 @@ public class ClosedLoop {
 			pointnumber = (int) fsN[1];
 			double proportion = path.getInputValues()[Path.TuPOS]
 					/ path.getInputValues()[Path.TgPOS];
-			if (controller.controllerTyp == Controller.PID)
-				if (proportion < 0.015)
-					pointnumber /= 16;
-				else if (proportion < 0.02)
-					pointnumber /= 8;
-				else if (proportion < 0.05)
-					pointnumber /= 4;
-				else if (proportion <= 0.103)
+			if (controller.controllerTyp == Controller.PID) {
+				if (proportion > 0.28)
+					pointnumber *= 16;
+				else if (proportion > 0.27)
+					pointnumber *= 8;
+				else if (proportion > 0.18)
+					pointnumber *= 4;
+				else if (proportion > 0.10)
+					pointnumber *= 2;
+				else if (proportion > 0.05)
 					pointnumber /= 2;
-				else if (proportion > 0.57)
-					pointnumber *= 4;
+				else if (proportion > 0.02)
+					pointnumber /= 4;
+				else if (proportion >= 0.015)
+					pointnumber /= 8;
+				else if (proportion < 0.015)
+					pointnumber /= 16;
+			} else if (controller.controllerTyp == Controller.PI) {
+				if (proportion > 0.27)
+					pointnumber *= 8;
 				else
-					pointnumber *= 2;
-			else if (controller.controllerTyp == Controller.PI)
-				if (proportion < 0.05)
 					pointnumber *= 4;
-				else if (proportion < 0.5)
-					pointnumber *= 4;
-				else
-					pointnumber *= 2;
+			}
 			fsNotGiven = false;
 			System.out.println("pointnumber" + pointnumber);
+			System.out.println("fs " + fs);
+
 		}
 
 		yt = Calc.schrittIfft(zah, nen, fs, pointnumber);
@@ -283,7 +288,7 @@ public class ClosedLoop {
 		double KrkNew;
 		double Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
 		int count = 0;
-		//Falls max kleiner Soll
+		// Falls max kleiner Soll
 		if (maxSoll - max > 0.08) {
 			while (maxSoll - max > 0.08 & count < 10) {
 				count++;
@@ -291,8 +296,8 @@ public class ClosedLoop {
 				phaseResponseMethod.setKrk(KrkNew);
 				calculateStepResponse();
 				double maxNew = yt[0][Calc.max(yt[0])];
-				
-				//Kontroller ob erfolgreich vergrössert sonst Abbruch
+
+				// Kontrolle ob erfolgreich vergrössert sonst Abbruch
 				if (maxNew > max) {
 					max = maxNew;
 					Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
@@ -300,7 +305,7 @@ public class ClosedLoop {
 					count = 100;
 				}
 			}
-		//Falls max grösser Soll
+			// Falls max grösser Soll
 		} else if (maxSoll - max < -0.08) {
 			while (maxSoll - max < -0.08 & count < 5) {
 				count++;
@@ -308,8 +313,8 @@ public class ClosedLoop {
 				phaseResponseMethod.setKrk(KrkNew);
 				calculateStepResponse();
 				double maxNew = yt[0][Calc.max(yt[0])];
-				
-				//Kontroller ob erfolgreich verkleinert sonst Abbruch
+
+				// Kontrolle ob erfolgreich verkleinert sonst Abbruch
 				if (maxNew < max) {
 					max = maxNew;
 					Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
