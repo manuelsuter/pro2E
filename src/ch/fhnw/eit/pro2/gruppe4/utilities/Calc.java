@@ -1147,7 +1147,7 @@ public class Calc {
 		return angleNew + (previousAngle - (previousAngle % (2 * Math.PI)));
 	}
 
-	public static double[] calculateFsN(double[] nen) {
+	public static final double[] calculateFsN(double[] nen) {
 		Complex[] rootsNen = roots(nen);
 
 		double[] rootsNenImag = new double[rootsNen.length];

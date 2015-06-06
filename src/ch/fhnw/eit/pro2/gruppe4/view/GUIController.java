@@ -86,7 +86,7 @@ public class GUIController {
 			} else if((Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText()) > 1e6)
 					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText()) > 1e6)
 					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText()) > 1e6)){
-				setExceptionLabel("Eingabewerte zu gross (Minimum: 1e6)", Color.RED);				
+				setExceptionLabel("Eingabewerte zu gross (Maximum: 1e6)", Color.RED);				
 			}
 			else {
 				int controllerTyp;

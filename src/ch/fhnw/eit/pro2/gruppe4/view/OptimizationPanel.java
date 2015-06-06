@@ -98,9 +98,8 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 		jsPhaseMargin.addChangeListener(this);
 	}
 
-	//TODO: Beschreibung falsch, wieso braucht es die überhaupt????
 	/**
-	 * Setzt das Überschwingen in Abhängigkeit der Slider-Position.
+	 * Gibt das Überschwingen in Abhängigkeit der Slider-Position zurück.
 	 * @return
 	 */
 	public double getOverShoot() {
@@ -147,7 +146,7 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 	}
 
 	/**
-	 * Setzt den Phasenrand in Abhängikeit der Slider-Position.
+	 * Gibt den Phasenrand in Abhängikeit der Slider-Position zurück.
 	 * @return
 	 */
 	public double getPhaseMargin() {
