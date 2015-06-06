@@ -94,9 +94,10 @@ public class Model extends Observable {
 	 * @param overShootValue
 	 */
 	public void setOverShoot(double overShootValue) {
-		for (int j = 0; j < closedLoop.length - 4; j++) {
-			closedLoop[j].setOverShoot(overShootValue);
-		}
+		closedLoop[1].setOverShoot(overShootValue);
+		double[] fsN = closedLoop[1].getFsN();
+		closedLoop[0].setOverShoot(overShootValue, fsN);
+		closedLoop[2].setOverShoot(overShootValue, fsN);
 		notifyObservers();
 	}
 

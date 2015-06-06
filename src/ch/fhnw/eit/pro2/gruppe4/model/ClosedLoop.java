@@ -128,6 +128,18 @@ public class ClosedLoop {
 	}
 
 	/**
+	 * Nimmt overShootValue entgegen und gibt es der Unterklasse weiter.
+	 * 
+	 * @param overShootValue
+	 */
+	public void setOverShoot(double overShootValue, double[] fsN) {
+		controller.setOverShoot(overShootValue);
+		this.fs = fsN[0];
+		this.pointnumber = (int) fsN[1];
+		calculate();
+	}
+
+	/**
 	 * Nimmt Tp entgegen und gibt es der Unterklasse weiter.
 	 * 
 	 * @param Tp
@@ -211,7 +223,6 @@ public class ClosedLoop {
 	 * Berechnet den geschlossenen Regelkreis.
 	 */
 	private void calculateStepResponse() {
-		System.out.println("calculate Step Response");
 		double[] zah_c = controller.getUTFZahPoly();
 		double[] nen_c = controller.getUTFNenPoly();
 		double[] zah_p = path.getUTFZahPoly();
@@ -236,73 +247,102 @@ public class ClosedLoop {
 					pointnumber /= 4;
 				else if (proportion <= 0.103)
 					pointnumber /= 2;
+				else if (proportion > 0.57)
+					pointnumber *= 4;
 				else
 					pointnumber *= 2;
 			else if (controller.controllerTyp == Controller.PI)
 				if (proportion < 0.05)
-					proportion /= 2;
-				else
 					pointnumber *= 4;
+				else if (proportion < 0.5)
+					pointnumber *= 4;
+				else
+					pointnumber *= 2;
 			fsNotGiven = false;
+			System.out.println("pointnumber" + pointnumber);
 		}
+
 		yt = Calc.schrittIfft(zah, nen, fs, pointnumber);
-		
-		System.out.println("pointnumber"+pointnumber);
-
-		System.out.println("Ende calculate Step Response");
-
 	}
 
 	/**
 	 * Optimiert das Überschwingen anhand des gewählten Überschwingens.
 	 */
 	private void overShootOptimization() {
-		PhaseResponseMethod phaseResponseMethod = (PhaseResponseMethod) controller;
-		double max = yt[0][Calc.max(yt[0])];
 
 		// TODO weg
 		// Zeitmessung
 		double zstVorher = System.currentTimeMillis();
 
+		PhaseResponseMethod phaseResponseMethod = (PhaseResponseMethod) controller;
+		double max = yt[0][Calc.max(yt[0])];
+
 		// Grobskalierung
 		int order = path.getT().length;
 		double maxSoll = controller.overShoot / 100 + 1.0;
 		double KrkNew;
+		double Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
 		int count = 0;
-		while (Math.abs(maxSoll - max) > 0.08 & count < 5) {
-			count++;
-			double Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
-			if (max > maxSoll) {
-				KrkNew = Krk * maxSoll / max * (order / 8.0);
-
-			} else {
+		//Falls max kleiner Soll
+		if (maxSoll - max > 0.08) {
+			while (maxSoll - max > 0.08 & count < 10) {
+				count++;
 				KrkNew = Krk * maxSoll / max * (8.0 / order);
+				phaseResponseMethod.setKrk(KrkNew);
+				calculateStepResponse();
+				double maxNew = yt[0][Calc.max(yt[0])];
+				
+				//Kontroller ob erfolgreich vergrössert sonst Abbruch
+				if (maxNew > max) {
+					max = maxNew;
+					Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
+				} else {
+					count = 100;
+				}
 			}
-			phaseResponseMethod.setKrk(KrkNew);
-			calculateStepResponse();
-			max = yt[0][Calc.max(yt[0])];
+		//Falls max grösser Soll
+		} else if (maxSoll - max < -0.08) {
+			while (maxSoll - max < -0.08 & count < 5) {
+				count++;
+				KrkNew = Krk * maxSoll / max * (order / 8.0);
+				phaseResponseMethod.setKrk(KrkNew);
+				calculateStepResponse();
+				double maxNew = yt[0][Calc.max(yt[0])];
+				
+				//Kontroller ob erfolgreich verkleinert sonst Abbruch
+				if (maxNew < max) {
+					max = maxNew;
+					Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
+				} else {
+					count = 100;
+				}
+			}
 		}
 
 		// Feinskalierung mit dem Faktor 1.05
-		double Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
+		count = 0;
 		if (max > maxSoll) {
-			while (max > maxSoll & Krk > 1e-19) {
+			while (max > maxSoll & Krk > 1e-19 & count < 100) {
+				count++;
 				phaseResponseMethod.setKrk(Krk / 1.05);
 				calculateStepResponse();
 				max = yt[0][Calc.max(yt[0])];
 				Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
 			}
 		} else {
-			while (max < maxSoll & Krk < 1e16) {
+			while (max < maxSoll & Krk < 1e16 & count < 100) {
+				count++;
 				phaseResponseMethod.setKrk(Krk * 1.05);
 				calculateStepResponse();
 				max = yt[0][Calc.max(yt[0])];
 				Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
 			}
 		}
+
 		// TODO weg
 		// Zeitmessung
 		double zstNachher = System.currentTimeMillis();
+		System.out.println("Anzahl Durchläufe " + count);
 		System.out.println("Time" + (zstNachher - zstVorher));
 	}
 }
