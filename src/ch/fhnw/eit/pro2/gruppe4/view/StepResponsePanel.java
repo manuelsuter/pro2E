@@ -15,6 +15,7 @@ import java.awt.event.ItemListener;
 import java.util.Observable;
 
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.jfree.data.xy.XYDataset;
@@ -25,7 +26,7 @@ import ch.fhnw.eit.pro2.gruppe4.model.Model;
 public class StepResponsePanel extends JPanel implements ItemListener {
 
 	private static final long serialVersionUID = 1L;
-	private JCheckBox[] checkBox = new JCheckBox[Controller.calculationTypName.length];
+	private JCheckBox[] checkBox = new JCheckBox[7];
 	private JPanel checkBoxPanel;
 	private Plotter stepResponsePlot = new Plotter();
 	private double[][][] ytValues;
@@ -53,15 +54,20 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 		checkBoxPanel = new JPanel(new GridLayout(2, 4));
 
 		// Check-Box der Phasengangmethode.
-		checkBox[0] = new JCheckBox(Controller.calculationTypName[0], true);
-		checkBox[0].setForeground(plotColor[1]);
-		checkBoxPanel.add(checkBox[0]);
-		checkBox[0].addItemListener(this);
+		for (int i = 0; i < 3; i++) {
+			checkBox[i] = new JCheckBox(Controller.calculationTypName[0], true);
+			checkBox[i].setForeground(plotColor[i]);
+			checkBoxPanel.add(checkBox[i]);
+			checkBox[i].addItemListener(this);
+		}
+		// Bewirkt, dass alle Faustformeln auf zweiter Zeile sind.
+		JLabel spaceLocker = new JLabel("");
+		checkBoxPanel.add(spaceLocker);
 
 		// CheckBoxen der Faustformeln.
-		for (int i = 1; i < Controller.calculationTypName.length; i++) {
-			checkBox[i] = new JCheckBox(Controller.calculationTypName[i], false);
-			checkBox[i].setForeground(plotColor[i + 2]);
+		for (int i = 3; i < checkBox.length; i++) {
+			checkBox[i] = new JCheckBox(Controller.calculationTypName[i-2], false);
+			checkBox[i].setForeground(plotColor[i]);
 			checkBoxPanel.add(checkBox[i]);
 			checkBox[i].addItemListener(this);
 		}
@@ -85,23 +91,12 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 			stepResponsePlot.setColor(i);
 		}
 
-		// Sichtbarkeit der Phasengang-Methode prüfen.
-		if (checkBox[0].isSelected() == false) {
-			stepResponsePlot.rendererArray[0].setSeriesLinesVisible(0, false);
-			stepResponsePlot.rendererArray[1].setSeriesLinesVisible(0, false);
-			stepResponsePlot.rendererArray[2].setSeriesLinesVisible(0, false);
-		} else {
-			stepResponsePlot.rendererArray[0].setSeriesLinesVisible(0, true);
-			stepResponsePlot.rendererArray[1].setSeriesLinesVisible(0, true);
-			stepResponsePlot.rendererArray[2].setSeriesLinesVisible(0, true);
-		}
-
-		// Sichtbarkeit der Faustformeln-Plots Plot prüfen.
-		for (int i = 1; i < checkBox.length; i++) {
+		// Sichtbarkeit der Plots prüfen.
+		for (int i = 0; i < checkBox.length; i++) {
 			if (checkBox[i].isSelected() == false) {
-				stepResponsePlot.rendererArray[i + 2].setSeriesLinesVisible(0, false);
+				stepResponsePlot.rendererArray[i].setSeriesLinesVisible(0, false);
 			} else {
-				stepResponsePlot.rendererArray[i + 2].setSeriesLinesVisible(0, true);
+				stepResponsePlot.rendererArray[i].setSeriesLinesVisible(0, true);
 			}
 		}
 		stepResponsePlot.repaint();
@@ -124,23 +119,17 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 		}
 	}
 
+	/**
+	 * Wird aktiviert bei Statusänderung einer CheckBox.
+	 * Setzt die Sichtbarkeit der einzelnen Plots, je nach Status der jeweiligen CheckBox.
+	 */
 	public void itemStateChanged(ItemEvent e) {
 
-		if (checkBox[0].isSelected() == false) {
-			stepResponsePlot.rendererArray[0].setSeriesLinesVisible(0, false);
-			stepResponsePlot.rendererArray[1].setSeriesLinesVisible(0, false);
-			stepResponsePlot.rendererArray[2].setSeriesLinesVisible(0, false);
-		} else {
-			stepResponsePlot.rendererArray[0].setSeriesLinesVisible(0, true);
-			stepResponsePlot.rendererArray[1].setSeriesLinesVisible(0, true);
-			stepResponsePlot.rendererArray[2].setSeriesLinesVisible(0, true);
-		}
-
-		for (int i = 1; i < checkBox.length; i++) {
+		for (int i = 0; i < checkBox.length; i++) {
 			if (checkBox[i].isSelected() == false) {
-				stepResponsePlot.rendererArray[i + 2].setSeriesLinesVisible(0, false);
+				stepResponsePlot.rendererArray[i].setSeriesLinesVisible(0, false);
 			} else {
-				stepResponsePlot.rendererArray[i + 2].setSeriesLinesVisible(0, true);
+				stepResponsePlot.rendererArray[i].setSeriesLinesVisible(0, true);
 			}
 		}
 	}
