@@ -10,6 +10,7 @@ package ch.fhnw.eit.pro2.gruppe4.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.Observable;
 
 import javax.swing.JPanel;
 
@@ -24,12 +25,15 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import ch.fhnw.eit.pro2.gruppe4.model.Model;
+
 public class Plotter extends JPanel {
 	private static final long serialVersionUID = 2848069135069767765L;
 	private JFreeChart chart = ChartFactory.createXYLineChart("", "Zeit t/s", "y(t)", null, PlotOrientation.VERTICAL,
 			false, false, false);;
 	public XYLineAndShapeRenderer[] rendererArray = new XYLineAndShapeRenderer[8];
 	private XYPlot xyplot;
+	private double xAxis;
 	
 	/**
 	 * Setzt BorderLayout.
@@ -59,8 +63,8 @@ public class Plotter extends JPanel {
 		}
 
 		ValueAxis axis = xyplot.getDomainAxis();
-		axis.setRange(0, 10);
-		axis.setAutoRange(true);
+		axis.setRange(0, xAxis);
+		axis.setAutoRange(false);
 		axis.setLabelPaint(Color.black);
 		axis.setTickLabelPaint(Color.black);
 		axis = xyplot.getRangeAxis();
@@ -107,6 +111,10 @@ public class Plotter extends JPanel {
 	 */
 	public void setColor(int index) {
 		xyplot.getRendererForDataset(xyplot.getDataset(index)).setSeriesPaint(0, StepResponsePanel.plotColor[index]);
+	}
+	
+	public void setxAxis(double xAxis){
+		this.xAxis = xAxis;
 	}
 
 }
