@@ -30,7 +30,7 @@ public class ChienApper extends Controller {
 		double Tu = inputValues[Path.TuPOS];
 
 		switch (controllerTyp) {
-		// PI Regler ührungsverhalten
+		// PI Regler Führungsverhalten
 		case Controller.PI:
 			Kr = 0.35 * Tg / (Ks * Tu);
 			Tn = 1.2 * Tg;
