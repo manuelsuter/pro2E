@@ -54,8 +54,11 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 		checkBoxPanel = new JPanel(new GridLayout(2, 4));
 
 		// Check-Box der Phasengangmethode.
+		checkBox[0] = new JCheckBox("Phasengang Positiv", true);
+		checkBox[1] = new JCheckBox("Phasengang Standard", true);
+		checkBox[2] = new JCheckBox("Phasengang Negativ", true);
+
 		for (int i = 0; i < 3; i++) {
-			checkBox[i] = new JCheckBox(Controller.calculationTypName[0], true);
 			checkBox[i].setForeground(plotColor[i]);
 			checkBoxPanel.add(checkBox[i]);
 			checkBox[i].addItemListener(this);

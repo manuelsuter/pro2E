@@ -49,7 +49,7 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 				GridBagConstraints.HORIZONTAL, new Insets(5, 10, 5, 10), 0, 0));
 
 		// Baut und added Slider für Überschwingen.
-		jsOverShoot = new JSlider(0, 8, 0);
+		jsOverShoot = new JSlider(0, 8, 6);
 
 		Hashtable<Integer, JLabel> table = new Hashtable<Integer, JLabel>();
 		table.put(0, new JLabel("0.1"));
