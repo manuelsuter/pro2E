@@ -46,12 +46,10 @@ public class GUIController {
 	 * Überprüft die Benutzer-Eingaben auf Korrektheit. Löst setData() des models auf.
 	 */
 	public void calculate() {
-
+		// Bringt die View in einen Default-Zustand
 		view.leftPanel.controllerValuePanel.phaseResponsePanel.setInitialValues();
 		setExceptionLabel(" ", Color.black);
 		view.leftPanel.controllerChooserPanel.btPID.setEnabled(true);
-
-
 
 		try {
 			double[] tpValues = new double[3];
@@ -98,6 +96,7 @@ public class GUIController {
 				} else {
 					controllerTyp = Controller.PID;
 				}
+				// Überprüft die Streckenordnung und deaktiviert den PID Regler, wenn Ordnung < 3 ist.
 				if (Tu/Tg <= 0.103638) {
 					controllerTyp = Controller.PI;
 					setExceptionLabel("Für Strecken-Ordnung < 3 nur PI möglich!", Color.MAGENTA);
@@ -105,8 +104,7 @@ public class GUIController {
 					view.leftPanel.controllerChooserPanel.btPI.setSelected(true);
 				}
 				model.setData(Ks, Tu, Tg, controllerTyp, tpValues, overShoot, phaseMarginOffset);
-				controllerCalculated = true;
-				
+				controllerCalculated = true;			
 			}
 
 			view.leftPanel.inputPanel.lbOrder.setText("        Strecken-Ordnung: " + model.getPath().getT().length);
@@ -185,9 +183,7 @@ public class GUIController {
 	public void setPhaseMargin(double phaseMargin) {
 		if (controllerCalculated == true) {
 			model.setPhaseMargin(phaseMargin);
-
 		}
-
 	}
 
 	/**
