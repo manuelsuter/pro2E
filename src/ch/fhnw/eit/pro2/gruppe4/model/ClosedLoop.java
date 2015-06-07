@@ -266,7 +266,6 @@ public class ClosedLoop {
 			fsNotGiven = false;
 			System.out.println("pointnumber" + pointnumber);
 			System.out.println("fs " + fs);
-
 		}
 
 		yt = Calc.schrittIfft(zah, nen, fs, pointnumber);
@@ -345,7 +344,6 @@ public class ClosedLoop {
 				Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
 			}
 		}
-
 		// TODO weg
 		// Zeitmessung
 		double zstNachher = System.currentTimeMillis();
