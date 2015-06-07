@@ -74,7 +74,7 @@ public class GUIController {
 
 			double phaseMarginOffset = view.rightPanel.optimizationPanel.getPhaseMargin();
 			double overShoot = view.rightPanel.optimizationPanel.getOverShoot();
-
+			
 			if ((Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText()) == 0.0)
 					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText()) == 0.0)
 					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText()) == 0.0)) {
@@ -96,8 +96,15 @@ public class GUIController {
 				} else {
 					controllerTyp = Controller.PID;
 				}
+				if (Tu/Tg <= 0.103638) {
+					controllerTyp = Controller.PI;
+					setExceptionLabel("Für Strecken-Ordnung < 3 nur PI möglich!", Color.MAGENTA);
+//					view.leftPanel.controllerChooserPanel.btPID.setEnabled(false);
+					view.leftPanel.controllerChooserPanel.btPI.setSelected(true);
+				}
 				model.setData(Ks, Tu, Tg, controllerTyp, tpValues, overShoot, phaseMarginOffset);
 				controllerCalculated = true;
+				
 			}
 
 			view.leftPanel.inputPanel.lbOrder.setText("        Strecken-Ordnung: " + model.getPath().getT().length);
