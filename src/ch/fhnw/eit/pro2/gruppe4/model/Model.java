@@ -81,7 +81,7 @@ public class Model extends Observable {
 				phaseMarginNeg, fsN);
 
 		for (int i = closedLoop.length - 4; i < closedLoop.length; i++) {
-			closedLoop[i].setData(controllerTyp, path, fsN);
+			closedLoop[i].setData(controllerTyp, path);
 		}
 
 		notifyObservers();

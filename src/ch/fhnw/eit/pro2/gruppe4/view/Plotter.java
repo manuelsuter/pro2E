@@ -33,7 +33,7 @@ public class Plotter extends JPanel {
 			false, false, false);;
 	public XYLineAndShapeRenderer[] rendererArray = new XYLineAndShapeRenderer[8];
 	private XYPlot xyplot;
-	private double xAxis;
+	private double xAxis = 20.0;
 	
 	/**
 	 * Setzt BorderLayout.

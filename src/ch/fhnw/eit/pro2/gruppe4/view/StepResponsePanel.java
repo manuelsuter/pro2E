@@ -159,6 +159,7 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 		for (int i = 0; i < ytValues.length; i++) {
 			ytValues[i] = model.getClosedLoop()[i].getStepResponse();
 		}
+		stepResponsePlot.setxAxis(ytValues[1][1][ytValues[1][1].length-1]);
 		plotStepResponse();
 	}
 
