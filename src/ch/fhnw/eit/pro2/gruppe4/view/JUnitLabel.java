@@ -38,7 +38,7 @@ public class JUnitLabel extends JLabel {
 			}
 		}
 		
-		String valueRounded = f.format(Math.round(value * 1000.0) / 1000.0);
+		String valueRounded = f.format(Math.round(value * 100.0) / 100.0);
 		
 		super.setText("" + valueRounded + size[-unitIndex + 6]);
 	}
@@ -61,7 +61,7 @@ public class JUnitLabel extends JLabel {
 			}
 		}
 		
-		String valueRounded = f.format(Math.round(value * 1000.0) / 1000.0);
+		String valueRounded = f.format(Math.round(value * 100.0) / 100.0);
 		
 		super.setText("" + valueRounded + " " + unitSize[-unitIndex + 6] + unit);
 	}
