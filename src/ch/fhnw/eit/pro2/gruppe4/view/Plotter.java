@@ -33,7 +33,6 @@ public class Plotter extends JPanel {
 			false, false, false);;
 	public XYLineAndShapeRenderer[] rendererArray = new XYLineAndShapeRenderer[8];
 	private XYPlot xyplot;
-	private double xAxis = 20.0;
 	
 	/**
 	 * Setzt BorderLayout.
@@ -63,7 +62,7 @@ public class Plotter extends JPanel {
 		}
 
 		ValueAxis axis = xyplot.getDomainAxis();
-		axis.setRange(0, xAxis);
+		axis.setRange(0, 20);
 		axis.setAutoRange(false);
 		axis.setLabelPaint(Color.black);
 		axis.setTickLabelPaint(Color.black);
@@ -113,8 +112,9 @@ public class Plotter extends JPanel {
 		xyplot.getRendererForDataset(xyplot.getDataset(index)).setSeriesPaint(0, StepResponsePanel.plotColor[index]);
 	}
 	
-	public void setxAxis(double xAxis){
-		this.xAxis = xAxis;
+	public void setxAxis(double xAxis){		
+		ValueAxis axis = xyplot.getDomainAxis();
+		axis.setRange(0, xAxis);
 	}
 
 }
