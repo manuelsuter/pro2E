@@ -281,7 +281,15 @@ public class Calc {
 		}
 
 		if (controllerTyp == 3) { // PID-Regler
-
+			
+			if (((4 * Tn * (Tv - Tp)) / (Math.pow((Tn + Tp), 2))) > 1) {
+				double index = 9.9;
+				while(((4 * Tn * (Tv - Tp)) / (Math.pow((Tn + Tp), 2))) > 1){
+					Tp = Tv / index;
+					index = index - 0.1;
+				}
+			}
+			
 			double e = Math.sqrt(1 - ((4 * Tn * (Tv - Tp)) / (Math.pow(
 					(Tn + Tp), 2))));
 			res[1] = 0.5 * (Tn + Tp) * (1 + e); // Tnk

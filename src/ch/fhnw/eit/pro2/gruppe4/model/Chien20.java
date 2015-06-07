@@ -30,21 +30,22 @@ public class Chien20 extends Controller {
 		double Tu = inputValues[Path.TuPOS];
 
 		switch (controllerTyp) {
-		// PI Regler bei Führungsverhalten
+		// PI Regler:
 		case Controller.PI:
-			Kr = 0.6 * Tg / (Ks * Tu);
-			Tn = Tg;
-			Tv = 0;
-			break;
-		// PID Regler bei Führungsverhalten
-		case Controller.PID:
-			Kr = 0.95 * Tg / (Ks * Tu);
-			Tn = 1.35 * Tg;
-			Tv = 0.47 * Tu;
-			break;
-		default:
-			throw new ControllerException();
-		}
+					Kr = 0.7 * Tg / (Ks * Tu);
+					Tn = 2.3 * Tu;
+					Tv = 0;
+					break;
+				// PID Regler:
+				case Controller.PID:
+					Kr = 1.2 * Tg / (Ks * Tu);
+					Tn = 2.0 * Tu;
+					Tv = 0.42 * Tu;
+					break;
+				default:
+					throw new ControllerException();
+				}
+		
 		setUTFcontrollerConf();
 	}
 }
