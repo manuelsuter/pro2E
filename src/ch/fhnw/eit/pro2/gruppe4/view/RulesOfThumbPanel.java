@@ -87,9 +87,9 @@ public class RulesOfThumbPanel extends JPanel {
 
 		for (int i = 0; i < Controller.calculationTypName.length - 1; i++) {
 			lbMethod[i + 1].setText(Controller.calculationTypName[i + 1]);
-			lbKr[i + 1].setText("0.00");
-			lbTn[i + 1].setText("0.00");
-			lbTv[i + 1].setText("0.00");
+			lbKr[i + 1].setText(" ");
+			lbTn[i + 1].setText(" ");
+			lbTv[i + 1].setText(" ");
 		}
 	}
 

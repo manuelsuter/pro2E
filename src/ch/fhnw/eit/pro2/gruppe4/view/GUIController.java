@@ -49,6 +49,8 @@ public class GUIController {
 
 		view.leftPanel.controllerValuePanel.phaseResponsePanel.setInitialValues();
 		setExceptionLabel(" ", Color.black);
+		view.leftPanel.controllerChooserPanel.btPID.setEnabled(true);
+
 
 
 		try {
@@ -99,7 +101,7 @@ public class GUIController {
 				if (Tu/Tg <= 0.103638) {
 					controllerTyp = Controller.PI;
 					setExceptionLabel("Für Strecken-Ordnung < 3 nur PI möglich!", Color.MAGENTA);
-//					view.leftPanel.controllerChooserPanel.btPID.setEnabled(false);
+					view.leftPanel.controllerChooserPanel.btPID.setEnabled(false);
 					view.leftPanel.controllerChooserPanel.btPI.setSelected(true);
 				}
 				model.setData(Ks, Tu, Tg, controllerTyp, tpValues, overShoot, phaseMarginOffset);
@@ -152,7 +154,7 @@ public class GUIController {
 	}
 
 	/**
-	 * Löscht alle Benutzereingaben und die Plots.
+	 * Löscht alle Benutzereingaben und die Plots und setzt das GUI zurück.
 	 */
 	public void clear() {
 		view.leftPanel.inputPanel.tfKs.setText("");
@@ -160,6 +162,7 @@ public class GUIController {
 		view.leftPanel.inputPanel.tfTg.setText("");
 		view.leftPanel.controllerValuePanel.phaseResponsePanel.setInitialValues();
 		view.leftPanel.controllerValuePanel.rulesOfThumbPanel.setInitialValues();
+		view.leftPanel.controllerChooserPanel.btPID.setEnabled(true);
 		view.rightPanel.stepResponsePanel.deleteDatasets();
 
 		controllerCalculated = false;

@@ -99,9 +99,9 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 	 */
 	public void setInitialValues() {
 		for (int i = 0; i < lbMethod.length - 1; i++) {
-			lbKr[i + 1].setText("0.000");
-			lbTn[i + 1].setText("0.000");
-			lbTv[i + 1].setText("0.000");
+			lbKr[i + 1].setText(" ");
+			lbTn[i + 1].setText(" ");
+			lbTv[i + 1].setText(" ");
 			tfTp[i].setText("");
 		}
 
