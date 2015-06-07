@@ -10,7 +10,6 @@ package ch.fhnw.eit.pro2.gruppe4.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.Observable;
 
 import javax.swing.JPanel;
 
@@ -24,8 +23,6 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-
-import ch.fhnw.eit.pro2.gruppe4.model.Model;
 
 public class Plotter extends JPanel {
 	private static final long serialVersionUID = 2848069135069767765L;
@@ -112,6 +109,10 @@ public class Plotter extends JPanel {
 		xyplot.getRendererForDataset(xyplot.getDataset(index)).setSeriesPaint(0, StepResponsePanel.plotColor[index]);
 	}
 	
+	/**
+	 * Setzt die x-Achse des Plots.
+	 * @param xAxis
+	 */
 	public void setxAxis(double xAxis){		
 		ValueAxis axis = xyplot.getDomainAxis();
 		axis.setRange(0, xAxis);
