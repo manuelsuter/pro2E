@@ -238,8 +238,8 @@ public class ClosedLoop {
 			pointnumber = (int) fsN[1];
 			double proportion = path.getInputValues()[Path.TuPOS]
 					/ path.getInputValues()[Path.TgPOS];
-			if (pointnumber > 16384)
-				pointnumber = 16384;
+			if (pointnumber > 32768)
+				pointnumber = 32768;
 			if (controller.controllerTyp == Controller.PID) {
 				if (proportion > 0.28)
 					pointnumber *= 16;
