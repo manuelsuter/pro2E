@@ -29,7 +29,7 @@ public class JUnitTextField extends JDoubleTextField {
 		} else if (Math.abs(value) >= 1000.0) {
 			while (Math.abs(value) >= 1000.0) {
 				value = value / 1000.0;
-				value--;
+				unitIndex--;
 			}
 		}
 
@@ -51,7 +51,7 @@ public class JUnitTextField extends JDoubleTextField {
 		} else if (value >= 1000.0) {
 			while (value >= 1000.0) {
 				value = value / 1000.0;
-				value--;
+				unitIndex--;
 			}
 		}
 
