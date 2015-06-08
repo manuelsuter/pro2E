@@ -40,7 +40,7 @@ class Rosenberg extends Controller {
 		case Controller.PID:
 			Kr = (1.2 / Ks) * (Tg / Tu);
 			Tn = 2 * Tu;
-			Tv = 0.44 * Tu;
+			Tv = 0.45 * Tu;
 			break;
 
 		default:
