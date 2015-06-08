@@ -32,21 +32,21 @@ public class ChienApper extends Controller {
 		switch (controllerTyp) {
 		// PI Regler:
 		case Controller.PI:
-			Kr = 0.6 * Tg / (Ks * Tu);
-			Tn = 4.0 * Tu;
+			Kr = 0.35 * Tg / (Ks * Tu);
+			Tn = 1.2 * Tg;
 			Tv = 0;
 			break;
 			
 		// PID Regler:	
 		case Controller.PID:
-			Kr = 0.95 * Tg / (Ks * Tu);
-			Tn = 2.4 * Tu;
-			Tv = 0.42 * Tu;
+			Kr = 0.6 * Tg / (Ks * Tu);
+			Tn = Tg;
+			Tv = 0.5 * Tu;
 			break;
 			
 		default:
-			throw new ControllerException();	}
-
+			throw new ControllerException();	
+		}
 		setUTFcontrollerConf();
 	}
 }

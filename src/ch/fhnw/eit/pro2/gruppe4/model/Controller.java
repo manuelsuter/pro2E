@@ -99,14 +99,10 @@ public abstract class Controller {
 	 */
 	protected void setUTFcontrollerConf() {
 		Tp = Tv / 10;
-		double[] bodeConf = Calc.bodeConform(Kr, Tn, Tv, Tp, controllerTyp);
-		Krk = bodeConf[0];
-		Tnk = bodeConf[1];
-		Tvk = bodeConf[2];
-
-		utf.setUTFPoly(Calc.utfController(controllerTyp, Krk, Tnk, Tvk, Tp));
+		
+		utf.setUTFPoly(Calc.utfControllerConf(controllerTyp, Kr, Tn, Tv, Tp));
 	}
-
+	
 	/**
 	 * Gibt Zähler der UTF in einem Double-Array als Polynom zurück.
 	 * 

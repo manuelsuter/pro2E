@@ -36,16 +36,16 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 
-public class JDoubleTextField extends JTextField implements FocusListener, MouseListener {
+public class JDoubleTextField extends JTextField implements FocusListener {
 	private static final long serialVersionUID = 1L;
-	private boolean allowNegativeValues, mousePressed;
+	private boolean allowNegativeValues;
 
 	public JDoubleTextField(String text, int columns, boolean allowNegativeValues) {
 		super(text);
 		setColumns(columns);
 		this.allowNegativeValues = allowNegativeValues;
 		addFocusListener(this);
-		addMouseListener(this);
+//		addMouseListener(this);
 	}
 
 	protected Document createDefaultModel() {
@@ -62,18 +62,6 @@ public class JDoubleTextField extends JTextField implements FocusListener, Mouse
 	}
 
 	public void focusGained(FocusEvent arg0) {
-		new Thread() {
-			public void run() {
-				while (mousePressed == true) {
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-				selectAll();
-			}
-		}.start();
 		selectAll();
 	}
 
@@ -81,25 +69,23 @@ public class JDoubleTextField extends JTextField implements FocusListener, Mouse
 		fireActionPerformed();
 	}
 
-	public void mouseClicked(MouseEvent arg0) {
-
-	}
-
-	public void mouseEntered(MouseEvent arg0) {
-
-	}
-
-	public void mouseExited(MouseEvent arg0) {
-
-	}
-
-	public void mousePressed(MouseEvent arg0) {
-		mousePressed = true;
-	}
-
-	public void mouseReleased(MouseEvent arg0) {
-		mousePressed = false;
-	}
+//	public void mouseClicked(MouseEvent arg0) {
+//
+//	}
+//
+//	public void mouseEntered(MouseEvent arg0) {
+//
+//	}
+//
+//	public void mouseExited(MouseEvent arg0) {
+//
+//	}
+//
+//	public void mousePressed(MouseEvent arg0) {
+//	}
+//
+//	public void mouseReleased(MouseEvent arg0) {
+//	}
 
 	class DoubleDocument extends PlainDocument {
 		private static final long serialVersionUID = 1L;

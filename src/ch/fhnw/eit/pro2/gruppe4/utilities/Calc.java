@@ -504,7 +504,7 @@ public class Calc {
 	}
 
 	/**
-	 * Berechnet Zähler- und Nenner-Polynom eines Reglers.
+	 * Berechnet Zähler- und Nenner-Polynom eines Reglers bodekonform.
 	 * 
 	 * @param controllerTyp
 	 * @param Krk
@@ -561,6 +561,63 @@ public class Calc {
 		return res;
 	}
 
+	
+	/**
+	 * Berechnet Zähler- und Nenner-Polynom eines Reglers reglerkonform.
+	 * 
+	 * @param controllerTyp
+	 * @param Krk
+	 * @param Tnk
+	 * @param Tvk
+	 * @param Tp
+	 * @return koeffizienten
+	 */
+
+	public static final double[][] utfControllerConf(int controllerTyp, double Kr,
+			double Tn, double Tv, double Tp) {
+
+		double[][] res;
+		switch (controllerTyp) {
+
+		// PI-Regler
+		case Controller.PI:
+
+			res = new double[2][2];
+
+			// Zaehler
+			res[0][0] = Kr * Tn;
+			res[0][1] = Kr;
+
+			// Nenner
+			res[1][0] = Tn;
+			res[1][1] = 0;
+			break;
+
+		// PID-Regler
+		case Controller.PID:
+
+			res = new double[2][];
+			res[0] = new double[3];
+			res[1] = new double[3];
+			
+			// Zaehler
+			res[0][0] = Kr*(Tn*Tp+Tv*Tn);
+			res[0][1] = Kr*(Tn+Tp);
+			res[0][2] = Kr;
+
+			// Nenner
+			res[1][0] = Tn*Tp;
+			res[1][1] = Tn;
+			res[1][2] = 0;
+
+			break;
+
+		default:
+			res = new double[0][0];
+			break;
+		}
+		return res;
+	}
 	/**
 	 * Spline Interpolation mittels SplineNAK.
 	 * 
