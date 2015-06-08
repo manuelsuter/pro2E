@@ -162,6 +162,8 @@ public class GUIController {
 		view.leftPanel.controllerValuePanel.rulesOfThumbPanel.setInitialValues();
 		view.leftPanel.controllerChooserPanel.btPID.setEnabled(true);
 		view.rightPanel.stepResponsePanel.deleteDatasets();
+		view.leftPanel.inputPanel.lbOrder.setText("        Strecken-Ordnung:   ");
+		view.leftPanel.inputPanel.lbMessage.setText(" ");
 
 		controllerCalculated = false;
 	}
