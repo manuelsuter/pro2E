@@ -52,8 +52,7 @@ public class ClosedLoop {
 	 * @param path
 	 * @throws ControllerException
 	 */
-	public void setData(int controllerTyp, Path path)
-			throws ControllerException {
+	public void setData(int controllerTyp, Path path) throws ControllerException {
 		this.path = path;
 		controller.setData(controllerTyp, path);
 		fsNotGiven = true;
@@ -68,8 +67,7 @@ public class ClosedLoop {
 	 * @param fsN
 	 * @throws ControllerException
 	 */
-	public void setData(int controllerTyp, Path path, double[] fsN)
-			throws ControllerException {
+	public void setData(int controllerTyp, Path path, double[] fsN) throws ControllerException {
 		this.fs = fsN[0];
 		this.pointnumber = (int) fsN[1];
 		this.path = path;
@@ -87,8 +85,8 @@ public class ClosedLoop {
 	 * @param phaseMargin
 	 * @throws ControllerException
 	 */
-	public void setData(int controllerTyp, Path path, double Tp,
-			double overShoot, double phaseMargin) throws ControllerException {
+	public void setData(int controllerTyp, Path path, double Tp, double overShoot, double phaseMargin)
+			throws ControllerException {
 		this.path = path;
 		controller.setData(controllerTyp, path, Tp, overShoot, phaseMargin);
 		fsNotGiven = true;
@@ -106,8 +104,7 @@ public class ClosedLoop {
 	 * @param fsN
 	 * @throws ControllerException
 	 */
-	public void setData(int controllerTyp, Path path, double Tp,
-			double overShoot, double phaseMargin, double[] fsN)
+	public void setData(int controllerTyp, Path path, double Tp, double overShoot, double phaseMargin, double[] fsN)
 			throws ControllerException {
 		this.fs = fsN[0];
 		this.pointnumber = (int) fsN[1];
@@ -236,8 +233,7 @@ public class ClosedLoop {
 			double[] fsN = Calc.calculateFsN(nen);
 			fs = fsN[0];
 			pointnumber = (int) fsN[1];
-			double proportion = path.getInputValues()[Path.TuPOS]
-					/ path.getInputValues()[Path.TgPOS];
+			double proportion = path.getInputValues()[Path.TuPOS] / path.getInputValues()[Path.TgPOS];
 			if (pointnumber > 32768)
 				pointnumber = 32768;
 			if (controller.controllerTyp == Controller.PID) {
@@ -258,14 +254,10 @@ public class ClosedLoop {
 				else if (proportion < 0.015)
 					pointnumber /= 16;
 			} else if (controller.controllerTyp == Controller.PI) {
-				if (proportion > 0.27)
-					pointnumber *= 8;
-				else
-					pointnumber *= 4;
+				pointnumber *= 8;
 			}
 			fsNotGiven = false;
 			System.out.println("pointnumber" + pointnumber);
-			System.out.println("fs " + fs);
 		}
 
 		yt = Calc.schrittIfft(zah, nen, fs, pointnumber);
@@ -325,10 +317,13 @@ public class ClosedLoop {
 			}
 		}
 
+		int countMax = 100;
+		if (pointnumber < 8193)
+			countMax = 200;
 		// Feinskalierung mit dem Faktor 1.05
 		count = 0;
 		if (max > maxSoll) {
-			while (max > maxSoll & Krk > 1e-19 & count < 100) {
+			while (max > maxSoll & Krk > 1e-19 & count < countMax) {
 				count++;
 				phaseResponseMethod.setKrk(Krk / 1.05);
 				calculateStepResponse();
@@ -336,7 +331,7 @@ public class ClosedLoop {
 				Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
 			}
 		} else {
-			while (max < maxSoll & Krk < 1e16 & count < 100) {
+			while (max < maxSoll & Krk < 1e16 & count < countMax) {
 				count++;
 				phaseResponseMethod.setKrk(Krk * 1.05);
 				calculateStepResponse();
