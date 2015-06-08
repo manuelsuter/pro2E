@@ -10,6 +10,8 @@ package ch.fhnw.eit.pro2.gruppe4.utilities;
 
  * */
 
+import java.text.DecimalFormat;
+
 import org.apache.commons.math3.analysis.solvers.LaguerreSolver;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.transform.DftNormalization;
@@ -648,28 +650,38 @@ public class Calc {
 	 * @return
 	 */
 
-	public static final Complex[] roots(double[] p) {
-		final LaguerreSolver solver = new LaguerreSolver(1e-15);
-		double[] flip = new double[p.length];
-
+	public static final Complex[] roots(double[] poly) {
+		final LaguerreSolver solver = new LaguerreSolver(1e-16);
+		double[] p = new double[poly.length];
+		
 		// Koeffizient der höchsten Potenz auf durch Multiplikation mit einer
 		// Konstanten auf 1 normieren:
-		double s = 1.0 / p[0];
-		double[] pp = new double[p.length];
-		for (int i = 0; i < pp.length; i++) {
-			pp[i] = p[i] * s;
+		double s = 1.0 / poly[0];
+		for (int i = 0; i < poly.length; i++) {
+			p[i] = poly[i] * s;
 		}
 
+		// Nullstellen bei Null zählen und entfernen 
+		int n = 0;
+		while (p[p.length-1-n]<=1e-15) {
+			n++;
+		}
+		double[] pnz = new double[p.length - n];
+		for (int k = 0; k < pnz.length; k++) {
+			pnz[k] = p[k];
+		}
+		
 		// Normierungskonstante berechnen:
-		s = Math.pow(pp[pp.length - 1], 1.0 / (pp.length - 1));
+		s = Math.pow(p[pnz.length - 1], 1.0 / (p.length - 1));
 
 		// Durch [s^0 s^1 s^2 s^3 ... s^N] dividieren:
-		for (int i = 0; i < pp.length; i++)
-			pp[i] /= Math.pow(s, i);
+		for (int i = 0; i < pnz.length; i++)
+			pnz[i] /= Math.pow(s, i);
 
 		// Um mit Matlab konform zu sein flippen:
+		double[] flip = new double[pnz.length];
 		for (int i = 0; i < flip.length; i++)
-			flip[pp.length - i - 1] = pp[i];
+			flip[pnz.length - i - 1] = pnz[i];
 
 		// Wurzeln berechnen und durch Multiplikation mit s wieder entnormieren:
 		Complex[] r = solver.solveAllComplex(flip, 0.0);
@@ -677,13 +689,94 @@ public class Calc {
 			r[i] = r[i].multiply(s);
 		}
 
-		Complex[] res = new Complex[r.length];
+		Complex[] res = new Complex[r.length + n];
 
 		// Um mit Matlab konform zu sein flippen:
-		for (int i = 0; i < r.length; i++)
-			res[r.length - i - 1] = r[i];
+		int i = 0;
+		for (; i < r.length; i++)
+			res[res.length - i - 1] = r[i];
+		// Nullstellen bei Null hinzufügen:
+		for (; i < res.length; i++) {
+			res[res.length - i - 1] = new Complex(0.0, 0.0);			
+		}
+		
+		// Imaginärteil von NS, die nich konjugiert komplex vorkommen, auf Null setzen.
+		boolean[] cc = new boolean[res.length];
+		for (int j = 0; j < res.length-1; j++) {	
+			if( assertEq(res[j].getReal(), res[j+1].getReal(), 12) && assertEq(res[j].getImaginary(), -res[j+1].getImaginary(), 12)){
+				cc[j] = cc[j+1] = true;
+			}
+		}
+		for (int j = 0; j < cc.length; j++) {
+			if(!cc[j])
+				res[j] = new Complex(res[j].getReal(), 0.0);
+			else {
+				res[j] = new Complex((res[j].getReal()+res[j+1].getReal())/2.0, (res[j].getImaginary()-res[j+1].getImaginary())/2.0);
+				res[j+1] = new Complex(res[j].getReal(), -res[j++].getImaginary());
+			}
+		}
 
 		return res;
+	}
+	
+//	public static final Complex[] roots(double[] p) {
+//		final LaguerreSolver solver = new LaguerreSolver(1e-15);
+//		double[] flip = new double[p.length];
+//
+//		// Koeffizient der höchsten Potenz auf durch Multiplikation mit einer
+//		// Konstanten auf 1 normieren:
+//		double s = 1.0 / p[0];
+//		double[] pp = new double[p.length];
+//		for (int i = 0; i < pp.length; i++) {
+//			pp[i] = p[i] * s;
+//		}
+//
+//		// Normierungskonstante berechnen:
+//		s = Math.pow(pp[pp.length - 1], 1.0 / (pp.length - 1));
+//
+//		// Durch [s^0 s^1 s^2 s^3 ... s^N] dividieren:
+//		for (int i = 0; i < pp.length; i++)
+//			pp[i] /= Math.pow(s, i);
+//
+//		// Um mit Matlab konform zu sein flippen:
+//		for (int i = 0; i < flip.length; i++)
+//			flip[pp.length - i - 1] = pp[i];
+//
+//		// Wurzeln berechnen und durch Multiplikation mit s wieder entnormieren:
+//		Complex[] r = solver.solveAllComplex(flip, 0.0);
+//		for (int i = 0; i < r.length; i++) {
+//			r[i] = r[i].multiply(s);
+//		}
+//
+//		Complex[] res = new Complex[r.length];
+//
+//		// Um mit Matlab konform zu sein flippen:
+//		for (int i = 0; i < r.length; i++)
+//			res[r.length - i - 1] = r[i];
+//
+//		return res;
+//	}
+	
+	/**
+	 * <pre>
+	 * Prüft ob exp und act, auf n signifikante Stellen, übereinstimmen. 
+	 * </pre>
+	 * @param exp
+	 * @param act
+	 * @param n
+	 * @return
+	 */
+	public static boolean assertEq(double exp, double act, int n) {
+		String fmt = "0.";
+		for (int j = 0; j < n-1; j++) {
+			fmt += "0";
+		}
+		fmt +="E000";
+		
+		DecimalFormat decimalFormat = new DecimalFormat(fmt);
+		String stExp = decimalFormat.format(exp);
+		String stAct = decimalFormat.format(act);
+		return stExp.equals(stAct);
 	}
 
 	/**
