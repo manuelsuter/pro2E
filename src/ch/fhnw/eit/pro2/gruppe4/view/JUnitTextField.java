@@ -38,6 +38,7 @@ public class JUnitTextField extends JDoubleTextField {
 
 	/**
 	 * Erzeugt Textfeld.
+	 * 
 	 * @param text
 	 * @param columns
 	 * @param allowNegativeValues
@@ -48,6 +49,7 @@ public class JUnitTextField extends JDoubleTextField {
 
 	/**
 	 * Setzt Text im Textfeld.
+	 * 
 	 * @param value
 	 */
 	public void setText(double value) {
@@ -71,9 +73,10 @@ public class JUnitTextField extends JDoubleTextField {
 
 		super.setText(valueRounded + size[-unitIndex + 6]);
 	}
-	
+
 	/**
 	 * Setzt Text und Einheit in das Textfeld.
+	 * 
 	 * @param value
 	 * @param unit
 	 */

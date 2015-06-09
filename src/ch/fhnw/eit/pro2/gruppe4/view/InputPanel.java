@@ -67,9 +67,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 		add(new JLabel("<html><i>K<sub>s</sub></i></html>"), new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(10, 10, 5, 10), 0, 0));
 
-//		tfKs = new JDoubleTextField("2.0", 100, false);
 		tfKs = new JDoubleTextField("2.0", 100, false);
-
 		tfKs.addKeyListener(this);
 		tfKs.getDocument().addDocumentListener(this);
 		add(tfKs, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
@@ -82,8 +80,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 		add(new JLabel("<html><i>T<sub>u</sub></i></html>"), new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(10, 10, 5, 10), 0, 0));
 
-//		tfTu = new JDoubleTextField("1.1", 100, false);
-		tfTu = new JDoubleTextField("1.93e-3", 100, false);
+		tfTu = new JDoubleTextField("1.1", 100, false);
 		tfTu.addKeyListener(this);
 		tfTu.getDocument().addDocumentListener(this);
 		add(tfTu, new GridBagConstraints(1, 1, 1, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
@@ -98,8 +95,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 		add(new JLabel("<html><i>T<sub>g</sub></i></html>"), new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(10, 10, 5, 10), 0, 0));
 
-//		tfTg = new JDoubleTextField("8.9", 100, false);
-		tfTg = new JDoubleTextField("9.46e-3", 100, false);
+		tfTg = new JDoubleTextField("8.9", 100, false);
 
 		tfTg.addKeyListener(this);
 		tfTg.getDocument().addDocumentListener(this);
@@ -128,6 +124,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 	/**
 	 * Löst bei gedrücktem btBerechne calculate() und bei gedrücktem btClear
 	 * clear() des guiControllers auf.
+	 * 
 	 * @param e
 	 */
 
@@ -143,6 +140,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 	/**
 	 * Prüft ob checkBoxPlot selektiert ist. Ruft setVisibility() des
 	 * guiControllers auf und übergibt Status der CheckBox.
+	 * 
 	 * @param e
 	 */
 	public void itemStateChanged(ItemEvent e) {
@@ -157,6 +155,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 
 	/**
 	 * Wenn Enter-Taste gedrückt, wird calculate() vom guiController aufgerufen.
+	 * 
 	 * @param e
 	 */
 	public void keyPressed(KeyEvent e) {
@@ -167,6 +166,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 
 	/**
 	 * Kein Verwendung.
+	 * 
 	 * @param e
 	 */
 	public void keyReleased(KeyEvent e) {
@@ -174,6 +174,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 
 	/**
 	 * Kein Verwendung.
+	 * 
 	 * @param e
 	 */
 	public void keyTyped(KeyEvent e) {
@@ -181,6 +182,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 
 	/**
 	 * Erkennt geänderte in Textfelder und setzt Hinweis darüber in lbMessage.
+	 * 
 	 * @param e
 	 */
 	public void changedUpdate(DocumentEvent e) {
@@ -190,6 +192,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 
 	/**
 	 * Erkennt geänderte in Textfelder und setzt Hinweis darüber in lbMessage.
+	 * 
 	 * @param e
 	 */
 	public void insertUpdate(DocumentEvent e) {

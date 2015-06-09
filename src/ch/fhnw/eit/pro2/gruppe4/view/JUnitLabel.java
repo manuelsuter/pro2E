@@ -43,8 +43,10 @@ public class JUnitLabel extends JLabel {
 	public JUnitLabel() {
 		super();
 	}
+
 	/**
 	 * Konstruiert Label mit Text.
+	 * 
 	 * @param s
 	 */
 	public JUnitLabel(String s) {
@@ -53,6 +55,7 @@ public class JUnitLabel extends JLabel {
 
 	/**
 	 * Setzt Text auf das Label.
+	 * 
 	 * @param value
 	 */
 	public void setText(double value) {

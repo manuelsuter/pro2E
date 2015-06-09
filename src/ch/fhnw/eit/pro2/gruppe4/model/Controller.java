@@ -51,6 +51,7 @@ public abstract class Controller {
 	/**
 	 * Setzt die Input-Wert für die Berechnung ohne Phasenrandverschiebung. Löst
 	 * calculate() aus.
+	 * 
 	 * @param controllerTyp
 	 * @param path
 	 * @throws ControllerException

@@ -92,6 +92,7 @@ public class ControllerChooserPanel extends JPanel implements ActionListener {
 
 	/**
 	 * Löst calculate() des guiControllers auf.
+	 * 
 	 * @param e
 	 */
 	public void actionPerformed(ActionEvent e) {

@@ -41,6 +41,7 @@ public class Path {
 
 	/**
 	 * Setzt die Input-Werte.
+	 * 
 	 * @param Ks
 	 * @param Tu
 	 * @param Tg
@@ -53,8 +54,10 @@ public class Path {
 
 		calculate();
 	}
+
 	/**
 	 * Gibt die Inputwerte als double Array zurück.
+	 * 
 	 * @return inputValues
 	 */
 	public double[] getInputValues() {

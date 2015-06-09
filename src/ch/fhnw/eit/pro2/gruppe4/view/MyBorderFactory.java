@@ -16,6 +16,7 @@ import javax.swing.border.TitledBorder;
 public class MyBorderFactory {
 	/**
 	 * Setzt Rahmen mit Titel.
+	 * 
 	 * @param title
 	 * @return titled
 	 */
@@ -27,6 +28,7 @@ public class MyBorderFactory {
 
 	/**
 	 * Setzt Rahmen mit Titel und Farbe.
+	 * 
 	 * @param title
 	 * @param color
 	 * @return titled
@@ -37,9 +39,10 @@ public class MyBorderFactory {
 		titled.setTitleColor(color);
 		return titled;
 	}
-	
+
 	/**
 	 * Setzt Rahmen.
+	 * 
 	 * @return loweredetched
 	 */
 	public static Border createMyBorder() {

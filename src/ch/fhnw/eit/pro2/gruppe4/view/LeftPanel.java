@@ -42,6 +42,7 @@ public class LeftPanel extends JPanel {
 
 	/**
 	 * Konstruiert das LeftPanel.
+	 * 
 	 * @param controller
 	 */
 	public LeftPanel(GUIController controller) {
@@ -63,9 +64,10 @@ public class LeftPanel extends JPanel {
 		add(controllerValuePanel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.FIRST_LINE_START,
 				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 	}
-	
+
 	/**
 	 * Aktualisiert das Panel.
+	 * 
 	 * @param obs
 	 * @param obj
 	 */

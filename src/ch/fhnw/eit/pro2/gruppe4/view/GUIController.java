@@ -186,7 +186,7 @@ public class GUIController {
 					|| tpValues[1] > model.getClosedLoop()[1].getController().getControllerValues()[Controller.TvPOS]
 					|| tpValues[2] > model.getClosedLoop()[2].getController().getControllerValues()[Controller.TvPOS]) {
 				setExceptionLabel("Tp zu gross", Color.RED);
-			
+
 			} else {
 				model.setTp(tpValues, index);
 			}

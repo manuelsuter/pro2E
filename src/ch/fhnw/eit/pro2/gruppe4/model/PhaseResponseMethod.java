@@ -110,6 +110,7 @@ public class PhaseResponseMethod extends Controller {
 
 	/**
 	 * Setzt das Überschwingen.
+	 * 
 	 * @param overShoot
 	 */
 	public void setOverShoot(double overShoot) {
@@ -120,6 +121,7 @@ public class PhaseResponseMethod extends Controller {
 
 	/**
 	 * Setzt den Phasenrand.
+	 * 
 	 * @param phaseMargin
 	 * @throws ControllerException
 	 */
@@ -131,6 +133,7 @@ public class PhaseResponseMethod extends Controller {
 
 	/**
 	 * Setzt Krk.
+	 * 
 	 * @param Krk
 	 */
 	public void setKrk(double Krk) {
@@ -162,6 +165,7 @@ public class PhaseResponseMethod extends Controller {
 	/**
 	 * Löst createOmegaAxis() aus und berechnet Hs der Regelstrecke. Löst
 	 * calculateTnk() aus.
+	 * 
 	 * @throws ControllerException
 	 */
 	protected void calculate() throws ControllerException {

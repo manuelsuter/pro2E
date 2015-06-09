@@ -60,6 +60,7 @@ public class Application extends JFrame {
 	/**
 	 * Start-Methode der Applikation. Setzt die präferenzierte und minimale
 	 * Grösse der Applikation.
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {

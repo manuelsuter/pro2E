@@ -59,6 +59,7 @@ public class ControllerValuePanel extends JPanel {
 
 	/**
 	 * Übergibt obs und obj an das phaseResponsePanel und rulesOfThumbPanel.
+	 * 
 	 * @param obs
 	 * @param obj
 	 */

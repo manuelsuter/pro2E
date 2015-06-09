@@ -718,8 +718,8 @@ public class Calc {
 		return res;
 	}
 
-	//TODO: löschen
-	
+	// TODO: löschen
+
 	// public static final Complex[] roots(double[] p) {
 	// final LaguerreSolver solver = new LaguerreSolver(1e-15);
 	// double[] flip = new double[p.length];
