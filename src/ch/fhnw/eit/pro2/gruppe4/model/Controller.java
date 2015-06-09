@@ -112,10 +112,10 @@ public abstract class Controller {
 	 */
 	protected void setUTFcontrollerConf() {
 		Tp = Tv / 10;
-		
+
 		utf.setUTFPoly(Calc.utfControllerConf(controllerTyp, Kr, Tn, Tv, Tp));
 	}
-	
+
 	/**
 	 * Gibt Zähler der UTF in einem Double-Array als Polynom zurück.
 	 * 

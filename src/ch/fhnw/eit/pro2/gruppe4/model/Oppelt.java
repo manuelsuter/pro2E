@@ -34,8 +34,10 @@ public class Oppelt extends Controller {
 	}
 
 	/**
-	 * Berechnet Reglerwerte mittels Faustformel Oppelt und löst setUTFControllerConf() aus.
-	 * @throws ControllerException 
+	 * Berechnet Reglerwerte mittels Faustformel Oppelt und löst
+	 * setUTFControllerConf() aus.
+	 * 
+	 * @throws ControllerException
 	 */
 	protected void calculate() throws ControllerException {
 		double[] inputValues = path.getInputValues();

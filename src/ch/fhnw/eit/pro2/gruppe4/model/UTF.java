@@ -54,6 +54,7 @@ public class UTF {
 
 	/**
 	 * Setzt die UTF mittels Zähler- und Nennerpolynome.
+	 * 
 	 * @param zahPoly
 	 * @param nenPoly
 	 */
@@ -110,6 +111,7 @@ public class UTF {
 
 	/**
 	 * Setzt die UTF mittels faktorisiertem Zähler und Nenner.
+	 * 
 	 * @param zahFac
 	 * @param nenFac
 	 */
@@ -120,6 +122,7 @@ public class UTF {
 
 	/**
 	 * Setzt den faktorisierten Zähler aus einem Double-Array.
+	 * 
 	 * @param zahFac
 	 */
 	public void setZahFac(double[] zahFac) {
@@ -128,6 +131,7 @@ public class UTF {
 
 	/**
 	 * Setzt den faktorisierten Nenner aus einem Double-Array.
+	 * 
 	 * @param nenFac
 	 */
 	public void setNenFac(double[] nenFac) {

@@ -50,10 +50,10 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 	public static final String[] phaseMarginValues = { "0.1", "1", "2", "5", "10", "15", "20", "25", "30" };
 	int x = 0;
 
-
 	/**
-	 * Setzt GridBagLayout.
-	 * Besitzt die Slider und Labels für das Optimierungspanel.
+	 * Setzt GridBagLayout. Besitzt die Slider und Labels für das
+	 * Optimierungspanel.
+	 * 
 	 * @param guiController
 	 */
 	public OptimizationPanel(GUIController guiController) {
@@ -118,6 +118,7 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 
 	/**
 	 * Gibt das Überschwingen in Abhängigkeit der Slider-Position zurück.
+	 * 
 	 * @return
 	 */
 	public double getOverShoot() {
@@ -165,6 +166,7 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 
 	/**
 	 * Gibt den Phasenrand in Abhängikeit der Slider-Position zurück.
+	 * 
 	 * @return
 	 */
 	public double getPhaseMargin() {
@@ -215,97 +217,98 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 	}
 
 	/**
-	 * Erkennt Sliderbewegung und übergibt die Werte an setOverShoot() und setPhaseMargin() des guiControllers.
+	 * Erkennt Sliderbewegung und übergibt die Werte an setOverShoot() und
+	 * setPhaseMargin() des guiControllers.
 	 */
 	public void stateChanged(ChangeEvent e) {
 
 		if (e.getSource() == jsOverShoot) {
 			if (overShootSliderValue == jsOverShoot.getValue()) {
-				
+
 			} else {
 				overShootSliderValue = jsOverShoot.getValue();
 				switch (overShootSliderValue) {
 				case 0:
 					overShootValue = 0.1;
 					break;
-	
+
 				case 1:
 					overShootValue = 1.0;
 					break;
-	
+
 				case 2:
 					overShootValue = 2.0;
 					break;
-	
+
 				case 3:
 					overShootValue = 5.0;
 					break;
-	
+
 				case 4:
 					overShootValue = 10.0;
 					break;
-	
+
 				case 5:
 					overShootValue = 15.0;
 					break;
-	
+
 				case 6:
 					overShootValue = 20.0;
 					break;
-	
+
 				case 7:
 					overShootValue = 25.0;
 					break;
-	
+
 				default:
 					overShootValue = 30.0;
-					break;				
+					break;
 				}
 				guiController.setOverShoot(overShootValue);
 			}
 		}
 		if (e.getSource() == jsPhaseMargin) {
 			if (phaseMarginSliderValue == jsPhaseMargin.getValue()) {
-				
+
 			} else {
-				phaseMarginSliderValue = jsPhaseMargin.getValue();			
+				phaseMarginSliderValue = jsPhaseMargin.getValue();
 				switch (phaseMarginSliderValue) {
 				case 0:
 					phaseMarginOffset = 0.0;
 					break;
-	
+
 				case 2:
 					phaseMarginOffset = 10.0;
 					break;
-	
+
 				case 3:
 					phaseMarginOffset = 15.0;
 					break;
-	
+
 				case 4:
 					phaseMarginOffset = 20.0;
 					break;
-	
+
 				case 5:
 					phaseMarginOffset = 25.0;
 					break;
-	
+
 				case 6:
 					phaseMarginOffset = 30.0;
 					break;
-	
+
 				case 7:
 					phaseMarginOffset = 35.0;
 					break;
-	
+
 				case 8:
 					phaseMarginOffset = 40.0;
 					break;
-	
+
 				case 9:
 					phaseMarginOffset = 45.0;
 					break;
-	
+
 				default:
 					phaseMarginOffset = 5.0;
 					break;
@@ -313,17 +316,18 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 				guiController.setPhaseMargin(phaseMarginOffset);
 			}
 		}
-		// Prüft die Position des Optimierungs-Sliders und deaktiviert den 
+		// Prüft die Position des Optimierungs-Sliders und deaktiviert den
 		// Slider fürs Überschwingen, wenn die Optimierung gross ist.
 		if (jsPhaseMargin.getValue() >= 8) {
 			jsOverShoot.setEnabled(false);
-		}else{
+		} else {
 			jsOverShoot.setEnabled(true);
 		}
 	}
 
 	/**
 	 * Keine Verwendung bis dato.
+	 * 
 	 * @param obs
 	 * @param obj
 	 */

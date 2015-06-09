@@ -47,10 +47,9 @@ public class Plotter extends JPanel {
 			false, false, false);;
 	public XYLineAndShapeRenderer[] rendererArray = new XYLineAndShapeRenderer[8];
 	private XYPlot xyplot;
-	
+
 	/**
-	 * Setzt BorderLayout.
-	 * Definiert die Plot-Voreinstellungen.
+	 * Setzt BorderLayout. Definiert die Plot-Voreinstellungen.
 	 */
 	public Plotter() {
 		this.setLayout(new BorderLayout());
@@ -89,9 +88,10 @@ public class Plotter extends JPanel {
 		ChartPanel panel = new ChartPanel(chart);
 		add(panel);
 	}
-	
+
 	/**
 	 * Erzeugt series aus x- und y-Werten und fügt sie dem dataset hinzu.
+	 * 
 	 * @param x
 	 * @param y
 	 * @return dataset
@@ -110,6 +110,7 @@ public class Plotter extends JPanel {
 
 	/**
 	 * Fügt dem Plot das erzeugte dataset hinzu.
+	 * 
 	 * @param index
 	 * @param dataset
 	 */
@@ -120,17 +121,19 @@ public class Plotter extends JPanel {
 
 	/**
 	 * Setzt die Farbe des datasets auf dem Plot.
+	 * 
 	 * @param index
 	 */
 	public void setColor(int index) {
 		xyplot.getRendererForDataset(xyplot.getDataset(index)).setSeriesPaint(0, StepResponsePanel.plotColor[index]);
 	}
-	
+
 	/**
 	 * Setzt die x-Achse des Plots.
+	 * 
 	 * @param xAxis
 	 */
-	public void setxAxis(double xAxis){		
+	public void setxAxis(double xAxis) {
 		ValueAxis axis = xyplot.getDomainAxis();
 		axis.setRange(0, xAxis);
 	}

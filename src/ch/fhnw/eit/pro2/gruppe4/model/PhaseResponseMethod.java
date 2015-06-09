@@ -29,19 +29,15 @@ import ch.fhnw.eit.pro2.gruppe4.utilities.Calc;
 
 public class PhaseResponseMethod extends Controller {
 
-	public static final double OVERSHOOT0 = -1.8099064,
-			OVERSHOOT4_6 = -2.0001473, OVERSHOOT16_3 = -2.2427481,
+	public static final double OVERSHOOT0 = -1.8099064, OVERSHOOT4_6 = -2.0001473, OVERSHOOT16_3 = -2.2427481,
 			OVERSHOOT23_3 = -2.3561945;
 	private double phiU = OVERSHOOT0;
 	// Wenn der Phasenrand-Winkel in Abhängigkeit der Regelstrecken-Ordnung
 	// geändert werden soll, kann hier der Ordnung entsprechend der
 	// Maximal-Winkel für die Berechnung des logspace gewählt werden.
-	private static final double[] MINIMUMANGLEPI = new double[] { -3.1, -3.1,
-			-3.1, -3.1, -3.1, -3.1, -3.1, -3.1 };
-	private static final double[] MINIMUMANGLEPID = new double[] { -3.1, -3.1,
-			-3.1, -3.1, -3.1, -3.1, -3.1, -3.1 };
-	public static final double PHASEMARGINPI = -1.5707963,
-			PHASEMARGINPID = -2.3561802;
+	private static final double[] MINIMUMANGLEPI = new double[] { -3.1, -3.1, -3.1, -3.1, -3.1, -3.1, -3.1, -3.1 };
+	private static final double[] MINIMUMANGLEPID = new double[] { -3.1, -3.1, -3.1, -3.1, -3.1, -3.1, -3.1, -3.1 };
+	public static final double PHASEMARGINPI = -1.5707963, PHASEMARGINPID = -2.3561802;
 	private double phaseMargin;
 
 	private int omegaControllerIndex;
@@ -65,8 +61,7 @@ public class PhaseResponseMethod extends Controller {
 	 * @param path
 	 * @throws ControllerException
 	 */
-	public void setData(int controllerTyp, Path path)
-			throws ControllerException {
+	public void setData(int controllerTyp, Path path) throws ControllerException {
 		this.controllerTyp = controllerTyp;
 		this.path = path;
 		Tp = 0.0;
@@ -83,8 +78,7 @@ public class PhaseResponseMethod extends Controller {
 	 * @param Tp
 	 * @throws ControllerException
 	 */
-	public void setData(int controllerTyp, Path path, double Tp)
-			throws ControllerException {
+	public void setData(int controllerTyp, Path path, double Tp) throws ControllerException {
 		this.controllerTyp = controllerTyp;
 		this.path = path;
 		this.Tp = Tp;
@@ -101,8 +95,8 @@ public class PhaseResponseMethod extends Controller {
 	 * @param Tp
 	 * @throws ControllerException
 	 */
-	public void setData(int controllerTyp, Path path, double Tp,
-			double overShoot, double phaseMargin) throws ControllerException {
+	public void setData(int controllerTyp, Path path, double Tp, double overShoot, double phaseMargin)
+			throws ControllerException {
 		this.controllerTyp = controllerTyp;
 		this.path = path;
 		this.Tp = Tp;
@@ -131,13 +125,6 @@ public class PhaseResponseMethod extends Controller {
 	}
 
 	/**
-	 * Gibt den Phasenrand zurück.
-	 */
-	public double getPhaseMargin() {
-		return phaseMargin;
-	}
-
-	/**
 	 * Setzt Krk.
 	 * 
 	 * @param Krk
@@ -160,6 +147,15 @@ public class PhaseResponseMethod extends Controller {
 	}
 
 	/**
+	 * Gibt den Phasenrand zurück.
+	 * 
+	 * @return
+	 */
+	public double getPhaseMargin() {
+		return phaseMargin;
+	}
+
+	/**
 	 * Löst createOmegaAxis() aus und berechnet Hs der Regelstrecke. Löst
 	 * calculateTnk() aus.
 	 */
@@ -179,8 +175,7 @@ public class PhaseResponseMethod extends Controller {
 		}
 		for (int i = 0; i < Hs.length; i++) {
 			for (int n = 0; n < Ts.length; n++) {
-				Hs[i] = Hs[i].multiply(new Complex(1).divide(new Complex(1,
-						Ts[n] * omega[i])));
+				Hs[i] = Hs[i].multiply(new Complex(1).divide(new Complex(1, Ts[n] * omega[i])));
 			}
 		}
 		phiS = Calc.ComplexAngleUnwraped(Hs);
@@ -231,8 +226,7 @@ public class PhaseResponseMethod extends Controller {
 				Tnk = 1 / (omegaController * beta);
 
 				for (int i = 0; i < pointNumber; i++) {
-					Hr[i] = new Complex(1, omega[i] * Tnk).multiply(
-							new Complex(1, omega[i] * Tvk)).divide(
+					Hr[i] = new Complex(1, omega[i] * Tnk).multiply(new Complex(1, omega[i] * Tvk)).divide(
 							new Complex(0, omega[i] * Tnk));
 					Ho[i] = Hs[i].multiply(Hr[i]);
 				}
@@ -297,8 +291,7 @@ public class PhaseResponseMethod extends Controller {
 	 * Berechnet die reglerkonformen Attribute.
 	 */
 	private void calculateControllerConf() {
-		double[] controllerConf = Calc.controllerConform(Krk, Tnk, Tvk, Tp,
-				controllerTyp);
+		double[] controllerConf = Calc.controllerConform(Krk, Tnk, Tvk, Tp, controllerTyp);
 		Kr = controllerConf[0];
 		Tn = controllerConf[1];
 		Tv = controllerConf[2];
@@ -367,8 +360,7 @@ public class PhaseResponseMethod extends Controller {
 			phi = 0.0;
 			borderMin--;
 			for (int n = 0; n < Ts.length; n++) {
-				phi -= new Complex(1, Math.pow(10, borderMin) * Ts[n])
-						.getArgument();
+				phi -= new Complex(1, Math.pow(10, borderMin) * Ts[n]).getArgument();
 			}
 		}
 
@@ -377,13 +369,11 @@ public class PhaseResponseMethod extends Controller {
 			phi = 0.0;
 			borderMax++;
 			for (int n = 0; n < Ts.length; n++) {
-				phi -= new Complex(1, Math.pow(10, borderMax) * Ts[n])
-						.getArgument();
+				phi -= new Complex(1, Math.pow(10, borderMax) * Ts[n]).getArgument();
 			}
 		}
 
-		return Calc.logspace(borderMin, borderMax,
-				(borderMax - borderMin) * 5000);
+		return Calc.logspace(borderMin, borderMax, (borderMax - borderMin) * 5000);
 
 	}
 }

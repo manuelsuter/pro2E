@@ -47,6 +47,7 @@ public class MenuBar extends JMenuBar implements Observer, ActionListener {
 
 	/**
 	 * Baut Menubar.
+	 * 
 	 * @param controller
 	 * @param frame
 	 */

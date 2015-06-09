@@ -52,11 +52,11 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 	private JCheckBox checkBoxPlot;
 	public JLabel lbMessage, lbOrder;
 
-
 	/**
-	 * Setzt GridBagLayout.
-	 * Erzeugt die Textfelder der Eingabewerte sowie die Button btBerechne und btClear.
-	 * Besitzt die CheckBox checkBoxPlot zum ein- und ausblenden des rightPanels.
+	 * Setzt GridBagLayout. Erzeugt die Textfelder der Eingabewerte sowie die
+	 * Button btBerechne und btClear. Besitzt die CheckBox checkBoxPlot zum ein-
+	 * und ausblenden des rightPanels.
+	 * 
 	 * @param controller
 	 */
 	public InputPanel(GUIController controller) {
@@ -65,7 +65,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 		setBorder(MyBorderFactory.createMyBorder(" Schrittantwort vermessen "));
 
 		add(new JLabel("<html><i>K<sub>s</sub></i></html>"), new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
-				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(10, 10, 5, 10), 0, 0)); 
+				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(10, 10, 5, 10), 0, 0));
 
 		tfKs = new JDoubleTextField("2.0", 100, false);
 		tfKs.addKeyListener(this);
@@ -119,9 +119,10 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 				GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 		checkBoxPlot.addItemListener(this);
 	}
-	
+
 	/**
-	 * Löst bei gedrücktem btBerechne calculate() und bei gedrücktem btClear clear() des guiControllers auf.
+	 * Löst bei gedrücktem btBerechne calculate() und bei gedrücktem btClear
+	 * clear() des guiControllers auf.
 	 */
 
 	public void actionPerformed(ActionEvent e) {
@@ -134,7 +135,8 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 	}
 
 	/**
-	 * Prüft ob checkBoxPlot selektiert ist. Ruft setVisibility() des guiControllers auf und übergibt Status der CheckBox.
+	 * Prüft ob checkBoxPlot selektiert ist. Ruft setVisibility() des
+	 * guiControllers auf und übergibt Status der CheckBox.
 	 */
 	public void itemStateChanged(ItemEvent e) {
 		if (checkBoxPlot.isSelected() == false) {
@@ -182,7 +184,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 		lbMessage.setForeground(Color.magenta);
 		lbMessage.setText("Nicht berechnete Änderungen");
 	}
-	
+
 	/**
 	 * Erkennt geänderte in Textfelder und setzt Hinweis darüber in lbMessage.
 	 */
@@ -190,9 +192,10 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 		lbMessage.setForeground(Color.magenta);
 		lbMessage.setText("Nicht berechnete Änderungen");
 	}
-	
+
 	/**
 	 * Nicht in Verwendung bis dato.
+	 * 
 	 * @param obs
 	 * @param obj
 	 */

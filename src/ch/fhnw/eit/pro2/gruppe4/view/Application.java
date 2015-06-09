@@ -43,7 +43,8 @@ public class Application extends JFrame {
 	private MenuBar menuBar = new MenuBar(guiController, this);
 
 	/**
-	 * Fügt die View dem content pane hinzu und registriert die view als Observer des Models.
+	 * Fügt die View dem content pane hinzu und registriert die view als
+	 * Observer des Models.
 	 */
 	public void init() {
 		view.setJFrame(this);
@@ -57,7 +58,8 @@ public class Application extends JFrame {
 	}
 
 	/**
-	 * Start-Methode der Applikation. Setzt die präferenzierte und minimale Grösse der Applikation. 
+	 * Start-Methode der Applikation. Setzt die präferenzierte und minimale
+	 * Grösse der Applikation.
 	 */
 	public static void main(String[] args) {
 		Application frame = new Application();

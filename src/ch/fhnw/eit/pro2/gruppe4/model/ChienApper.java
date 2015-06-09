@@ -34,8 +34,10 @@ public class ChienApper extends Controller {
 	}
 
 	/**
-	 * Berechnet Reglerwerte mittels Faustformel Chien/Hrones/Reswick und löst setUTFControllerConf() aus.
-	 * @throws ControllerException 
+	 * Berechnet Reglerwerte mittels Faustformel Chien/Hrones/Reswick und löst
+	 * setUTFControllerConf() aus.
+	 * 
+	 * @throws ControllerException
 	 */
 	protected void calculate() throws ControllerException {
 		double[] inputValues = path.getInputValues();
@@ -50,16 +52,16 @@ public class ChienApper extends Controller {
 			Tn = 1.2 * Tg;
 			Tv = 0;
 			break;
-			
-		// PID Regler:	
+
+		// PID Regler:
 		case Controller.PID:
 			Kr = 0.6 * Tg / (Ks * Tu);
 			Tn = Tg;
 			Tv = 0.5 * Tu;
 			break;
-			
+
 		default:
-			throw new ControllerException();	
+			throw new ControllerException();
 		}
 		setUTFcontrollerConf();
 	}

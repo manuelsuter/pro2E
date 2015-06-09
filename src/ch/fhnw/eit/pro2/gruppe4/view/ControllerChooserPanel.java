@@ -48,8 +48,9 @@ public class ControllerChooserPanel extends JPanel implements ActionListener {
 	private ButtonGroup bGroup;
 
 	/**
-	 * Setzt GridBagLayout.
-	 * Baut eine ButtonGroup mit den Button zur Wahl von PI und PID.
+	 * Setzt GridBagLayout. Baut eine ButtonGroup mit den Button zur Wahl von PI
+	 * und PID.
+	 * 
 	 * @param guiController
 	 */
 	public ControllerChooserPanel(GUIController guiController) {

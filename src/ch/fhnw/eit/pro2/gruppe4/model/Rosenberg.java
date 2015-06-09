@@ -34,8 +34,10 @@ class Rosenberg extends Controller {
 	}
 
 	/**
-	 * Berechnet Reglerwerte mittels Faustformel Rosenberg und löst setUTFControllerConf() aus.
-	 * @throws ControllerException 
+	 * Berechnet Reglerwerte mittels Faustformel Rosenberg und löst
+	 * setUTFControllerConf() aus.
+	 * 
+	 * @throws ControllerException
 	 */
 	protected void calculate() throws ControllerException {
 		double[] inputValues = path.getInputValues();

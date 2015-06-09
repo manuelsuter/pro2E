@@ -70,8 +70,10 @@ public class Path {
 	public double[] getUTFNenPoly() {
 		return utf.getNenPoly();
 	}
+
 	/**
 	 * Gibt die Zeitkonstante t der Regel-Strecke zurück.
+	 * 
 	 * @return
 	 */
 	public double[] getT() {

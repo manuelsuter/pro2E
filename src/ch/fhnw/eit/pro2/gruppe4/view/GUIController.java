@@ -39,6 +39,7 @@ public class GUIController {
 
 	/**
 	 * Setzt Attribut model gleich model.
+	 * 
 	 * @param model
 	 */
 	public GUIController(Model model) {
@@ -46,21 +47,8 @@ public class GUIController {
 	}
 
 	/**
-	 * Löst setVisibility() der view aus und übergibt dich Sichtbarkeit des RightPanels mittels flag.
-	 * @param flag
-	 */
-	public void setVisibility(boolean flag) {
-		if (flag == false) {
-			view.setVisibility(flag, view.leftPanel.getSize());
-		}
-		if (flag == true) {
-			Dimension dimension = new Dimension(1200, 768);
-			view.setVisibility(flag, dimension);
-		}
-	}
-
-	/**
-	 * Überprüft die Benutzer-Eingaben auf Korrektheit. Löst setData() des models auf.
+	 * Überprüft die Benutzer-Eingaben auf Korrektheit. Löst setData() des
+	 * models auf.
 	 */
 	public void calculate() {
 		// Bringt die View in einen Default-Zustand
@@ -91,21 +79,20 @@ public class GUIController {
 
 			double phaseMarginOffset = view.rightPanel.optimizationPanel.getPhaseMargin();
 			double overShoot = view.rightPanel.optimizationPanel.getOverShoot();
-			
+
 			if ((Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText()) == 0.0)
 					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText()) == 0.0)
 					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText()) == 0.0)) {
 				setExceptionLabel("Werte dürfen nicht 0 sein!", Color.RED);
 			} else if ((Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText()) < 1e-9)
 					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText()) < 1e-9)
-					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText()) < 1e-9)){
-				setExceptionLabel("Eingabewerte zu klein (Minimum: 1e-9)", Color.RED);				
-			} else if((Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText()) > 1e6)
+					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText()) < 1e-9)) {
+				setExceptionLabel("Eingabewerte zu klein (Minimum: 1e-9)", Color.RED);
+			} else if ((Double.parseDouble(view.leftPanel.inputPanel.tfKs.getText()) > 1e6)
 					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTu.getText()) > 1e6)
-					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText()) > 1e6)){
-				setExceptionLabel("Eingabewerte zu gross (Maximum: 1e6)", Color.RED);				
-			}
-			else {
+					|| (Double.parseDouble(view.leftPanel.inputPanel.tfTg.getText()) > 1e6)) {
+				setExceptionLabel("Eingabewerte zu gross (Maximum: 1e6)", Color.RED);
+			} else {
 				int controllerTyp;
 
 				if (view.leftPanel.controllerChooserPanel.btPI.isSelected() == true) {
@@ -113,15 +100,16 @@ public class GUIController {
 				} else {
 					controllerTyp = Controller.PID;
 				}
-				// Überprüft die Streckenordnung und deaktiviert den PID Regler, wenn Ordnung < 3 ist.
-				if (Tu/Tg <= 0.103638) {
+				// Überprüft die Streckenordnung und deaktiviert den PID Regler,
+				// wenn Ordnung < 3 ist.
+				if (Tu / Tg <= 0.103638) {
 					controllerTyp = Controller.PI;
 					setExceptionLabel("Für Strecken-Ordnung < 3 nur PI möglich!", Color.MAGENTA);
 					view.leftPanel.controllerChooserPanel.btPID.setEnabled(false);
 					view.leftPanel.controllerChooserPanel.btPI.setSelected(true);
 				}
 				model.setData(Ks, Tu, Tg, controllerTyp, tpValues, overShoot, phaseMarginOffset);
-				controllerCalculated = true;			
+				controllerCalculated = true;
 			}
 
 			view.leftPanel.inputPanel.lbOrder.setText("        Strecken-Ordnung: " + model.getPath().getT().length);
@@ -132,11 +120,46 @@ public class GUIController {
 			setExceptionLabel(e.getLocalizedMessage(), Color.RED);
 		} catch (ControllerException e) {
 			setExceptionLabel(e.getLocalizedMessage(), Color.RED);
-		} 
+		}
 	}
 
 	/**
-	 * Überprüft die Benutzereingaben auf Richtigkeit und löst setTp() des models auf.
+	 * Löscht alle Benutzereingaben und die Plots und setzt das GUI zurück.
+	 */
+	public void clear() {
+		view.leftPanel.inputPanel.tfKs.setText("");
+		view.leftPanel.inputPanel.tfTu.setText("");
+		view.leftPanel.inputPanel.tfTg.setText("");
+		view.leftPanel.controllerValuePanel.phaseResponsePanel.setInitialValues();
+		view.leftPanel.controllerValuePanel.rulesOfThumbPanel.setInitialValues();
+		view.leftPanel.controllerChooserPanel.btPID.setEnabled(true);
+		view.rightPanel.stepResponsePanel.deleteDatasets();
+		view.leftPanel.inputPanel.lbOrder.setText("        Strecken-Ordnung:   ");
+		view.leftPanel.inputPanel.lbMessage.setText(" ");
+
+		controllerCalculated = false;
+	}
+
+	/**
+	 * Löst setVisibility() der view aus und übergibt dich Sichtbarkeit des
+	 * RightPanels mittels flag.
+	 * 
+	 * @param flag
+	 */
+	public void setVisibility(boolean flag) {
+		if (flag == false) {
+			view.setVisibility(flag, view.leftPanel.getSize());
+		}
+		if (flag == true) {
+			Dimension dimension = new Dimension(1200, 768);
+			view.setVisibility(flag, dimension);
+		}
+	}
+
+	/**
+	 * Überprüft die Benutzereingaben auf Richtigkeit und löst setTp() des
+	 * models auf.
+	 * 
 	 * @param index
 	 */
 	public void setTp(int index) {
@@ -169,24 +192,8 @@ public class GUIController {
 	}
 
 	/**
-	 * Löscht alle Benutzereingaben und die Plots und setzt das GUI zurück.
-	 */
-	public void clear() {
-		view.leftPanel.inputPanel.tfKs.setText("");
-		view.leftPanel.inputPanel.tfTu.setText("");
-		view.leftPanel.inputPanel.tfTg.setText("");
-		view.leftPanel.controllerValuePanel.phaseResponsePanel.setInitialValues();
-		view.leftPanel.controllerValuePanel.rulesOfThumbPanel.setInitialValues();
-		view.leftPanel.controllerChooserPanel.btPID.setEnabled(true);
-		view.rightPanel.stepResponsePanel.deleteDatasets();
-		view.leftPanel.inputPanel.lbOrder.setText("        Strecken-Ordnung:   ");
-		view.leftPanel.inputPanel.lbMessage.setText(" ");
-
-		controllerCalculated = false;
-	}
-
-	/**
 	 * Übergibt einen String und Farbe an das JLabel lbMessage des inputPanels.
+	 * 
 	 * @param exception
 	 * @param color
 	 */
@@ -197,6 +204,7 @@ public class GUIController {
 
 	/**
 	 * Übergibt den Phasenrand an setPhaseMargin() des models.
+	 * 
 	 * @param phaseMargin
 	 */
 	public void setPhaseMargin(double phaseMargin) {
@@ -207,6 +215,7 @@ public class GUIController {
 
 	/**
 	 * Übergibt das Überschwingen an setOverShoot() des models.
+	 * 
 	 * @param overShoot
 	 */
 	public void setOverShoot(double overShoot) {
@@ -217,6 +226,7 @@ public class GUIController {
 
 	/**
 	 * Setzt Attribut view gleich view.
+	 * 
 	 * @param view
 	 */
 	public void setView(View view) {

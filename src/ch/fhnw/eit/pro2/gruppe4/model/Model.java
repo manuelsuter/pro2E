@@ -35,7 +35,7 @@ public class Model extends Observable {
 	 * Faustormeln.
 	 */
 	public Model() {
-		//closedLoops für Phasengang-Methode
+		// closedLoops für Phasengang-Methode
 		for (int i = 0; i < closedLoop.length - 5; i++) {
 			closedLoop[i] = new ClosedLoop(0);
 		}
@@ -46,8 +46,9 @@ public class Model extends Observable {
 	}
 
 	/**
-	 * Setzt alle für die Berechnung notwenidigen Werte.
-	 * Löst notifyObservers() aus.	
+	 * Setzt alle für die Berechnung notwenidigen Werte. Löst notifyObservers()
+	 * aus.
+	 * 
 	 * @param Ks
 	 * @param Tu
 	 * @param Tg
@@ -58,48 +59,40 @@ public class Model extends Observable {
 	 * @throws SaniException
 	 * @throws ControllerException
 	 */
-	public void setData(double Ks, double Tu, double Tg, int controllerTyp,
-			double[] Tp, double overShoot, double phaseMarginOffset)
-			throws SaniException, ControllerException {
+	public void setData(double Ks, double Tu, double Tg, int controllerTyp, double[] Tp, double overShoot,
+			double phaseMarginOffset) throws SaniException, ControllerException {
 		path.setData(Ks, Tu, Tg);
 		double phaseMargin, phaseMarginPos, phaseMarginNeg;
 
 		switch (controllerTyp) {
 		case Controller.PI:
 			phaseMargin = PhaseResponseMethod.PHASEMARGINPI;
-			phaseMarginPos = phaseMargin
-					+ (phaseMarginOffset / 180 * 2 * Math.PI);
-			phaseMarginNeg = phaseMargin
-					- (phaseMarginOffset / 180 * 2 * Math.PI);
+			phaseMarginPos = phaseMargin + (phaseMarginOffset / 180 * 2 * Math.PI);
+			phaseMarginNeg = phaseMargin - (phaseMarginOffset / 180 * 2 * Math.PI);
 			break;
 		case Controller.PID:
 			phaseMargin = PhaseResponseMethod.PHASEMARGINPID;
-			phaseMarginPos = phaseMargin
-					+ (phaseMarginOffset / 180 * 2 * Math.PI);
-			phaseMarginNeg = phaseMargin
-					- (phaseMarginOffset / 180 * 2 * Math.PI);
+			phaseMarginPos = phaseMargin + (phaseMarginOffset / 180 * 2 * Math.PI);
+			phaseMarginNeg = phaseMargin - (phaseMarginOffset / 180 * 2 * Math.PI);
 			break;
 
 		default:
 			throw new ControllerException();
 		}
 
-		closedLoop[1].setData(controllerTyp, path, Tp[1], overShoot,
-				phaseMargin);
+		closedLoop[1].setData(controllerTyp, path, Tp[1], overShoot, phaseMargin);
 		double[] fsN = closedLoop[1].getFsN();
 
-		closedLoop[0].setData(controllerTyp, path, Tp[0], overShoot,
-				phaseMarginPos, fsN);
+		closedLoop[0].setData(controllerTyp, path, Tp[0], overShoot, phaseMarginPos, fsN);
 
-		closedLoop[2].setData(controllerTyp, path, Tp[2], overShoot,
-				phaseMarginNeg, fsN);
+		closedLoop[2].setData(controllerTyp, path, Tp[2], overShoot, phaseMarginNeg, fsN);
 
 		for (int i = closedLoop.length - 4; i < closedLoop.length; i++) {
 			closedLoop[i].setData(controllerTyp, path);
 		}
 
 		notifyObservers();
-	
+
 	}
 
 	/**
@@ -135,27 +128,33 @@ public class Model extends Observable {
 		try {
 			switch (closedLoop[0].getController().getControllerTyp()) {
 			case Controller.PI:
-				closedLoop[0].setPhaseMargin(PhaseResponseMethod.PHASEMARGINPI + (phaseMarginOffset / 180 * 2 * Math.PI));
-				closedLoop[2].setPhaseMargin(PhaseResponseMethod.PHASEMARGINPI - (phaseMarginOffset / 180 * 2 * Math.PI));
+				closedLoop[0].setPhaseMargin(PhaseResponseMethod.PHASEMARGINPI
+						+ (phaseMarginOffset / 180 * 2 * Math.PI));
+				closedLoop[2].setPhaseMargin(PhaseResponseMethod.PHASEMARGINPI
+						- (phaseMarginOffset / 180 * 2 * Math.PI));
 				break;
 			case Controller.PID:
-				closedLoop[0].setPhaseMargin(PhaseResponseMethod.PHASEMARGINPID + (phaseMarginOffset / 180 * 2 * Math.PI));
-				closedLoop[2].setPhaseMargin(PhaseResponseMethod.PHASEMARGINPID - (phaseMarginOffset / 180 * 2 * Math.PI));
+				closedLoop[0].setPhaseMargin(PhaseResponseMethod.PHASEMARGINPID
+						+ (phaseMarginOffset / 180 * 2 * Math.PI));
+				closedLoop[2].setPhaseMargin(PhaseResponseMethod.PHASEMARGINPID
+						- (phaseMarginOffset / 180 * 2 * Math.PI));
 				break;
 
 			default:
 				break;
 			}
 			notifyObservers();
-			
+
 		} catch (ControllerException e) {
-			// kann nicht auftreten, da nur PI- und PID- Regler gewählt werden kann.
+			// kann nicht auftreten, da nur PI- und PID- Regler gewählt werden
+			// kann.
 		}
-		
+
 	}
 
 	/**
 	 * Gibt den gschlossenen Regelkreis zurück.
+	 * 
 	 * @return
 	 */
 	public ClosedLoop[] getClosedLoop() {
@@ -164,13 +163,13 @@ public class Model extends Observable {
 
 	/**
 	 * Gibt die Strecke zurück.
+	 * 
 	 * @return
 	 */
 	public Path getPath() {
 		return path;
 	}
-	
-	
+
 	/**
 	 * Informiert die Observer über Änderung. Löst setChanged() aus.
 	 */

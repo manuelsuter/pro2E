@@ -43,7 +43,7 @@ public class JDoubleTextField extends JTextField implements FocusListener {
 		setColumns(columns);
 		this.allowNegativeValues = allowNegativeValues;
 		addFocusListener(this);
-//		addMouseListener(this);
+		// addMouseListener(this);
 	}
 
 	protected Document createDefaultModel() {

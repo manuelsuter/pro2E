@@ -52,9 +52,9 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 	public static final String[] unitName = { "a", "f", "p", "n", "u", "m", "", "k", "M", "G", "T", "P", "E" };
 
 	/**
-	 * Setzt das GridBagLayout.
-	 * Baut das phaseRepsonseMethodPanel zur Ausgabe der Reglerwerte.
-	 * Setzt mittels setIntialValues() Initialisierungswerte.
+	 * Setzt das GridBagLayout. Baut das phaseRepsonseMethodPanel zur Ausgabe
+	 * der Reglerwerte. Setzt mittels setIntialValues() Initialisierungswerte.
+	 * 
 	 * @param controller
 	 */
 	public PhaseResponseMethodPanel(GUIController controller) {
@@ -90,7 +90,7 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 			tfTp[i].addKeyListener(this);
 			add(tfTp[i], new GridBagConstraints(4, i + 1, 1, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
 					GridBagConstraints.HORIZONTAL, new Insets(5, 10, 5, 10), 0, 0));
-			
+
 			lbS[i] = new JUnitLabel("s");
 			add(lbS[i], new GridBagConstraints(6, i + 1, 1, 1, 0.0, 0.0, GridBagConstraints.LINE_START,
 					GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
@@ -103,7 +103,6 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 		add(lbTp = new JUnitLabel("<html><i>T<sub>p</sub></i></html>"), new GridBagConstraints(4, 0, 1, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(5, 10, 9, 10), 0, 0));
 
-		
 		add(new JUnitLabel(), new GridBagConstraints(6, 0, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER,
 				GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 
@@ -131,8 +130,9 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 	}
 
 	/**
-	 * Castet obs zu einem Model.
-	 * Setzt die aktuellen Regler-Werte auf die Labels und regelt die Sichtbarkeit der einzelnen Komponenten.
+	 * Castet obs zu einem Model. Setzt die aktuellen Regler-Werte auf die
+	 * Labels und regelt die Sichtbarkeit der einzelnen Komponenten.
+	 * 
 	 * @param obs
 	 * @param obj
 	 */
@@ -174,8 +174,9 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 		}
 	}
 
-	/** 
-	 * Setzt die Werte für Tp mittels setTp() des guiController, sobald mit Enter bestätigt.
+	/**
+	 * Setzt die Werte für Tp mittels setTp() des guiController, sobald mit
+	 * Enter bestätigt.
 	 */
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == 10) {

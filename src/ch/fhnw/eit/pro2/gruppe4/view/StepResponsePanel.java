@@ -56,8 +56,8 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 	private XYDataset[] datasetArray = new XYDataset[7];
 
 	/**
-	 * Setzt Border-Layout.
-	 * Platziert Plot und CheckBoxen.
+	 * Setzt Border-Layout. Platziert Plot und CheckBoxen.
+	 * 
 	 * @param controller
 	 */
 	public StepResponsePanel(GUIController controller) {
@@ -86,7 +86,7 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 
 		// CheckBoxen der Faustformeln.
 		for (int i = 3; i < checkBox.length; i++) {
-			checkBox[i] = new JCheckBox(Controller.calculationTypName[i-2], false);
+			checkBox[i] = new JCheckBox(Controller.calculationTypName[i - 2], false);
 			checkBox[i].setForeground(plotColor[i]);
 			checkBoxPanel.add(checkBox[i]);
 			checkBox[i].addItemListener(this);
@@ -97,8 +97,8 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 	}
 
 	/**
-	 * Füllt die Datasets des Plots mit aktuellen Werten.
-	 * Fügt die Datasets dem stepResponsePlot hinzu.
+	 * Füllt die Datasets des Plots mit aktuellen Werten. Fügt die Datasets dem
+	 * stepResponsePlot hinzu.
 	 */
 	private void plotStepResponse() {
 		// Datasets erstellen und schreiben.
@@ -121,7 +121,7 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 		}
 		stepResponsePlot.repaint();
 	}
-	
+
 	/**
 	 * Setzt die Plot-Sichtbarkeit auf false.
 	 */
@@ -130,6 +130,7 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 			stepResponsePlot.rendererArray[i].setSeriesLinesVisible(0, false);
 		}
 	}
+
 	/**
 	 * Überschreibt alle datasets des stepResponsePlot mit null.
 	 */
@@ -140,8 +141,8 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 	}
 
 	/**
-	 * Wird aktiviert bei Statusänderung einer CheckBox.
-	 * Setzt die Sichtbarkeit der einzelnen Plots, je nach Status der jeweiligen CheckBox.
+	 * Wird aktiviert bei Statusänderung einer CheckBox. Setzt die Sichtbarkeit
+	 * der einzelnen Plots, je nach Status der jeweiligen CheckBox.
 	 */
 	public void itemStateChanged(ItemEvent e) {
 
@@ -154,10 +155,10 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 		}
 	}
 
-
 	/**
-	 * Castet obs als Model und weisst es model zu.
-	 * Erzeugt ein 3-dimensionales double-Array und speichert darin die aktuellen yt-Werte.
+	 * Castet obs als Model und weisst es model zu. Erzeugt ein 3-dimensionales
+	 * double-Array und speichert darin die aktuellen yt-Werte.
+	 * 
 	 * @param obs
 	 * @param obj
 	 */
@@ -168,7 +169,7 @@ public class StepResponsePanel extends JPanel implements ItemListener {
 		for (int i = 0; i < ytValues.length; i++) {
 			ytValues[i] = model.getClosedLoop()[i].getStepResponse();
 		}
-		stepResponsePlot.setxAxis(ytValues[1][1][ytValues[1][1].length-1]);
+		stepResponsePlot.setxAxis(ytValues[1][1][ytValues[1][1].length - 1]);
 		plotStepResponse();
 	}
 

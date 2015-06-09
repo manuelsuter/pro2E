@@ -281,7 +281,6 @@ public class ClosedLoop {
 				pointnumber *= 8;
 			}
 			fsNotGiven = false;
-			System.out.println("pointnumber" + pointnumber);
 		}
 
 		yt = Calc.schrittIfft(zah, nen, fs, pointnumber);
@@ -291,10 +290,6 @@ public class ClosedLoop {
 	 * Optimiert das Überschwingen anhand des gewählten Überschwingens.
 	 */
 	private void overShootOptimization() {
-
-		// TODO weg
-		// Zeitmessung
-		double zstVorher = System.currentTimeMillis();
 
 		PhaseResponseMethod phaseResponseMethod = (PhaseResponseMethod) controller;
 		double max = yt[0][Calc.max(yt[0])];
@@ -363,10 +358,5 @@ public class ClosedLoop {
 				Krk = phaseResponseMethod.getControllerValues()[PhaseResponseMethod.KrkPOS];
 			}
 		}
-		// TODO weg
-		// Zeitmessung
-		double zstNachher = System.currentTimeMillis();
-		System.out.println("Anzahl Durchläufe " + count);
-		System.out.println("Time" + (zstNachher - zstVorher));
 	}
 }

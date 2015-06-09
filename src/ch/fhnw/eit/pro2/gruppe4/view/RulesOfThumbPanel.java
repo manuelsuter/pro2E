@@ -45,9 +45,9 @@ public class RulesOfThumbPanel extends JPanel {
 	public static final String[] unitName = { "a", "f", "p", "n", "u", "m", "", "k", "M", "G", "T", "P", "E" };
 
 	/**
-	 * Setzt GridBagLayout.
-	 * Baut das rulesOfThumbPanel zur Ausgabe der Reglerwerte.
-	 * Setzt mittels setIntialValues() Initialisierungswerte.
+	 * Setzt GridBagLayout. Baut das rulesOfThumbPanel zur Ausgabe der
+	 * Reglerwerte. Setzt mittels setIntialValues() Initialisierungswerte.
+	 * 
 	 * @param controller
 	 */
 	public RulesOfThumbPanel(GUIController controller) {
@@ -111,8 +111,9 @@ public class RulesOfThumbPanel extends JPanel {
 	}
 
 	/**
-	 * Castet obs zu einem Model.
-	 * Setzt die aktuellen Regler-Werte auf die Labels und regelt die Sichtbarkeit der einzelnen Komponenten.
+	 * Castet obs zu einem Model. Setzt die aktuellen Regler-Werte auf die
+	 * Labels und regelt die Sichtbarkeit der einzelnen Komponenten.
+	 * 
 	 * @param obs
 	 * @param obj
 	 */
@@ -123,11 +124,12 @@ public class RulesOfThumbPanel extends JPanel {
 
 		for (int i = 0; i < closedLoop.length - 3; i++) {
 			double[] controllerValues = closedLoop[i + 3].getController().getControllerValues();
-			lbMethod[i + 1].setText("" + Controller.calculationTypName[(int) controllerValues[Controller.CALCULATIONTYPPOS]]);
-			
+			lbMethod[i + 1].setText(""
+					+ Controller.calculationTypName[(int) controllerValues[Controller.CALCULATIONTYPPOS]]);
+
 			lbKr[i + 1].setText(controllerValues[Controller.KrPOS]);
-			lbTn[i + 1].setText(controllerValues[Controller.TnPOS],"s");
-			lbTv[i + 1].setText(controllerValues[Controller.TvPOS],"s");
+			lbTn[i + 1].setText(controllerValues[Controller.TnPOS], "s");
+			lbTv[i + 1].setText(controllerValues[Controller.TvPOS], "s");
 		}
 
 		if (model.getClosedLoop()[0].getController().getControllerTyp() != Controller.PID) {
