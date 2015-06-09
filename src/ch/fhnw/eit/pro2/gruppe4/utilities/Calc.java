@@ -62,7 +62,7 @@ public class Calc {
 	 * @param startValue
 	 * @param endValue
 	 * @param count
-	 * @return logspace Array
+	 * @return array
 	 */
 	public static final double[] logspace(double startValue, double endValue, int count) {
 
@@ -110,7 +110,7 @@ public class Calc {
 	 * Sucht den ersten Höchstwert von x und gibt dessen Index zurück.
 	 * 
 	 * @param array
-	 * @return
+	 * @return Index des Höchstwertes
 	 */
 	public static final int max(double[] array) {
 
@@ -131,7 +131,7 @@ public class Calc {
 	 * @param x
 	 * @param y
 	 * @param z
-	 * @return res
+	 * @return array
 	 */
 
 	public static final double[] concat(double x[], double y[], double z[]) {
@@ -158,7 +158,7 @@ public class Calc {
 	 * @param x
 	 * @param y
 	 * @param z
-	 * @return
+	 * @return array
 	 */
 
 	public static final Complex[] concat(Complex[] x, Complex[] y, Complex[] z) {
@@ -187,7 +187,7 @@ public class Calc {
 	 * @param start
 	 * @param stepsize
 	 * @param stop
-	 * @return
+	 * @return array
 	 */
 
 	public static final double[] colonColon(double[] x, int start, int stepsize, int stop) {
@@ -210,7 +210,7 @@ public class Calc {
 	 * @param start
 	 * @param stepsize
 	 * @param stop
-	 * @return
+	 * @return werte des Array x
 	 */
 
 	public static final Complex[] colonColon(Complex[] x, int start, int stepsize, int stop) {
@@ -231,7 +231,7 @@ public class Calc {
 	 * 
 	 * @param a
 	 * @param b
-	 * @return
+	 * @return array
 	 */
 	public static final double[] addArrayReverse(double[] a, double[] b) {
 
@@ -251,7 +251,7 @@ public class Calc {
 	 * @param Tvk
 	 * @param Tp
 	 * @param controllerTyp
-	 * @return
+	 * @return Regelkonforme Werte
 	 */
 	public static final double[] controllerConform(double Krk, double Tnk, double Tvk, double Tp, int controllerTyp) {
 
@@ -278,7 +278,7 @@ public class Calc {
 	 * @param Tv
 	 * @param Tp
 	 * @param controllerTyp
-	 * @return
+	 * @return Bodekondorme Werte
 	 */
 	public static final double[] bodeConform(double Kr, double Tn, double Tv, double Tp, int controllerTyp) {
 
@@ -381,7 +381,7 @@ public class Calc {
 	 * 
 	 * @param x
 	 *            double[]
-	 * @return res
+	 * @return Ausmultipliziertes Polynom.
 	 */
 
 	public static final double[] poly(double[] x) {
@@ -622,7 +622,7 @@ public class Calc {
 	 * @param x
 	 * @param y
 	 * @param v
-	 * @return
+	 * @return Interpolationswerte
 	 */
 
 	public static final double spline(double[] x, double[] y, double v) {
@@ -643,7 +643,7 @@ public class Calc {
 	 * Berechnet Nullstellen.
 	 * 
 	 * @param poly
-	 * @return
+	 * @return Nullstellen
 	 */
 
 	public static final Complex[] roots(double[] poly) {
@@ -718,6 +718,8 @@ public class Calc {
 		return res;
 	}
 
+	//TODO: löschen
+	
 	// public static final Complex[] roots(double[] p) {
 	// final LaguerreSolver solver = new LaguerreSolver(1e-15);
 	// double[] flip = new double[p.length];
@@ -757,14 +759,12 @@ public class Calc {
 	// }
 
 	/**
-	 * <pre>
 	 * Prüft ob exp und act, auf n signifikante Stellen, übereinstimmen.
-	 * </pre>
 	 * 
 	 * @param exp
 	 * @param act
 	 * @param n
-	 * @return
+	 * @return flag
 	 */
 	public static boolean assertEq(double exp, double act, int n) {
 		String fmt = "0.";
@@ -786,7 +786,7 @@ public class Calc {
 	 *            = Polynom
 	 * @param a
 	 *            = Stelle
-	 * @return
+	 * @return Wert des Polynoms
 	 */
 	public static final double polyval(double[] poly, double a) {
 		if (Math.abs(a) < 1e-14)
@@ -806,7 +806,7 @@ public class Calc {
 	 * 
 	 * @param poly
 	 * @param a
-	 * @return
+	 * @return Wert des Polynoms
 	 */
 	public static final Complex polyval(double[] poly, Complex a) {
 		if (a.abs() < 1e-14)
@@ -827,7 +827,7 @@ public class Calc {
 	 * 
 	 * @param Tu
 	 * @param Tg
-	 * @return
+	 * @return Zeitkonstante t
 	 */
 
 	public static final double[] sani(double Tu, double Tg) throws SaniException {
@@ -1065,7 +1065,7 @@ public class Calc {
 	 * 
 	 * @param a
 	 * @param x
-	 * @return
+	 * @return potenzierte komplexe Zahl.
 	 */
 	public static final Complex pow(Complex a, double x) {
 		return new Complex(Math.pow(a.abs(), x) * Math.cos(x * a.getArgument()), Math.pow(a.abs(), x)
@@ -1076,7 +1076,7 @@ public class Calc {
 	 * Berechnet den komplexen Winkel ohne 2*pi Sprünge.
 	 * 
 	 * @param a
-	 * @return
+	 * @return komplexer Winkel
 	 */
 	public static final double[] ComplexAngleUnwraped(Complex[] a) {
 		double[] b = new double[a.length];
@@ -1092,7 +1092,7 @@ public class Calc {
 	 * 
 	 * @param previousAngle
 	 * @param angle
-	 * @return
+	 * @return komplexer Winkel ohne Sprünge.
 	 */
 	public static final double unwrap(double previousAngle, double angle) {
 		// Angle wrap/Sprünge hinzufügen

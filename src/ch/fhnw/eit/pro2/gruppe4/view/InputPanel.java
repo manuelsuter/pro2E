@@ -123,6 +123,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 	/**
 	 * Löst bei gedrücktem btBerechne calculate() und bei gedrücktem btClear
 	 * clear() des guiControllers auf.
+	 * @param e
 	 */
 
 	public void actionPerformed(ActionEvent e) {
@@ -137,6 +138,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 	/**
 	 * Prüft ob checkBoxPlot selektiert ist. Ruft setVisibility() des
 	 * guiControllers auf und übergibt Status der CheckBox.
+	 * @param e
 	 */
 	public void itemStateChanged(ItemEvent e) {
 		if (checkBoxPlot.isSelected() == false) {
@@ -150,6 +152,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 
 	/**
 	 * Wenn Enter-Taste gedrückt, wird calculate() vom guiController aufgerufen.
+	 * @param e
 	 */
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == 10) {
@@ -159,18 +162,21 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 
 	/**
 	 * Kein Verwendung.
+	 * @param e
 	 */
 	public void keyReleased(KeyEvent e) {
 	}
 
 	/**
 	 * Kein Verwendung.
+	 * @param e
 	 */
 	public void keyTyped(KeyEvent e) {
 	}
 
 	/**
 	 * Erkennt geänderte in Textfelder und setzt Hinweis darüber in lbMessage.
+	 * @param e
 	 */
 	public void changedUpdate(DocumentEvent e) {
 		lbMessage.setForeground(Color.magenta);
@@ -179,6 +185,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 
 	/**
 	 * Erkennt geänderte in Textfelder und setzt Hinweis darüber in lbMessage.
+	 * @param e
 	 */
 	public void insertUpdate(DocumentEvent e) {
 		lbMessage.setForeground(Color.magenta);
@@ -187,6 +194,7 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 
 	/**
 	 * Erkennt geänderte in Textfelder und setzt Hinweis darüber in lbMessage.
+	 * param e
 	 */
 	public void removeUpdate(DocumentEvent e) {
 		lbMessage.setForeground(Color.magenta);

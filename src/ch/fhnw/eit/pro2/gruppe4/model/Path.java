@@ -33,9 +33,19 @@ public class Path {
 	private UTF utf = new UTF();
 	private double[] t;
 
+	/**
+	 * Konstruiert den Path.
+	 */
 	public Path() {
 	}
 
+	/**
+	 * Setzt die Input-Werte.
+	 * @param Ks
+	 * @param Tu
+	 * @param Tg
+	 * @throws SaniException
+	 */
 	public void setData(double Ks, double Tu, double Tg) throws SaniException {
 		this.Ks = Ks;
 		this.Tu = Tu;
@@ -43,7 +53,10 @@ public class Path {
 
 		calculate();
 	}
-
+	/**
+	 * Gibt die Inputwerte als double Array zurück.
+	 * @return inputValues
+	 */
 	public double[] getInputValues() {
 		double[] inputValues = new double[3];
 		inputValues[0] = Ks;

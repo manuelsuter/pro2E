@@ -84,6 +84,8 @@ public class View extends JPanel implements Observer {
 
 	/**
 	 * Übergibt obs und obj an das leftPanel und rightPanel.
+	 * @param obs
+	 * @param obj
 	 */
 	public void update(Observable obs, Object obj) {
 		leftPanel.update(obs, obj);

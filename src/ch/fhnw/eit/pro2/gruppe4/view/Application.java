@@ -60,11 +60,12 @@ public class Application extends JFrame {
 	/**
 	 * Start-Methode der Applikation. Setzt die präferenzierte und minimale
 	 * Grösse der Applikation.
+	 * @param args
 	 */
 	public static void main(String[] args) {
 		Application frame = new Application();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Reglerdimensionierung nach Phasengang-Methode");
+		frame.setTitle("baCON - the clever controller");
 		ImageIcon icon = Utility.loadResourceIcon("PID.png");
 		frame.setIconImage(icon.getImage());
 		frame.setResizable(true);

@@ -36,10 +36,20 @@ public class JUnitTextField extends JDoubleTextField {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Erzeugt Textfeld.
+	 * @param text
+	 * @param columns
+	 * @param allowNegativeValues
+	 */
 	public JUnitTextField(String text, int columns, boolean allowNegativeValues) {
 		super(text, columns, allowNegativeValues);
 	}
 
+	/**
+	 * Setzt Text im Textfeld.
+	 * @param value
+	 */
 	public void setText(double value) {
 		int unitIndex = 0;
 		if (Math.abs(value) < 1e-18) {
@@ -61,7 +71,12 @@ public class JUnitTextField extends JDoubleTextField {
 
 		super.setText(valueRounded + size[-unitIndex + 6]);
 	}
-
+	
+	/**
+	 * Setzt Text und Einheit in das Textfeld.
+	 * @param value
+	 * @param unit
+	 */
 	public void setText(double value, String unit) {
 		int unitIndex = 0;
 		if (Math.abs(value) < 1e-18) {

@@ -93,6 +93,8 @@ public class PhaseResponseMethod extends Controller {
 	 * @param controllerTyp
 	 * @param path
 	 * @param Tp
+	 * @param overShoot
+	 * @param phaseMargin
 	 * @throws ControllerException
 	 */
 	public void setData(int controllerTyp, Path path, double Tp, double overShoot, double phaseMargin)
@@ -108,6 +110,7 @@ public class PhaseResponseMethod extends Controller {
 
 	/**
 	 * Setzt das Überschwingen.
+	 * @param overShoot
 	 */
 	public void setOverShoot(double overShoot) {
 		this.overShoot = overShoot;
@@ -116,7 +119,9 @@ public class PhaseResponseMethod extends Controller {
 	}
 
 	/**
-	 * Setzt den Phasenrand..
+	 * Setzt den Phasenrand.
+	 * @param phaseMargin
+	 * @throws ControllerException
 	 */
 	public void setPhaseMargin(double phaseMargin) throws ControllerException {
 		this.phaseMargin = phaseMargin;
@@ -126,7 +131,6 @@ public class PhaseResponseMethod extends Controller {
 
 	/**
 	 * Setzt Krk.
-	 * 
 	 * @param Krk
 	 */
 	public void setKrk(double Krk) {
@@ -149,7 +153,7 @@ public class PhaseResponseMethod extends Controller {
 	/**
 	 * Gibt den Phasenrand zurück.
 	 * 
-	 * @return
+	 * @return phaseMargin
 	 */
 	public double getPhaseMargin() {
 		return phaseMargin;
@@ -158,6 +162,7 @@ public class PhaseResponseMethod extends Controller {
 	/**
 	 * Löst createOmegaAxis() aus und berechnet Hs der Regelstrecke. Löst
 	 * calculateTnk() aus.
+	 * @throws ControllerException
 	 */
 	protected void calculate() throws ControllerException {
 		// UTF Strecke aus Strecke holen

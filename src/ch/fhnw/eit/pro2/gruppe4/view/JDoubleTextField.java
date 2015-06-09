@@ -43,7 +43,6 @@ public class JDoubleTextField extends JTextField implements FocusListener {
 		setColumns(columns);
 		this.allowNegativeValues = allowNegativeValues;
 		addFocusListener(this);
-		// addMouseListener(this);
 	}
 
 	protected Document createDefaultModel() {
@@ -51,7 +50,7 @@ public class JDoubleTextField extends JTextField implements FocusListener {
 	}
 
 	/**
-	 * Returns true if the text field allows negative values (< 0.0)
+	 * Returns true if the text field allows negative values.
 	 * 
 	 * @return boolean
 	 */

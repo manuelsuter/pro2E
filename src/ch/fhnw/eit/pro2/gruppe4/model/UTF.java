@@ -46,7 +46,7 @@ public class UTF {
 	/**
 	 * Gibt Nenner als Polynom zurück.
 	 * 
-	 * @return
+	 * @return nenPoly
 	 */
 	public double[] getNenPoly() {
 		return nenPoly;

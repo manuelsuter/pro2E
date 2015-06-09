@@ -30,6 +30,7 @@ public class SaniException extends Exception {
 
 	/**
 	 * Gibt die SaniException an die Superklasse weiter.
+	 * @param string
 	 */
 	public SaniException(String string) {
 		// Aufruf des übergeordneten Konstruktors mit dem zu

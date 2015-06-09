@@ -40,6 +40,10 @@ public class LeftPanel extends JPanel {
 	public ControllerChooserPanel controllerChooserPanel;
 	public ControllerValuePanel controllerValuePanel;
 
+	/**
+	 * Konstruiert das LeftPanel.
+	 * @param controller
+	 */
 	public LeftPanel(GUIController controller) {
 		super(new GridBagLayout());
 
@@ -59,7 +63,12 @@ public class LeftPanel extends JPanel {
 		add(controllerValuePanel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.FIRST_LINE_START,
 				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 	}
-
+	
+	/**
+	 * Aktualisiert das Panel.
+	 * @param obs
+	 * @param obj
+	 */
 	public void update(Observable obs, Object obj) {
 		inputPanel.update(obs, obj);
 		controllerChooserPanel.update(obs, obj);

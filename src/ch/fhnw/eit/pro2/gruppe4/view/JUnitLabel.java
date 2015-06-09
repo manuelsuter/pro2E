@@ -37,14 +37,24 @@ public class JUnitLabel extends JLabel {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Konstruiert Label ohne Text
+	 */
 	public JUnitLabel() {
 		super();
 	}
-
+	/**
+	 * Konstruiert Label mit Text.
+	 * @param s
+	 */
 	public JUnitLabel(String s) {
 		super(s);
 	}
 
+	/**
+	 * Setzt Text auf das Label.
+	 * @param value
+	 */
 	public void setText(double value) {
 
 		int unitIndex = 0;

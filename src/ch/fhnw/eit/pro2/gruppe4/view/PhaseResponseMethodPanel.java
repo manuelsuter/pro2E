@@ -177,6 +177,7 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 	/**
 	 * Setzt die Werte für Tp mittels setTp() des guiController, sobald mit
 	 * Enter bestätigt.
+	 * @param e
 	 */
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == 10) {

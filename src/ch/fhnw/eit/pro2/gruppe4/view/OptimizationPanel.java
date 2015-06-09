@@ -119,7 +119,7 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 	/**
 	 * Gibt das Überschwingen in Abhängigkeit der Slider-Position zurück.
 	 * 
-	 * @return
+	 * @return overShootValue
 	 */
 	public double getOverShoot() {
 		overShootSliderValue = jsOverShoot.getValue();
@@ -167,7 +167,7 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 	/**
 	 * Gibt den Phasenrand in Abhängikeit der Slider-Position zurück.
 	 * 
-	 * @return
+	 * @return phaseMarginOffset
 	 */
 	public double getPhaseMargin() {
 		phaseMarginSliderValue = jsPhaseMargin.getValue();
@@ -219,6 +219,7 @@ public class OptimizationPanel extends JPanel implements ChangeListener {
 	/**
 	 * Erkennt Sliderbewegung und übergibt die Werte an setOverShoot() und
 	 * setPhaseMargin() des guiControllers.
+	 * @param e
 	 */
 	public void stateChanged(ChangeEvent e) {
 

@@ -51,7 +51,7 @@ public abstract class Controller {
 	/**
 	 * Setzt die Input-Wert für die Berechnung ohne Phasenrandverschiebung. Löst
 	 * calculate() aus.
-	 * 
+	 * @param controllerTyp
 	 * @param path
 	 * @throws ControllerException
 	 */
@@ -66,7 +66,11 @@ public abstract class Controller {
 	 * Setzt die Input-Wert für die Berechnung inklusive Phasenrandverschiebung.
 	 * Löst calculate() aus.
 	 * 
+	 * @param controllerTyp
 	 * @param path
+	 * @param Tp
+	 * @param overShoot
+	 * @param phaseMarginOffset
 	 * @throws ControllerException
 	 */
 	public void setData(int controllerTyp, Path path, double Tp, double overShoot, double phaseMarginOffset)

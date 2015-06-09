@@ -164,7 +164,7 @@ public class Model extends Observable {
 	/**
 	 * Gibt die Strecke zurück.
 	 * 
-	 * @return
+	 * @return path
 	 */
 	public Path getPath() {
 		return path;
