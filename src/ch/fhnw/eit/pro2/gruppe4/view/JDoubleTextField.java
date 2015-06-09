@@ -1,5 +1,3 @@
-package ch.fhnw.eit.pro2.gruppe4.view;
-
 /*
  * Copyright (c) 2014 Mueller Fabian, Duerner Daniel, Risi Julian, Walzer Ken,
  * Mijnssen Raphael, Pluess Jonas
@@ -25,10 +23,10 @@ package ch.fhnw.eit.pro2.gruppe4.view;
  * SOFTWARE.
  */
 
+package ch.fhnw.eit.pro2.gruppe4.view;
+
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
@@ -68,24 +66,6 @@ public class JDoubleTextField extends JTextField implements FocusListener {
 	public void focusLost(FocusEvent arg0) {
 		fireActionPerformed();
 	}
-
-//	public void mouseClicked(MouseEvent arg0) {
-//
-//	}
-//
-//	public void mouseEntered(MouseEvent arg0) {
-//
-//	}
-//
-//	public void mouseExited(MouseEvent arg0) {
-//
-//	}
-//
-//	public void mousePressed(MouseEvent arg0) {
-//	}
-//
-//	public void mouseReleased(MouseEvent arg0) {
-//	}
 
 	class DoubleDocument extends PlainDocument {
 		private static final long serialVersionUID = 1L;

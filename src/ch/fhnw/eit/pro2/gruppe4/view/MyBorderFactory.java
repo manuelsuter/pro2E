@@ -1,11 +1,10 @@
-package ch.fhnw.eit.pro2.gruppe4.view;
-
 /*
  * Copyright (c) 2015: Richard Gut
- * 
  * Authors: Richard Gut
  * 
- * */
+ */
+
+package ch.fhnw.eit.pro2.gruppe4.view;
 
 import java.awt.Color;
 

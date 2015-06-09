@@ -1,9 +1,9 @@
-package ch.fhnw.eit.pro2.gruppe4.utilities;
-
 /*
  * Copyright (c) 2015: Richard Gut
  * Authors: Richard Gut
- * */
+ */
+
+package ch.fhnw.eit.pro2.gruppe4.utilities;
 
 import java.awt.Container;
 import java.awt.Image;
