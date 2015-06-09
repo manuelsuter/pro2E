@@ -151,7 +151,7 @@ public class PhaseResponseMethod extends Controller {
 	/**
 	 * Setzt den Input-Wert für Tp. Löst calculate() aus.
 	 * 
-	 * @param path
+	 * @param Tp
 	 */
 	public void setTp(double Tp) {
 		this.Tp = Tp;

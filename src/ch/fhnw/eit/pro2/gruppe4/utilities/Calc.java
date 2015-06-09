@@ -62,7 +62,7 @@ public class Calc {
 	 * 
 	 * @param startValue
 	 * @param endValue
-	 * @param length
+	 * @param count
 	 * @return logspace Array
 	 */
 	public static final double[] logspace(double startValue, double endValue,
@@ -582,9 +582,9 @@ public class Calc {
 	 * Berechnet Zähler- und Nenner-Polynom eines Reglers reglerkonform.
 	 * 
 	 * @param controllerTyp
-	 * @param Krk
-	 * @param Tnk
-	 * @param Tvk
+	 * @param Kr
+	 * @param Tn
+	 * @param Tv
 	 * @param Tp
 	 * @return koeffizienten
 	 */
@@ -660,7 +660,7 @@ public class Calc {
 	/**
 	 * Berechnet Nullstellen.
 	 * 
-	 * @param p
+	 * @param poly
 	 * @return
 	 */
 

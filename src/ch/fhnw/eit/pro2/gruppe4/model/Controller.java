@@ -83,7 +83,7 @@ public abstract class Controller {
 	/**
 	 * Setzt Überschwingen.
 	 * 
-	 * @param phiU
+	 * @param overShoot
 	 */
 	public void setOverShoot(double overShoot) {
 
