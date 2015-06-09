@@ -67,7 +67,9 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 		add(new JLabel("<html><i>K<sub>s</sub></i></html>"), new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(10, 10, 5, 10), 0, 0));
 
+//		tfKs = new JDoubleTextField("2.0", 100, false);
 		tfKs = new JDoubleTextField("2.0", 100, false);
+
 		tfKs.addKeyListener(this);
 		tfKs.getDocument().addDocumentListener(this);
 		add(tfKs, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
@@ -80,7 +82,8 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 		add(new JLabel("<html><i>T<sub>u</sub></i></html>"), new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(10, 10, 5, 10), 0, 0));
 
-		tfTu = new JDoubleTextField("1.1", 100, false);
+//		tfTu = new JDoubleTextField("1.1", 100, false);
+		tfTu = new JDoubleTextField("1.93e-3", 100, false);
 		tfTu.addKeyListener(this);
 		tfTu.getDocument().addDocumentListener(this);
 		add(tfTu, new GridBagConstraints(1, 1, 1, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
@@ -95,7 +98,9 @@ public class InputPanel extends JPanel implements ActionListener, ItemListener, 
 		add(new JLabel("<html><i>T<sub>g</sub></i></html>"), new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
 				GridBagConstraints.LINE_START, GridBagConstraints.NONE, new Insets(10, 10, 5, 10), 0, 0));
 
-		tfTg = new JDoubleTextField("8.9", 100, false);
+//		tfTg = new JDoubleTextField("8.9", 100, false);
+		tfTg = new JDoubleTextField("9.46e-3", 100, false);
+
 		tfTg.addKeyListener(this);
 		tfTg.getDocument().addDocumentListener(this);
 		add(tfTg, new GridBagConstraints(1, 2, 1, 1, 1.0, 0.0, GridBagConstraints.LINE_START,

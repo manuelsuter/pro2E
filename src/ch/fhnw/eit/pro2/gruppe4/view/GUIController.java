@@ -182,6 +182,11 @@ public class GUIController {
 					|| (Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[2].getText()) == 0.0)
 					|| (Double.parseDouble(view.leftPanel.controllerValuePanel.phaseResponsePanel.tfTp[2].getText()) == 0.0)) {
 				setExceptionLabel("Werte dürfen nicht 0 sein!", Color.red);
+			} else if (tpValues[0] > model.getClosedLoop()[0].getController().getControllerValues()[Controller.TvPOS]
+					|| tpValues[1] > model.getClosedLoop()[1].getController().getControllerValues()[Controller.TvPOS]
+					|| tpValues[2] > model.getClosedLoop()[2].getController().getControllerValues()[Controller.TvPOS]) {
+				setExceptionLabel("Tp zu gross", Color.RED);
+			
 			} else {
 				model.setTp(tpValues, index);
 			}

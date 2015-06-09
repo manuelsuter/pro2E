@@ -65,7 +65,7 @@ public class Application extends JFrame {
 	public static void main(String[] args) {
 		Application frame = new Application();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("baCON - the clever controller");
+		frame.setTitle("baCon - the controller calculator");
 		ImageIcon icon = Utility.loadResourceIcon("PID.png");
 		frame.setIconImage(icon.getImage());
 		frame.setResizable(true);

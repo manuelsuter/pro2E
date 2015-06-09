@@ -45,7 +45,7 @@ public class PhaseResponseMethodPanel extends JPanel implements KeyListener {
 	public JUnitLabel[] lbMethod = new JUnitLabel[4];
 	private JUnitLabel[] lbKr = new JUnitLabel[lbMethod.length];
 	private JUnitLabel[] lbTn = new JUnitLabel[lbMethod.length];
-	private JUnitLabel[] lbTv = new JUnitLabel[lbMethod.length];
+	public JUnitLabel[] lbTv = new JUnitLabel[lbMethod.length];
 	public JUnitTextField[] tfTp = new JUnitTextField[3];
 	private JUnitLabel lbTp;
 	private JUnitLabel[] lbS = new JUnitLabel[3];
