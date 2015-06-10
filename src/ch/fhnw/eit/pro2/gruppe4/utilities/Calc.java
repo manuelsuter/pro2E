@@ -718,46 +718,6 @@ public class Calc {
 		return res;
 	}
 
-	// TODO: löschen
-
-	// public static final Complex[] roots(double[] p) {
-	// final LaguerreSolver solver = new LaguerreSolver(1e-15);
-	// double[] flip = new double[p.length];
-	//
-	// // Koeffizient der höchsten Potenz auf durch Multiplikation mit einer
-	// // Konstanten auf 1 normieren:
-	// double s = 1.0 / p[0];
-	// double[] pp = new double[p.length];
-	// for (int i = 0; i < pp.length; i++) {
-	// pp[i] = p[i] * s;
-	// }
-	//
-	// // Normierungskonstante berechnen:
-	// s = Math.pow(pp[pp.length - 1], 1.0 / (pp.length - 1));
-	//
-	// // Durch [s^0 s^1 s^2 s^3 ... s^N] dividieren:
-	// for (int i = 0; i < pp.length; i++)
-	// pp[i] /= Math.pow(s, i);
-	//
-	// // Um mit Matlab konform zu sein flippen:
-	// for (int i = 0; i < flip.length; i++)
-	// flip[pp.length - i - 1] = pp[i];
-	//
-	// // Wurzeln berechnen und durch Multiplikation mit s wieder entnormieren:
-	// Complex[] r = solver.solveAllComplex(flip, 0.0);
-	// for (int i = 0; i < r.length; i++) {
-	// r[i] = r[i].multiply(s);
-	// }
-	//
-	// Complex[] res = new Complex[r.length];
-	//
-	// // Um mit Matlab konform zu sein flippen:
-	// for (int i = 0; i < r.length; i++)
-	// res[r.length - i - 1] = r[i];
-	//
-	// return res;
-	// }
-
 	/**
 	 * Prüft ob exp und act, auf n signifikante Stellen, übereinstimmen.
 	 * 
